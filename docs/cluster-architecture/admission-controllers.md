@@ -182,29 +182,205 @@ Kubernetes comes with many built-in admission controllers. Here are the most imp
 
 ---
 
-## 6. Viewing Enabled Admission Controllers
+## 6. Default Admission Controllers
 
-### Check API Server Configuration
+### Enabled by Default (Kubernetes 1.28+)
+
+These admission controllers are **automatically enabled** in most Kubernetes distributions:
+
+| Controller Name | Type | Why Enabled by Default |
+|----------------|------|------------------------|
+| **NamespaceLifecycle** | Validating | Prevents resources in non-existent/terminating namespaces |
+| **LimitRanger** | Validating | Enforces LimitRange constraints |
+| **ServiceAccount** | Mutating | Auto-injects ServiceAccount tokens |
+| **DefaultStorageClass** | Mutating | Assigns default StorageClass to PVCs |
+| **DefaultTolerationSeconds** | Mutating | Sets default toleration for node taints |
+| **MutatingAdmissionWebhook** | Mutating | Enables custom mutation webhooks |
+| **ValidatingAdmissionWebhook** | Validating | Enables custom validation webhooks |
+| **ResourceQuota** | Validating | Enforces ResourceQuota limits |
+| **Priority** | Validating | Handles pod priority scheduling |
+| **TaintNodesByCondition** | Mutating | Taints nodes based on conditions |
+| **PodSecurity** | Validating | Enforces Pod Security Standards (replaces PSP) |
+| **StorageObjectInUseProtection** | Validating | Prevents deletion of in-use PVs/PVCs |
+| **PersistentVolumeClaimResize** | Validating | Allows PVC expansion |
+| **RuntimeClass** | Validating | Validates RuntimeClass references |
+| **CertificateApproval** | Validating | Validates certificate signing requests |
+| **CertificateSigning** | Validating | Signs certificates |
+| **CertificateSubjectRestriction** | Validating | Restricts certificate subjects |
+
+### NOT Enabled by Default
+
+These require manual enablement via `--enable-admission-plugins`:
+
+| Controller Name | Type | Why Not Default | Use Case |
+|----------------|------|-----------------|----------|
+| **AlwaysPullImages** | Mutating | Performance impact | Multi-tenant clusters |
+| **NodeRestriction** | Validating | May break some setups | Restrict kubelet permissions |
+| **ImagePolicyWebhook** | Validating | Requires external service | Image scanning/validation |
+| **PodSecurityPolicy** | Validating | Deprecated in 1.25+ | Use PodSecurity instead |
+| **DenyEscalatingExec** | Validating | May break debugging | Prevent exec into privileged pods |
+| **EventRateLimit** | Validating | Requires configuration | Prevent event flooding |
+| **ExtendedResourceToleration** | Mutating | Specific use case | GPU/FPGA tolerations |
+| **PodNodeSelector** | Validating | Namespace-specific | Force node selection per namespace |
+
+---
+
+## 7. How to List Admission Controllers
+
+### Method 1: Check Currently Enabled Controllers
 
 ```bash
-# Method 1: Check the API server pod
-kubectl -n kube-system get pod kube-apiserver-<node> -o yaml | grep enable-admission-plugins
+# Get the API server pod name
+kubectl get pod -n kube-system | grep kube-apiserver
+
+# View enabled admission plugins
+kubectl -n kube-system get pod kube-apiserver-<node-name> -o yaml | grep enable-admission-plugins
 ```
 
-**Output:**
+**Example Output:**
 ```
---enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota
+--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
 ```
 
-### Method 2: Check Static Pod Manifest
+### Method 2: Check Static Pod Manifest (Control Plane)
 
 ```bash
+# SSH to control plane node
+ssh controlplane
+
+# View the manifest
 cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep enable-admission-plugins
+```
+
+### Method 3: List ALL Available Admission Plugins
+
+```bash
+# This shows all admission plugins compiled into kube-apiserver
+kube-apiserver -h | grep -A 30 enable-admission-plugins
+```
+
+**Example Output:**
+```
+--enable-admission-plugins strings
+      admission plugins that should be enabled in addition to default 
+      enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount...).
+      Comma-delimited list of admission plugins: ..., AlwaysPullImages,
+      CertificateApproval, CertificateSigning, ...
+```
+
+### Method 4: Describe API Server Pod
+
+```bash
+# More detailed view
+kubectl -n kube-system describe pod kube-apiserver-<node-name> | grep -i admission
+```
+
+**Example Output:**
+```
+--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount...
+--disable-admission-plugins=
+```
+
+### Method 5: Check Which Plugins Are Actually Running
+
+```bash
+# Extract just the enabled plugins list
+kubectl -n kube-system get pod kube-apiserver-<node-name> -o jsonpath='{.spec.containers[0].command}' | grep -o 'enable-admission-plugins=[^"]*' | cut -d= -f2
+```
+
+**Example Output:**
+```
+NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota
+```
+
+### Method 6: Check Both Enabled and Disabled
+
+```bash
+# See what's enabled
+kubectl -n kube-system get pod kube-apiserver-<node-name> -o yaml | grep enable-admission-plugins
+
+# See what's explicitly disabled
+kubectl -n kube-system get pod kube-apiserver-<node-name> -o yaml | grep disable-admission-plugins
 ```
 
 ---
 
-## 7. Enabling/Disabling Admission Controllers
+## 8. Viewing Admission Controllers - Complete Reference
+
+### Quick Commands Table
+
+| Task | Command |
+|------|---------|
+| **List enabled plugins** | `kubectl -n kube-system get pod kube-apiserver-<node> -o yaml \| grep enable-admission-plugins` |
+| **List disabled plugins** | `kubectl -n kube-system get pod kube-apiserver-<node> -o yaml \| grep disable-admission-plugins` |
+| **View manifest file** | `cat /etc/kubernetes/manifests/kube-apiserver.yaml \| grep admission` |
+| **List ALL available** | `kube-apiserver -h \| grep -A 30 enable-admission-plugins` |
+| **Extract enabled list** | `kubectl -n kube-system get pod kube-apiserver-<node> -o jsonpath='{.spec.containers[0].command}' \| tr ',' '\n' \| grep -A 50 enable-admission-plugins` |
+
+### Formatted Output Examples
+
+**Clean list of enabled controllers:**
+```bash
+kubectl -n kube-system get pod kube-apiserver-controlplane -o yaml | \
+  grep enable-admission-plugins | \
+  sed 's/.*enable-admission-plugins=//' | \
+  tr ',' '\n'
+```
+
+**Output:**
+```
+NamespaceLifecycle
+LimitRanger
+ServiceAccount
+DefaultStorageClass
+ResourceQuota
+MutatingAdmissionWebhook
+ValidatingAdmissionWebhook
+```
+
+---
+
+## 9. Default Controllers by Kubernetes Version
+
+### Kubernetes 1.28+ (Current)
+
+**Default Enabled:**
+```
+NamespaceLifecycle, LimitRanger, ServiceAccount, 
+DefaultStorageClass, DefaultTolerationSeconds, 
+MutatingAdmissionWebhook, ValidatingAdmissionWebhook,
+ResourceQuota, Priority, TaintNodesByCondition, 
+PodSecurity, StorageObjectInUseProtection,
+PersistentVolumeClaimResize, RuntimeClass,
+CertificateApproval, CertificateSigning, 
+CertificateSubjectRestriction
+```
+
+### Kubernetes 1.23-1.27
+
+**Default Enabled:**
+```
+NamespaceLifecycle, LimitRanger, ServiceAccount,
+TaintNodesByCondition, Priority, DefaultTolerationSeconds,
+DefaultStorageClass, StorageObjectInUseProtection,
+PersistentVolumeClaimResize, RuntimeClass, 
+CertificateApproval, CertificateSigning, 
+CertificateSubjectRestriction, DefaultIngressClass,
+MutatingAdmissionWebhook, ValidatingAdmissionWebhook,
+ResourceQuota, PodSecurity
+```
+
+### Changes from Older Versions
+
+| Version | Change |
+|---------|--------|
+| **1.25+** | `PodSecurityPolicy` **deprecated** |
+| **1.23+** | `PodSecurity` **enabled by default** (replaces PSP) |
+| **1.21+** | `PersistentVolumeClaimResize` **enabled by default** |
+
+---
+
+## 10. Enabling/Disabling Admission Controllers
 
 ### Configuration File Location
 
