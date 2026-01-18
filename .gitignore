@@ -1,0 +1,8 @@
+# Ignore everything
+*
+
+# Except mkdocs.yml
+!mkdocs.yml
+
+# And this .gitignore file itself
+!.gitignore

@@ -1,0 +1,92 @@
+site_name: CKA Exam Notes - Kubernetes Troubleshooting
+site_description: Complete Kubernetes Troubleshooting Guide for CKA Exam Preparation
+
+# Point to your docs folder
+docs_dir: docs
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - admonition
+  - tables
+  - attr_list
+  - md_in_html
+
+# Page navigation
+nav:
+  - Home: README.md
+  - Summary: SUMMARY.md
+  - Fundamentals:
+      - YAML Guide: yaml-guide.md
+      - Editing Pods & Deployments: fundamentals/editing-resources.md
+      - API Versions (v1 vs apps/v1): fundamentals/api-versions.md
+      - Service Types (ClusterIP/NodePort/LB): fundamentals/service-types.md
+      - Labels and Selectors: fundamentals/labels-selectors.md
+      - Annotations (Metadata): fundamentals/annotations.md
+      - Resource Requests & Limits: fundamentals/resource-management.md
+      - LimitRange (Resource Guardrails): fundamentals/limitrange.md
+      - Resource Quota (The Budget): fundamentals/resource-quota.md
+      - DaemonSets (The Node Resident): fundamentals/daemonsets.md
+      - Static Pods (Kubelet Managed): fundamentals/static-pods.md
+      - ConfigMaps (Configuration Data): fundamentals/configmaps.md
+      - ReplicaSets vs Deployments: fundamentals/replicasets-vs-deployments.md
+      - Pod Scheduling:
+          - Overview: fundamentals/pod-scheduling/index.md
+          - Taints and Tolerations: fundamentals/pod-scheduling/taints-tolerations.md
+          - Node Selector: fundamentals/pod-scheduling/node-selector.md
+          - Node Affinity: fundamentals/pod-scheduling/node-affinity.md
+          - Taints vs Affinity (Comparison): fundamentals/pod-scheduling/taints-vs-affinity.md
+          - Priority Classes: fundamentals/pod-scheduling/priority-classes.md
+          - Multiple Schedulers: fundamentals/pod-scheduling/multiple-schedulers.md
+          - Scheduler Profiles: fundamentals/pod-scheduling/scheduler-profiles.md
+      - Custom Key-Value Pairs: fundamentals/custom-key-values.md
+  - Lab Setup:
+      - Kubeadm on Mac (Multipass): setup-guides/kubeadm-mac-multipass.md
+      - Kubernetes on AWS (kOps): setup-guides/kops-aws.md
+      - Cluster Join Command: setup-guides/kubeadm-operations/join-command.md
+  - Cluster Architecture:
+      - Architecture Overview: BETTER_ARCHITECTURE.md
+      - Static Pods vs Systemd: cluster-architecture/component-management.md
+      - Kube-Proxy Deep Dive: cluster-architecture/kube-proxy-deep-dive.md
+      - ETCD Data Model: cluster-architecture/etcd-data-model.md
+  - Components: KNOW_YOUR_COMPONENTS.md
+  - Deep Dives:
+      - ETCD & Backup: etcd-deep-dive.md
+      - CoreDNS Guide: coredns-guide.md
+  - StatefulSet & PVC: statefulset-pvc-explained.md
+  - Exam Tips:
+      - kubectl Commands: exam-tips/kubectl-commands.md
+      - Dry-Run Workflow: exam-tips/dry-run-workflow.md
+  - Diagrams:
+      - Troubleshooting Flowchart: troubleshooting-flowchart.md
+      - StatefulSet Architecture: statefulset-architecture.md
+      - Network Policy Architecture: network-policy-architecture.md
+
+plugins:
+  - search
+
+extra:
+  generator: false
+
