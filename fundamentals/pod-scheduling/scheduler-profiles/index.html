@@ -1,0 +1,4737 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete Kubernetes Troubleshooting Guide for CKA Exam Preparation">
+      
+      
+      
+      
+        <link rel="prev" href="../multiple-schedulers/">
+      
+      
+        <link rel="next" href="../../custom-key-values/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Scheduler Profiles - CKA Exam Notes - Kubernetes Troubleshooting</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scheduler-profiles-in-kubernetes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CKA Exam Notes - Kubernetes Troubleshooting
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scheduler Profiles
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../SUMMARY/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Summary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../yaml-guide/" class="md-tabs__link">
+          
+  
+  
+  Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+          
+  
+  
+  Lab Setup
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../BETTER_ARCHITECTURE/" class="md-tabs__link">
+          
+  
+  
+  Cluster Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Components
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../etcd-deep-dive/" class="md-tabs__link">
+          
+  
+  
+  Deep Dives
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../statefulset-pvc-explained/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  StatefulSet & PVC
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../exam-tips/kubectl-commands/" class="md-tabs__link">
+          
+  
+  
+  Exam Tips
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../troubleshooting-flowchart/" class="md-tabs__link">
+          
+  
+  
+  Diagrams
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CKA Exam Notes - Kubernetes Troubleshooting
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../yaml-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    YAML Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editing-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Pods & Deployments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versions (v1 vs apps/v1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service Types (ClusterIP/NodePort/LB)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labels-selectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labels and Selectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../annotations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotations (Metadata)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resource-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Requests & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../limitrange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LimitRange (Resource Guardrails)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resource-quota/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Quota (The Budget)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daemonsets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DaemonSets (The Node Resident)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../static-pods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods (Kubelet Managed)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configmaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ConfigMaps (Configuration Data)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../replicasets-vs-deployments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ReplicaSets vs Deployments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pod Scheduling
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pod Scheduling
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../taints-tolerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taints and Tolerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node-selector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node Selector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node-affinity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node Affinity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../taints-vs-affinity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taints vs Affinity (Comparison)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../priority-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Priority Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-schedulers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple Schedulers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scheduler Profiles
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scheduler Profiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-restaurant-with-multiple-sections-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The "Restaurant with Multiple Sections" Analogy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-are-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What are Scheduler Profiles?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. What are Scheduler Profiles?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-use-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Why Use Scheduler Profiles?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Why Use Scheduler Profiles?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-with-multiple-schedulers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem with Multiple Schedulers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-scheduling-framework-phases-extension-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Scheduling Framework: Phases &amp; Extension Points
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Scheduling Framework: Phases &amp; Extension Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-two-cycles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Two Cycles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extension-points-in-order-of-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extension Points (in Order of Execution)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#built-in-plugins-by-extension-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Plugins by Extension Point
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Built-in Plugins by Extension Point">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queuesort-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QueueSort Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefilter-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreFilter Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postfilter-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostFilter Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prescore-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreScore Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#score-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reserve-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reserve Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permit-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permit Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prebind-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreBind Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bind Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postbind-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostBind Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-behavior-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugin Behavior Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-diagram-complete-scheduling-flow-with-all-extension-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Diagram: Complete Scheduling Flow with All Extension Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-points-flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Points Flowchart
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-built-in-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Built-in Scheduler Profiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Built-in Scheduler Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#profile-1-default-scheduler-balanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile 1: default-scheduler (Balanced)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profile-2-bin-packing-scheduler-experimental" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile 2: bin-packing-scheduler (Experimental)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configuring-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Configuring Scheduler Profiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configuring Scheduler Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubeschedulerconfiguration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeSchedulerConfiguration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applying-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying the Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-using-scheduler-profiles-in-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Using Scheduler Profiles in Pods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Using Scheduler Profiles in Pods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#select-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Select a Profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default Profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-real-world-example-multi-tenant-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Real-World Example: Multi-Tenant Cluster
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Real-World Example: Multi-Tenant Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-three-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution: Three Profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-scheduler-profiles-vs-multiple-schedulers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Scheduler Profiles vs Multiple Schedulers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Scheduler Profiles vs Multiple Schedulers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Which?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-checking-active-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Checking Active Profiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Checking Active Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-scheduler-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View Scheduler Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-which-profile-scheduled-a-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Which Profile Scheduled a Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Common Pitfalls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Common Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-1-profile-name-typo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 1: Profile Name Typo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-2-scheduler-not-restarted-after-config-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 2: Scheduler Not Restarted After Config Change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-3-conflicting-plugin-configs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 3: Conflicting Plugin Configs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-cka-exam-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. CKA Exam Relevance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. CKA Exam Relevance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exam-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exam Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pod-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pod Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-profile-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Profile Names
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Scheduler Profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading &amp; References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Further Reading &amp; References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#official-kubernetes-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Official Kubernetes Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#community-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Community Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-reading-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Reading Order
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-key-values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Key-Value Pairs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubeadm on Mac (Multipass)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setup-guides/kops-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes on AWS (kOps)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster Join Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cluster Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../BETTER_ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cluster-architecture/component-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods vs Systemd
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cluster-architecture/admission-controllers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admission Controllers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kube-Proxy Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD Data Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dives
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dives
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../etcd-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD & Backup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coredns-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoreDNS Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../statefulset-pvc-explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet & PVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exam Tips
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exam Tips
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exam-tips/kubectl-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kubectl Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exam-tips/dry-run-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dry-Run Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diagrams
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../troubleshooting-flowchart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting Flowchart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../statefulset-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../network-policy-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Policy Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-restaurant-with-multiple-sections-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The "Restaurant with Multiple Sections" Analogy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-are-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What are Scheduler Profiles?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. What are Scheduler Profiles?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-use-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Why Use Scheduler Profiles?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Why Use Scheduler Profiles?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-with-multiple-schedulers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem with Multiple Schedulers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-scheduling-framework-phases-extension-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Scheduling Framework: Phases &amp; Extension Points
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Scheduling Framework: Phases &amp; Extension Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-two-cycles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Two Cycles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extension-points-in-order-of-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extension Points (in Order of Execution)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#built-in-plugins-by-extension-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Plugins by Extension Point
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Built-in Plugins by Extension Point">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queuesort-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QueueSort Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefilter-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreFilter Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postfilter-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostFilter Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prescore-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreScore Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#score-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reserve-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reserve Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permit-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permit Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prebind-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreBind Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bind Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postbind-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostBind Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-behavior-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugin Behavior Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-diagram-complete-scheduling-flow-with-all-extension-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Diagram: Complete Scheduling Flow with All Extension Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-points-flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Points Flowchart
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-built-in-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Built-in Scheduler Profiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Built-in Scheduler Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#profile-1-default-scheduler-balanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile 1: default-scheduler (Balanced)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profile-2-bin-packing-scheduler-experimental" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile 2: bin-packing-scheduler (Experimental)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configuring-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Configuring Scheduler Profiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configuring Scheduler Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubeschedulerconfiguration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeSchedulerConfiguration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applying-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying the Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-using-scheduler-profiles-in-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Using Scheduler Profiles in Pods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Using Scheduler Profiles in Pods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#select-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Select a Profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default Profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-real-world-example-multi-tenant-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Real-World Example: Multi-Tenant Cluster
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Real-World Example: Multi-Tenant Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-three-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution: Three Profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-scheduler-profiles-vs-multiple-schedulers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Scheduler Profiles vs Multiple Schedulers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Scheduler Profiles vs Multiple Schedulers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Which?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-checking-active-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Checking Active Profiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Checking Active Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-scheduler-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View Scheduler Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-which-profile-scheduled-a-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Which Profile Scheduled a Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Common Pitfalls
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Common Pitfalls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-1-profile-name-typo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 1: Profile Name Typo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-2-scheduler-not-restarted-after-config-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 2: Scheduler Not Restarted After Config Change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-3-conflicting-plugin-configs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 3: Conflicting Plugin Configs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-cka-exam-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. CKA Exam Relevance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. CKA Exam Relevance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exam-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exam Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pod-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pod Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Profile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-profile-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Profile Names
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-scheduler-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Scheduler Profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading &amp; References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Further Reading &amp; References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#official-kubernetes-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Official Kubernetes Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#community-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Community Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-reading-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Reading Order
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="scheduler-profiles-in-kubernetes">Scheduler Profiles in Kubernetes</h1>
+<p><strong>Scheduler Profiles</strong> allow you to configure different scheduling behaviors within a <strong>single scheduler instance</strong>, rather than deploying multiple separate schedulers.</p>
+<hr />
+<h2 id="1-the-restaurant-with-multiple-sections-analogy">1. The "Restaurant with Multiple Sections" Analogy</h2>
+<p>Think of scheduler profiles like a <strong>restaurant with different sections</strong>:</p>
+<p><strong>Without Profiles (Multiple Schedulers):</strong>
+<div class="highlight"><pre><span></span><code>Restaurant A: Fine dining (slow, careful seating)
+Restaurant B: Fast food (quick seating)
+Restaurant C: VIP section (special rules)
+
+Each has a separate manager (scheduler process).
+</code></pre></div></p>
+<p><strong>With Profiles (Single Scheduler):</strong>
+<div class="highlight"><pre><span></span><code>One Restaurant, One Manager, Three Sections:
+  - Section 1: Fine dining rules
+  - Section 2: Fast food rules  
+  - Section 3: VIP rules
+
+Same manager handles all sections with different rule books.
+</code></pre></div></p>
+<hr />
+<h2 id="2-what-are-scheduler-profiles">2. What are Scheduler Profiles?</h2>
+<p>A <strong>Scheduler Profile</strong> is a named configuration within the Kubernetes scheduler that defines which <strong>plugins</strong> to enable and how they should behave during the scheduling process.</p>
+<h3 id="key-concepts">Key Concepts:</h3>
+<ul>
+<li><strong>One scheduler binary</strong> can have multiple profiles</li>
+<li>Each profile has a <strong>unique name</strong></li>
+<li>Pods select a profile via <code>spec.schedulerName</code></li>
+<li>Profiles share the same process but use different <strong>plugin configurations</strong></li>
+</ul>
+<hr />
+<h2 id="3-why-use-scheduler-profiles">3. Why Use Scheduler Profiles?</h2>
+<h3 id="problem-with-multiple-schedulers">Problem with Multiple Schedulers</h3>
+<p><strong>Resource Overhead:</strong>
+<div class="highlight"><pre><span></span><code>3 Custom Schedulers = 3 Separate Processes
+  - my-scheduler-1:  ~100MB RAM
+  - my-scheduler-2:  ~100MB RAM
+  - my-scheduler-3:  ~100MB RAM
+  Total: ~300MB RAM
+</code></pre></div></p>
+<p><strong>With Profiles:</strong>
+<div class="highlight"><pre><span></span><code>1 Scheduler with 3 Profiles = 1 Process
+  - default-scheduler (3 profiles): ~120MB RAM
+  Total: ~120MB RAM ✅ Much more efficient!
+</code></pre></div></p>
+<h3 id="benefits">Benefits</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Benefit</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Resource Efficient</strong></td>
+<td style="text-align: left;">Single process vs multiple scheduler pods</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Easier Management</strong></td>
+<td style="text-align: left;">One deployment to configure and monitor</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Shared Cache</strong></td>
+<td style="text-align: left;">All profiles share the same cluster state cache</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Simpler RBAC</strong></td>
+<td style="text-align: left;">One ServiceAccount instead of many</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-the-scheduling-framework-phases-extension-points">4. The Scheduling Framework: Phases &amp; Extension Points</h2>
+<p>The scheduler operates in <strong>two main cycles</strong>:</p>
+<h3 id="the-two-cycles">The Two Cycles</h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────┐
+│ SCHEDULING CYCLE (Decide which node)               │
+│ QueueSort → PreFilter → Filter → PostFilter →      │
+│ PreScore → Score → NormalizeScore → Reserve →      │
+│ Permit                                              │
+└─────────────────────────────────────────────────────┘
+                         ↓
+┌─────────────────────────────────────────────────────┐
+│ BINDING CYCLE (Bind pod to node)                   │
+│ WaitOnPermit → PreBind → Bind → PostBind           │
+└─────────────────────────────────────────────────────┘
+</code></pre></div>
+<hr />
+<h3 id="extension-points-in-order-of-execution">Extension Points (in Order of Execution)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Extension Point</th>
+<th>Phase</th>
+<th>Purpose</th>
+<th>Can Reject Pod?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>QueueSort</strong></td>
+<td>Scheduling</td>
+<td>Sort pods waiting to be scheduled</td>
+<td>No</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>PreFilter</strong></td>
+<td>Scheduling</td>
+<td>Pre-process pod info or check cluster state</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Filter</strong></td>
+<td>Scheduling</td>
+<td>Filter nodes that <strong>cannot</strong> run the pod</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>PostFilter</strong></td>
+<td>Scheduling</td>
+<td>Called only when <strong>no nodes</strong> pass Filter (for preemption)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>PreScore</strong></td>
+<td>Scheduling</td>
+<td>Pre-scoring work (run once per pod)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Score</strong></td>
+<td>Scheduling</td>
+<td>Rank each node (0-100)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>NormalizeScore</strong></td>
+<td>Scheduling</td>
+<td>Normalize scores from different plugins</td>
+<td>No</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Reserve</strong></td>
+<td>Scheduling</td>
+<td>Reserve resources before binding</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Permit</strong></td>
+<td>Scheduling</td>
+<td>Approve, deny, or wait for pod binding</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>WaitOnPermit</strong></td>
+<td>Binding</td>
+<td>Wait for all Permit plugins</td>
+<td>No</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>PreBind</strong></td>
+<td>Binding</td>
+<td>Pre-binding tasks (e.g., provision volumes)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Bind</strong></td>
+<td>Binding</td>
+<td>Bind pod to node</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>PostBind</strong></td>
+<td>Binding</td>
+<td>Informational hook (cannot fail)</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="built-in-plugins-by-extension-point">Built-in Plugins by Extension Point</h3>
+<h4 id="queuesort-plugins"><strong>QueueSort Plugins</strong></h4>
+<p>Determine the order pods are scheduled.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PrioritySort</strong></td>
+<td>Sort by pod priority (higher priority first)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="prefilter-plugins"><strong>PreFilter Plugins</strong></h4>
+<p>Pre-process information before filtering nodes.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+<th>Can Skip Filter?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NodeResourcesFit</strong></td>
+<td>Calculate resource requests</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>NodePorts</strong></td>
+<td>Check if required ports are available</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>PodTopologySpread</strong></td>
+<td>Prepare topology spread constraints</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>InterPodAffinity</strong></td>
+<td>Pre-calculate pod affinity/anti-affinity</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>VolumeBinding</strong></td>
+<td>Check which volumes need binding</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="filter-plugins"><strong>Filter Plugins</strong></h4>
+<p>Eliminate nodes that cannot run the pod.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Filters</th>
+<th>Reason for Rejection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NodeUnschedulable</strong></td>
+<td>Unschedulable nodes</td>
+<td>Node has <code>unschedulable: true</code></td>
+</tr>
+<tr>
+<td><strong>NodeName</strong></td>
+<td>Non-matching nodes</td>
+<td>Pod specifies <code>nodeName</code>, node doesn't match</td>
+</tr>
+<tr>
+<td><strong>TaintToleration</strong></td>
+<td>Tainted nodes</td>
+<td>Pod doesn't tolerate node's taints</td>
+</tr>
+<tr>
+<td><strong>NodeAffinity</strong></td>
+<td>Nodes without labels</td>
+<td>Node labels don't match pod's <code>nodeAffinity</code></td>
+</tr>
+<tr>
+<td><strong>NodePorts</strong></td>
+<td>Nodes without free ports</td>
+<td>Required port already in use</td>
+</tr>
+<tr>
+<td><strong>NodeResourcesFit</strong></td>
+<td>Nodes without resources</td>
+<td>Not enough CPU/Memory/GPU</td>
+</tr>
+<tr>
+<td><strong>VolumeRestrictions</strong></td>
+<td>Incompatible volumes</td>
+<td>Volume zone doesn't match node</td>
+</tr>
+<tr>
+<td><strong>VolumeBinding</strong></td>
+<td>Volume unavailable</td>
+<td>PVC cannot be bound to this node</td>
+</tr>
+<tr>
+<td><strong>PodTopologySpread</strong></td>
+<td>Unbalanced topology</td>
+<td>Would violate spread constraints</td>
+</tr>
+<tr>
+<td><strong>InterPodAffinity</strong></td>
+<td>Affinity violations</td>
+<td>Pod affinity/anti-affinity not satisfied</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="postfilter-plugins"><strong>PostFilter Plugins</strong></h4>
+<p>Called when <strong>no nodes pass the Filter</strong> phase (usually for preemption).</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DefaultPreemption</strong></td>
+<td>Find lower-priority pods to evict</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="prescore-plugins"><strong>PreScore Plugins</strong></h4>
+<p>Prepare for scoring (runs once per scheduling cycle).</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>InterPodAffinity</strong></td>
+<td>Calculate affinity terms for scoring</td>
+</tr>
+<tr>
+<td><strong>PodTopologySpread</strong></td>
+<td>Calculate current topology distribution</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="score-plugins"><strong>Score Plugins</strong></h4>
+<p>Rank nodes (0-100, higher is better).</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Scoring Logic</th>
+<th>Weight (Default)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NodeResourcesBalancedAllocation</strong></td>
+<td>Prefer nodes with balanced CPU/Memory usage</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>NodeResourcesMostAllocated</strong></td>
+<td>Prefer nodes that are already full (bin-packing)</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>NodeResourcesLeastAllocated</strong></td>
+<td>Prefer nodes with most free resources</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>ImageLocality</strong></td>
+<td>Prefer nodes that already have the image cached</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>InterPodAffinity</strong></td>
+<td>Score based on pod affinity preferences</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>NodeAffinity</strong></td>
+<td>Score based on preferred node affinity</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>PodTopologySpread</strong></td>
+<td>Score to achieve even spread</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>TaintToleration</strong></td>
+<td>Slight preference for nodes without taints</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="reserve-plugins"><strong>Reserve Plugins</strong></h4>
+<p>Reserve resources before binding (can be rolled back if binding fails).</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VolumeBinding</strong></td>
+<td>Reserve volumes for the pod</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="permit-plugins"><strong>Permit Plugins</strong></h4>
+<p>Approve or deny binding (can wait for external conditions).</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(Usually custom)</td>
+<td>Can approve, deny, or wait for external signal</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="prebind-plugins"><strong>PreBind Plugins</strong></h4>
+<p>Prepare for binding (e.g., attach volumes).</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VolumeBinding</strong></td>
+<td>Attach volumes to the node</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="bind-plugins"><strong>Bind Plugins</strong></h4>
+<p>Actually bind the pod to the node.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DefaultBinder</strong></td>
+<td>Create the Binding object in API server</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="postbind-plugins"><strong>PostBind Plugins</strong></h4>
+<p>Informational hooks (cannot fail the scheduling).</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(Usually none)</td>
+<td>Can be used for logging/metrics</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="plugin-behavior-summary">Plugin Behavior Summary</h3>
+<p><strong>Filtering vs Scoring:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+<th>Returns</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Filter</strong></td>
+<td>Eliminate nodes</td>
+<td>Pass/Fail</td>
+<td>Node removed from consideration if fails</td>
+</tr>
+<tr>
+<td><strong>Score</strong></td>
+<td>Rank nodes</td>
+<td>0-100 score</td>
+<td>Higher score = more likely to be chosen</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Flow for a Single Pod:</strong></p>
+<div class="highlight"><pre><span></span><code>Pod arrives → QueueSort (place in queue by priority)
+           ↓
+         PreFilter (all plugins prepare data)
+           ↓
+         Filter on Node1: ✅ Pass (has resources)
+         Filter on Node2: ❌ Fail (no CPU)
+         Filter on Node3: ✅ Pass (has resources)
+           ↓
+         Remaining nodes: Node1, Node3
+           ↓
+         Score Node1: 75 (balanced allocation)
+         Score Node3: 90 (better image locality)
+           ↓
+         Selected: Node3 (highest score)
+           ↓
+         Reserve → Permit → PreBind → Bind → PostBind
+</code></pre></div>
+<h3 id="visual-diagram-complete-scheduling-flow-with-all-extension-points">Visual Diagram: Complete Scheduling Flow with All Extension Points</h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────────┐
+│                    POD ENTERS SCHEDULING QUEUE                          │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 1. QUEUESORT EXTENSION POINT                                 │      │
+│  │    Plugin: PrioritySort                                      │      │
+│  │    Action: Order pods by priority (high → low)               │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      SCHEDULING CYCLE BEGINS                            │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 2. PREFILTER EXTENSION POINT                                 │      │
+│  │    Plugins:                                                  │      │
+│  │    • NodeResourcesFit      (calculate requests)              │      │
+│  │    • NodePorts            (check port requirements)          │      │
+│  │    • PodTopologySpread    (prepare topology data)            │      │
+│  │    • InterPodAffinity     (pre-calc affinity)                │      │
+│  │    • VolumeBinding        (check volume needs)               │      │
+│  │    Result: ✅ Continue  OR  ❌ Reject Pod                     │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 3. FILTER EXTENSION POINT (For Each Node)                   │      │
+│  │                                                              │      │
+│  │    Node1: ┌────────────────────────────────────┐            │      │
+│  │           │ NodeUnschedulable?    ✅ Pass       │            │      │
+│  │           │ NodeName?             ✅ Pass       │            │      │
+│  │           │ TaintToleration?      ✅ Pass       │            │      │
+│  │           │ NodeResourcesFit?     ✅ Pass       │            │      │
+│  │           │ VolumeBinding?        ✅ Pass       │            │      │
+│  │           └────────────────────────────────────┘            │      │
+│  │           Result: ✅ Node1 is FEASIBLE                       │      │
+│  │                                                              │      │
+│  │    Node2: ┌────────────────────────────────────┐            │      │
+│  │           │ NodeResourcesFit?     ❌ FAIL       │            │      │
+│  │           └────────────────────────────────────┘            │      │
+│  │           Result: ❌ Node2 ELIMINATED                        │      │
+│  │                                                              │      │
+│  │    Node3: ┌────────────────────────────────────┐            │      │
+│  │           │ TaintToleration?      ❌ FAIL       │            │      │
+│  │           └────────────────────────────────────┘            │      │
+│  │           Result: ❌ Node3 ELIMINATED                        │      │
+│  │                                                              │      │
+│  │    Feasible Nodes: [Node1]                                  │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│         ┌──────────────────────────────────────┐                       │
+│         │  IF NO NODES PASS FILTER             │                       │
+│         │      ↓                                │                       │
+│         │  4. POSTFILTER EXTENSION POINT        │                       │
+│         │     Plugin: DefaultPreemption         │                       │
+│         │     Action: Find pods to evict        │                       │
+│         │     Result: Retry scheduling          │                       │
+│         └──────────────────────────────────────┘                       │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 5. PRESCORE EXTENSION POINT                                  │      │
+│  │    Plugins:                                                  │      │
+│  │    • InterPodAffinity     (prepare affinity data)            │      │
+│  │    • PodTopologySpread    (get current distribution)         │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 6. SCORE EXTENSION POINT (For Each Feasible Node)           │      │
+│  │                                                              │      │
+│  │    Node1 Scoring:                                            │      │
+│  │    ┌──────────────────────────────────────────────┐         │      │
+│  │    │ NodeResourcesBalancedAllocation: 80 × 1 = 80 │         │      │
+│  │    │ ImageLocality:                   70 × 1 = 70 │         │      │
+│  │    │ NodeAffinity:                    60 × 1 = 60 │         │      │
+│  │    │ PodTopologySpread:               85 × 2 = 170│         │      │
+│  │    │                                   ─────────── │         │      │
+│  │    │ TOTAL:                           380         │         │      │
+│  │    └──────────────────────────────────────────────┘         │      │
+│  │                                                              │      │
+│  │    Node4 Scoring:                                            │      │
+│  │    ┌──────────────────────────────────────────────┐         │      │
+│  │    │ NodeResourcesBalancedAllocation: 90 × 1 = 90 │         │      │
+│  │    │ ImageLocality:                   50 × 1 = 50 │         │      │
+│  │    │ NodeAffinity:                    80 × 1 = 80 │         │      │
+│  │    │ PodTopologySpread:               75 × 2 = 150│         │      │
+│  │    │                                   ─────────── │         │      │
+│  │    │ TOTAL:                           370         │         │      │
+│  │    └──────────────────────────────────────────────┘         │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 7. NORMALIZESCORE EXTENSION POINT                            │      │
+│  │    Normalize scores to 0-100 range                           │      │
+│  │    Node1: 380/380 × 100 = 100                                 │      │
+│  │    Node4: 370/380 × 100 = 97                                  │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │           WINNER: Node1 (Score: 100)                         │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 8. RESERVE EXTENSION POINT                                   │      │
+│  │    Plugin: VolumeBinding                                     │      │
+│  │    Action: Reserve PVCs for this pod                         │      │
+│  │    Result: ✅ Resources Reserved                              │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 9. PERMIT EXTENSION POINT                                    │      │
+│  │    Plugins can:                                              │      │
+│  │    • Approve (continue)                                      │      │
+│  │    • Deny (reject)                                           │      │
+│  │    • Wait (external approval needed)                         │      │
+│  │    Result: ✅ Approved                                        │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                       BINDING CYCLE BEGINS                              │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 10. WAITONPERMIT EXTENSION POINT                             │      │
+│  │     Wait for all Permit plugins to approve                   │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 11. PREBIND EXTENSION POINT                                  │      │
+│  │     Plugin: VolumeBinding                                    │      │
+│  │     Action: Attach volumes to Node1                          │      │
+│  │     Result: ✅ Volumes Attached                               │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 12. BIND EXTENSION POINT                                     │      │
+│  │     Plugin: DefaultBinder                                    │      │
+│  │     Action: Create Binding object                            │      │
+│  │             POST /api/v1/.../pods/nginx/binding              │      │
+│  │     Result: ✅ Pod Bound to Node1                             │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 13. POSTBIND EXTENSION POINT                                 │      │
+│  │     Informational only (logging, metrics)                    │      │
+│  │     Cannot fail the binding                                  │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │           ✅ POD SUCCESSFULLY SCHEDULED TO NODE1              │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<h3 id="decision-points-flowchart">Decision Points Flowchart</h3>
+<div class="highlight"><pre><span></span><code>┌────────────────────────────────────────────────────────────────┐
+│  What Happens at Each Extension Point?                        │
+└────────────────────────────────────────────────────────────────┘
+
+PreFilter (Pod Level):
+   ├─ ✅ Pass → Continue to Filter
+   └─ ❌ Fail → Pod Unschedulable (Error)
+
+Filter (Per Node):
+   ├─ All nodes fail → PostFilter (Try Preemption)
+   ├─ Some nodes pass → Continue to Score
+   └─ One node passes → Score it anyway
+
+Reserve:
+   ├─ ✅ Success → Continue to Permit
+   └─ ❌ Fail → Unreserve, Retry scheduling
+
+Permit:
+   ├─ ✅ Approve → Continue to Bind Cycle
+   ├─ ⏸ Wait → Hold until external approval
+   └─ ❌ Deny → Unreserve, Retry scheduling
+
+PreBind:
+   ├─ ✅ Success → Continue to Bind
+   └─ ❌ Fail → Unreserve, Retry scheduling
+
+Bind:
+   ├─ ✅ Success → PostBind → Done!
+   └─ ❌ Fail → Unreserve, Retry scheduling
+</code></pre></div>
+<hr />
+<h2 id="5-built-in-scheduler-profiles">5. Built-in Scheduler Profiles</h2>
+<p>Kubernetes 1.23+ comes with <strong>two default profiles</strong>:</p>
+<h3 id="profile-1-default-scheduler-balanced">Profile 1: <code>default-scheduler</code> (Balanced)</h3>
+<p><strong>Purpose:</strong> General-purpose scheduling for most workloads</p>
+<p><strong>Enabled Plugins:</strong>
+- NodeResourcesFit (CPU/RAM check)
+- NodeResourcesBalancedAllocation (spread load evenly)
+- ImageLocality (prefer nodes with cached images)
+- TaintToleration
+- NodeAffinity
+- PodTopologySpread
+- InterPodAffinity</p>
+<p><strong>Use for:</strong> 99% of your workloads</p>
+<h3 id="profile-2-bin-packing-scheduler-experimental">Profile 2: <code>bin-packing-scheduler</code> (Experimental)</h3>
+<p><strong>Purpose:</strong> Pack pods densely to minimize the number of nodes used</p>
+<p><strong>Difference:</strong> Uses <strong>NodeResourcesMostAllocated</strong> instead of <strong>BalancedAllocation</strong></p>
+<p><strong>Effect:</strong>
+- Tries to fill up nodes completely before moving to next node
+- Good for cost optimization (fewer nodes)
+- Bad for high availability (all eggs in few baskets)</p>
+<hr />
+<h2 id="6-configuring-scheduler-profiles">6. Configuring Scheduler Profiles</h2>
+<h3 id="kubeschedulerconfiguration">KubeSchedulerConfiguration</h3>
+<p>Profiles are configured via the <code>KubeSchedulerConfiguration</code> file.</p>
+<p><strong>Example: Adding a custom profile</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># scheduler-config.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubescheduler.config.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeSchedulerConfiguration</span>
+<span class="nt">profiles</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Profile 1: Default balanced scheduling</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-scheduler</span>
+<span class="w">    </span><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">score</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesBalancedAllocation</span>
+<span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ImageLocality</span>
+<span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="w">  </span><span class="c1"># Profile 2: GPU-optimized scheduling</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpu-scheduler</span>
+<span class="w">    </span><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">filter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesFit</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TaintToleration</span>
+<span class="w">      </span><span class="nt">score</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesFit</span>
+<span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w">  </span><span class="c1"># Strongly prefer nodes with resources</span>
+<span class="w">        </span><span class="nt">disabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ImageLocality</span><span class="w">  </span><span class="c1"># Don&#39;t care about image locality</span>
+
+<span class="w">  </span><span class="c1"># Profile 3: High-density bin packing</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bin-packing</span>
+<span class="w">    </span><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">score</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesMostAllocated</span>
+<span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">disabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesBalancedAllocation</span>
+</code></pre></div>
+<h3 id="applying-the-configuration">Applying the Configuration</h3>
+<p><strong>Step 1: Create the ConfigMap</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>configmap<span class="w"> </span>scheduler-config<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-file<span class="o">=</span>scheduler-config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>kube-system
+</code></pre></div></p>
+<p><strong>Step 2: Update the scheduler manifest</strong></p>
+<p>Edit <code>/etc/kubernetes/manifests/kube-scheduler.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-scheduler</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-scheduler</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.k8s.io/kube-scheduler:v1.28.0</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-scheduler</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--config=/etc/kubernetes/scheduler-config.yaml</span><span class="w">  </span><span class="c1"># &lt;--- Add this</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduler-config</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/scheduler-config.yaml</span>
+<span class="w">      </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduler-config</span>
+<span class="w">    </span><span class="nt">configMap</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduler-config</span>
+</code></pre></div>
+<p><strong>Step 3: Wait for scheduler to restart</strong></p>
+<p>The kubelet will automatically restart the scheduler pod with the new config.</p>
+<hr />
+<h2 id="7-using-scheduler-profiles-in-pods">7. Using Scheduler Profiles in Pods</h2>
+<h3 id="select-a-profile">Select a Profile</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpu-workload</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpu-scheduler</span><span class="w">  </span><span class="c1"># &lt;--- Same as profile name</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">trainer</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tensorflow/tensorflow:latest-gpu</span>
+</code></pre></div>
+<h3 id="default-profile">Default Profile</h3>
+<p>If you don't specify <code>schedulerName</code>, it uses the first profile (usually <code>default-scheduler</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-app</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># schedulerName: default-scheduler  # Implicit</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+</code></pre></div>
+<hr />
+<h2 id="8-real-world-example-multi-tenant-cluster">8. Real-World Example: Multi-Tenant Cluster</h2>
+<h3 id="scenario">Scenario</h3>
+<p>You have one cluster serving three teams:
+1. <strong>ML Team</strong>: Needs GPU-aware scheduling
+2. <strong>Web Team</strong>: Needs balanced scheduling
+3. <strong>Batch Team</strong>: Wants dense packing to save costs</p>
+<h3 id="solution-three-profiles">Solution: Three Profiles</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubescheduler.config.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeSchedulerConfiguration</span>
+<span class="nt">profiles</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Default for Web Team</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-scheduler</span>
+<span class="w">    </span><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">score</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesBalancedAllocation</span>
+
+<span class="w">  </span><span class="c1"># GPU-optimized for ML Team</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ml-scheduler</span>
+<span class="w">    </span><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">score</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesFit</span>
+<span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeAffinity</span>
+<span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="w">  </span><span class="c1"># Bin-packing for Batch Team</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch-scheduler</span>
+<span class="w">    </span><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">score</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesMostAllocated</span>
+<span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</code></pre></div>
+<h3 id="team-usage">Team Usage</h3>
+<p><strong>ML Team:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ml-scheduler</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">training</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pytorch/pytorch</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">nvidia.com/gpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</code></pre></div></p>
+<p><strong>Web Team:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Uses default-scheduler (implicit)</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+</code></pre></div></p>
+<p><strong>Batch Team:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch-scheduler</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">job</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">busybox</span>
+</code></pre></div></p>
+<hr />
+<h2 id="9-scheduler-profiles-vs-multiple-schedulers">9. Scheduler Profiles vs Multiple Schedulers</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Aspect</th>
+<th style="text-align: left;">Scheduler Profiles</th>
+<th style="text-align: left;">Multiple Schedulers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Processes</strong></td>
+<td style="text-align: left;">1 scheduler, N profiles</td>
+<td style="text-align: left;">N separate scheduler processes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Memory</strong></td>
+<td style="text-align: left;">~120MB total</td>
+<td style="text-align: left;">~100MB × N</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Configuration</strong></td>
+<td style="text-align: left;">One config file</td>
+<td style="text-align: left;">N config files</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>RBAC</strong></td>
+<td style="text-align: left;">One ServiceAccount</td>
+<td style="text-align: left;">N ServiceAccounts</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cluster Cache</strong></td>
+<td style="text-align: left;">Shared</td>
+<td style="text-align: left;">Separate caches</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Complexity</strong></td>
+<td style="text-align: left;">Lower</td>
+<td style="text-align: left;">Higher</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Isolation</strong></td>
+<td style="text-align: left;">Shared process</td>
+<td style="text-align: left;">Separate processes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Use Case</strong></td>
+<td style="text-align: left;">Different plugin configs</td>
+<td style="text-align: left;">Completely different scheduling logic</td>
+</tr>
+</tbody>
+</table>
+<h3 id="when-to-use-which">When to Use Which?</h3>
+<p><strong>Use Scheduler Profiles when:</strong>
+- ✅ You need different plugin configurations
+- ✅ You want resource efficiency
+- ✅ You're running on Kubernetes 1.23+</p>
+<p><strong>Use Multiple Schedulers when:</strong>
+- ✅ You need completely custom scheduling algorithms
+- ✅ You're using third-party schedulers (e.g., Volcano, Kube-batch)
+- ✅ You need strong process isolation</p>
+<hr />
+<h2 id="10-checking-active-profiles">10. Checking Active Profiles</h2>
+<h3 id="view-scheduler-configuration">View Scheduler Configuration</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the scheduler pod</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>kube-scheduler
+
+<span class="c1"># Check logs for loaded profiles</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-scheduler-&lt;node-name&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>profile
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code>Registered scheduling profiles: default-scheduler, gpu-scheduler, batch-scheduler
+</code></pre></div></p>
+<h3 id="check-which-profile-scheduled-a-pod">Check Which Profile Scheduled a Pod</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.schedulerName}&#39;</span>
+</code></pre></div>
+<p><strong>Custom columns view:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>custom-columns<span class="o">=</span><span class="se">\</span>
+<span class="s2">&quot;NAME:.metadata.name,\</span>
+<span class="s2">NAMESPACE:.metadata.namespace,\</span>
+<span class="s2">SCHEDULER:.spec.schedulerName,\</span>
+<span class="s2">NODE:.spec.nodeName&quot;</span>
+</code></pre></div></p>
+<hr />
+<h2 id="11-common-pitfalls">11. Common Pitfalls</h2>
+<h3 id="issue-1-profile-name-typo">Issue 1: Profile Name Typo</h3>
+<p><strong>Problem:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpu-schedular</span><span class="w">  </span><span class="c1"># Typo: &quot;schedular&quot; instead of &quot;scheduler&quot;</span>
+</code></pre></div></p>
+<p><strong>Result:</strong> Pod stays <code>Pending</code> forever</p>
+<p><strong>Check:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;name&gt;
+<span class="c1"># Events:</span>
+<span class="c1">#   Warning  FailedScheduling  No scheduler named &quot;gpu-schedular&quot; found</span>
+</code></pre></div></p>
+<h3 id="issue-2-scheduler-not-restarted-after-config-change">Issue 2: Scheduler Not Restarted After Config Change</h3>
+<p><strong>Problem:</strong> Updated <code>scheduler-config.yaml</code> but scheduler didn't reload</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># For static pod, edit the manifest to force restart</span>
+<span class="c1"># Or delete the scheduler pod</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-scheduler-&lt;node-name&gt;
+</code></pre></div></p>
+<h3 id="issue-3-conflicting-plugin-configs">Issue 3: Conflicting Plugin Configs</h3>
+<p><strong>Problem:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">score</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesBalancedAllocation</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodeResourcesMostAllocated</span><span class="w">  </span><span class="c1"># Conflicts with above!</span>
+</code></pre></div></p>
+<p><strong>Solution:</strong> Use one OR the other, not both</p>
+<hr />
+<h2 id="12-cka-exam-relevance">12. CKA Exam Relevance</h2>
+<h3 id="exam-tasks">Exam Tasks</h3>
+<p><strong>Task: "Configure a scheduler with two profiles"</strong></p>
+<p>Not commonly tested directly, but you should know:
+1. Profiles live in <code>KubeSchedulerConfiguration</code>
+2. Pods select profiles via <code>schedulerName</code>
+3. How to check which profile scheduled a pod</p>
+<p><strong>More Common: "Create a pod using a specific scheduler"</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Generate pod</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>app<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span>--dry-run<span class="o">=</span>client<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span>pod.yaml
+
+<span class="c1"># Step 2: Edit to add schedulerName</span>
+vim<span class="w"> </span>pod.yaml
+</code></pre></div>
+<p>Add:
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-scheduler</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 3: Apply</span>
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>pod.yaml
+</code></pre></div>
+<hr />
+<h2 id="13-quick-reference">13. Quick Reference</h2>
+<h3 id="pod-selection">Pod Selection</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">schedulerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;profile-name&gt;</span>
+</code></pre></div>
+<h3 id="check-profile">Check Profile</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Which scheduler/profile was used?</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.schedulerName}&#39;</span>
+
+<span class="c1"># View scheduler logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-scheduler-&lt;node&gt;
+</code></pre></div>
+<h3 id="common-profile-names">Common Profile Names</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Profile</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>default-scheduler</code></td>
+<td style="text-align: left;">Standard balanced scheduling</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>bin-packing</code></td>
+<td style="text-align: left;">Dense node packing</td>
+</tr>
+<tr>
+<td style="text-align: left;">Custom names</td>
+<td style="text-align: left;">Your configured profiles</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="summary">Summary</h2>
+<div class="admonition success">
+<p class="admonition-title">Key Takeaways</p>
+<p>✅ Scheduler Profiles = <strong>Multiple scheduling behaviors in ONE scheduler process</strong><br />
+✅ More efficient than running multiple separate schedulers<br />
+✅ Configured via <strong>KubeSchedulerConfiguration</strong><br />
+✅ Pods select a profile using <code>spec.schedulerName</code><br />
+✅ Each profile can enable/disable different <strong>plugins</strong><br />
+✅ Built-in profiles: <code>default-scheduler</code> (balanced), <code>bin-packing</code> (dense)<br />
+✅ Use profiles for <strong>different plugin configs</strong>, use multiple schedulers for <strong>custom algorithms</strong><br />
+✅ Profiles share the same cluster state cache (efficiency!)  </p>
+</div>
+<h3 id="when-to-use-scheduler-profiles">When to Use Scheduler Profiles</h3>
+<ul>
+<li>✅ Need different scoring/filtering logic</li>
+<li>✅ Want resource efficiency (one process)</li>
+<li>✅ Running Kubernetes 1.23+</li>
+<li>✅ Multi-tenant scenarios with different scheduling needs</li>
+<li>❌ Don't use if you need completely custom scheduling logic (use multiple schedulers instead)</li>
+</ul>
+<hr />
+<h2 id="further-reading-references">Further Reading &amp; References</h2>
+<h3 id="official-kubernetes-documentation">Official Kubernetes Documentation</h3>
+<ul>
+<li>
+<p><strong><a href="https://kubernetes.io/blog/2017/03/advanced-scheduling-in-kubernetes/">Advanced Scheduling in Kubernetes (Official Blog)</a></strong><br />
+  In-depth article from the Kubernetes team explaining advanced scheduling features and the scheduler framework.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-scheduling/scheduling_code_hierarchy_overview.md">Scheduling Code Hierarchy Overview (GitHub)</a></strong><br />
+  Deep dive into the scheduler codebase structure - essential for understanding the internal implementation.</p>
+</li>
+</ul>
+<h3 id="community-resources">Community Resources</h3>
+<ul>
+<li>
+<p><strong><a href="https://jvns.ca/blog/2017/07/27/how-does-the-kubernetes-scheduler-work/">How Does the Kubernetes Scheduler Work? (Julia Evans)</a></strong><br />
+  Excellent visual explanation with clear diagrams showing how the scheduler makes decisions.</p>
+</li>
+<li>
+<p><strong><a href="https://stackoverflow.com/questions/28857993/how-does-kubernetes-scheduler-work">How Does Kubernetes Scheduler Work? (Stack Overflow)</a></strong><br />
+  Detailed Q&amp;A covering common scheduling questions and edge cases.</p>
+</li>
+</ul>
+<h3 id="recommended-reading-order">Recommended Reading Order</h3>
+<p>For CKA exam preparation:
+1. Start with <strong>Julia Evans' blog</strong> for a high-level visual understanding
+2. Read the <strong>official Kubernetes blog</strong> for advanced concepts
+3. Refer to <strong>Stack Overflow</strong> for specific troubleshooting scenarios
+4. Deep dive into the <strong>GitHub code hierarchy</strong> only if you want to understand internals</p>
+<div class="admonition tip">
+<p class="admonition-title">Exam Focus</p>
+<p>For the CKA exam, focus on <strong>practical usage</strong> (how to configure profiles, use schedulerName, debug scheduling issues) rather than deep implementation details.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

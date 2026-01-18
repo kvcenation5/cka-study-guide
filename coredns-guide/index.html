@@ -1,0 +1,4096 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete Kubernetes Troubleshooting Guide for CKA Exam Preparation">
+      
+      
+      
+      
+        <link rel="prev" href="../etcd-deep-dive/">
+      
+      
+        <link rel="next" href="../statefulset-pvc-explained/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>CoreDNS Guide - CKA Exam Notes - Kubernetes Troubleshooting</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#coredns-kubernetes-networking-complete-guide-with-real-world-examples" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CKA Exam Notes - Kubernetes Troubleshooting
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CoreDNS Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../SUMMARY/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Summary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../yaml-guide/" class="md-tabs__link">
+          
+  
+  
+  Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+          
+  
+  
+  Lab Setup
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../BETTER_ARCHITECTURE/" class="md-tabs__link">
+          
+  
+  
+  Cluster Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Components
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../etcd-deep-dive/" class="md-tabs__link">
+          
+  
+  
+  Deep Dives
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../statefulset-pvc-explained/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  StatefulSet & PVC
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../exam-tips/kubectl-commands/" class="md-tabs__link">
+          
+  
+  
+  Exam Tips
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../troubleshooting-flowchart/" class="md-tabs__link">
+          
+  
+  
+  Diagrams
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CKA Exam Notes - Kubernetes Troubleshooting
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yaml-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    YAML Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/editing-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Pods & Deployments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/api-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versions (v1 vs apps/v1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/service-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service Types (ClusterIP/NodePort/LB)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/labels-selectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labels and Selectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/annotations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotations (Metadata)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/resource-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Requests & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/limitrange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LimitRange (Resource Guardrails)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/resource-quota/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Quota (The Budget)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/daemonsets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DaemonSets (The Node Resident)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/static-pods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods (Kubelet Managed)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/configmaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ConfigMaps (Configuration Data)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ReplicaSets vs Deployments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pod Scheduling
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pod Scheduling
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/pod-scheduling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taints and Tolerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node Selector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node Affinity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taints vs Affinity (Comparison)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Priority Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple Schedulers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scheduler Profiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals/custom-key-values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Key-Value Pairs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubeadm on Mac (Multipass)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guides/kops-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes on AWS (kOps)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster Join Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cluster Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BETTER_ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster-architecture/component-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods vs Systemd
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster-architecture/admission-controllers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admission Controllers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kube-Proxy Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster-architecture/etcd-data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD Data Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dives
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dives
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etcd-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD & Backup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoreDNS Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoreDNS Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-coredns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is CoreDNS?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-coredns-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How CoreDNS Works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How CoreDNS Works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coredns-configuration-corefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CoreDNS Configuration (Corefile)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-coredns-errors-real-world-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common CoreDNS Errors &amp; Real-World Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common CoreDNS Errors &amp; Real-World Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-1-dns-loop-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 1: DNS Loop Detection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 1: DNS Loop Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-quick-fix-for-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Quick Fix (for testing):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-2-cannot-reach-kubernetes-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 2: Cannot Reach Kubernetes API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 2: Cannot Reach Kubernetes API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-3-crashloopbackoff-selinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 3: CrashLoopBackOff (SELinux)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 3: CrashLoopBackOff (SELinux)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-4-no-endpoints-for-kube-dns-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 4: No Endpoints for kube-dns Service
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 4: No Endpoints for kube-dns Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-5-transient-startup-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 5: Transient Startup Timeouts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 5: Transient Startup Timeouts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-worry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Worry:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-not-to-worry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When NOT to Worry:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-check-coredns-pod-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Check CoreDNS Pod Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-check-recent-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Check Recent Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-test-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Test DNS Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-check-service-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Check Service &amp; Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-verify-network-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Verify Network Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-check-kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Check kube-proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prevention Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevention Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-always-install-cni-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Always Install CNI First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-configure-kubelet-before-deploying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configure kubelet Before Deploying
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-monitor-coredns-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Monitor CoreDNS Health
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-set-resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Set Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-use-multiple-replicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Use Multiple Replicas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-error-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: Error → Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-lesson-always-check-timestamps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Lesson: Always Check Timestamps!
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kube-proxy-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kube-proxy Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="kube-proxy Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is kube-proxy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-components_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-kube-proxy-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common kube-proxy Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common kube-proxy Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-services-not-accessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1: Services Not Accessible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-wrong-configmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2: Wrong ConfigMap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-iptables-rules-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3: iptables Rules Missing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../statefulset-pvc-explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet & PVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exam Tips
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exam Tips
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exam-tips/kubectl-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kubectl Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exam-tips/dry-run-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dry-Run Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diagrams
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting-flowchart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting Flowchart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../statefulset-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-policy-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Policy Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-coredns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is CoreDNS?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-coredns-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How CoreDNS Works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How CoreDNS Works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coredns-configuration-corefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CoreDNS Configuration (Corefile)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-coredns-errors-real-world-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common CoreDNS Errors &amp; Real-World Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common CoreDNS Errors &amp; Real-World Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-1-dns-loop-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 1: DNS Loop Detection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 1: DNS Loop Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-quick-fix-for-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Quick Fix (for testing):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-2-cannot-reach-kubernetes-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 2: Cannot Reach Kubernetes API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 2: Cannot Reach Kubernetes API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-3-crashloopbackoff-selinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 3: CrashLoopBackOff (SELinux)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 3: CrashLoopBackOff (SELinux)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-4-no-endpoints-for-kube-dns-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 4: No Endpoints for kube-dns Service
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 4: No Endpoints for kube-dns Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-5-transient-startup-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 5: Transient Startup Timeouts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 5: Transient Startup Timeouts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-worry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Worry:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-not-to-worry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When NOT to Worry:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-check-coredns-pod-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Check CoreDNS Pod Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-check-recent-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Check Recent Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-test-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Test DNS Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-check-service-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Check Service &amp; Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-verify-network-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Verify Network Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-check-kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Check kube-proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prevention Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevention Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-always-install-cni-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Always Install CNI First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-configure-kubelet-before-deploying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configure kubelet Before Deploying
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-monitor-coredns-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Monitor CoreDNS Health
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-set-resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Set Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-use-multiple-replicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Use Multiple Replicas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-error-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: Error → Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-lesson-always-check-timestamps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Lesson: Always Check Timestamps!
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kube-proxy-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kube-proxy Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="kube-proxy Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is kube-proxy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-components_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-kube-proxy-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common kube-proxy Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common kube-proxy Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-services-not-accessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1: Services Not Accessible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-wrong-configmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2: Wrong ConfigMap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-iptables-rules-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3: iptables Rules Missing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="coredns-kubernetes-networking-complete-guide-with-real-world-examples">CoreDNS &amp; Kubernetes Networking: Complete Guide with Real-World Examples</h1>
+<hr />
+<h2 id="what-is-coredns"><strong>What is CoreDNS?</strong></h2>
+<p>CoreDNS is the <strong>DNS server</strong> that runs inside your Kubernetes cluster. It acts as a "phone book" that translates service names into IP addresses so pods can find each other.</p>
+<p><strong>Real-world analogy:</strong> Instead of remembering that your database is at <code>10.244.5.23:5432</code>, you just call it <code>postgres-service</code> and CoreDNS handles the translation.</p>
+<hr />
+<h2 id="how-coredns-works"><strong>How CoreDNS Works</strong></h2>
+<h3 id="architecture-overview"><strong>Architecture Overview</strong></h3>
+<div class="highlight"><pre><span></span><code>Pod wants to connect to &quot;my-api-service&quot;
+         ↓
+Pod queries CoreDNS at 10.96.0.10:53
+         ↓
+CoreDNS checks Kubernetes API for service info
+         ↓
+Returns IP: 10.96.5.100
+         ↓
+Pod connects to 10.96.5.100
+         ↓
+kube-proxy routes to actual pod at 10.244.2.15
+</code></pre></div>
+<h3 id="key-components"><strong>Key Components</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CoreDNS Deployment</strong></td>
+<td>Runs 2+ DNS server pods for HA</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>kube-dns Service</strong></td>
+<td>ClusterIP that pods use for DNS</td>
+<td>53</td>
+</tr>
+<tr>
+<td><strong>CoreDNS ConfigMap</strong></td>
+<td>Configuration (Corefile)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>ServiceAccount/RBAC</strong></td>
+<td>Permissions to read Services/Endpoints</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="coredns-configuration-corefile"><strong>CoreDNS Configuration (Corefile)</strong></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Handles internal cluster domains</span>
+<span class="l l-Scalar l-Scalar-Plain">kubernetes cluster.local in-addr.arpa ip6.arpa {</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">pods insecure</span><span class="w">              </span><span class="c1"># Allow pod DNS records</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">fallthrough in-addr.arpa</span><span class="w">   </span><span class="c1"># Pass reverse lookups through</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">ttl 30</span><span class="w">                     </span><span class="c1"># Cache for 30 seconds</span>
+<span class="err">}</span>
+
+<span class="c1"># Forward external queries</span>
+<span class="l l-Scalar l-Scalar-Plain">forward . /etc/resolv.conf</span><span class="w">    </span><span class="c1"># Use node&#39;s DNS for google.com, etc.</span>
+
+<span class="c1"># Other plugins</span>
+<span class="l l-Scalar l-Scalar-Plain">prometheus :9153</span><span class="w">              </span><span class="c1"># Metrics endpoint</span>
+<span class="l l-Scalar l-Scalar-Plain">ready :8181</span><span class="w">                   </span><span class="c1"># Health check endpoint</span>
+<span class="l l-Scalar l-Scalar-Plain">cache 30</span><span class="w">                      </span><span class="c1"># Cache responses for 30s</span>
+<span class="l l-Scalar l-Scalar-Plain">loop</span><span class="w">                          </span><span class="c1"># Detect DNS loops</span>
+<span class="l l-Scalar l-Scalar-Plain">reload</span><span class="w">                        </span><span class="c1"># Auto-reload on config changes</span>
+<span class="l l-Scalar l-Scalar-Plain">loadbalance</span><span class="w">                   </span><span class="c1"># Round-robin between endpoints</span>
+</code></pre></div>
+<hr />
+<h2 id="common-coredns-errors-real-world-scenarios"><strong>Common CoreDNS Errors &amp; Real-World Scenarios</strong></h2>
+<hr />
+<h3 id="error-1-dns-loop-detection"><strong>Error 1: DNS Loop Detection</strong></h3>
+<h4 id="what-you-see"><strong>What You See:</strong></h4>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system
+NAME<span class="w">                      </span>READY<span class="w">   </span>STATUS<span class="w">             </span>RESTARTS<span class="w">   </span>AGE
+coredns-xxx<span class="w">               </span><span class="m">0</span>/1<span class="w">     </span>CrashLoopBackOff<span class="w">   </span><span class="m">5</span><span class="w">          </span>3m
+
+$<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>coredns-xxx<span class="w"> </span>-n<span class="w"> </span>kube-system
+<span class="o">[</span>FATAL<span class="o">]</span><span class="w"> </span>plugin/loop:<span class="w"> </span>Loop<span class="w"> </span><span class="o">(</span><span class="m">127</span>.0.0.1:56162<span class="w"> </span>-&gt;<span class="w"> </span>:53<span class="o">)</span><span class="w"> </span>detected<span class="w"> </span><span class="k">for</span><span class="w"> </span>zone<span class="w"> </span><span class="s2">&quot;.&quot;</span>
+Query:<span class="w"> </span><span class="s2">&quot;HINFO 7087784449798295848.7359092265978106814.&quot;</span>
+</code></pre></div>
+<h4 id="real-world-scenario"><strong>Real-World Scenario:</strong></h4>
+<p><strong>Company:</strong> E-commerce startup deploying on Ubuntu 22.04 servers</p>
+<p><strong>What happened:</strong>
+- DevOps engineer set up a new Kubernetes cluster
+- Used Ubuntu's default DNS setup (systemd-resolved)
+- Node's <code>/etc/resolv.conf</code> pointed to <code>127.0.0.53</code> (localhost)
+- CoreDNS forwarded external queries to <code>127.0.0.53</code>
+- systemd-resolved forwarded back to CoreDNS → <strong>LOOP!</strong></p>
+<h4 id="root-cause"><strong>Root Cause:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># On the node:</span>
+$<span class="w"> </span>cat<span class="w"> </span>/etc/resolv.conf
+nameserver<span class="w"> </span><span class="m">127</span>.0.0.53<span class="w">  </span><span class="c1"># ← Problem: localhost reference</span>
+options<span class="w"> </span>edns0<span class="w"> </span>trust-ad
+search<span class="w"> </span>.
+</code></pre></div>
+<p>CoreDNS uses this file to forward queries for <code>google.com</code>, but <code>127.0.0.53</code> creates a circular reference.</p>
+<h4 id="the-fix"><strong>The Fix:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit kubelet config on each node</span>
+sudo<span class="w"> </span>vi<span class="w"> </span>/var/lib/kubelet/config.yaml
+
+<span class="c1"># Add this line:</span>
+resolvConf:<span class="w"> </span>/run/systemd/resolve/resolv.conf
+
+<span class="c1"># Restart kubelet</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>kubelet
+
+<span class="c1"># Restart CoreDNS</span>
+kubectl<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment<span class="w"> </span>coredns<span class="w"> </span>-n<span class="w"> </span>kube-system
+</code></pre></div>
+<h4 id="alternative-quick-fix-for-testing"><strong>Alternative Quick Fix (for testing):</strong></h4>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>edit<span class="w"> </span>configmap<span class="w"> </span>coredns<span class="w"> </span>-n<span class="w"> </span>kube-system
+
+<span class="c1"># Change:</span>
+forward<span class="w"> </span>.<span class="w"> </span>/etc/resolv.conf
+<span class="c1"># To:</span>
+forward<span class="w"> </span>.<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span><span class="m">1</span>.1.1.1
+</code></pre></div>
+<p><strong>Impact:</strong> All pods lost DNS resolution for 15 minutes during troubleshooting. API calls to external services failed.</p>
+<hr />
+<h3 id="error-2-cannot-reach-kubernetes-api"><strong>Error 2: Cannot Reach Kubernetes API</strong></h3>
+<h4 id="what-you-see_1"><strong>What You See:</strong></h4>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>coredns-xxx<span class="w"> </span>-n<span class="w"> </span>kube-system
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>plugin/kubernetes:<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>Kubernetes<span class="w"> </span>API<span class="w"> </span>before<span class="w"> </span>starting<span class="w"> </span>server
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>plugin/ready:<span class="w"> </span>Still<span class="w"> </span>waiting<span class="w"> </span>on:<span class="w"> </span><span class="s2">&quot;kubernetes&quot;</span>
+<span class="o">[</span>ERROR<span class="o">]</span><span class="w"> </span>plugin/kubernetes:<span class="w"> </span>Unhandled<span class="w"> </span>Error
+failed<span class="w"> </span>to<span class="w"> </span>list<span class="w"> </span>*v1.Service:<span class="w"> </span>Get<span class="w"> </span><span class="s2">&quot;https://10.96.0.1:443/api/v1/services&quot;</span>:<span class="w"> </span>
+dial<span class="w"> </span>tcp<span class="w"> </span><span class="m">10</span>.96.0.1:443:<span class="w"> </span>i/o<span class="w"> </span>timeout
+</code></pre></div>
+<h4 id="real-world-scenario_1"><strong>Real-World Scenario:</strong></h4>
+<p><strong>Company:</strong> FinTech company migrating from EKS to bare-metal Kubernetes</p>
+<p><strong>What happened:</strong>
+- Infrastructure team installed Kubernetes with <code>kubeadm</code>
+- Forgot to install a CNI plugin (Calico/Flannel)
+- Pods had IPs but couldn't communicate across nodes
+- CoreDNS couldn't reach the API server's Service IP</p>
+<h4 id="root-cause_1"><strong>Root Cause:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># No CNI plugin installed</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;calico|flannel|weave&#39;</span>
+<span class="c1"># (nothing shows up)</span>
+
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+NAME<span class="w">     </span>STATUS<span class="w">     </span>ROLES<span class="w">           </span>AGE<span class="w">   </span>VERSION
+node-1<span class="w">   </span>NotReady<span class="w">   </span>control-plane<span class="w">   </span>10m<span class="w">   </span>v1.28.0
+node-2<span class="w">   </span>NotReady<span class="w">   </span>&lt;none&gt;<span class="w">          </span>10m<span class="w">   </span>v1.28.0
+</code></pre></div>
+<p>Nodes show <code>NotReady</code> because there's no network overlay.</p>
+<h4 id="the-fix_1"><strong>The Fix:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install Calico</span>
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml
+
+<span class="c1"># Wait for CNI pods to start</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-w
+
+<span class="c1"># Nodes become Ready</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+NAME<span class="w">     </span>STATUS<span class="w">   </span>ROLES<span class="w">           </span>AGE<span class="w">   </span>VERSION
+node-1<span class="w">   </span>Ready<span class="w">    </span>control-plane<span class="w">   </span>15m<span class="w">   </span>v1.28.0
+node-2<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>15m<span class="w">   </span>v1.28.0
+</code></pre></div>
+<p><strong>Impact:</strong> Entire cluster was non-functional for 2 hours. No service-to-service communication worked.</p>
+<hr />
+<h3 id="error-3-crashloopbackoff-selinux"><strong>Error 3: CrashLoopBackOff (SELinux)</strong></h3>
+<h4 id="what-you-see_2"><strong>What You See:</strong></h4>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system
+NAME<span class="w">                      </span>READY<span class="w">   </span>STATUS<span class="w">             </span>RESTARTS<span class="w">   </span>AGE
+coredns-xxx<span class="w">               </span><span class="m">0</span>/1<span class="w">     </span>CrashLoopBackOff<span class="w">   </span><span class="m">8</span><span class="w">          </span>10m
+
+$<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>coredns-xxx<span class="w"> </span>-n<span class="w"> </span>kube-system
+Error:<span class="w"> </span>open<span class="w"> </span>/etc/coredns/Corefile:<span class="w"> </span>permission<span class="w"> </span>denied
+</code></pre></div>
+<h4 id="real-world-scenario_2"><strong>Real-World Scenario:</strong></h4>
+<p><strong>Company:</strong> Government contractor on RHEL 8 with SELinux enforcing</p>
+<p><strong>What happened:</strong>
+- Security requirements mandated SELinux in enforcing mode
+- CoreDNS couldn't read its config file due to SELinux policies
+- Running older Docker version that didn't handle SELinux labels properly</p>
+<h4 id="root-cause_2"><strong>Root Cause:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check SELinux status</span>
+$<span class="w"> </span>getenforce
+Enforcing
+
+<span class="c1"># CoreDNS security context conflicts with SELinux</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>coredns-xxx<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A5<span class="w"> </span>securityContext
+securityContext:
+<span class="w">  </span>allowPrivilegeEscalation:<span class="w"> </span><span class="nb">false</span><span class="w">  </span><span class="c1"># ← Too restrictive for SELinux</span>
+<span class="w">  </span>capabilities:
+<span class="w">    </span>add:
+<span class="w">    </span>-<span class="w"> </span>NET_BIND_SERVICE
+</code></pre></div>
+<h4 id="the-fix_2"><strong>The Fix:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Option 1: Allow privilege escalation</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>coredns<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>sed<span class="w"> </span><span class="s1">&#39;s/allowPrivilegeEscalation: false/allowPrivilegeEscalation: true/g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+
+<span class="c1"># Option 2: Update Docker (recommended)</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>update<span class="w"> </span>docker-ce
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>docker<span class="w"> </span>kubelet
+</code></pre></div>
+<p><strong>Impact:</strong> DNS outage during business hours. Incident report filed with customer.</p>
+<hr />
+<h3 id="error-4-no-endpoints-for-kube-dns-service"><strong>Error 4: No Endpoints for kube-dns Service</strong></h3>
+<h4 id="what-you-see_3"><strong>What You See:</strong></h4>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>kube-dns<span class="w"> </span>-n<span class="w"> </span>kube-system
+NAME<span class="w">       </span>TYPE<span class="w">        </span>CLUSTER-IP<span class="w">   </span>EXTERNAL-IP<span class="w">   </span>PORT<span class="o">(</span>S<span class="o">)</span><span class="w">         </span>AGE
+kube-dns<span class="w">   </span>ClusterIP<span class="w">   </span><span class="m">10</span>.96.0.10<span class="w">   </span>&lt;none&gt;<span class="w">        </span><span class="m">53</span>/UDP,53/TCP<span class="w">   </span>5d
+
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>endpoints<span class="w"> </span>kube-dns<span class="w"> </span>-n<span class="w"> </span>kube-system
+NAME<span class="w">       </span>ENDPOINTS<span class="w">   </span>AGE
+kube-dns<span class="w">   </span>&lt;none&gt;<span class="w">      </span>5d<span class="w">  </span><span class="c1"># ← No endpoints!</span>
+
+<span class="c1"># DNS queries fail</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>run<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--image<span class="o">=</span>busybox<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>kubernetes.default
+<span class="p">;;</span><span class="w"> </span>connection<span class="w"> </span>timed<span class="w"> </span>out<span class="p">;</span><span class="w"> </span>no<span class="w"> </span>servers<span class="w"> </span>could<span class="w"> </span>be<span class="w"> </span>reached
+</code></pre></div>
+<h4 id="real-world-scenario_3"><strong>Real-World Scenario:</strong></h4>
+<p><strong>Company:</strong> SaaS platform doing blue-green deployment</p>
+<p><strong>What happened:</strong>
+- DevOps engineer modified CoreDNS deployment selectors during upgrade
+- Changed <code>k8s-app: kube-dns</code> to <code>k8s-app: coredns</code>
+- kube-dns Service still looked for old label
+- Service couldn't find any pods → no endpoints</p>
+<h4 id="root-cause_3"><strong>Root Cause:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check service selector</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>kube-dns<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A2<span class="w"> </span>selector
+selector:
+<span class="w">  </span>k8s-app:<span class="w"> </span>kube-dns<span class="w">  </span><span class="c1"># Looking for this label</span>
+
+<span class="c1"># Check actual pod labels</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>kube-dns
+No<span class="w"> </span>resources<span class="w"> </span>found.<span class="w">  </span><span class="c1"># ← No pods match!</span>
+
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>coredns
+NAME<span class="w">                      </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+coredns-xxx<span class="w">               </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m<span class="w">  </span><span class="c1"># Found with different label</span>
+</code></pre></div>
+<h4 id="the-fix_3"><strong>The Fix:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit the CoreDNS deployment to restore correct labels</span>
+kubectl<span class="w"> </span>edit<span class="w"> </span>deployment<span class="w"> </span>coredns<span class="w"> </span>-n<span class="w"> </span>kube-system
+
+<span class="c1"># Ensure these labels exist:</span>
+metadata:
+<span class="w">  </span>labels:
+<span class="w">    </span>k8s-app:<span class="w"> </span>kube-dns<span class="w">  </span><span class="c1"># ← Critical!</span>
+spec:
+<span class="w">  </span>template:
+<span class="w">    </span>metadata:
+<span class="w">      </span>labels:
+<span class="w">        </span>k8s-app:<span class="w"> </span>kube-dns
+
+<span class="c1"># Verify endpoints appear</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>ep<span class="w"> </span>kube-dns<span class="w"> </span>-n<span class="w"> </span>kube-system
+NAME<span class="w">       </span>ENDPOINTS<span class="w">                     </span>AGE
+kube-dns<span class="w">   </span><span class="m">10</span>.244.0.5:53,10.244.0.6:53<span class="w">   </span>5d
+</code></pre></div>
+<p><strong>Impact:</strong> 45-minute DNS outage affecting production traffic. Customer complaints about "service unavailable" errors.</p>
+<hr />
+<h3 id="error-5-transient-startup-timeouts"><strong>Error 5: Transient Startup Timeouts</strong></h3>
+<h4 id="what-you-see_4"><strong>What You See:</strong></h4>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>coredns-xxx<span class="w"> </span>-n<span class="w"> </span>kube-system
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>plugin/kubernetes:<span class="w"> </span>waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>Kubernetes<span class="w"> </span>API<span class="w"> </span>before<span class="w"> </span>starting<span class="w"> </span>server
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>plugin/ready:<span class="w"> </span>Still<span class="w"> </span>waiting<span class="w"> </span>on:<span class="w"> </span><span class="s2">&quot;kubernetes&quot;</span>
+<span class="o">[</span>ERROR<span class="o">]</span><span class="w"> </span>plugin/kubernetes:<span class="w"> </span>dial<span class="w"> </span>tcp<span class="w"> </span><span class="m">10</span>.96.0.1:443:<span class="w"> </span>i/o<span class="w"> </span>timeout
+<span class="o">[</span>WARNING<span class="o">]</span><span class="w"> </span>plugin/kubernetes:<span class="w"> </span>starting<span class="w"> </span>server<span class="w"> </span>with<span class="w"> </span>unsynced<span class="w"> </span>Kubernetes<span class="w"> </span>API
+.:53
+CoreDNS-1.12.1
+<span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>plugin/ready:<span class="w"> </span>Still<span class="w"> </span>waiting<span class="w"> </span>on:<span class="w"> </span><span class="s2">&quot;kubernetes&quot;</span>
+<span class="c1"># ... then errors stop and it works fine</span>
+</code></pre></div>
+<h4 id="real-world-scenario_4"><strong>Real-World Scenario:</strong></h4>
+<p><strong>Company:</strong> Developer's minikube cluster</p>
+<p><strong>What happened:</strong>
+- Minikube cluster restarted (after Docker Desktop update)
+- During pod startup, brief race condition:
+  1. CoreDNS pod starts
+  2. CNI hasn't finished configuring network routes
+  3. CoreDNS can't reach API for ~30 seconds
+  4. Network stabilizes, everything works</p>
+<h4 id="root-cause_4"><strong>Root Cause:</strong></h4>
+<p><strong>This is actually NORMAL startup behavior!</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check pod status - it&#39;s running fine now</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system
+NAME<span class="w">                      </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">      </span>AGE
+coredns-xxx<span class="w">               </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">4</span><span class="w"> </span><span class="o">(</span>19h<span class="w"> </span>ago<span class="o">)</span><span class="w">   </span>83d
+<span class="w">                          </span>↑<span class="w"> </span>Running<span class="w"> </span>fine!<span class="w">   </span>↑<span class="w"> </span>Old<span class="w"> </span>restarts
+</code></pre></div>
+<p>The errors were logged during the restart event 19 hours ago, not currently happening.</p>
+<h4 id="verification"><strong>Verification:</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check for RECENT errors (none = it&#39;s fine)</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>coredns-xxx<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>--since<span class="o">=</span>1h<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ERROR
+<span class="c1"># (no output = no recent errors)</span>
+
+<span class="c1"># Test DNS works</span>
+$<span class="w"> </span>kubectl<span class="w"> </span>run<span class="w"> </span>test-dns<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>kubernetes.default
+Server:<span class="w">    </span><span class="m">10</span>.96.0.10
+Address<span class="w"> </span><span class="m">1</span>:<span class="w"> </span><span class="m">10</span>.96.0.10<span class="w"> </span>kube-dns.kube-system.svc.cluster.local
+Name:<span class="w">      </span>kubernetes.default
+Address<span class="w"> </span><span class="m">1</span>:<span class="w"> </span><span class="m">10</span>.96.0.1<span class="w"> </span>kubernetes.default.svc.cluster.local
+<span class="c1"># ✅ Works perfectly!</span>
+</code></pre></div>
+<h4 id="when-to-worry"><strong>When to Worry:</strong></h4>
+<ul>
+<li>❌ Errors persist for <strong>&gt; 2 minutes</strong> after pod start</li>
+<li>❌ Pod never reaches <code>Running</code> state</li>
+<li>❌ DNS queries actually fail</li>
+</ul>
+<h4 id="when-not-to-worry"><strong>When NOT to Worry:</strong></h4>
+<ul>
+<li>✅ Errors only during pod startup (first 30-60 seconds)</li>
+<li>✅ Pod is <code>Running</code> with <code>1/1</code> ready</li>
+<li>✅ DNS queries work fine</li>
+</ul>
+<p><strong>Impact:</strong> None! This is expected behavior. The logs just look scary.</p>
+<hr />
+<h2 id="troubleshooting-workflow"><strong>Troubleshooting Workflow</strong></h2>
+<h3 id="step-1-check-coredns-pod-status"><strong>Step 1: Check CoreDNS Pod Status</strong></h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>kube-dns
+
+<span class="c1"># Possible states:</span>
+<span class="c1"># Running (1/1)     → ✅ Healthy</span>
+<span class="c1"># Pending           → CNI not installed</span>
+<span class="c1"># CrashLoopBackOff  → DNS loop or SELinux issue</span>
+<span class="c1"># ImagePullBackOff  → Registry problem</span>
+</code></pre></div>
+<h3 id="step-2-check-recent-logs"><strong>Step 2: Check Recent Logs</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Don&#39;t look at ALL logs - only recent ones</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>kube-dns<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span><span class="w"> </span>--since<span class="o">=</span>10m
+
+<span class="c1"># Look for:</span>
+<span class="c1"># [FATAL] plugin/loop     → DNS loop</span>
+<span class="c1"># [ERROR] dial tcp timeout → API connectivity issue</span>
+<span class="c1"># permission denied       → SELinux/RBAC issue</span>
+</code></pre></div>
+<h3 id="step-3-test-dns-resolution"><strong>Step 3: Test DNS Resolution</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Test internal DNS</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>test-dns<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>kubernetes.default
+
+<span class="c1"># Test external DNS</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>test-dns<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>google.com
+
+<span class="c1"># If internal works but external fails → check forward config</span>
+<span class="c1"># If both fail → CoreDNS is broken</span>
+</code></pre></div>
+<h3 id="step-4-check-service-endpoints"><strong>Step 4: Check Service &amp; Endpoints</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify service exists</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>kube-dns<span class="w"> </span>-n<span class="w"> </span>kube-system
+
+<span class="c1"># Check it has endpoints</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>ep<span class="w"> </span>kube-dns<span class="w"> </span>-n<span class="w"> </span>kube-system
+
+<span class="c1"># Should show CoreDNS pod IPs:</span>
+<span class="c1"># ENDPOINTS: 10.244.0.5:53,10.244.0.6:53</span>
+</code></pre></div>
+<h3 id="step-5-verify-network-plugin"><strong>Step 5: Verify Network Plugin</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check CNI is running</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;calico|flannel|weave|cilium&#39;</span>
+
+<span class="c1"># Check nodes are Ready</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+
+<span class="c1"># On node, verify CNI config</span>
+ls<span class="w"> </span>/etc/cni/net.d/
+<span class="c1"># Should have .conf or .conflist files</span>
+</code></pre></div>
+<h3 id="step-6-check-kube-proxy"><strong>Step 6: Check kube-proxy</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># CoreDNS needs kube-proxy to route traffic</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kube-proxy
+
+<span class="c1"># Check logs for errors</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-proxy-xxx
+</code></pre></div>
+<hr />
+<h2 id="prevention-best-practices"><strong>Prevention Best Practices</strong></h2>
+<h3 id="1-always-install-cni-first"><strong>1. Always Install CNI First</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Correct order when building cluster:</span>
+kubeadm<span class="w"> </span>init<span class="w">                    </span><span class="c1"># 1. Initialize control plane</span>
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>calico.yaml<span class="w">    </span><span class="c1"># 2. Install CNI immediately</span>
+kubectl<span class="w"> </span>join...<span class="w">                 </span><span class="c1"># 3. Then join nodes</span>
+</code></pre></div>
+<h3 id="2-configure-kubelet-before-deploying"><strong>2. Configure kubelet Before Deploying</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set this BEFORE first boot</span>
+<span class="c1"># /var/lib/kubelet/config.yaml</span>
+resolvConf:<span class="w"> </span>/run/systemd/resolve/resolv.conf
+</code></pre></div>
+<h3 id="3-monitor-coredns-health"><strong>3. Monitor CoreDNS Health</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Prometheus metrics</span>
+curl<span class="w"> </span>http://&lt;coredns-pod-ip&gt;:9153/metrics
+
+<span class="c1"># Key metrics:</span>
+<span class="c1"># coredns_dns_request_count_total</span>
+<span class="c1"># coredns_dns_request_duration_seconds</span>
+<span class="c1"># coredns_forward_request_count_total</span>
+</code></pre></div>
+<h3 id="4-set-resource-limits"><strong>4. Set Resource Limits</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># CoreDNS can OOM under heavy load</span>
+<span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;170Mi&quot;</span>
+<span class="w">    </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;100m&quot;</span>
+<span class="w">  </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;512Mi&quot;</span><span class="w">  </span><span class="c1"># Increase for large clusters</span>
+<span class="w">    </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500m&quot;</span>
+</code></pre></div>
+<h3 id="5-use-multiple-replicas"><strong>5. Use Multiple Replicas</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># For high availability</span>
+kubectl<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>coredns<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>--replicas<span class="o">=</span><span class="m">3</span>
+</code></pre></div>
+<hr />
+<h2 id="quick-reference-error-solution"><strong>Quick Reference: Error → Solution</strong></h2>
+<table>
+<thead>
+<tr>
+<th>Error Message</th>
+<th>Root Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[FATAL] plugin/loop</code></td>
+<td>DNS loop detected</td>
+<td>Configure kubelet <code>resolvConf</code> or use <code>forward . 8.8.8.8</code></td>
+</tr>
+<tr>
+<td><code>dial tcp timeout</code></td>
+<td>Can't reach API</td>
+<td>Install CNI plugin</td>
+</tr>
+<tr>
+<td><code>CrashLoopBackOff</code></td>
+<td>SELinux or permissions</td>
+<td>Set <code>allowPrivilegeEscalation: true</code></td>
+</tr>
+<tr>
+<td><code>No endpoints</code></td>
+<td>Label mismatch</td>
+<td>Fix deployment labels to match service selector</td>
+</tr>
+<tr>
+<td><code>Waiting for Kubernetes API</code> (brief)</td>
+<td>Startup race condition</td>
+<td>Normal - wait 60 seconds</td>
+</tr>
+<tr>
+<td><code>permission denied</code></td>
+<td>RBAC or SELinux</td>
+<td>Check ServiceAccount and SELinux mode</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="real-world-lesson-always-check-timestamps"><strong>Real-World Lesson: Always Check Timestamps!</strong></h2>
+<p><strong>The most important takeaway:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># This looks scary:</span>
+<span class="o">[</span>ERROR<span class="o">]</span><span class="w"> </span>plugin/kubernetes:<span class="w"> </span>Unhandled<span class="w"> </span>Error
+
+<span class="c1"># But check when it happened:</span>
+RESTARTS:<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">(</span>19h<span class="w"> </span>ago<span class="o">)</span>
+<span class="w">         </span>↑<span class="w"> </span>These<span class="w"> </span>errors<span class="w"> </span>are<span class="w"> </span>from<span class="w"> </span><span class="m">19</span><span class="w"> </span>hours<span class="w"> </span>ago!
+
+<span class="c1"># Current status:</span>
+READY:<span class="w"> </span><span class="m">1</span>/1,<span class="w"> </span>STATUS:<span class="w"> </span>Running
+<span class="w">       </span>↑<span class="w"> </span>It<span class="err">&#39;</span>s<span class="w"> </span>working<span class="w"> </span>fine<span class="w"> </span>NOW
+</code></pre></div>
+<p><strong>Key insight:</strong> Old errors in logs don't mean current problems. Always:
+1. Check pod status first (<code>1/1 Running</code> = probably fine)
+2. Use <code>--since=1h</code> to see only recent logs
+3. Actually test DNS before assuming it's broken</p>
+<hr />
+<h2 id="kube-proxy-overview"><strong>kube-proxy Overview</strong></h2>
+<h3 id="what-is-kube-proxy"><strong>What is kube-proxy?</strong></h3>
+<p>kube-proxy is a network proxy that runs on <strong>every node</strong> (as a DaemonSet). It maintains network rules that allow traffic to Services to be routed to the correct pods.</p>
+<h3 id="how-it-works"><strong>How it Works</strong></h3>
+<div class="highlight"><pre><span></span><code>Client connects to Service IP (10.96.5.100:80)
+         ↓
+kube-proxy intercepts using iptables/ipvs rules
+         ↓
+Forwards to actual pod (10.244.2.15:8080)
+         ↓
+Pod processes request
+</code></pre></div>
+<h3 id="key-components_1"><strong>Key Components</strong></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># kube-proxy runs with this config:</span>
+/usr/local/bin/kube-proxy<span class="w"> </span>--config<span class="o">=</span>/var/lib/kube-proxy/config.conf
+
+<span class="c1"># Config includes:</span>
+<span class="c1"># - clusterCIDR: Pod IP range</span>
+<span class="c1"># - mode: iptables, ipvs, or userspace</span>
+<span class="c1"># - bindAddress: What IP to listen on</span>
+<span class="c1"># - kubeconfig: How to authenticate to API</span>
+</code></pre></div>
+<h3 id="common-kube-proxy-issues"><strong>Common kube-proxy Issues</strong></h3>
+<h4 id="problem-1-services-not-accessible"><strong>Problem 1: Services Not Accessible</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if kube-proxy is running</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kube-proxy
+
+<span class="c1"># Check logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-proxy-xxx
+
+<span class="c1"># Verify it&#39;s listening</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-proxy-xxx<span class="w"> </span>--<span class="w"> </span>netstat<span class="w"> </span>-plan<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kube-proxy
+<span class="c1"># Should see ports like 10249 (metrics) and 10256 (healthz)</span>
+</code></pre></div>
+<h4 id="problem-2-wrong-configmap"><strong>Problem 2: Wrong ConfigMap</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the config</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>kube-proxy<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># Verify mode matches your setup</span>
+mode:<span class="w"> </span><span class="s2">&quot;iptables&quot;</span><span class="w">  </span><span class="c1"># or &quot;ipvs&quot;</span>
+</code></pre></div>
+<h4 id="problem-3-iptables-rules-missing"><strong>Problem 3: iptables Rules Missing</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># On a node, check if rules exist</span>
+sudo<span class="w"> </span>iptables-save<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>KUBE-SERVICES
+
+<span class="c1"># Should see many rules like:</span>
+<span class="c1"># -A KUBE-SERVICES -d 10.96.0.10/32 -p tcp -m tcp --dport 53 -j KUBE-SVC-XXX</span>
+</code></pre></div>
+<hr />
+<h2 id="summary"><strong>Summary</strong></h2>
+<p>CoreDNS is critical infrastructure that requires:
+- ✅ Working CNI plugin
+- ✅ Proper <code>/etc/resolv.conf</code> configuration
+- ✅ Correct RBAC permissions
+- ✅ Network connectivity to API server
+- ✅ Matching service selectors and labels</p>
+<p>kube-proxy is essential for:
+- ✅ Service IP to Pod IP translation
+- ✅ Load balancing across pod replicas
+- ✅ Network rule management</p>
+<p>When troubleshooting:
+1. Don't panic at old logs
+2. Check current pod status
+3. Test actual DNS resolution
+4. Verify network plugin is running
+5. Check timestamps on errors</p>
+<p>Most "errors" are actually normal startup behavior - verify with actual DNS tests before declaring an emergency! 🎯</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

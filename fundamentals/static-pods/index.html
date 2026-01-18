@@ -1,0 +1,4094 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete Kubernetes Troubleshooting Guide for CKA Exam Preparation">
+      
+      
+      
+      
+        <link rel="prev" href="../daemonsets/">
+      
+      
+        <link rel="next" href="../configmaps/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Static Pods (Kubelet Managed) - CKA Exam Notes - Kubernetes Troubleshooting</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#understanding-static-pods-in-kubernetes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CKA Exam Notes - Kubernetes Troubleshooting
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Static Pods (Kubelet Managed)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../SUMMARY/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Summary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../yaml-guide/" class="md-tabs__link">
+          
+  
+  
+  Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+          
+  
+  
+  Lab Setup
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
+          
+  
+  
+  Cluster Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Components
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
+          
+  
+  
+  Deep Dives
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../statefulset-pvc-explained/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  StatefulSet & PVC
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
+          
+  
+  
+  Exam Tips
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
+          
+  
+  
+  Diagrams
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CKA Exam Notes - Kubernetes Troubleshooting
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../yaml-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    YAML Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Pods & Deployments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versions (v1 vs apps/v1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service Types (ClusterIP/NodePort/LB)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../labels-selectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labels and Selectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annotations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotations (Metadata)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resource-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Requests & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../limitrange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LimitRange (Resource Guardrails)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resource-quota/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Quota (The Budget)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../daemonsets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DaemonSets (The Node Resident)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods (Kubelet Managed)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods (Kubelet Managed)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-static-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are Static Pods?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-static-pods-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Static Pods Work
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Static Pods Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-basic-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Basic Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-kubelet-gets-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where Kubelet Gets Manifests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-static-pod-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the Static Pod Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-configuration-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Configuration Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-static-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a Static Pod
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Static Pod">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-creating-a-static-nginx-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Creating a Static Nginx Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming Convention
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-static-pods-are-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Static Pods are Needed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why Static Pods are Needed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-bootstrapping-the-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Bootstrapping the Control Plane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-critical-node-specific-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Critical Node-Specific Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-air-gapped-or-isolated-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Air-Gapped or Isolated Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cluster-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cluster Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-when-theres-no-master-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens When There's No Master Node?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Happens When There&#39;s No Master Node?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-master-node-is-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: Master Node is Down
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-to-different-pod-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens to Different Pod Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-pods-vs-regular-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static Pods vs Regular Pods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mirror-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mirror Pods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mirror Pods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-mirror-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a Mirror Pod?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trying-to-delete-a-mirror-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trying to Delete a Mirror Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases-and-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases and Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Cases and Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-case-1-control-plane-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 1: Control Plane Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-2-node-monitoring-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 2: Node Monitoring Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-3-edge-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 3: Edge Computing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-4-disaster-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 4: Disaster Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-5-custom-node-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 5: Custom Node Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-static-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Static Pods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing Static Pods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues and Solutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues and Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-1-static-pod-not-starting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 1: Static Pod Not Starting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-2-cannot-delete-static-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 2: Cannot Delete Static Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-3-static-pod-path-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 3: Static Pod Path Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-pods-in-cka-exam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static Pods in CKA Exam
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Static Pods in CKA Exam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do's
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#donts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Don'ts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-with-daemonsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison with DaemonSets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-static-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Static Pods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configmaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ConfigMaps (Configuration Data)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../replicasets-vs-deployments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ReplicaSets vs Deployments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pod Scheduling
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pod Scheduling
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-scheduling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-scheduling/taints-tolerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taints and Tolerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-scheduling/node-selector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node Selector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-scheduling/node-affinity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node Affinity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taints vs Affinity (Comparison)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-scheduling/priority-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Priority Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-scheduling/multiple-schedulers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple Schedulers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-scheduling/scheduler-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scheduler Profiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom-key-values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Key-Value Pairs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubeadm on Mac (Multipass)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes on AWS (kOps)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster Join Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cluster Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods vs Systemd
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admission Controllers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kube-Proxy Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD Data Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dives
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dives
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD & Backup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coredns-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoreDNS Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../statefulset-pvc-explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet & PVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exam Tips
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exam Tips
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kubectl Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dry-Run Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diagrams
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting Flowchart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../statefulset-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network-policy-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Policy Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-static-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are Static Pods?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-static-pods-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Static Pods Work
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Static Pods Work">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-basic-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Basic Concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-kubelet-gets-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where Kubelet Gets Manifests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-static-pod-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the Static Pod Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-configuration-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Configuration Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-static-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a Static Pod
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Static Pod">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-creating-a-static-nginx-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Creating a Static Nginx Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming Convention
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-static-pods-are-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Static Pods are Needed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why Static Pods are Needed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-bootstrapping-the-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Bootstrapping the Control Plane
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-critical-node-specific-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Critical Node-Specific Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-air-gapped-or-isolated-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Air-Gapped or Isolated Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cluster-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cluster Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-when-theres-no-master-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens When There's No Master Node?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Happens When There&#39;s No Master Node?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-master-node-is-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: Master Node is Down
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-to-different-pod-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens to Different Pod Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-pods-vs-regular-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static Pods vs Regular Pods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mirror-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mirror Pods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mirror Pods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-mirror-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a Mirror Pod?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trying-to-delete-a-mirror-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trying to Delete a Mirror Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases-and-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases and Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Cases and Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-case-1-control-plane-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 1: Control Plane Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-2-node-monitoring-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 2: Node Monitoring Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-3-edge-computing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 3: Edge Computing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-4-disaster-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 4: Disaster Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-5-custom-node-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Case 5: Custom Node Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-static-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Static Pods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing Static Pods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues and Solutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues and Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-1-static-pod-not-starting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 1: Static Pod Not Starting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-2-cannot-delete-static-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 2: Cannot Delete Static Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-3-static-pod-path-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue 3: Static Pod Path Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-pods-in-cka-exam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static Pods in CKA Exam
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Static Pods in CKA Exam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do's
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#donts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Don'ts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-with-daemonsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison with DaemonSets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-static-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Static Pods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="understanding-static-pods-in-kubernetes">Understanding Static Pods in Kubernetes</h1>
+<h2 id="what-are-static-pods">What are Static Pods?</h2>
+<p><strong>Static Pods</strong> are pods that are managed directly by the <strong>kubelet</strong> on a specific node, <strong>without</strong> the Kubernetes API server or any controllers (like Deployments or ReplicaSets) managing them.</p>
+<div class="admonition note">
+<p class="admonition-title">Key Difference</p>
+<ul>
+<li><strong>Regular Pods</strong>: Created and managed by the API server and controllers</li>
+<li><strong>Static Pods</strong>: Created and managed directly by kubelet on each node</li>
+</ul>
+</div>
+<h2 id="how-static-pods-work">How Static Pods Work</h2>
+<h3 id="the-basic-concept">The Basic Concept</h3>
+<div class="highlight"><pre><span></span><code>Regular Pod Flow:
+User → kubectl → API Server → Scheduler → Kubelet → Pod
+
+Static Pod Flow:
+Manifest file on node → Kubelet reads it → Kubelet creates Pod
+(No API server, no scheduler involved!)
+</code></pre></div>
+<h3 id="where-kubelet-gets-manifests">Where Kubelet Gets Manifests</h3>
+<p>The kubelet watches a specific directory on the node's filesystem for YAML/JSON pod manifests:</p>
+<p><strong>Default location (configurable):</strong>
+<div class="highlight"><pre><span></span><code>/etc/kubernetes/manifests/
+</code></pre></div></p>
+<p>This path is defined in the kubelet configuration.</p>
+<h3 id="the-process">The Process</h3>
+<ol>
+<li><strong>You place a pod manifest</strong> in <code>/etc/kubernetes/manifests/</code></li>
+<li><strong>Kubelet watches this directory</strong> (filesystem monitoring)</li>
+<li><strong>Kubelet reads the manifest</strong> and creates the pod</li>
+<li><strong>Kubelet manages the pod</strong> directly</li>
+<li><strong>If the pod crashes</strong>, kubelet restarts it automatically</li>
+<li><strong>If you delete the manifest file</strong>, kubelet deletes the pod</li>
+<li><strong>If you modify the manifest file</strong>, kubelet updates the pod</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Self-Healing</p>
+<p>Static pods are automatically restarted by kubelet if they crash, just like regular pods.</p>
+</div>
+<h2 id="configuration">Configuration</h2>
+<h3 id="finding-the-static-pod-path">Finding the Static Pod Path</h3>
+<p>The static pod path is configured in the kubelet config file:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check kubelet config</span>
+cat<span class="w"> </span>/var/lib/kubelet/config.yaml
+</code></pre></div>
+<p>Look for:
+<div class="highlight"><pre><span></span><code><span class="nt">staticPodPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/manifests</span>
+</code></pre></div></p>
+<p>Or in the kubelet service file:
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
+<span class="c1"># Look for --pod-manifest-path flag</span>
+</code></pre></div></p>
+<h3 id="alternative-configuration-methods">Alternative Configuration Methods</h3>
+<p><strong>Method 1: Static Pod Path (Recommended)</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># /var/lib/kubelet/config.yaml</span>
+<span class="nt">staticPodPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/manifests</span>
+</code></pre></div></p>
+<p><strong>Method 2: Manifest URL</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># /var/lib/kubelet/config.yaml</span>
+<span class="nt">staticPodURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://example.com/manifests/</span>
+</code></pre></div></p>
+<p>Kubelet can fetch manifests from a URL (less common).</p>
+<h2 id="creating-a-static-pod">Creating a Static Pod</h2>
+<h3 id="example-creating-a-static-nginx-pod">Example: Creating a Static Nginx Pod</h3>
+<p><strong>Step 1: Create the manifest</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SSH to the node</span>
+ssh<span class="w"> </span>user@node1
+
+<span class="c1"># Create manifest in the static pod directory</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/kubernetes/manifests/static-nginx.yaml
+</code></pre></div>
+<p><strong>Step 2: Add the pod definition</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">static-nginx</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">static</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx:1.19</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+</code></pre></div>
+<p><strong>Step 3: Save the file</strong></p>
+<p>The kubelet automatically detects the file and creates the pod!</p>
+<p><strong>Step 4: Verify</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># On the node</span>
+sudo<span class="w"> </span>crictl<span class="w"> </span>pods
+<span class="c1"># You&#39;ll see static-nginx running</span>
+
+<span class="c1"># From master node (if API server is running)</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A
+<span class="c1"># You&#39;ll see static-nginx-node1 (note the node name suffix)</span>
+</code></pre></div>
+<h3 id="naming-convention">Naming Convention</h3>
+<p>Static pods appear in <code>kubectl get pods</code> with the <strong>node name as a suffix</strong>:</p>
+<div class="highlight"><pre><span></span><code>Pod manifest name: static-nginx
+Actual pod name:   static-nginx-node1
+                                 ^^^^^ node hostname appended
+</code></pre></div>
+<h2 id="why-static-pods-are-needed">Why Static Pods are Needed</h2>
+<h3 id="1-bootstrapping-the-control-plane">1. Bootstrapping the Control Plane</h3>
+<p><strong>The Chicken-and-Egg Problem:</strong></p>
+<p>How do you run the API server if you need the API server to run pods?</p>
+<p><strong>Answer: Static Pods!</strong></p>
+<p>On a kubeadm-created cluster, the control plane components run as static pods:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># On master node</span>
+ls<span class="w"> </span>/etc/kubernetes/manifests/
+
+<span class="c1"># Output:</span>
+etcd.yaml
+kube-apiserver.yaml
+kube-controller-manager.yaml
+kube-scheduler.yaml
+</code></pre></div>
+<p><strong>The Bootstrap Process:</strong></p>
+<ol>
+<li>Node boots up</li>
+<li>Kubelet starts (it's a system service)</li>
+<li>Kubelet reads <code>/etc/kubernetes/manifests/</code></li>
+<li>Kubelet starts:</li>
+<li>etcd (static pod)</li>
+<li>kube-apiserver (static pod)</li>
+<li>kube-controller-manager (static pod)</li>
+<li>kube-scheduler (static pod)</li>
+<li>Now the control plane is running!</li>
+<li>Now the API server can manage regular pods</li>
+</ol>
+<div class="admonition success">
+<p class="admonition-title">Self-Hosting</p>
+<p>This is called "self-hosting" - Kubernetes manages itself using its own mechanisms.</p>
+</div>
+<h3 id="2-critical-node-specific-services">2. Critical Node-Specific Services</h3>
+<p>Services that <strong>must</strong> run on specific nodes, independent of the control plane:</p>
+<ul>
+<li><strong>Monitoring agents</strong> that must run even if the control plane is down</li>
+<li><strong>Logging agents</strong> that collect kubelet logs</li>
+<li><strong>Node-critical workloads</strong> that need guaranteed placement</li>
+</ul>
+<h3 id="3-air-gapped-or-isolated-environments">3. Air-Gapped or Isolated Environments</h3>
+<p>In environments without API server access:</p>
+<ul>
+<li>Edge computing nodes</li>
+<li>IoT devices</li>
+<li>Disconnected/offline scenarios</li>
+<li>Disaster recovery scenarios</li>
+</ul>
+<h3 id="4-cluster-recovery">4. Cluster Recovery</h3>
+<p>If the control plane crashes but nodes are still running:</p>
+<ul>
+<li>Static pods keep running</li>
+<li>Critical services remain available</li>
+<li>You can troubleshoot and recover</li>
+</ul>
+<h2 id="what-happens-when-theres-no-master-node">What Happens When There's No Master Node?</h2>
+<p>This is where static pods shine!</p>
+<h3 id="scenario-master-node-is-down">Scenario: Master Node is Down</h3>
+<div class="highlight"><pre><span></span><code>Before (Normal Operation):
+┌─────────────┐         ┌──────────────┐
+│ Master Node │────────▶│ Worker Node  │
+│ API Server  │ manages │ Regular Pods │
+│ Scheduler   │         │              │
+└─────────────┘         └──────────────┘
+
+After (Master Down):
+┌─────────────┐         ┌──────────────┐
+│ Master Node │  XXXX   │ Worker Node  │
+│   (DOWN)    │  DEAD   │ Static Pods  │
+│             │         │ STILL RUNNING│
+└─────────────┘         └──────────────┘
+</code></pre></div>
+<h3 id="what-happens-to-different-pod-types">What Happens to Different Pod Types</h3>
+<p><strong>Static Pods:</strong>
+<div class="highlight"><pre><span></span><code>✅ Keep running
+✅ Kubelet restarts them if they crash
+✅ Completely independent of master
+✅ Can still be managed via manifest files
+</code></pre></div></p>
+<p><strong>Regular Pods (DaemonSets, Deployments, etc.):</strong>
+<div class="highlight"><pre><span></span><code>✅ Keep running (for now)
+❌ If they crash, they won&#39;t be restarted
+❌ No new pods can be scheduled
+❌ Cannot be updated or scaled
+⚠️  Gradually become unhealthy
+</code></pre></div></p>
+<h3 id="practical-example">Practical Example</h3>
+<p><strong>Setup:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Master node runs control plane as static pods</span>
+/etc/kubernetes/manifests/
+<span class="w">  </span>├──<span class="w"> </span>etcd.yaml
+<span class="w">  </span>├──<span class="w"> </span>kube-apiserver.yaml
+<span class="w">  </span>├──<span class="w"> </span>kube-controller-manager.yaml
+<span class="w">  </span>└──<span class="w"> </span>kube-scheduler.yaml
+
+<span class="c1"># Worker node runs application as regular pod</span>
+<span class="c1"># Plus a monitoring agent as static pod</span>
+/etc/kubernetes/manifests/
+<span class="w">  </span>└──<span class="w"> </span>node-monitoring.yaml
+</code></pre></div></p>
+<p><strong>Master fails:</strong>
+<div class="highlight"><pre><span></span><code>Master Node:
+  ❌ API server - down
+  ❌ Scheduler - down
+  ❌ Controller manager - down
+
+Worker Node:
+  ✅ Static monitoring pod - still running
+  ✅ Application pods - still running (for now)
+  ❌ If app pod crashes - won&#39;t restart (no controller)
+  ✅ If static pod crashes - kubelet restarts it
+</code></pre></div></p>
+<p><strong>Recovery:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Even with master down, you can still manage static pods</span>
+
+<span class="c1"># Add new static pod on worker</span>
+ssh<span class="w"> </span>worker-node
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/kubernetes/manifests/debug-pod.yaml
+<span class="c1"># Pod starts immediately!</span>
+
+<span class="c1"># Remove static pod</span>
+sudo<span class="w"> </span>rm<span class="w"> </span>/etc/kubernetes/manifests/debug-pod.yaml
+<span class="c1"># Pod stops immediately!</span>
+</code></pre></div></p>
+<h2 id="static-pods-vs-regular-pods">Static Pods vs Regular Pods</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Static Pods</th>
+<th>Regular Pods</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Managed by</strong></td>
+<td>Kubelet directly</td>
+<td>API server + controllers</td>
+</tr>
+<tr>
+<td><strong>Manifest location</strong></td>
+<td>Node filesystem</td>
+<td>etcd (via API server)</td>
+</tr>
+<tr>
+<td><strong>Survives master failure</strong></td>
+<td>✅ Yes</td>
+<td>❌ No (won't restart if crashed)</td>
+</tr>
+<tr>
+<td><strong>Can be created via kubectl</strong></td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><strong>Visible in kubectl get pods</strong></td>
+<td>✅ Yes (as mirror pods)</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><strong>Can be deleted via kubectl</strong></td>
+<td>❌ No (must delete manifest file)</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><strong>Scheduled by scheduler</strong></td>
+<td>❌ No (always on same node)</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><strong>Node binding</strong></td>
+<td>✅ Permanent (tied to node)</td>
+<td>❌ Can be rescheduled</td>
+</tr>
+<tr>
+<td><strong>Restart policy</strong></td>
+<td>✅ Kubelet restarts</td>
+<td>✅ Controller restarts</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mirror-pods">Mirror Pods</h2>
+<p>When a static pod is created, kubelet creates a <strong>mirror pod</strong> in the API server (if it's available).</p>
+<h3 id="what-is-a-mirror-pod">What is a Mirror Pod?</h3>
+<p>A <strong>read-only</strong> representation of the static pod in the API server:</p>
+<div class="highlight"><pre><span></span><code>Node Filesystem:           API Server (etcd):
+/etc/kubernetes/manifests/ 
+  └── nginx.yaml    ────▶  Mirror Pod: nginx-node1
+                           (read-only reflection)
+</code></pre></div>
+<p><strong>Characteristics:</strong>
+- ✅ Visible via <code>kubectl get pods</code>
+- ❌ Cannot be deleted via <code>kubectl delete</code>
+- ❌ Cannot be modified via <code>kubectl edit</code>
+- ✅ Shows status and logs
+- ✅ Automatically updated when manifest changes</p>
+<p><strong>Identifying Mirror Pods:</strong></p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>static-nginx-node1<span class="w"> </span>-o<span class="w"> </span>yaml
+</code></pre></div>
+<p>Look for this annotation:
+<div class="highlight"><pre><span></span><code><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kubernetes.io/config.mirror</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span><span class="w">  </span><span class="c1"># This is a mirror pod!</span>
+<span class="w">  </span><span class="nt">ownerReferences</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Node</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node1</span>
+<span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div></p>
+<h3 id="trying-to-delete-a-mirror-pod">Trying to Delete a Mirror Pod</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># This appears to work...</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>static-nginx-node1
+<span class="c1"># pod &quot;static-nginx-node1&quot; deleted</span>
+
+<span class="c1"># But the pod comes right back!</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods
+<span class="c1"># NAME                  READY   STATUS    RESTARTS   AGE</span>
+<span class="c1"># static-nginx-node1    1/1     Running   0          3s</span>
+
+<span class="c1"># Because kubelet recreates it from the manifest file!</span>
+</code></pre></div>
+<p><strong>To actually delete it:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># SSH to the node</span>
+ssh<span class="w"> </span>node1
+
+<span class="c1"># Delete the manifest file</span>
+sudo<span class="w"> </span>rm<span class="w"> </span>/etc/kubernetes/manifests/static-nginx.yaml
+
+<span class="c1"># Now it&#39;s really gone</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods
+<span class="c1"># No resources found</span>
+</code></pre></div></p>
+<h2 id="use-cases-and-scenarios">Use Cases and Scenarios</h2>
+<h3 id="use-case-1-control-plane-components">Use Case 1: Control Plane Components</h3>
+<p><strong>Scenario:</strong> Running Kubernetes control plane itself</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># On master node</span>
+ls<span class="w"> </span>/etc/kubernetes/manifests/
+</code></pre></div>
+<p><strong>Manifests:</strong>
+<div class="highlight"><pre><span></span><code>etcd.yaml                    # Database for cluster state
+kube-apiserver.yaml          # API server
+kube-controller-manager.yaml # Controllers
+kube-scheduler.yaml          # Scheduler
+</code></pre></div></p>
+<p><strong>Why static pods?</strong>
+- Control plane needs to start before API server is available
+- Self-hosting: Kubernetes manages its own components
+- Survives control plane failures (can restart itself)</p>
+<h3 id="use-case-2-node-monitoring-agent">Use Case 2: Node Monitoring Agent</h3>
+<p><strong>Scenario:</strong> Critical monitoring that must always run</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/kubernetes/manifests/node-exporter.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node-exporter</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">hostNetwork</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">hostPID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node-exporter</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prom/node-exporter:latest</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9100</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">proc</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/host/proc</span>
+<span class="w">      </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sys</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/host/sys</span>
+<span class="w">      </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">proc</span>
+<span class="w">    </span><span class="nt">hostPath</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/proc</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sys</span>
+<span class="w">    </span><span class="nt">hostPath</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/sys</span>
+</code></pre></div>
+<p><strong>Why static pod?</strong>
+- Runs even if master is down
+- Monitors node health independently
+- Guaranteed to be on specific node</p>
+<h3 id="use-case-3-edge-computing">Use Case 3: Edge Computing</h3>
+<p><strong>Scenario:</strong> IoT device with intermittent master connectivity</p>
+<div class="highlight"><pre><span></span><code>Cloud (Master):              Edge Device (Worker):
+┌──────────────┐            ┌─────────────────────┐
+│ API Server   │            │ Kubelet             │
+│ (Sometimes   │ ◀────┬────▶│ Static Pods:        │
+│  unreachable)│      │     │  - Data collector   │
+└──────────────┘      │     │  - Local processor  │
+                      │     │  - Cache service    │
+        Intermittent  │     └─────────────────────┘
+        connection    │
+                      └─── Works offline!
+</code></pre></div>
+<p><strong>Static pods on edge device:</strong>
+<div class="highlight"><pre><span></span><code>/etc/kubernetes/manifests/
+<span class="w">  </span>├──<span class="w"> </span>data-collector.yaml<span class="w">    </span><span class="c1"># Collects sensor data</span>
+<span class="w">  </span>├──<span class="w"> </span>local-processor.yaml<span class="w">   </span><span class="c1"># Processes data locally</span>
+<span class="w">  </span>└──<span class="w"> </span>cache-service.yaml<span class="w">     </span><span class="c1"># Caches data for sync</span>
+</code></pre></div></p>
+<p><strong>Benefits:</strong>
+- Works offline when master is unreachable
+- Guaranteed to run on edge device
+- Kubelet manages lifecycle independently</p>
+<h3 id="use-case-4-disaster-recovery">Use Case 4: Disaster Recovery</h3>
+<p><strong>Scenario:</strong> Control plane crashed, need to debug</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Master is completely down</span>
+<span class="c1"># But you can still deploy debug tools as static pods!</span>
+
+<span class="c1"># SSH to worker node</span>
+ssh<span class="w"> </span>worker-node1
+
+<span class="c1"># Create debug pod</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF | sudo tee /etc/kubernetes/manifests/debug.yaml</span>
+<span class="s">apiVersion: v1</span>
+<span class="s">kind: Pod</span>
+<span class="s">metadata:</span>
+<span class="s">  name: debug-tools</span>
+<span class="s">spec:</span>
+<span class="s">  hostNetwork: true</span>
+<span class="s">  containers:</span>
+<span class="s">  - name: debug</span>
+<span class="s">    image: nicolaka/netshoot</span>
+<span class="s">    command: [&quot;sleep&quot;, &quot;infinity&quot;]</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Pod starts immediately!</span>
+<span class="c1"># Now you can exec into it and debug</span>
+sudo<span class="w"> </span>crictl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;container-id&gt;<span class="w"> </span>bash
+</code></pre></div>
+<h3 id="use-case-5-custom-node-services">Use Case 5: Custom Node Services</h3>
+<p><strong>Scenario:</strong> Node-specific service that must run on exact node</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/kubernetes/manifests/local-cache.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-cache</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:alpine</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-data</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data</span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-data</span>
+<span class="w">    </span><span class="nt">hostPath</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/mnt/ssd/redis-cache</span><span class="w">  </span><span class="c1"># Fast local SSD</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DirectoryOrCreate</span>
+</code></pre></div>
+<p><strong>Why static pod?</strong>
+- Guaranteed placement on node with specific hardware (SSD)
+- Uses local node storage
+- No risk of being rescheduled elsewhere</p>
+<h2 id="managing-static-pods">Managing Static Pods</h2>
+<h3 id="creating">Creating</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># SSH to node</span>
+ssh<span class="w"> </span>node1
+
+<span class="c1"># Create manifest</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/kubernetes/manifests/my-pod.yaml
+
+<span class="c1"># Kubelet detects and creates it automatically</span>
+</code></pre></div>
+<h3 id="updating">Updating</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit the manifest file</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/kubernetes/manifests/my-pod.yaml
+
+<span class="c1"># Kubelet detects changes and recreates the pod</span>
+<span class="c1"># (Old pod deleted, new pod created)</span>
+</code></pre></div>
+<h3 id="deleting">Deleting</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Remove the manifest file</span>
+sudo<span class="w"> </span>rm<span class="w"> </span>/etc/kubernetes/manifests/my-pod.yaml
+
+<span class="c1"># Kubelet detects deletion and removes the pod</span>
+</code></pre></div>
+<h3 id="viewing-logs">Viewing Logs</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># From node (using crictl)</span>
+sudo<span class="w"> </span>crictl<span class="w"> </span>logs<span class="w"> </span>&lt;container-id&gt;
+
+<span class="c1"># From master (using kubectl, if API server is up)</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>static-pod-name-node1
+</code></pre></div>
+<h3 id="debugging">Debugging</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if kubelet is watching the directory</span>
+sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>-f
+
+<span class="c1"># Check pod status on node</span>
+sudo<span class="w"> </span>crictl<span class="w"> </span>pods
+
+<span class="c1"># Check pod status via kubectl</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>node1
+
+<span class="c1"># Describe the mirror pod</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>static-pod-name-node1
+</code></pre></div>
+<h2 id="common-issues-and-solutions">Common Issues and Solutions</h2>
+<h3 id="issue-1-static-pod-not-starting">Issue 1: Static Pod Not Starting</h3>
+<p><strong>Problem:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Created manifest but pod doesn&#39;t start</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/kubernetes/manifests/test.yaml
+<span class="c1"># ... wait ...</span>
+crictl<span class="w"> </span>pods<span class="w">  </span><span class="c1"># Pod not showing up</span>
+</code></pre></div></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>
+<p><strong>Check kubelet is running:</strong>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Check kubelet logs:</strong>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>-f
+<span class="c1"># Look for errors parsing manifest</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Verify static pod path:</strong>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/var/lib/kubelet/config.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>staticPodPath
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Check manifest syntax:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Validate YAML</span>
+kubectl<span class="w"> </span>apply<span class="w"> </span>--dry-run<span class="o">=</span>client<span class="w"> </span>-f<span class="w"> </span>/etc/kubernetes/manifests/test.yaml
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="issue-2-cannot-delete-static-pod">Issue 2: Cannot Delete Static Pod</h3>
+<p><strong>Problem:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>static-nginx-node1
+<span class="c1"># pod &quot;static-nginx-node1&quot; deleted</span>
+
+kubectl<span class="w"> </span>get<span class="w"> </span>pods
+<span class="c1"># Pod comes right back!</span>
+</code></pre></div></p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># You must delete the manifest file on the node</span>
+ssh<span class="w"> </span>node1
+sudo<span class="w"> </span>rm<span class="w"> </span>/etc/kubernetes/manifests/static-nginx.yaml
+</code></pre></div></p>
+<h3 id="issue-3-static-pod-path-changed">Issue 3: Static Pod Path Changed</h3>
+<p><strong>Problem:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Changed kubelet config but pods not loading</span>
+</code></pre></div></p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Restart kubelet after changing config</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>kubelet
+
+<span class="c1"># Verify new path is loaded</span>
+sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>staticPodPath
+</code></pre></div></p>
+<h2 id="static-pods-in-cka-exam">Static Pods in CKA Exam</h2>
+<h3 id="common-tasks">Common Tasks</h3>
+<p><strong>Task 1: Create a static pod</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SSH to the specified node</span>
+ssh<span class="w"> </span>node01
+
+<span class="c1"># Create manifest in static pod directory</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/kubernetes/manifests/static-web.yaml
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">static-web</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+</code></pre></div>
+<p><strong>Task 2: Identify static pods</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Look for pods with node name suffix</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A
+
+<span class="c1"># Check for mirror pod annotation</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>config.mirror
+</code></pre></div>
+<p><strong>Task 3: Delete a static pod</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Identify which node it&#39;s on</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>static-pod-node01<span class="w"> </span>-o<span class="w"> </span>wide
+
+<span class="c1"># SSH to that node</span>
+ssh<span class="w"> </span>node01
+
+<span class="c1"># Find and delete manifest</span>
+ls<span class="w"> </span>/etc/kubernetes/manifests/
+sudo<span class="w"> </span>rm<span class="w"> </span>/etc/kubernetes/manifests/static-pod.yaml
+</code></pre></div>
+<p><strong>Task 4: Find static pod manifest path</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check kubelet config</span>
+cat<span class="w"> </span>/var/lib/kubelet/config.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>staticPodPath
+
+<span class="c1"># Or check systemd service</span>
+ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kubelet<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>pod-manifest-path
+</code></pre></div>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="dos">Do's</h3>
+<p>✅ <strong>Use for control plane components</strong> - Industry standard<br />
+✅ <strong>Use for critical node services</strong> - Monitoring, logging<br />
+✅ <strong>Use for guaranteed placement</strong> - When pod MUST be on specific node<br />
+✅ <strong>Use for offline scenarios</strong> - Edge computing, air-gapped<br />
+✅ <strong>Keep manifests simple</strong> - Static pods should be straightforward  </p>
+<h3 id="donts">Don'ts</h3>
+<p>❌ <strong>Don't use for regular applications</strong> - Use Deployments instead<br />
+❌ <strong>Don't use for scaling</strong> - Static pods don't scale (one per node)<br />
+❌ <strong>Don't use for stateful sets</strong> - Use StatefulSets<br />
+❌ <strong>Don't use for multi-node deployments</strong> - Use DaemonSets<br />
+❌ <strong>Don't modify via kubectl</strong> - Edit manifest files directly  </p>
+<h2 id="comparison-with-daemonsets">Comparison with DaemonSets</h2>
+<p>Both run one pod per node, but they're different:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Static Pods</th>
+<th>DaemonSets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Managed by</strong></td>
+<td>Kubelet</td>
+<td>DaemonSet controller (API server)</td>
+</tr>
+<tr>
+<td><strong>Survives master failure</strong></td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td><strong>Node selection</strong></td>
+<td>❌ Fixed to one node</td>
+<td>✅ All nodes (or selected)</td>
+</tr>
+<tr>
+<td><strong>Managed via</strong></td>
+<td>Manifest files</td>
+<td>kubectl / YAML</td>
+</tr>
+<tr>
+<td><strong>Use case</strong></td>
+<td>Control plane, critical services</td>
+<td>Cluster-wide agents</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use which:</strong></p>
+<ul>
+<li><strong>Static Pods</strong>: Control plane, critical single-node services</li>
+<li><strong>DaemonSets</strong>: Cluster-wide agents (logging, monitoring, networking)</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<h3 id="key-points">Key Points</h3>
+<div class="admonition success">
+<p class="admonition-title">Static Pods Essentials</p>
+<p>✅ Managed directly by kubelet, not API server<br />
+✅ Manifests stored in <code>/etc/kubernetes/manifests/</code> (default)<br />
+✅ Survive master node failures<br />
+✅ Cannot be deleted via kubectl<br />
+✅ Always run on the same specific node<br />
+✅ Used for control plane components<br />
+✅ Create mirror pods in API server (when available)  </p>
+</div>
+<h3 id="when-to-use-static-pods">When to Use Static Pods</h3>
+<ol>
+<li><strong>Control plane components</strong> (API server, scheduler, etc.)</li>
+<li><strong>Critical node-specific services</strong> (monitoring, logging)</li>
+<li><strong>Edge computing</strong> scenarios</li>
+<li><strong>Air-gapped</strong> environments</li>
+<li><strong>Disaster recovery</strong> situations</li>
+<li><strong>Services requiring guaranteed node placement</strong></li>
+</ol>
+<h3 id="quick-reference">Quick Reference</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Find static pod path</span>
+cat<span class="w"> </span>/var/lib/kubelet/config.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>staticPodPath
+
+<span class="c1"># Create static pod</span>
+sudo<span class="w"> </span>vim<span class="w"> </span>/etc/kubernetes/manifests/my-pod.yaml
+
+<span class="c1"># Delete static pod</span>
+sudo<span class="w"> </span>rm<span class="w"> </span>/etc/kubernetes/manifests/my-pod.yaml
+
+<span class="c1"># View static pods (as mirror pods)</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;node-name&gt;
+
+<span class="c1"># Identify static pod</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>config.mirror
+
+<span class="c1"># Check kubelet logs</span>
+sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>-f
+</code></pre></div>
+<hr />
+<p><em>Static pods are a powerful mechanism for running critical services independently of the Kubernetes control plane, providing resilience and enabling self-hosted clusters.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

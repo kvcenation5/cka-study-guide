@@ -1,0 +1,3454 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete Kubernetes Troubleshooting Guide for CKA Exam Preparation">
+      
+      
+      
+      
+        <link rel="prev" href="../taints-vs-affinity/">
+      
+      
+        <link rel="next" href="../multiple-schedulers/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Priority Classes - CKA Exam Notes - Kubernetes Troubleshooting</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pod-priority-and-preemption" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CKA Exam Notes - Kubernetes Troubleshooting
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Priority Classes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../SUMMARY/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Summary
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../yaml-guide/" class="md-tabs__link">
+          
+  
+  
+  Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+          
+  
+  
+  Lab Setup
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../BETTER_ARCHITECTURE/" class="md-tabs__link">
+          
+  
+  
+  Cluster Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Components
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../etcd-deep-dive/" class="md-tabs__link">
+          
+  
+  
+  Deep Dives
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../statefulset-pvc-explained/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  StatefulSet & PVC
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../exam-tips/kubectl-commands/" class="md-tabs__link">
+          
+  
+  
+  Exam Tips
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../troubleshooting-flowchart/" class="md-tabs__link">
+          
+  
+  
+  Diagrams
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CKA Exam Notes - Kubernetes Troubleshooting
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Summary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../yaml-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    YAML Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editing-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editing Pods & Deployments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versions (v1 vs apps/v1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service Types (ClusterIP/NodePort/LB)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../labels-selectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labels and Selectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../annotations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotations (Metadata)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resource-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Requests & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../limitrange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LimitRange (Resource Guardrails)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resource-quota/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Quota (The Budget)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../daemonsets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DaemonSets (The Node Resident)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../static-pods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods (Kubelet Managed)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configmaps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ConfigMaps (Configuration Data)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../replicasets-vs-deployments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ReplicaSets vs Deployments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pod Scheduling
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pod Scheduling
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../taints-tolerations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taints and Tolerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node-selector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node Selector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node-affinity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node Affinity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../taints-vs-affinity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taints vs Affinity (Comparison)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Priority Classes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Priority Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-vip-seating-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The "VIP Seating" Analogy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-priorityclass-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. PriorityClass Object
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. PriorityClass Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example YAML:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-to-use-it-in-a-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How to use it in a Pod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-preemption-survival-of-the-fittest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Preemption (Survival of the Fittest)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Preemption (Survival of the Fittest)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-preemption-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Preemption Process:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preemptionpolicy-to-kill-or-not-to-kill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        preemptionPolicy: To Kill or Not to Kill?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-value-and-preemptionpolicy-work-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How value and preemptionPolicy Work Together
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How value and preemptionPolicy Work Together">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-the-node-is-full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: The Node is Full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-priority-value-spectrum-highest-to-lowest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Priority Value Spectrum (Highest to Lowest)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Priority Value Spectrum (Highest to Lowest)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-danger-zone-1-billion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Danger Zone" (&gt; 1 Billion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logic-for-choosing-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logic for Choosing Numbers:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pro-tip-group-by-tiers-not-pod-by-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pro Tip: Group by Tiers, not Pod-by-Pod
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Pro Tip: Group by Tiers, not Pod-by-Pod">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-tiering-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Tiering Strategy:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-built-in-priorityclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Built-in PriorityClasses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-real-world-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Real-World Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-full-implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Full Implementation Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-practical-scenario-managing-4-different-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Practical Scenario: Managing 4 Different Apps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Practical Scenario: Managing 4 Different Apps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Apps:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-tiers-priorityclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Define the Tiers (PriorityClasses)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-assign-to-app-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Assign to App Pods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-summary-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Summary Cheat Sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-kubectl-commands-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. kubectl Commands &amp; Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. kubectl Commands &amp; Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-priorityclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a PriorityClass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-priorityclass-to-a-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assigning PriorityClass to a Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspecting-priorityclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspecting PriorityClasses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspecting-pods-with-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspecting Pods with Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering-pods-by-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering Pods by Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Inspection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multiple-schedulers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple Schedulers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scheduler-profiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scheduler Profiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../custom-key-values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Key-Value Pairs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubeadm on Mac (Multipass)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setup-guides/kops-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes on AWS (kOps)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster Join Command
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cluster Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cluster Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../BETTER_ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cluster-architecture/component-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Pods vs Systemd
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cluster-architecture/admission-controllers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admission Controllers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kube-Proxy Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD Data Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dives
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dives
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../etcd-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD & Backup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../coredns-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoreDNS Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../statefulset-pvc-explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet & PVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exam Tips
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Exam Tips
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exam-tips/kubectl-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kubectl Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../exam-tips/dry-run-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dry-Run Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diagrams
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../troubleshooting-flowchart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting Flowchart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../statefulset-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../network-policy-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Policy Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-vip-seating-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The "VIP Seating" Analogy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-priorityclass-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. PriorityClass Object
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. PriorityClass Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example YAML:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-to-use-it-in-a-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How to use it in a Pod
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-preemption-survival-of-the-fittest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Preemption (Survival of the Fittest)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Preemption (Survival of the Fittest)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-preemption-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Preemption Process:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preemptionpolicy-to-kill-or-not-to-kill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        preemptionPolicy: To Kill or Not to Kill?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-value-and-preemptionpolicy-work-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How value and preemptionPolicy Work Together
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How value and preemptionPolicy Work Together">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-the-node-is-full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: The Node is Full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-priority-value-spectrum-highest-to-lowest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Priority Value Spectrum (Highest to Lowest)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Priority Value Spectrum (Highest to Lowest)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-danger-zone-1-billion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Danger Zone" (&gt; 1 Billion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logic-for-choosing-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logic for Choosing Numbers:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pro-tip-group-by-tiers-not-pod-by-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Pro Tip: Group by Tiers, not Pod-by-Pod
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Pro Tip: Group by Tiers, not Pod-by-Pod">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-tiering-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Tiering Strategy:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-built-in-priorityclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Built-in PriorityClasses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-real-world-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Real-World Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-full-implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Full Implementation Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-practical-scenario-managing-4-different-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Practical Scenario: Managing 4 Different Apps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Practical Scenario: Managing 4 Different Apps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Apps:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-tiers-priorityclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Define the Tiers (PriorityClasses)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-assign-to-app-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Assign to App Pods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-summary-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Summary Cheat Sheet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-kubectl-commands-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. kubectl Commands &amp; Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. kubectl Commands &amp; Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-priorityclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a PriorityClass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-priorityclass-to-a-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assigning PriorityClass to a Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspecting-priorityclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspecting PriorityClasses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspecting-pods-with-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspecting Pods with Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering-pods-by-priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering Pods by Priority
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Inspection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="pod-priority-and-preemption">Pod Priority and Preemption</h1>
+<p>In a crowded Kubernetes cluster, not all Pods are equal. <strong>PriorityClasses</strong> allow you to tell the scheduler which Pods are the most important, ensuring they get scheduled even if the cluster is full.</p>
+<hr />
+<h2 id="1-the-vip-seating-analogy">1. The "VIP Seating" Analogy</h2>
+<p>Think of your cluster as a popular restaurant:
+*   <strong>Standard Pods</strong>: Customers who show up and wait for a table.
+*   <strong>Priority Pods</strong>: Customers with a VIP reservation.</p>
+<p>If a VIP customer shows up and there are no tables, the manager (Scheduler) might ask a "Regular" customer to leave (Preemption) to make room for the VIP.</p>
+<hr />
+<h2 id="2-priorityclass-object">2. PriorityClass Object</h2>
+<p>A <strong>PriorityClass</strong> is a cluster-wide (non-namespaced) object that maps a name to a numeric value.</p>
+<h3 id="example-yaml">Example YAML:</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduling.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PriorityClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-priority-apps</span>
+<span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000000</span>
+<span class="nt">globalDefault</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;This</span><span class="nv"> </span><span class="s">priority</span><span class="nv"> </span><span class="s">class</span><span class="nv"> </span><span class="s">should</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">used</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">critical</span><span class="nv"> </span><span class="s">service</span><span class="nv"> </span><span class="s">pods.&quot;</span>
+</code></pre></div>
+<ul>
+<li><strong><code>value</code></strong>: Higher numbers mean higher priority.</li>
+<li><strong><code>globalDefault</code></strong>: If set to <code>true</code>, any pod without a priority class will automatically get this one. (Only one PriorityClass can be the global default).</li>
+</ul>
+<hr />
+<h2 id="3-how-to-use-it-in-a-pod">3. How to use it in a Pod</h2>
+<p>Once the PriorityClass is created, you simply reference its name in the Pod spec.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical-app</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">  </span><span class="nt">priorityClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-priority-apps</span><span class="w">    </span><span class="c1"># &lt;--- Reference here</span>
+</code></pre></div>
+<hr />
+<h2 id="4-preemption-survival-of-the-fittest">4. Preemption (Survival of the Fittest)</h2>
+<p>When a Pod with high priority is in the <code>Pending</code> state, the scheduler tries to find a node for it. If no nodes have enough resources, the scheduler looks for lower-priority pods to <strong>evict</strong>.</p>
+<h3 id="the-preemption-process">The Preemption Process:</h3>
+<ol>
+<li><strong>High-priority Pod</strong> enters the queue.</li>
+<li><strong>Scheduler</strong> finds no nodes with enough CPU/RAM.</li>
+<li><strong>Scheduler</strong> identifies a node where removing one or more lower-priority pods would create enough space.</li>
+<li><strong>Lower-priority Pods</strong> are gracefully terminated.</li>
+<li><strong>High-priority Pod</strong> is scheduled on that node.</li>
+</ol>
+<h3 id="preemptionpolicy-to-kill-or-not-to-kill"><code>preemptionPolicy</code>: To Kill or Not to Kill?</h3>
+<p>By default, high priority means the pod can <strong>evict</strong> others. However, you can change this behavior using the <code>preemptionPolicy</code> field:</p>
+<ol>
+<li><strong><code>PreemptLowerPriority</code> (Default)</strong>: If this pod is pending, the scheduler will kill lower-priority pods to make room.</li>
+<li><strong><code>Never</code> (Non-Preempting)</strong>: This pod will still be placed at the "front of the line" in the scheduling queue, but it <strong>will not</strong> kill any existing pods. It will wait until space naturally becomes available.</li>
+</ol>
+<p><strong>Real-world use case for <code>Never</code></strong>: Batch jobs that are "nice to have" but shouldn't disrupt the live website. They get scheduled as soon as there's a gap, but they never kick anyone out.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduling.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PriorityClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch-workload-non-preempting</span>
+<span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500000</span>
+<span class="nt">preemptionPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Never</span><span class="w">    </span><span class="c1"># &lt;--- Won&#39;t evict other pods</span>
+<span class="nt">globalDefault</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<h3 id="how-value-and-preemptionpolicy-work-together">How <code>value</code> and <code>preemptionPolicy</code> Work Together</h3>
+<p>Think of this like a <strong>Social Ladder</strong>:
+*   <strong><code>value</code> = Rank</strong> (High number &gt; Low number). It defines <strong>who</strong> is more important.
+*   <strong><code>preemptionPolicy</code> = Permission</strong>. It defines <strong>how</strong> that importance is enforced.</p>
+<h4 id="scenario-the-node-is-full">Scenario: The Node is Full</h4>
+<p>A new Pod with <code>value: 1000</code> arrives. The node is currently occupied by a Pod with <code>value: 500</code>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">If the new Pod (1000) has...</th>
+<th style="text-align: left;">Action it can take</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>PreemptLowerPriority</code></strong></td>
+<td style="text-align: left;"><strong>The Comparison</strong>: 1000 &gt; 500. <strong>The Policy</strong>: Allowed to evict. <strong>Result</strong>: The 500-pod is killed, and the 1000-pod takes its place.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>Never</code></strong></td>
+<td style="text-align: left;"><strong>The Comparison</strong>: 1000 &gt; 500. <strong>The Policy</strong>: Refused permission. <strong>Result</strong>: The 1000-pod stays <code>Pending</code> until space opens up naturally.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">The Golden Rule of Preemption</p>
+<p>A pod can <strong>NEVER</strong> preempt/kill a pod with an <strong>equal or higher</strong> priority value. You can only kick out those "below" you on the ladder.</p>
+</div>
+<hr />
+<h2 id="5-the-priority-value-spectrum-highest-to-lowest">5. The Priority Value Spectrum (Highest to Lowest)</h2>
+<p>Priority values are <strong>32-bit integers</strong>. The range is technically large, but Kubernetes reserves specific "neighborhoods" for different tiers of importance.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Priority Tier</th>
+<th style="text-align: left;">Value Range</th>
+<th style="text-align: left;">Typical Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>System Critical</strong></td>
+<td style="text-align: left;"><strong>2,000,000,001 to 2,147,483,647</strong></td>
+<td style="text-align: left;"><strong>Reserved.</strong> Used for internal K8s components.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>System Node Critical</strong></td>
+<td style="text-align: left;"><strong>2,000,001,000</strong></td>
+<td style="text-align: left;">Built-in: CNI, kube-proxy.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>System Cluster Critical</strong></td>
+<td style="text-align: left;"><strong>2,000,000,000</strong></td>
+<td style="text-align: left;">Built-in: CoreDNS, API Server.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>User Critical</strong></td>
+<td style="text-align: left;"><strong>1,000,000 to 1,000,000,000</strong></td>
+<td style="text-align: left;">Your most important PROD apps (Databases, Gateways).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Standard Apps</strong></td>
+<td style="text-align: left;"><strong>1,000 to 999,999</strong></td>
+<td style="text-align: left;">Regular web servers, APIs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Default Priority</strong></td>
+<td style="text-align: left;"><strong>0</strong></td>
+<td style="text-align: left;">The baseline for every pod if no class is defined.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Best Effort / Batch</strong></td>
+<td style="text-align: left;"><strong>Negative Numbers</strong></td>
+<td style="text-align: left;">Low-priority background jobs, analytics, or research.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-danger-zone-1-billion">The "Danger Zone" (&gt; 1 Billion)</h3>
+<p>You should <strong>not</strong> create your own priority classes with values greater than 1 billion unless you strictly want to compete with the Kubernetes system components. If your app evicts <code>kube-proxy</code>, your node's networking will break!</p>
+<h3 id="logic-for-choosing-numbers">Logic for Choosing Numbers:</h3>
+<ul>
+<li><strong>Production vs staging</strong>: Give Prod a higher range (e.g., 10,000+) and Staging a lower range (e.g., 5,000).</li>
+<li><strong>Leave Gaps</strong>: Don't use 1, 2, 3. Use 1000, 2000, 3000. This allows you to "squeeze" a new level in between later without having to update all your YAML files.</li>
+</ul>
+<h2 id="6-pro-tip-group-by-tiers-not-pod-by-pod">6. Pro Tip: Group by Tiers, not Pod-by-Pod</h2>
+<p>A common mistake is trying to give every single application pod its own unique priority number (e.g., <code>1001</code>, <code>1002</code>, <code>1003</code>). </p>
+<p><strong>Why you shouldn't do this:</strong>
+1.  <strong>Complexity</strong>: You would have to manage hundreds of <code>PriorityClass</code> objects.
+2.  <strong>No "Squeeze" Room</strong>: If you use <code>1001</code> and <code>1002</code>, you can't insert a new priority level between them later. 
+3.  <strong>Grouping is Better</strong>: In real production environments, we group pods into <strong>Tiers</strong>.</p>
+<h3 id="recommended-tiering-strategy">Recommended Tiering Strategy:</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>System</strong></td>
+<td style="text-align: left;">2,000,000,000</td>
+<td style="text-align: left;">K8s Components (Reserved)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tenant Critical</strong></td>
+<td style="text-align: left;">1,000,000</td>
+<td style="text-align: left;">Shared Ingress, Core DBs</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>App Critical</strong></td>
+<td style="text-align: left;">100,000</td>
+<td style="text-align: left;">Customer-facing APIs</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Standard</strong></td>
+<td style="text-align: left;">10,000</td>
+<td style="text-align: left;">Regular Microservices</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Default</strong></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">(The global baseline)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Best Effort</strong></td>
+<td style="text-align: left;">-100</td>
+<td style="text-align: left;">Background workers, logs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-built-in-priorityclasses">7. Built-in PriorityClasses</h2>
+<p>Kubernetes comes with two critical priority classes by default. They are at the absolute top of the hierarchy.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>system-node-critical</code></strong></td>
+<td style="text-align: left;">2000001000</td>
+<td style="text-align: left;">For pods that MUST run on nodes (like CNI plugins).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>system-cluster-critical</code></strong></td>
+<td style="text-align: left;">2000000000</td>
+<td style="text-align: left;">For essential cluster pods (like CoreDNS, API Server).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-real-world-use-cases">7. Real-World Use Cases</h2>
+<p>How do companies actually use these values?</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: left;">Tier</th>
+<th style="text-align: left;">Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Ingress Controllers</strong></td>
+<td style="text-align: left;"><strong>Cluster-Wide Critical</strong></td>
+<td style="text-align: left;">If Nginx-Ingress or Traefik dies, the <em>entire</em> cluster's external traffic stops. These should have very high priority.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Payment Gateways</strong></td>
+<td style="text-align: left;"><strong>Business Critical</strong></td>
+<td style="text-align: left;">In an e-commerce cluster, if the "Search" pod and "Payment" pod are fighting for space, you WANT the Payment pod to win so you don't lose money.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dev/Test Environment</strong></td>
+<td style="text-align: left;"><strong>Default (0)</strong></td>
+<td style="text-align: left;">Regular experimental pods that aren't vital for uptime.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ML Training Jobs</strong></td>
+<td style="text-align: left;"><strong>Negative / Best Effort</strong></td>
+<td style="text-align: left;">Machine learning training can take days. It is "compressible"—it's better to pause a learning job than to crash the live website.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-full-implementation-example">8. Full Implementation Example</h2>
+<p>Here is a holistic example of how you would set up a "Platinum" tier for your most important production database.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Create the PriorityClass</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduling.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PriorityClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platinum-tier</span>
+<span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000000</span>
+<span class="nt">globalDefault</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Used</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">mission-critical</span><span class="nv"> </span><span class="s">production</span><span class="nv"> </span><span class="s">databases.&quot;</span>
+<span class="nn">---</span>
+<span class="c1"># 2. Create the Pod referencing it</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-db</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">priorityClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platinum-tier</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:14</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2Gi&quot;</span>
+<span class="w">        </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="9-practical-scenario-managing-4-different-apps">9. Practical Scenario: Managing 4 Different Apps</h2>
+<p>If you have 4 different applications, you should categorize them by their "Impact of Failure" rather than just giving them sequential numbers.</p>
+<h3 id="the-apps">The Apps:</h3>
+<ol>
+<li><strong>Payment API</strong>: Mission Critical (Losing money if it's down).</li>
+<li><strong>Frontend Web</strong>: High Priority (Users see an error page if it's down).</li>
+<li><strong>Analytics Service</strong>: Medium Priority (Business data is delayed, but users are fine).</li>
+<li><strong>Log Archiver</strong>: Low Priority (Housekeeping, can run whenever).</li>
+</ol>
+<h3 id="step-1-define-the-tiers-priorityclasses">Step 1: Define the Tiers (PriorityClasses)</h3>
+<p>We create <strong>3 reusable tiers</strong> instead of 4 unique numbers. The Log Archiver will just use the default (0).</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># cluster-tiers.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduling.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PriorityClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical-tier</span>
+<span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000000</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduling.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PriorityClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-tier</span>
+<span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500000</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduling.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PriorityClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard-tier</span>
+<span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100000</span>
+</code></pre></div>
+<h3 id="step-2-assign-to-app-pods">Step 2: Assign to App Pods</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">App</th>
+<th style="text-align: left;">Assigned PriorityClass</th>
+<th style="text-align: left;">Why?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Payment API</strong></td>
+<td style="text-align: left;"><code>priorityClassName: critical-tier</code></td>
+<td style="text-align: left;">It will evict <em>anything</em> else to stay alive.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Frontend Web</strong></td>
+<td style="text-align: left;"><code>priorityClassName: high-tier</code></td>
+<td style="text-align: left;">Will evict standard apps, but won't touch Payments.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Analytics</strong></td>
+<td style="text-align: left;"><code>priorityClassName: standard-tier</code></td>
+<td style="text-align: left;">Will run if there's room, but will get killed for Frontend/Payments.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Log Archiver</strong></td>
+<td style="text-align: left;"><em>(None)</em></td>
+<td style="text-align: left;">Uses default priority (0). It is the first to be killed.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-summary-cheat-sheet">10. Summary Cheat Sheet</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Situation</th>
+<th style="text-align: left;">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Higher Value</strong></td>
+<td style="text-align: left;">Higher Priority (more important).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Preemption</strong></td>
+<td style="text-align: left;">The act of killing a low-priority pod to make room for a high-priority one.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>preemptionPolicy</code></strong></td>
+<td style="text-align: left;">Can be <code>PreemptLowerPriority</code> (Default) or <code>Never</code> (Best-effort only).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Namespace</strong></td>
+<td style="text-align: left;">PriorityClasses are <strong>Cluster-wide</strong> (Global).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-kubectl-commands-workflows">11. kubectl Commands &amp; Workflows</h2>
+<h3 id="creating-a-priorityclass">Creating a PriorityClass</h3>
+<p><strong>There is NO shorthand <code>kubectl create priorityclass</code> with flags for value/globalDefault.</strong></p>
+<p>You must write the YAML manually:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Create the YAML file</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; high-priority.yaml</span>
+<span class="s">apiVersion: scheduling.k8s.io/v1</span>
+<span class="s">kind: PriorityClass</span>
+<span class="s">metadata:</span>
+<span class="s">  name: high-priority</span>
+<span class="s">value: 1000000</span>
+<span class="s">globalDefault: false</span>
+<span class="s">description: &quot;For critical production workloads&quot;</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Step 2: Apply it</span>
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>high-priority.yaml
+</code></pre></div>
+<hr />
+<h3 id="assigning-priorityclass-to-a-pod">Assigning PriorityClass to a Pod</h3>
+<p><strong>There is NO flag for <code>--priority-class-name</code> in <code>kubectl run</code>.</strong></p>
+<p>You must use the <strong>dry-run workflow</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Generate the pod YAML</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>low-prio-pod<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span>--dry-run<span class="o">=</span>client<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span>pod.yaml
+
+<span class="c1"># Step 2: Edit the YAML to add priorityClassName</span>
+vim<span class="w"> </span>pod.yaml
+<span class="c1"># Add under spec:</span>
+<span class="c1">#   priorityClassName: high-priority</span>
+
+<span class="c1"># Step 3: Apply</span>
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>pod.yaml
+</code></pre></div>
+<p><strong>Or use a one-liner with yq/sed:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>run<span class="w"> </span>low-prio-pod<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span>--dry-run<span class="o">=</span>client<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>sed<span class="w"> </span><span class="s1">&#39;/spec:/a\  priorityClassName: high-priority&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+</code></pre></div></p>
+<hr />
+<h3 id="inspecting-priorityclasses">Inspecting PriorityClasses</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all priority classes (shorthand: pc)</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>priorityclass
+kubectl<span class="w"> </span>get<span class="w"> </span>pc
+
+<span class="c1"># Describe a specific PriorityClass</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>pc<span class="w"> </span>high-priority
+
+<span class="c1"># View as YAML</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pc<span class="w"> </span>high-priority<span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># See just the value</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pc<span class="w"> </span>high-priority<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.value}&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code>NAME                      VALUE        GLOBAL-DEFAULT   AGE
+high-priority             1000000      false            5m
+system-cluster-critical   2000000000   false            30d
+system-node-critical      2000001000   false            30d
+</code></pre></div></p>
+<hr />
+<h3 id="inspecting-pods-with-priority">Inspecting Pods with Priority</h3>
+<p><strong>Check which pods are using priority classes:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Basic view - shows priority in YAML</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">2</span><span class="w"> </span>priority
+
+<span class="c1"># Custom columns - Clean table view</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>custom-columns<span class="o">=</span><span class="s2">&quot;NAME:.metadata.name,PRIORITY:.spec.priorityClassName&quot;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code>NAME              PRIORITY
+nginx-critical    high-priority
+web-app           &lt;none&gt;
+db-backup         low-priority
+</code></pre></div></p>
+<p><strong>Check the numeric priority value:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.priority}&#39;</span>
+</code></pre></div></p>
+<p><strong>See all priority-related fields:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.priorityClassName}{&quot; -&gt; &quot;}{.spec.priority}{&quot;\n&quot;}&#39;</span>
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code>high-priority -&gt; 1000000
+</code></pre></div></p>
+<hr />
+<h3 id="filtering-pods-by-priority">Filtering Pods by Priority</h3>
+<p><strong>Find all pods with a specific PriorityClass:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.items[] | select(.spec.priorityClassName==&quot;high-priority&quot;) | .metadata.name&#39;</span>
+</code></pre></div></p>
+<p><strong>Find all pods without any priority:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.items[] | select(.spec.priorityClassName==null) | .metadata.name&#39;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="advanced-inspection">Advanced Inspection</h3>
+<p><strong>See priorities across all namespaces:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>custom-columns<span class="o">=</span><span class="se">\</span>
+<span class="s2">&quot;NAMESPACE:.metadata.namespace,\</span>
+<span class="s2">NAME:.metadata.name,\</span>
+<span class="s2">PRIORITY_CLASS:.spec.priorityClassName,\</span>
+<span class="s2">PRIORITY_VALUE:.spec.priority,\</span>
+<span class="s2">NODE:.spec.nodeName&quot;</span>
+</code></pre></div></p>
+<p><strong>Check preemption policy of a PriorityClass:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pc<span class="w"> </span>high-priority<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.preemptionPolicy}&#39;</span>
+</code></pre></div></p>
+<p><strong>List pods sorted by priority (requires jq):</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.items | sort_by(.spec.priority // 0) | reverse | </span>
+<span class="s1">  .[] | &quot;\(.spec.priority // 0)\t\(.metadata.name)&quot;&#39;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="troubleshooting-commands">Troubleshooting Commands</h3>
+<p><strong>Check if a pending pod is waiting due to preemption:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">10</span><span class="w"> </span>Events
+</code></pre></div></p>
+<p>Look for messages like:
+<div class="highlight"><pre><span></span><code>Normal   Preempted   Pod preempted to make room for higher priority pod
+</code></pre></div></p>
+<p><strong>Check scheduler logs for preemption events:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span><span class="nv">component</span><span class="o">=</span>kube-scheduler<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>preempt
+</code></pre></div></p>
+<hr />
+<h3 id="quick-reference-table">Quick Reference Table</h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>List all PriorityClasses</strong></td>
+<td><code>kubectl get pc</code></td>
+</tr>
+<tr>
+<td><strong>Create PriorityClass</strong></td>
+<td>Must use YAML file (no imperative command)</td>
+</tr>
+<tr>
+<td><strong>Delete PriorityClass</strong></td>
+<td><code>kubectl delete pc &lt;name&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Check pod's priority class</strong></td>
+<td><code>kubectl get pod &lt;name&gt; -o jsonpath='{.spec.priorityClassName}'</code></td>
+</tr>
+<tr>
+<td><strong>Check pod's numeric priority</strong></td>
+<td><code>kubectl get pod &lt;name&gt; -o jsonpath='{.spec.priority}'</code></td>
+</tr>
+<tr>
+<td><strong>Custom columns view</strong></td>
+<td><code>kubectl get pods -o custom-columns="NAME:.metadata.name,PRIORITY:.spec.priorityClassName"</code></td>
+</tr>
+<tr>
+<td><strong>Check preemption policy</strong></td>
+<td><code>kubectl get pc &lt;name&gt; -o jsonpath='{.preemptionPolicy}'</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
