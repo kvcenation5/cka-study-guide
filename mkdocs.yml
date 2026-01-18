@@ -70,6 +70,7 @@ nav:
       - Architecture Overview: BETTER_ARCHITECTURE.md
       - Static Pods vs Systemd: cluster-architecture/component-management.md
       - Admission Controllers: cluster-architecture/admission-controllers.md
+      - Admission Controller Types: cluster-architecture/admission-controller-types.md
       - Mutating Admission Controllers: cluster-architecture/mutating-admission-controllers.md
       - Kube-Proxy Deep Dive: cluster-architecture/kube-proxy-deep-dive.md
       - ETCD Data Model: cluster-architecture/etcd-data-model.md
