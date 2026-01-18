@@ -69,6 +69,7 @@ nav:
   - Cluster Architecture:
       - Architecture Overview: BETTER_ARCHITECTURE.md
       - Static Pods vs Systemd: cluster-architecture/component-management.md
+      - Admission Controllers: cluster-architecture/admission-controllers.md
       - Kube-Proxy Deep Dive: cluster-architecture/kube-proxy-deep-dive.md
       - ETCD Data Model: cluster-architecture/etcd-data-model.md
   - Components: KNOW_YOUR_COMPONENTS.md
