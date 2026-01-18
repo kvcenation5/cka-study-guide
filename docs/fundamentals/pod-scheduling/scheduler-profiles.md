@@ -878,3 +878,34 @@ kubectl logs -n kube-system kube-scheduler-<node>
 - ✅ Running Kubernetes 1.23+
 - ✅ Multi-tenant scenarios with different scheduling needs
 - ❌ Don't use if you need completely custom scheduling logic (use multiple schedulers instead)
+
+---
+
+## Further Reading & References
+
+### Official Kubernetes Documentation
+
+- **[Advanced Scheduling in Kubernetes (Official Blog)](https://kubernetes.io/blog/2017/03/advanced-scheduling-in-kubernetes/)**  
+  In-depth article from the Kubernetes team explaining advanced scheduling features and the scheduler framework.
+
+- **[Scheduling Code Hierarchy Overview (GitHub)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-scheduling/scheduling_code_hierarchy_overview.md)**  
+  Deep dive into the scheduler codebase structure - essential for understanding the internal implementation.
+
+### Community Resources
+
+- **[How Does the Kubernetes Scheduler Work? (Julia Evans)](https://jvns.ca/blog/2017/07/27/how-does-the-kubernetes-scheduler-work/)**  
+  Excellent visual explanation with clear diagrams showing how the scheduler makes decisions.
+
+- **[How Does Kubernetes Scheduler Work? (Stack Overflow)](https://stackoverflow.com/questions/28857993/how-does-kubernetes-scheduler-work)**  
+  Detailed Q&A covering common scheduling questions and edge cases.
+
+### Recommended Reading Order
+
+For CKA exam preparation:
+1. Start with **Julia Evans' blog** for a high-level visual understanding
+2. Read the **official Kubernetes blog** for advanced concepts
+3. Refer to **Stack Overflow** for specific troubleshooting scenarios
+4. Deep dive into the **GitHub code hierarchy** only if you want to understand internals
+
+!!! tip "Exam Focus"
+    For the CKA exam, focus on **practical usage** (how to configure profiles, use schedulerName, debug scheduling issues) rather than deep implementation details.
