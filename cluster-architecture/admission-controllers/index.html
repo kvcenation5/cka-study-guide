@@ -14,7 +14,7 @@
         <link rel="prev" href="../component-management/">
       
       
-        <link rel="next" href="../kube-proxy-deep-dive/">
+        <link rel="next" href="../admission-controller-types/">
       
       
         
@@ -1685,28 +1685,23 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-viewing-enabled-admission-controllers" class="md-nav__link">
+          <li class="md-nav__item">
+  <a href="#namespacelifecycle-the-namespace-guardian" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Viewing Enabled Admission Controllers
+        NamespaceLifecycle: The Namespace Guardian
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="6. Viewing Enabled Admission Controllers">
+    <nav class="md-nav" aria-label="NamespaceLifecycle: The Namespace Guardian">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-api-server-configuration" class="md-nav__link">
+  <a href="#function-1-reject-requests-to-non-existent-namespaces" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Check API Server Configuration
+        Function 1: Reject Requests to Non-Existent Namespaces
       
     </span>
   </a>
@@ -1714,10 +1709,37 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#method-2-check-static-pod-manifest" class="md-nav__link">
+  <a href="#function-2-protect-default-namespaces-from-deletion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Method 2: Check Static Pod Manifest
+        Function 2: Protect Default Namespaces from Deletion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-3-prevent-resource-creation-in-terminating-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function 3: Prevent Resource Creation in Terminating Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecated-namespace-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecated Namespace Controllers
       
     </span>
   </a>
@@ -1730,15 +1752,226 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-enablingdisabling-admission-controllers" class="md-nav__link">
+  <a href="#6-default-admission-controllers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Enabling/Disabling Admission Controllers
+        6. Default Admission Controllers
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="7. Enabling/Disabling Admission Controllers">
+    <nav class="md-nav" aria-label="6. Default Admission Controllers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabled-by-default-kubernetes-128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enabled by Default (Kubernetes 1.28+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-enabled-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NOT Enabled by Default
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-how-to-list-admission-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. How to List Admission Controllers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. How to List Admission Controllers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-check-currently-enabled-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Check Currently Enabled Controllers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-check-static-pod-manifest-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Check Static Pod Manifest (Control Plane)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-list-all-available-admission-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: List ALL Available Admission Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-4-describe-api-server-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 4: Describe API Server Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-5-check-which-plugins-are-actually-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 5: Check Which Plugins Are Actually Running
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-6-check-both-enabled-and-disabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 6: Check Both Enabled and Disabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-viewing-admission-controllers-complete-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Viewing Admission Controllers - Complete Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Viewing Admission Controllers - Complete Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-commands-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Commands Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formatted-output-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formatted Output Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-default-controllers-by-kubernetes-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Default Controllers by Kubernetes Version
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Default Controllers by Kubernetes Version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-128-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes 1.28+ (Current)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-123-127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes 1.23-1.27
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changes-from-older-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changes from Older Versions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-enablingdisabling-admission-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Enabling/Disabling Admission Controllers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Enabling/Disabling Admission Controllers">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1780,15 +2013,87 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-real-world-examples" class="md-nav__link">
+  <a href="#8-visual-examples-admission-controllers-in-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. Real-World Examples
+        8. Visual Examples: Admission Controllers in Action
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="8. Real-World Examples">
+    <nav class="md-nav" aria-label="8. Visual Examples: Admission Controllers in Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-serviceaccount-mutating-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: ServiceAccount Mutating Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-resourcequota-validating-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: ResourceQuota Validating Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-multiple-controllers-working-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Multiple Controllers Working Together
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-rejection-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Rejection Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-flow-how-admission-controllers-decide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Flow: How Admission Controllers Decide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-real-world-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Real-World Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Real-World Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2050,6 +2355,62 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admission-controller-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admission Controller Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mutating-admission-controllers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutating Admission Controllers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2711,28 +3072,23 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-viewing-enabled-admission-controllers" class="md-nav__link">
+          <li class="md-nav__item">
+  <a href="#namespacelifecycle-the-namespace-guardian" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Viewing Enabled Admission Controllers
+        NamespaceLifecycle: The Namespace Guardian
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="6. Viewing Enabled Admission Controllers">
+    <nav class="md-nav" aria-label="NamespaceLifecycle: The Namespace Guardian">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-api-server-configuration" class="md-nav__link">
+  <a href="#function-1-reject-requests-to-non-existent-namespaces" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Check API Server Configuration
+        Function 1: Reject Requests to Non-Existent Namespaces
       
     </span>
   </a>
@@ -2740,10 +3096,37 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#method-2-check-static-pod-manifest" class="md-nav__link">
+  <a href="#function-2-protect-default-namespaces-from-deletion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Method 2: Check Static Pod Manifest
+        Function 2: Protect Default Namespaces from Deletion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-3-prevent-resource-creation-in-terminating-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function 3: Prevent Resource Creation in Terminating Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecated-namespace-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecated Namespace Controllers
       
     </span>
   </a>
@@ -2756,15 +3139,226 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-enablingdisabling-admission-controllers" class="md-nav__link">
+  <a href="#6-default-admission-controllers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Enabling/Disabling Admission Controllers
+        6. Default Admission Controllers
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="7. Enabling/Disabling Admission Controllers">
+    <nav class="md-nav" aria-label="6. Default Admission Controllers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enabled-by-default-kubernetes-128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enabled by Default (Kubernetes 1.28+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-enabled-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NOT Enabled by Default
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-how-to-list-admission-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. How to List Admission Controllers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. How to List Admission Controllers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-check-currently-enabled-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: Check Currently Enabled Controllers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-check-static-pod-manifest-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Check Static Pod Manifest (Control Plane)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-list-all-available-admission-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 3: List ALL Available Admission Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-4-describe-api-server-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 4: Describe API Server Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-5-check-which-plugins-are-actually-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 5: Check Which Plugins Are Actually Running
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-6-check-both-enabled-and-disabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 6: Check Both Enabled and Disabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-viewing-admission-controllers-complete-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Viewing Admission Controllers - Complete Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Viewing Admission Controllers - Complete Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-commands-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Commands Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formatted-output-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formatted Output Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-default-controllers-by-kubernetes-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Default Controllers by Kubernetes Version
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Default Controllers by Kubernetes Version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-128-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes 1.28+ (Current)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-123-127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kubernetes 1.23-1.27
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changes-from-older-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changes from Older Versions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-enablingdisabling-admission-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Enabling/Disabling Admission Controllers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Enabling/Disabling Admission Controllers">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2806,15 +3400,87 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-real-world-examples" class="md-nav__link">
+  <a href="#8-visual-examples-admission-controllers-in-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. Real-World Examples
+        8. Visual Examples: Admission Controllers in Action
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="8. Real-World Examples">
+    <nav class="md-nav" aria-label="8. Visual Examples: Admission Controllers in Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-serviceaccount-mutating-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: ServiceAccount Mutating Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-resourcequota-validating-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: ResourceQuota Validating Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-multiple-controllers-working-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Multiple Controllers Working Together
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-rejection-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Rejection Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-flow-how-admission-controllers-decide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Flow: How Admission Controllers Decide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-real-world-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Real-World Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Real-World Examples">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3342,19 +4008,390 @@
 </tbody>
 </table>
 <hr />
-<h2 id="6-viewing-enabled-admission-controllers">6. Viewing Enabled Admission Controllers</h2>
-<h3 id="check-api-server-configuration">Check API Server Configuration</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Method 1: Check the API server pod</span>
-kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>kube-apiserver-&lt;node&gt;<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>enable-admission-plugins
-</code></pre></div>
-<p><strong>Output:</strong>
-<div class="highlight"><pre><span></span><code>--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota
+<h3 id="namespacelifecycle-the-namespace-guardian">NamespaceLifecycle: The Namespace Guardian</h3>
+<div class="admonition warning">
+<p class="admonition-title">Deprecated Controllers</p>
+<p><strong>NamespaceExists</strong> and <strong>NamespaceAutoProvision</strong> admission controllers are <strong>deprecated</strong> and replaced by <strong>NamespaceLifecycle</strong>.</p>
+</div>
+<p><strong>NamespaceLifecycle</strong> is one of the most important admission controllers and performs two critical functions:</p>
+<h4 id="function-1-reject-requests-to-non-existent-namespaces">Function 1: Reject Requests to Non-Existent Namespaces</h4>
+<p>Ensures that any requests to create resources in a namespace that doesn't exist are <strong>rejected</strong>.</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Try to create a pod in a non-existent namespace</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>nginx<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span>-n<span class="w"> </span>prod
+
+<span class="c1"># Result: NamespaceLifecycle rejects the request</span>
+Error<span class="w"> </span>from<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>NotFound<span class="o">)</span>:<span class="w"> </span>namespaces<span class="w"> </span><span class="s2">&quot;prod&quot;</span><span class="w"> </span>not<span class="w"> </span>found
 </code></pre></div></p>
-<h3 id="method-2-check-static-pod-manifest">Method 2: Check Static Pod Manifest</h3>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/kubernetes/manifests/kube-apiserver.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>enable-admission-plugins
+<h4 id="function-2-protect-default-namespaces-from-deletion">Function 2: Protect Default Namespaces from Deletion</h4>
+<p>Safeguards critical namespaces from being deleted:
+- <code>default</code>
+- <code>kube-system</code>
+- <code>kube-public</code>
+- <code>kube-node-lease</code></p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Try to delete kube-system namespace</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>namespace<span class="w"> </span>kube-system
+
+<span class="c1"># Result: NamespaceLifecycle rejects the request</span>
+Error<span class="w"> </span>from<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>Forbidden<span class="o">)</span>:<span class="w"> </span>namespaces<span class="w"> </span><span class="s2">&quot;kube-system&quot;</span><span class="w"> </span>is<span class="w"> </span>forbidden:<span class="w"> </span>
+this<span class="w"> </span>namespace<span class="w"> </span>may<span class="w"> </span>not<span class="w"> </span>be<span class="w"> </span>deleted
+</code></pre></div></p>
+<h4 id="function-3-prevent-resource-creation-in-terminating-namespaces">Function 3: Prevent Resource Creation in Terminating Namespaces</h4>
+<p>When a namespace is being deleted (in <code>Terminating</code> state), NamespaceLifecycle prevents new resources from being created in it.</p>
+<p><strong>Flow Diagram:</strong>
+<div class="highlight"><pre><span></span><code>Namespace Deletion Started
+         ↓
+Namespace Status: Terminating
+         ↓
+User tries to create Pod ──→ NamespaceLifecycle Controller ──→ ❌ REJECTED
+                                          │
+                                          ↓
+                            &quot;Namespace is terminating&quot;
+</code></pre></div></p>
+<h3 id="deprecated-namespace-controllers">Deprecated Namespace Controllers</h3>
+<table>
+<thead>
+<tr>
+<th>Controller</th>
+<th>Status</th>
+<th>Replaced By</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NamespaceExists</strong></td>
+<td>❌ Deprecated</td>
+<td>NamespaceLifecycle</td>
+<td>Checked if namespace exists</td>
+</tr>
+<tr>
+<td><strong>NamespaceAutoProvision</strong></td>
+<td>❌ Deprecated</td>
+<td>NamespaceLifecycle</td>
+<td>Auto-created namespaces (removed for security)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why were they deprecated?</strong></p>
+<p><strong>NamespaceAutoProvision</strong> was removed because:
+- <strong>Security risk</strong>: Automatically creating namespaces could lead to unintended resource creation
+- <strong>Resource exhaustion</strong>: Malicious users could create unlimited namespaces
+- <strong>Better practice</strong>: Explicit namespace creation via RBAC policies</p>
+<p><strong>NamespaceExists</strong> was merged into NamespaceLifecycle for simplicity.</p>
+<hr />
+<h2 id="6-default-admission-controllers">6. Default Admission Controllers</h2>
+<h3 id="enabled-by-default-kubernetes-128">Enabled by Default (Kubernetes 1.28+)</h3>
+<p>These admission controllers are <strong>automatically enabled</strong> in most Kubernetes distributions:</p>
+<table>
+<thead>
+<tr>
+<th>Controller Name</th>
+<th>Type</th>
+<th>Why Enabled by Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NamespaceLifecycle</strong></td>
+<td>Validating</td>
+<td>Prevents resources in non-existent/terminating namespaces</td>
+</tr>
+<tr>
+<td><strong>LimitRanger</strong></td>
+<td>Validating</td>
+<td>Enforces LimitRange constraints</td>
+</tr>
+<tr>
+<td><strong>ServiceAccount</strong></td>
+<td>Mutating</td>
+<td>Auto-injects ServiceAccount tokens</td>
+</tr>
+<tr>
+<td><strong>DefaultStorageClass</strong></td>
+<td>Mutating</td>
+<td>Assigns default StorageClass to PVCs</td>
+</tr>
+<tr>
+<td><strong>DefaultTolerationSeconds</strong></td>
+<td>Mutating</td>
+<td>Sets default toleration for node taints</td>
+</tr>
+<tr>
+<td><strong>MutatingAdmissionWebhook</strong></td>
+<td>Mutating</td>
+<td>Enables custom mutation webhooks</td>
+</tr>
+<tr>
+<td><strong>ValidatingAdmissionWebhook</strong></td>
+<td>Validating</td>
+<td>Enables custom validation webhooks</td>
+</tr>
+<tr>
+<td><strong>ResourceQuota</strong></td>
+<td>Validating</td>
+<td>Enforces ResourceQuota limits</td>
+</tr>
+<tr>
+<td><strong>Priority</strong></td>
+<td>Validating</td>
+<td>Handles pod priority scheduling</td>
+</tr>
+<tr>
+<td><strong>TaintNodesByCondition</strong></td>
+<td>Mutating</td>
+<td>Taints nodes based on conditions</td>
+</tr>
+<tr>
+<td><strong>PodSecurity</strong></td>
+<td>Validating</td>
+<td>Enforces Pod Security Standards (replaces PSP)</td>
+</tr>
+<tr>
+<td><strong>StorageObjectInUseProtection</strong></td>
+<td>Validating</td>
+<td>Prevents deletion of in-use PVs/PVCs</td>
+</tr>
+<tr>
+<td><strong>PersistentVolumeClaimResize</strong></td>
+<td>Validating</td>
+<td>Allows PVC expansion</td>
+</tr>
+<tr>
+<td><strong>RuntimeClass</strong></td>
+<td>Validating</td>
+<td>Validates RuntimeClass references</td>
+</tr>
+<tr>
+<td><strong>CertificateApproval</strong></td>
+<td>Validating</td>
+<td>Validates certificate signing requests</td>
+</tr>
+<tr>
+<td><strong>CertificateSigning</strong></td>
+<td>Validating</td>
+<td>Signs certificates</td>
+</tr>
+<tr>
+<td><strong>CertificateSubjectRestriction</strong></td>
+<td>Validating</td>
+<td>Restricts certificate subjects</td>
+</tr>
+</tbody>
+</table>
+<h3 id="not-enabled-by-default">NOT Enabled by Default</h3>
+<p>These require manual enablement via <code>--enable-admission-plugins</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Controller Name</th>
+<th>Type</th>
+<th>Why Not Default</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AlwaysPullImages</strong></td>
+<td>Mutating</td>
+<td>Performance impact</td>
+<td>Multi-tenant clusters</td>
+</tr>
+<tr>
+<td><strong>NodeRestriction</strong></td>
+<td>Validating</td>
+<td>May break some setups</td>
+<td>Restrict kubelet permissions</td>
+</tr>
+<tr>
+<td><strong>ImagePolicyWebhook</strong></td>
+<td>Validating</td>
+<td>Requires external service</td>
+<td>Image scanning/validation</td>
+</tr>
+<tr>
+<td><strong>PodSecurityPolicy</strong></td>
+<td>Validating</td>
+<td>Deprecated in 1.25+</td>
+<td>Use PodSecurity instead</td>
+</tr>
+<tr>
+<td><strong>DenyEscalatingExec</strong></td>
+<td>Validating</td>
+<td>May break debugging</td>
+<td>Prevent exec into privileged pods</td>
+</tr>
+<tr>
+<td><strong>EventRateLimit</strong></td>
+<td>Validating</td>
+<td>Requires configuration</td>
+<td>Prevent event flooding</td>
+</tr>
+<tr>
+<td><strong>ExtendedResourceToleration</strong></td>
+<td>Mutating</td>
+<td>Specific use case</td>
+<td>GPU/FPGA tolerations</td>
+</tr>
+<tr>
+<td><strong>PodNodeSelector</strong></td>
+<td>Validating</td>
+<td>Namespace-specific</td>
+<td>Force node selection per namespace</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-how-to-list-admission-controllers">7. How to List Admission Controllers</h2>
+<h3 id="method-1-check-currently-enabled-controllers">Method 1: Check Currently Enabled Controllers</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the API server pod name</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kube-apiserver
+
+<span class="c1"># View enabled admission plugins</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>kube-apiserver-&lt;node-name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>enable-admission-plugins
+</code></pre></div>
+<p><strong>Example Output:</strong>
+<div class="highlight"><pre><span></span><code>--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota,MutatingAdmissionWebhook,ValidatingAdmissionWebhook
+</code></pre></div></p>
+<h3 id="method-2-check-static-pod-manifest-control-plane">Method 2: Check Static Pod Manifest (Control Plane)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># SSH to control plane node</span>
+ssh<span class="w"> </span>controlplane
+
+<span class="c1"># View the manifest</span>
+cat<span class="w"> </span>/etc/kubernetes/manifests/kube-apiserver.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>enable-admission-plugins
+</code></pre></div>
+<h3 id="method-3-list-all-available-admission-plugins">Method 3: List ALL Available Admission Plugins</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># This shows all admission plugins compiled into kube-apiserver</span>
+kube-apiserver<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">30</span><span class="w"> </span>enable-admission-plugins
+</code></pre></div>
+<p><strong>Example Output:</strong>
+<div class="highlight"><pre><span></span><code>--enable-admission-plugins strings
+      admission plugins that should be enabled in addition to default 
+      enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount...).
+      Comma-delimited list of admission plugins: ..., AlwaysPullImages,
+      CertificateApproval, CertificateSigning, ...
+</code></pre></div></p>
+<h3 id="method-4-describe-api-server-pod">Method 4: Describe API Server Pod</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># More detailed view</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>kube-apiserver-&lt;node-name&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>admission
+</code></pre></div>
+<p><strong>Example Output:</strong>
+<div class="highlight"><pre><span></span><code>--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount...
+--disable-admission-plugins=
+</code></pre></div></p>
+<h3 id="method-5-check-which-plugins-are-actually-running">Method 5: Check Which Plugins Are Actually Running</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Extract just the enabled plugins list</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>kube-apiserver-&lt;node-name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.containers[0].command}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;enable-admission-plugins=[^&quot;]*&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="o">=</span><span class="w"> </span>-f2
+</code></pre></div>
+<p><strong>Example Output:</strong>
+<div class="highlight"><pre><span></span><code>NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota
+</code></pre></div></p>
+<h3 id="method-6-check-both-enabled-and-disabled">Method 6: Check Both Enabled and Disabled</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># See what&#39;s enabled</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>kube-apiserver-&lt;node-name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>enable-admission-plugins
+
+<span class="c1"># See what&#39;s explicitly disabled</span>
+kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>kube-apiserver-&lt;node-name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>disable-admission-plugins
 </code></pre></div>
 <hr />
-<h2 id="7-enablingdisabling-admission-controllers">7. Enabling/Disabling Admission Controllers</h2>
+<h2 id="8-viewing-admission-controllers-complete-reference">8. Viewing Admission Controllers - Complete Reference</h2>
+<h3 id="quick-commands-table">Quick Commands Table</h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>List enabled plugins</strong></td>
+<td><code>kubectl -n kube-system get pod kube-apiserver-&lt;node&gt; -o yaml \| grep enable-admission-plugins</code></td>
+</tr>
+<tr>
+<td><strong>List disabled plugins</strong></td>
+<td><code>kubectl -n kube-system get pod kube-apiserver-&lt;node&gt; -o yaml \| grep disable-admission-plugins</code></td>
+</tr>
+<tr>
+<td><strong>View manifest file</strong></td>
+<td><code>cat /etc/kubernetes/manifests/kube-apiserver.yaml \| grep admission</code></td>
+</tr>
+<tr>
+<td><strong>List ALL available</strong></td>
+<td><code>kube-apiserver -h \| grep -A 30 enable-admission-plugins</code></td>
+</tr>
+<tr>
+<td><strong>Extract enabled list</strong></td>
+<td><code>kubectl -n kube-system get pod kube-apiserver-&lt;node&gt; -o jsonpath='{.spec.containers[0].command}' \| tr ',' '\n' \| grep -A 50 enable-admission-plugins</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="formatted-output-examples">Formatted Output Examples</h3>
+<p><strong>Clean list of enabled controllers:</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>kube-apiserver-controlplane<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>grep<span class="w"> </span>enable-admission-plugins<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>sed<span class="w"> </span><span class="s1">&#39;s/.*enable-admission-plugins=//&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tr<span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span>
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code>NamespaceLifecycle
+LimitRanger
+ServiceAccount
+DefaultStorageClass
+ResourceQuota
+MutatingAdmissionWebhook
+ValidatingAdmissionWebhook
+</code></pre></div></p>
+<hr />
+<h2 id="9-default-controllers-by-kubernetes-version">9. Default Controllers by Kubernetes Version</h2>
+<h3 id="kubernetes-128-current">Kubernetes 1.28+ (Current)</h3>
+<p><strong>Default Enabled:</strong>
+<div class="highlight"><pre><span></span><code>NamespaceLifecycle, LimitRanger, ServiceAccount, 
+DefaultStorageClass, DefaultTolerationSeconds, 
+MutatingAdmissionWebhook, ValidatingAdmissionWebhook,
+ResourceQuota, Priority, TaintNodesByCondition, 
+PodSecurity, StorageObjectInUseProtection,
+PersistentVolumeClaimResize, RuntimeClass,
+CertificateApproval, CertificateSigning, 
+CertificateSubjectRestriction
+</code></pre></div></p>
+<h3 id="kubernetes-123-127">Kubernetes 1.23-1.27</h3>
+<p><strong>Default Enabled:</strong>
+<div class="highlight"><pre><span></span><code>NamespaceLifecycle, LimitRanger, ServiceAccount,
+TaintNodesByCondition, Priority, DefaultTolerationSeconds,
+DefaultStorageClass, StorageObjectInUseProtection,
+PersistentVolumeClaimResize, RuntimeClass, 
+CertificateApproval, CertificateSigning, 
+CertificateSubjectRestriction, DefaultIngressClass,
+MutatingAdmissionWebhook, ValidatingAdmissionWebhook,
+ResourceQuota, PodSecurity
+</code></pre></div></p>
+<h3 id="changes-from-older-versions">Changes from Older Versions</h3>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1.25+</strong></td>
+<td><code>PodSecurityPolicy</code> <strong>deprecated</strong></td>
+</tr>
+<tr>
+<td><strong>1.23+</strong></td>
+<td><code>PodSecurity</code> <strong>enabled by default</strong> (replaces PSP)</td>
+</tr>
+<tr>
+<td><strong>1.21+</strong></td>
+<td><code>PersistentVolumeClaimResize</code> <strong>enabled by default</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-enablingdisabling-admission-controllers">10. Enabling/Disabling Admission Controllers</h2>
 <h3 id="configuration-file-location">Configuration File Location</h3>
 <p><code>/etc/kubernetes/manifests/kube-apiserver.yaml</code> (on control plane)</p>
 <h3 id="enable-additional-controllers">Enable Additional Controllers</h3>
@@ -3377,8 +4414,273 @@ kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class=
 </code></pre></div>
 <p><strong>After modification:</strong>
 The kubelet will automatically restart the API server pod.</p>
+<h2 id="8-visual-examples-admission-controllers-in-action">8. Visual Examples: Admission Controllers in Action</h2>
+<h3 id="example-1-serviceaccount-mutating-controller">Example 1: ServiceAccount Mutating Controller</h3>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────────┐
+│  USER SUBMITS POD (kubectl apply -f pod.yaml)                       │
+└──────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  ORIGINAL REQUEST                                                    │
+│  ┌────────────────────────────────────────────────────────────┐     │
+│  │ apiVersion: v1                                             │     │
+│  │ kind: Pod                                                  │     │
+│  │ metadata:                                                  │     │
+│  │   name: nginx                                              │     │
+│  │ spec:                                                      │     │
+│  │   containers:                                              │     │
+│  │   - name: nginx                                            │     │
+│  │     image: nginx                                           │     │
+│  └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  SERVICEACCOUNT ADMISSION CONTROLLER (MUTATING)                      │
+│                                                                      │
+│  Action: Inject default ServiceAccount and token volume             │
+└──────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  MODIFIED REQUEST (sent to etcd)                                    │
+│  ┌────────────────────────────────────────────────────────────┐     │
+│  │ apiVersion: v1                                             │     │
+│  │ kind: Pod                                                  │     │
+│  │ metadata:                                                  │     │
+│  │   name: nginx                                              │     │
+│  │ spec:                                                      │     │
+│  │   serviceAccountName: default       ← INJECTED!            │     │
+│  │   containers:                                              │     │
+│  │   - name: nginx                                            │     │
+│  │     image: nginx                                           │     │
+│  │     volumeMounts:                    ← INJECTED!           │     │
+│  │     - name: kube-api-access-xxxxx                          │     │
+│  │       mountPath: /var/run/secrets/kubernetes.io/serviceaccount  │
+│  │   volumes:                           ← INJECTED!           │     │
+│  │   - name: kube-api-access-xxxxx                            │     │
+│  │     projected:                                             │     │
+│  │       sources:                                             │     │
+│  │       - serviceAccountToken:                               │     │
+│  │           path: token                                      │     │
+│  └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+                              ↓
+                         ✅ PERSISTED TO ETCD
+</code></pre></div>
 <hr />
-<h2 id="8-real-world-examples">8. Real-World Examples</h2>
+<h3 id="example-2-resourcequota-validating-controller">Example 2: ResourceQuota Validating Controller</h3>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────────┐
+│  CLUSTER STATE: ResourceQuota in &#39;prod&#39; namespace                   │
+│  ┌────────────────────────────────────────────────────────────┐     │
+│  │ hard:                                                      │     │
+│  │   requests.cpu: &quot;10&quot;                                       │     │
+│  │   requests.memory: &quot;20Gi&quot;                                  │     │
+│  │                                                            │     │
+│  │ used:                                                      │     │
+│  │   requests.cpu: &quot;8&quot;                                        │     │
+│  │   requests.memory: &quot;12Gi&quot;                                  │     │
+│  └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+
+                              ↓
+
+┌──────────────────────────────────────────────────────────────────────┐
+│  USER TRIES TO CREATE POD                                           │
+│  ┌────────────────────────────────────────────────────────────┐     │
+│  │ spec:                                                      │     │
+│  │   containers:                                              │     │
+│  │   - name: app                                              │     │
+│  │     resources:                                             │     │
+│  │       requests:                                            │     │
+│  │         cpu: &quot;4&quot;                                           │     │
+│  │         memory: &quot;8Gi&quot;                                      │     │
+│  └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+
+                              ↓
+
+┌──────────────────────────────────────────────────────────────────────┐
+│  RESOURCEQUOTA ADMISSION CONTROLLER (VALIDATING)                     │
+│                                                                      │
+│  Check: Will this pod exceed quota?                                 │
+│  ┌────────────────────────────────────────────────────────────┐     │
+│  │ Current CPU usage:  8 cores                                │     │
+│  │ Requested:          +4 cores                               │     │
+│  │ Total if approved:  12 cores                               │     │
+│  │ Quota limit:        10 cores                               │     │
+│  │                                                            │     │
+│  │ 12 &gt; 10  ❌ EXCEEDS QUOTA!                                 │     │
+│  └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+
+                              ↓
+
+┌──────────────────────────────────────────────────────────────────────┐
+│  ❌ REQUEST REJECTED                                                 │
+│                                                                      │
+│  Error from server (Forbidden): pods &quot;app&quot; is forbidden:             │
+│  exceeded quota: mem-cpu-quota, requested: requests.cpu=4,           │
+│  used: requests.cpu=8, limited: requests.cpu=10                      │
+└──────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<hr />
+<h3 id="example-3-multiple-controllers-working-together">Example 3: Multiple Controllers Working Together</h3>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────────────┐
+│  POD CREATION REQUEST                                                    │
+│  namespace: prod                                                         │
+│  cpu: 2                                                                  │
+│  memory: 4Gi                                                             │
+└──────────────────────────────────────────────────────────────────────────┘
+                                   ↓
+┌──────────────────────────────────────────────────────────────────────────┐
+│  MUTATING ADMISSION PHASE (Sequential)                                  │
+│                                                                          │
+│  Controller 1: NamespaceLifecycle                                        │
+│  ┌────────────────────────────────────────────────────┐                 │
+│  │ Check: Does namespace &#39;prod&#39; exist?                │                 │
+│  │ Result: ✅ Yes, continue                            │                 │
+│  └────────────────────────────────────────────────────┘                 │
+│                                   ↓                                      │
+│  Controller 2: ServiceAccount                                            │
+│  ┌────────────────────────────────────────────────────┐                 │
+│  │ Action: Inject serviceAccountName: default         │                 │
+│  │ Action: Add volume mount for SA token              │                 │
+│  │ Result: ✅ Pod modified                             │                 │
+│  └────────────────────────────────────────────────────┘                 │
+│                                   ↓                                      │
+│  Controller 3: DefaultStorageClass                                       │
+│  ┌────────────────────────────────────────────────────┐                 │
+│  │ Check: Does pod use PVCs?                          │                 │
+│  │ Result: ✅ No, skip                                 │                 │
+│  └────────────────────────────────────────────────────┘                 │
+└──────────────────────────────────────────────────────────────────────────┘
+                                   ↓
+┌──────────────────────────────────────────────────────────────────────────┐
+│  VALIDATING ADMISSION PHASE (Parallel)                                  │
+│                                                                          │
+│  Controller 1: LimitRanger          Controller 2: ResourceQuota          │
+│  ┌────────────────────────────┐   ┌──────────────────────────────┐     │
+│  │ Check: Within limits?      │   │ Check: Within quota?         │     │
+│  │ cpu: 2 ≤ 4 (max)    ✅     │   │ Current: 8 cores             │     │
+│  │ mem: 4Gi ≤ 8Gi (max) ✅    │   │ Request: +2 cores            │     │
+│  │ Result: APPROVE            │   │ Total: 10 cores ≤ 10 ✅      │     │
+│  └────────────────────────────┘   │ Result: APPROVE              │     │
+│                                   └──────────────────────────────┘     │
+│            ↓                                     ↓                       │
+│  Controller 3: PodSecurity          Controller 4: NodeRestriction       │
+│  ┌────────────────────────────┐   ┌──────────────────────────────┐     │
+│  │ Check: Privileged?         │   │ Check: Valid node selector?  │     │
+│  │ privileged: false    ✅     │   │ Result: ✅ Yes               │     │
+│  │ Result: APPROVE            │   │                              │     │
+│  └────────────────────────────┘   └──────────────────────────────┘     │
+│                                                                          │
+│  ALL VALIDATING CONTROLLERS: ✅ APPROVED                                 │
+└──────────────────────────────────────────────────────────────────────────┘
+                                   ↓
+┌──────────────────────────────────────────────────────────────────────────┐
+│  ✅ FINAL RESULT: POD PERSISTED TO ETCD                                  │
+└──────────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<hr />
+<h3 id="example-4-rejection-flow">Example 4: Rejection Flow</h3>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────────────┐
+│  USER TRIES TO CREATE POD IN NON-EXISTENT NAMESPACE                 │
+│                                                                      │
+│  kubectl run nginx --image=nginx -n does-not-exist                  │
+└──────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  AUTHENTICATION: ✅ User authenticated                               │
+└──────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  AUTHORIZATION: ✅ User has pod:create permission                    │
+└──────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  MUTATING ADMISSION: NamespaceLifecycle                             │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────┐     │
+│  │ Check: Does namespace &#39;does-not-exist&#39; exist?             │     │
+│  │                                                            │     │
+│  │ Query etcd for namespace: does-not-exist                  │     │
+│  │ Result: ❌ NOT FOUND                                       │     │
+│  │                                                            │     │
+│  │ Action: REJECT REQUEST                                    │     │
+│  └────────────────────────────────────────────────────────────┘     │
+└──────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  ❌ ERROR RETURNED TO USER                                           │
+│                                                                      │
+│  Error from server (NotFound): namespaces &quot;does-not-exist&quot; not found │
+│                                                                      │
+│  Pod was NEVER created. Request stopped at admission control.       │
+└──────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<hr />
+<h3 id="decision-flow-how-admission-controllers-decide">Decision Flow: How Admission Controllers Decide</h3>
+<div class="highlight"><pre><span></span><code>┌────────────────────────────────────────────────────────────┐
+│  For Each Admission Controller                            │
+└────────────────────────────────────────────────────────────┘
+                          ↓
+           ┌──────────────────────────┐
+           │  Is it enabled?          │
+           └──────────────────────────┘
+                    ↓           ↓
+               NO ──┘           └── YES
+                │                    │
+                │                    ↓
+                │      ┌─────────────────────────┐
+                │      │ Type: Mutating?         │
+                │      └─────────────────────────┘
+                │              ↓           ↓
+                │         YES ──┘           └── NO (Validating)
+                │          │                     │
+                │          ↓                     ↓
+                │   ┌──────────────┐     ┌──────────────┐
+                │   │  Modify      │     │  Validate    │
+                │   │  Request     │     │  Request     │
+                │   └──────────────┘     └──────────────┘
+                │          │                     │
+                │          ↓                     ↓
+                │   ┌──────────────┐     ┌──────────────┐
+                │   │ Continue to  │     │  Pass/Fail?  │
+                │   │ next mutator │     └──────────────┘
+                │   └──────────────┘            │
+                │          │            ┌───────┴────────┐
+                │          │            ↓                ↓
+                │          │         PASS             FAIL
+                │          │            │                │
+                │          │            ↓                ↓
+                │          │    ┌──────────────┐  ┌──────────┐
+                │          │    │ Continue to  │  │  REJECT  │
+                │          │    │ next         │  │  REQUEST │
+                │          │    │ validator    │  │          │
+                │          │    └──────────────┘  └──────────┘
+                │          │            │                │
+                └──────────┴────────────┘                │
+                           │                             │
+                           ↓                             ↓
+                  ┌─────────────────┐         User gets error message
+                  │  All controllers │
+                  │  passed?         │
+                  └─────────────────┘
+                           │
+                    ┌──────┴──────┐
+                    ↓             ↓
+                  YES            NO
+                    │             │
+                    ↓             ↓
+            ┌──────────────┐  ┌────────┐
+            │ PERSIST      │  │ REJECT │
+            │ TO ETCD      │  └────────┘
+            └──────────────┘
+                    │
+                    ↓
+              ✅ SUCCESS
+</code></pre></div>
+<hr />
+<h2 id="9-real-world-examples">9. Real-World Examples</h2>
 <h3 id="example-1-serviceaccount-injection">Example 1: ServiceAccount Injection</h3>
 <p><strong>What you submit:</strong>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
