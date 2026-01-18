@@ -1,8 +1,45 @@
-# Ignore everything
-*
+# MkDocs build output
+site/
 
-# Except mkdocs.yml
-!mkdocs.yml
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+venv/
+env/
+ENV/
 
-# And this .gitignore file itself
-!.gitignore
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+mkdocs.log
+
+# Other git repositories (submodules)
+acing-the-cka-exam/
+certified-kubernetes-administrator-course/
+karpenter/
+kubernetes-the-hard-way/
+kubernetes-troubleshooting-zero-to-hero/
+mumshad/
+
+# ETCD data
+default.etcd/
+
+# Temporary files
+*.tmp
+.gemini/
+
+# Large binary files (keep PNG docs, exclude large ones if needed)
+# You can be specific here if some images are too large
