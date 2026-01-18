@@ -182,6 +182,78 @@ Kubernetes comes with many built-in admission controllers. Here are the most imp
 
 ---
 
+### NamespaceLifecycle: The Namespace Guardian
+
+!!! warning "Deprecated Controllers"
+    **NamespaceExists** and **NamespaceAutoProvision** admission controllers are **deprecated** and replaced by **NamespaceLifecycle**.
+
+**NamespaceLifecycle** is one of the most important admission controllers and performs two critical functions:
+
+#### Function 1: Reject Requests to Non-Existent Namespaces
+
+Ensures that any requests to create resources in a namespace that doesn't exist are **rejected**.
+
+**Example:**
+```bash
+# Try to create a pod in a non-existent namespace
+kubectl run nginx --image=nginx -n prod
+
+# Result: NamespaceLifecycle rejects the request
+Error from server (NotFound): namespaces "prod" not found
+```
+
+#### Function 2: Protect Default Namespaces from Deletion
+
+Safeguards critical namespaces from being deleted:
+- `default`
+- `kube-system`
+- `kube-public`
+- `kube-node-lease`
+
+**Example:**
+```bash
+# Try to delete kube-system namespace
+kubectl delete namespace kube-system
+
+# Result: NamespaceLifecycle rejects the request
+Error from server (Forbidden): namespaces "kube-system" is forbidden: 
+this namespace may not be deleted
+```
+
+#### Function 3: Prevent Resource Creation in Terminating Namespaces
+
+When a namespace is being deleted (in `Terminating` state), NamespaceLifecycle prevents new resources from being created in it.
+
+**Flow Diagram:**
+```
+Namespace Deletion Started
+         ↓
+Namespace Status: Terminating
+         ↓
+User tries to create Pod ──→ NamespaceLifecycle Controller ──→ ❌ REJECTED
+                                          │
+                                          ↓
+                            "Namespace is terminating"
+```
+
+### Deprecated Namespace Controllers
+
+| Controller | Status | Replaced By | Notes |
+|-----------|--------|-------------|-------|
+| **NamespaceExists** | ❌ Deprecated | NamespaceLifecycle | Checked if namespace exists |
+| **NamespaceAutoProvision** | ❌ Deprecated | NamespaceLifecycle | Auto-created namespaces (removed for security) |
+
+**Why were they deprecated?**
+
+**NamespaceAutoProvision** was removed because:
+- **Security risk**: Automatically creating namespaces could lead to unintended resource creation
+- **Resource exhaustion**: Malicious users could create unlimited namespaces
+- **Better practice**: Explicit namespace creation via RBAC policies
+
+**NamespaceExists** was merged into NamespaceLifecycle for simplicity.
+
+---
+
 ## 6. Default Admission Controllers
 
 ### Enabled by Default (Kubernetes 1.28+)
