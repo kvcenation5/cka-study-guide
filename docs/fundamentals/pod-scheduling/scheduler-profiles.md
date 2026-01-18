@@ -72,30 +72,390 @@ A **Scheduler Profile** is a named configuration within the Kubernetes scheduler
 
 ---
 
-## 4. The Scheduling Framework (Plugins)
+## 4. The Scheduling Framework: Phases & Extension Points
 
-The Kubernetes scheduler uses a **plugin architecture** with different extension points:
+The scheduler operates in **two main cycles**:
 
-### Scheduling Cycle
+### The Two Cycles
 
 ```
-Pod → Queue Sort → PreFilter → Filter → PostFilter → PreScore → Score → Reserve → Permit → Bind
-         ↓           ↓          ↓         ↓           ↓        ↓       ↓        ↓       ↓
-      [Plugins]  [Plugins]  [Plugins]  [Plugins]   [Plugins][Plugins][Plugins][Plugins][Plugins]
+┌─────────────────────────────────────────────────────┐
+│ SCHEDULING CYCLE (Decide which node)               │
+│ QueueSort → PreFilter → Filter → PostFilter →      │
+│ PreScore → Score → NormalizeScore → Reserve →      │
+│ Permit                                              │
+└─────────────────────────────────────────────────────┘
+                         ↓
+┌─────────────────────────────────────────────────────┐
+│ BINDING CYCLE (Bind pod to node)                   │
+│ WaitOnPermit → PreBind → Bind → PostBind           │
+└─────────────────────────────────────────────────────┘
 ```
 
-### Built-in Plugins
+---
 
-| Plugin | Extension Point | What It Does |
-| :--- | :--- | :--- |
-| **NodeResourcesFit** | Filter | Checks if node has enough CPU/RAM |
-| **NodeResourcesBalancedAllocation** | Score | Prefers nodes with balanced resource usage |
-| **ImageLocality** | Score | Prefers nodes that already have the container image |
-| **TaintToleration** | Filter | Enforces taint/toleration rules |
-| **NodeAffinity** | Filter | Enforces node affinity rules |
-| **PodTopologySpread** | PreFilter, Filter | Spreads pods across topology domains |
-| **VolumeBinding** | PreFilter, Filter | Checks volume availability |
-| **InterPodAffinity** | PreFilter, Filter, Score | Pod-to-pod affinity/anti-affinity |
+### Extension Points (in Order of Execution)
+
+| # | Extension Point | Phase | Purpose | Can Reject Pod? |
+|---|----------------|-------|---------|-----------------|
+| 1 | **QueueSort** | Scheduling | Sort pods waiting to be scheduled | No |
+| 2 | **PreFilter** | Scheduling | Pre-process pod info or check cluster state | Yes |
+| 3 | **Filter** | Scheduling | Filter nodes that **cannot** run the pod | Yes |
+| 4 | **PostFilter** | Scheduling | Called only when **no nodes** pass Filter (for preemption) | No |
+| 5 | **PreScore** | Scheduling | Pre-scoring work (run once per pod) | No |
+| 6 | **Score** | Scheduling | Rank each node (0-100) | No |
+| 7 | **NormalizeScore** | Scheduling | Normalize scores from different plugins | No |
+| 8 | **Reserve** | Scheduling | Reserve resources before binding | Yes |
+| 9 | **Permit** | Scheduling | Approve, deny, or wait for pod binding | Yes |
+| 10 | **WaitOnPermit** | Binding | Wait for all Permit plugins | No |
+| 11 | **PreBind** | Binding | Pre-binding tasks (e.g., provision volumes) | Yes |
+| 12 | **Bind** | Binding | Bind pod to node | Yes |
+| 13 | **PostBind** | Binding | Informational hook (cannot fail) | No |
+
+---
+
+### Built-in Plugins by Extension Point
+
+#### **QueueSort Plugins**
+Determine the order pods are scheduled.
+
+| Plugin | What It Does |
+|--------|-------------|
+| **PrioritySort** | Sort by pod priority (higher priority first) |
+
+---
+
+#### **PreFilter Plugins**
+Pre-process information before filtering nodes.
+
+| Plugin | What It Does | Can Skip Filter? |
+|--------|-------------|------------------|
+| **NodeResourcesFit** | Calculate resource requests | No |
+| **NodePorts** | Check if required ports are available | No |
+| **PodTopologySpread** | Prepare topology spread constraints | No |
+| **InterPodAffinity** | Pre-calculate pod affinity/anti-affinity | No |
+| **VolumeBinding** | Check which volumes need binding | No |
+
+---
+
+#### **Filter Plugins**
+Eliminate nodes that cannot run the pod.
+
+| Plugin | What It Filters | Reason for Rejection |
+|--------|-----------------|----------------------|
+| **NodeUnschedulable** | Unschedulable nodes | Node has `unschedulable: true` |
+| **NodeName** | Non-matching nodes | Pod specifies `nodeName`, node doesn't match |
+| **TaintToleration** | Tainted nodes | Pod doesn't tolerate node's taints |
+| **NodeAffinity** | Nodes without labels | Node labels don't match pod's `nodeAffinity` |
+| **NodePorts** | Nodes without free ports | Required port already in use |
+| **NodeResourcesFit** | Nodes without resources | Not enough CPU/Memory/GPU |
+| **VolumeRestrictions** | Incompatible volumes | Volume zone doesn't match node |
+| **VolumeBinding** | Volume unavailable | PVC cannot be bound to this node |
+| **PodTopologySpread** | Unbalanced topology | Would violate spread constraints |
+| **InterPodAffinity** | Affinity violations | Pod affinity/anti-affinity not satisfied |
+
+---
+
+#### **PostFilter Plugins**
+Called when **no nodes pass the Filter** phase (usually for preemption).
+
+| Plugin | What It Does |
+|--------|-------------|
+| **DefaultPreemption** | Find lower-priority pods to evict |
+
+---
+
+#### **PreScore Plugins**
+Prepare for scoring (runs once per scheduling cycle).
+
+| Plugin | What It Does |
+|--------|-------------|
+| **InterPodAffinity** | Calculate affinity terms for scoring |
+| **PodTopologySpread** | Calculate current topology distribution |
+
+---
+
+#### **Score Plugins**
+Rank nodes (0-100, higher is better).
+
+| Plugin | Scoring Logic | Weight (Default) |
+|--------|---------------|------------------|
+| **NodeResourcesBalancedAllocation** | Prefer nodes with balanced CPU/Memory usage | 1 |
+| **NodeResourcesMostAllocated** | Prefer nodes that are already full (bin-packing) | 1 |
+| **NodeResourcesLeastAllocated** | Prefer nodes with most free resources | 1 |
+| **ImageLocality** | Prefer nodes that already have the image cached | 1 |
+| **InterPodAffinity** | Score based on pod affinity preferences | 1 |
+| **NodeAffinity** | Score based on preferred node affinity | 1 |
+| **PodTopologySpread** | Score to achieve even spread | 2 |
+| **TaintToleration** | Slight preference for nodes without taints | 1 |
+
+---
+
+#### **Reserve Plugins**
+Reserve resources before binding (can be rolled back if binding fails).
+
+| Plugin | What It Does |
+|--------|-------------|
+| **VolumeBinding** | Reserve volumes for the pod |
+
+---
+
+#### **Permit Plugins**
+Approve or deny binding (can wait for external conditions).
+
+| Plugin | What It Does |
+|--------|-------------|
+| (Usually custom) | Can approve, deny, or wait for external signal |
+
+---
+
+#### **PreBind Plugins**
+Prepare for binding (e.g., attach volumes).
+
+| Plugin | What It Does |
+|--------|-------------|
+| **VolumeBinding** | Attach volumes to the node |
+
+---
+
+#### **Bind Plugins**
+Actually bind the pod to the node.
+
+| Plugin | What It Does |
+|--------|-------------|
+| **DefaultBinder** | Create the Binding object in API server |
+
+---
+
+#### **PostBind Plugins**
+Informational hooks (cannot fail the scheduling).
+
+| Plugin | What It Does |
+|--------|-------------|
+| (Usually none) | Can be used for logging/metrics |
+
+---
+
+### Plugin Behavior Summary
+
+**Filtering vs Scoring:**
+
+| Type | Purpose | Returns | Effect |
+|------|---------|---------|--------|
+| **Filter** | Eliminate nodes | Pass/Fail | Node removed from consideration if fails |
+| **Score** | Rank nodes | 0-100 score | Higher score = more likely to be chosen |
+
+**Example Flow for a Single Pod:**
+
+```
+Pod arrives → QueueSort (place in queue by priority)
+           ↓
+         PreFilter (all plugins prepare data)
+           ↓
+         Filter on Node1: ✅ Pass (has resources)
+         Filter on Node2: ❌ Fail (no CPU)
+         Filter on Node3: ✅ Pass (has resources)
+           ↓
+         Remaining nodes: Node1, Node3
+           ↓
+         Score Node1: 75 (balanced allocation)
+         Score Node3: 90 (better image locality)
+           ↓
+         Selected: Node3 (highest score)
+           ↓
+         Reserve → Permit → PreBind → Bind → PostBind
+```
+
+### Visual Diagram: Complete Scheduling Flow with All Extension Points
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    POD ENTERS SCHEDULING QUEUE                          │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 1. QUEUESORT EXTENSION POINT                                 │      │
+│  │    Plugin: PrioritySort                                      │      │
+│  │    Action: Order pods by priority (high → low)               │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      SCHEDULING CYCLE BEGINS                            │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 2. PREFILTER EXTENSION POINT                                 │      │
+│  │    Plugins:                                                  │      │
+│  │    • NodeResourcesFit      (calculate requests)              │      │
+│  │    • NodePorts            (check port requirements)          │      │
+│  │    • PodTopologySpread    (prepare topology data)            │      │
+│  │    • InterPodAffinity     (pre-calc affinity)                │      │
+│  │    • VolumeBinding        (check volume needs)               │      │
+│  │    Result: ✅ Continue  OR  ❌ Reject Pod                     │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 3. FILTER EXTENSION POINT (For Each Node)                   │      │
+│  │                                                              │      │
+│  │    Node1: ┌────────────────────────────────────┐            │      │
+│  │           │ NodeUnschedulable?    ✅ Pass       │            │      │
+│  │           │ NodeName?             ✅ Pass       │            │      │
+│  │           │ TaintToleration?      ✅ Pass       │            │      │
+│  │           │ NodeResourcesFit?     ✅ Pass       │            │      │
+│  │           │ VolumeBinding?        ✅ Pass       │            │      │
+│  │           └────────────────────────────────────┘            │      │
+│  │           Result: ✅ Node1 is FEASIBLE                       │      │
+│  │                                                              │      │
+│  │    Node2: ┌────────────────────────────────────┐            │      │
+│  │           │ NodeResourcesFit?     ❌ FAIL       │            │      │
+│  │           └────────────────────────────────────┘            │      │
+│  │           Result: ❌ Node2 ELIMINATED                        │      │
+│  │                                                              │      │
+│  │    Node3: ┌────────────────────────────────────┐            │      │
+│  │           │ TaintToleration?      ❌ FAIL       │            │      │
+│  │           └────────────────────────────────────┘            │      │
+│  │           Result: ❌ Node3 ELIMINATED                        │      │
+│  │                                                              │      │
+│  │    Feasible Nodes: [Node1]                                  │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│         ┌──────────────────────────────────────┐                       │
+│         │  IF NO NODES PASS FILTER             │                       │
+│         │      ↓                                │                       │
+│         │  4. POSTFILTER EXTENSION POINT        │                       │
+│         │     Plugin: DefaultPreemption         │                       │
+│         │     Action: Find pods to evict        │                       │
+│         │     Result: Retry scheduling          │                       │
+│         └──────────────────────────────────────┘                       │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 5. PRESCORE EXTENSION POINT                                  │      │
+│  │    Plugins:                                                  │      │
+│  │    • InterPodAffinity     (prepare affinity data)            │      │
+│  │    • PodTopologySpread    (get current distribution)         │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 6. SCORE EXTENSION POINT (For Each Feasible Node)           │      │
+│  │                                                              │      │
+│  │    Node1 Scoring:                                            │      │
+│  │    ┌──────────────────────────────────────────────┐         │      │
+│  │    │ NodeResourcesBalancedAllocation: 80 × 1 = 80 │         │      │
+│  │    │ ImageLocality:                   70 × 1 = 70 │         │      │
+│  │    │ NodeAffinity:                    60 × 1 = 60 │         │      │
+│  │    │ PodTopologySpread:               85 × 2 = 170│         │      │
+│  │    │                                   ─────────── │         │      │
+│  │    │ TOTAL:                           380         │         │      │
+│  │    └──────────────────────────────────────────────┘         │      │
+│  │                                                              │      │
+│  │    Node4 Scoring:                                            │      │
+│  │    ┌──────────────────────────────────────────────┐         │      │
+│  │    │ NodeResourcesBalancedAllocation: 90 × 1 = 90 │         │      │
+│  │    │ ImageLocality:                   50 × 1 = 50 │         │      │
+│  │    │ NodeAffinity:                    80 × 1 = 80 │         │      │
+│  │    │ PodTopologySpread:               75 × 2 = 150│         │      │
+│  │    │                                   ─────────── │         │      │
+│  │    │ TOTAL:                           370         │         │      │
+│  │    └──────────────────────────────────────────────┘         │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 7. NORMALIZESCORE EXTENSION POINT                            │      │
+│  │    Normalize scores to 0-100 range                           │      │
+│  │    Node1: 380/380 × 100 = 100                                 │      │
+│  │    Node4: 370/380 × 100 = 97                                  │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │           WINNER: Node1 (Score: 100)                         │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 8. RESERVE EXTENSION POINT                                   │      │
+│  │    Plugin: VolumeBinding                                     │      │
+│  │    Action: Reserve PVCs for this pod                         │      │
+│  │    Result: ✅ Resources Reserved                              │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 9. PERMIT EXTENSION POINT                                    │      │
+│  │    Plugins can:                                              │      │
+│  │    • Approve (continue)                                      │      │
+│  │    • Deny (reject)                                           │      │
+│  │    • Wait (external approval needed)                         │      │
+│  │    Result: ✅ Approved                                        │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                       BINDING CYCLE BEGINS                              │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 10. WAITONPERMIT EXTENSION POINT                             │      │
+│  │     Wait for all Permit plugins to approve                   │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 11. PREBIND EXTENSION POINT                                  │      │
+│  │     Plugin: VolumeBinding                                    │      │
+│  │     Action: Attach volumes to Node1                          │      │
+│  │     Result: ✅ Volumes Attached                               │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 12. BIND EXTENSION POINT                                     │      │
+│  │     Plugin: DefaultBinder                                    │      │
+│  │     Action: Create Binding object                            │      │
+│  │             POST /api/v1/.../pods/nginx/binding              │      │
+│  │     Result: ✅ Pod Bound to Node1                             │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │ 13. POSTBIND EXTENSION POINT                                 │      │
+│  │     Informational only (logging, metrics)                    │      │
+│  │     Cannot fail the binding                                  │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+│                             ↓                                           │
+│  ┌──────────────────────────────────────────────────────────────┐      │
+│  │           ✅ POD SUCCESSFULLY SCHEDULED TO NODE1              │      │
+│  └──────────────────────────────────────────────────────────────┘      │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Decision Points Flowchart
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│  What Happens at Each Extension Point?                        │
+└────────────────────────────────────────────────────────────────┘
+
+PreFilter (Pod Level):
+   ├─ ✅ Pass → Continue to Filter
+   └─ ❌ Fail → Pod Unschedulable (Error)
+
+Filter (Per Node):
+   ├─ All nodes fail → PostFilter (Try Preemption)
+   ├─ Some nodes pass → Continue to Score
+   └─ One node passes → Score it anyway
+
+Reserve:
+   ├─ ✅ Success → Continue to Permit
+   └─ ❌ Fail → Unreserve, Retry scheduling
+
+Permit:
+   ├─ ✅ Approve → Continue to Bind Cycle
+   ├─ ⏸ Wait → Hold until external approval
+   └─ ❌ Deny → Unreserve, Retry scheduling
+
+PreBind:
+   ├─ ✅ Success → Continue to Bind
+   └─ ❌ Fail → Unreserve, Retry scheduling
+
+Bind:
+   ├─ ✅ Success → PostBind → Done!
+   └─ ❌ Fail → Unreserve, Retry scheduling
+```
 
 ---
 
