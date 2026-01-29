@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../KNOW_YOUR_COMPONENTS/">
+        <link rel="prev" href="../../statefulset-pvc-explained/">
       
       
-        <link rel="next" href="../coredns-guide/">
+        <link rel="next" href="../../exam-tips/kubectl-commands/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>ETCD & Backup - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Curriculum & Weightage - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#etcd-deep-dive-backup-guide" class="md-skip">
+        <a href="#cka-exam-curriculum-weightage-20252026" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ETCD & Backup
+              Curriculum & Weightage
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -249,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../yaml-guide/" class="md-tabs__link">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -269,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -289,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -307,13 +307,52 @@
   
   
     <li class="md-tabs__item">
-      <a href="../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
     
   
   Components
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
+          
+  
+  
+  Deep Dives
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../statefulset-pvc-explained/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  StatefulSet & PVC
 
       </a>
     </li>
@@ -334,45 +373,6 @@
           
   
   
-  Deep Dives
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../statefulset-pvc-explained/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  StatefulSet & PVC
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../exam-overview/curriculum/" class="md-tabs__link">
-          
-  
-  
   Exam Overview
 
         </a>
@@ -389,7 +389,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -409,7 +409,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -443,7 +443,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -461,7 +461,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -488,7 +488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -567,7 +567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -595,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -623,7 +623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -651,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -679,7 +679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -707,7 +707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -735,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -763,7 +763,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -791,7 +791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -819,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -847,7 +847,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -875,7 +875,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -903,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -983,7 +983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1011,7 +1011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1039,7 +1039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1067,7 +1067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1095,7 +1095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1123,7 +1123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1151,7 +1151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1179,7 +1179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1215,7 +1215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1302,7 +1302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1330,7 +1330,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1358,7 +1358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1445,7 +1445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1473,7 +1473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1501,7 +1501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1529,7 +1529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1557,7 +1557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1585,7 +1585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1613,7 +1613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1648,7 +1648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1656,6 +1656,148 @@
     
   
     Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dives
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dives
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETCD & Backup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coredns-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoreDNS Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../statefulset-pvc-explained/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet & PVC
   
 
     
@@ -1693,17 +1835,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Deep Dives
+    Exam Overview
   
 
     
@@ -1714,12 +1856,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Deep Dives
+    Exam Overview
   
 
           </label>
@@ -1748,7 +1890,7 @@
   <span class="md-ellipsis">
     
   
-    ETCD & Backup
+    Curriculum & Weightage
   
 
     
@@ -1766,7 +1908,7 @@
   <span class="md-ellipsis">
     
   
-    ETCD & Backup
+    Curriculum & Weightage
   
 
     
@@ -1792,22 +1934,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-exploring-etcd-the-hidden-database" class="md-nav__link">
+  <a href="#domain-weightage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Exploring ETCD (The "Hidden" Database)
+        Domain Weightage
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Exploring ETCD (The &#34;Hidden&#34; Database)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-curriculum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Curriculum
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Curriculum">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accessing-etcd" class="md-nav__link">
+  <a href="#1-troubleshooting-30" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Accessing ETCD
+        1. Troubleshooting (30%)
       
     </span>
   </a>
@@ -1815,10 +1968,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#etcdctl-utility-versions-usage" class="md-nav__link">
+  <a href="#2-cluster-architecture-installation-configuration-25" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ETCDCTL Utility Versions &amp; Usage
+        2. Cluster Architecture, Installation &amp; Configuration (25%)
       
     </span>
   </a>
@@ -1826,10 +1979,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#specifying-certificates-authentication" class="md-nav__link">
+  <a href="#3-services-networking-20" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Specifying Certificates (Authentication)
+        3. Services &amp; Networking (20%)
       
     </span>
   </a>
@@ -1837,10 +1990,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#master-command-example" class="md-nav__link">
+  <a href="#4-workloads-scheduling-15" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Master Command Example
+        4. Workloads &amp; Scheduling (15%)
       
     </span>
   </a>
@@ -1848,10 +2001,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-magic-command" class="md-nav__link">
+  <a href="#5-storage-10" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The "Magic" Command
+        5. Storage (10%)
       
     </span>
   </a>
@@ -1864,121 +2017,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-etcd-backup-cka-must-know" class="md-nav__link">
+  <a href="#key-updates-for-2025" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. ETCD Backup (CKA Must-Know)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. ETCD Backup (CKA Must-Know)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-log-in-to-the-control-plane-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Log in to the Control Plane Node
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-run-the-snapshot-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Run the Snapshot Command
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-verify-the-snapshot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Verify the Snapshot
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-etcd-restore-disaster-recovery" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. ETCD Restore (Disaster Recovery)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. ETCD Restore (Disaster Recovery)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#criticial-concept-the-restore-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Criticial Concept: The Restore Process
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-1-restore-the-snapshot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Restore the Snapshot
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-update-the-etcd-static-pod-manifest" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Update the ETCD Static Pod Manifest
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-wait-for-restart" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Wait for Restart
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Cheat Sheet Summary
+        Key Updates for 2025
       
     </span>
   </a>
@@ -1989,148 +2031,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../coredns-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CoreDNS Guide
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../statefulset-pvc-explained/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    StatefulSet & PVC
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
-        
-          
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Exam Overview
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Exam Overview
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../exam-overview/curriculum/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Curriculum & Weightage
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2202,7 +2102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2230,7 +2130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2317,7 +2217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -2345,7 +2245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-architecture/" class="md-nav__link">
+      <a href="../../statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2373,7 +2273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network-policy-architecture/" class="md-nav__link">
+      <a href="../../network-policy-architecture/" class="md-nav__link">
         
   
   
@@ -2428,22 +2328,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-exploring-etcd-the-hidden-database" class="md-nav__link">
+  <a href="#domain-weightage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Exploring ETCD (The "Hidden" Database)
+        Domain Weightage
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Exploring ETCD (The &#34;Hidden&#34; Database)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-curriculum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Curriculum
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Curriculum">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accessing-etcd" class="md-nav__link">
+  <a href="#1-troubleshooting-30" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Accessing ETCD
+        1. Troubleshooting (30%)
       
     </span>
   </a>
@@ -2451,10 +2362,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#etcdctl-utility-versions-usage" class="md-nav__link">
+  <a href="#2-cluster-architecture-installation-configuration-25" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ETCDCTL Utility Versions &amp; Usage
+        2. Cluster Architecture, Installation &amp; Configuration (25%)
       
     </span>
   </a>
@@ -2462,10 +2373,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#specifying-certificates-authentication" class="md-nav__link">
+  <a href="#3-services-networking-20" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Specifying Certificates (Authentication)
+        3. Services &amp; Networking (20%)
       
     </span>
   </a>
@@ -2473,10 +2384,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#master-command-example" class="md-nav__link">
+  <a href="#4-workloads-scheduling-15" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Master Command Example
+        4. Workloads &amp; Scheduling (15%)
       
     </span>
   </a>
@@ -2484,10 +2395,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-magic-command" class="md-nav__link">
+  <a href="#5-storage-10" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The "Magic" Command
+        5. Storage (10%)
       
     </span>
   </a>
@@ -2500,121 +2411,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-etcd-backup-cka-must-know" class="md-nav__link">
+  <a href="#key-updates-for-2025" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. ETCD Backup (CKA Must-Know)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. ETCD Backup (CKA Must-Know)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-log-in-to-the-control-plane-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Log in to the Control Plane Node
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-run-the-snapshot-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Run the Snapshot Command
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-verify-the-snapshot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Verify the Snapshot
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-etcd-restore-disaster-recovery" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. ETCD Restore (Disaster Recovery)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. ETCD Restore (Disaster Recovery)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#criticial-concept-the-restore-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Criticial Concept: The Restore Process
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-1-restore-the-snapshot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Restore the Snapshot
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-update-the-etcd-static-pod-manifest" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Update the ETCD Static Pod Manifest
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-wait-for-restart" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Wait for Restart
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Cheat Sheet Summary
+        Key Updates for 2025
       
     </span>
   </a>
@@ -2638,165 +2438,93 @@
 
 
 
-<h1 id="etcd-deep-dive-backup-guide">ETCD Deep Dive &amp; Backup Guide</h1>
-<p><strong>ETCD</strong> is the brain of your Kubernetes cluster. It is a consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.</p>
-<p>If you lose ETCD, you lose your cluster. That is why <strong>Backup &amp; Restore</strong> is a critical CKA competency.</p>
-<hr />
-<h2 id="1-exploring-etcd-the-hidden-database">1. Exploring ETCD (The "Hidden" Database)</h2>
-<p>Kubernetes stores every resource (Pods, Services, Secrets) as a key-value pair in ETCD.</p>
-<h3 id="accessing-etcd">Accessing ETCD</h3>
-<p>ETCD is secured by Mutual TLS (mTLS). You cannot just access it without the correct certificates.</p>
-<p><strong>Common Certificate Locations (Kubeadm/Standard):</strong>
-- CA Cert: <code>/etc/kubernetes/pki/etcd/ca.crt</code>
-- Server Cert: <code>/etc/kubernetes/pki/etcd/server.crt</code>
-- Server Key: <code>/etc/kubernetes/pki/etcd/server.key</code></p>
-<p><strong>Minikube Locations:</strong>
-- CA Cert: <code>/var/lib/minikube/certs/etcd/ca.crt</code>
-- Server Cert: <code>/var/lib/minikube/certs/etcd/server.crt</code>
-- Server Key: <code>/var/lib/minikube/certs/etcd/server.key</code></p>
-<h3 id="etcdctl-utility-versions-usage">ETCDCTL Utility Versions &amp; Usage</h3>
-<p>The <code>etcdctl</code> CLI tool interacts with the ETCD Server using <strong>2 API versions</strong>: Version 2 and Version 3.</p>
-<ul>
-<li>By default, it is often set to use <strong>Version 2</strong>.</li>
-<li>Each version has completely different commands.</li>
-</ul>
-<p><strong>Version 2 Commands (Old/Default)</strong>:
-*   <code>etcdctl backup</code>
-*   <code>etcdctl cluster-health</code>
-*   <code>etcdctl mk</code>
-*   <code>etcdctl mkdir</code>
-*   <code>etcdctl set</code></p>
-<p><strong>Version 3 Commands (Used in Kubernetes)</strong>:
-*   <code>etcdctl snapshot save</code>
-*   <code>etcdctl endpoint health</code>
-*   <code>etcdctl get</code>
-*   <code>etcdctl put</code></p>
-<p><strong>How to set the right version:</strong>
-To use version 3 commands (which are required for Kubernetes/CKA), you MUST set the environment variable:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span>
-</code></pre></div>
-<p><strong>Note:</strong> If the API version is not set, it defaults to version 2, and version 3 commands (like <code>snapshot save</code>) will fail. Conversely, if set to version 3, version 2 commands (like <code>mkdir</code>) will fail.</p>
-<h3 id="specifying-certificates-authentication">Specifying Certificates (Authentication)</h3>
-<p>Apart from setting the API version, you must specify the path to certificate files so that <code>etcdctl</code> can authenticate to the ETCD API Server.</p>
-<p>Standard locations (kubeadm/master node):
-*   <code>--cacert /etc/kubernetes/pki/etcd/ca.crt</code>
-*   <code>--cert /etc/kubernetes/pki/etcd/server.crt</code>
-*   <code>--key /etc/kubernetes/pki/etcd/server.key</code></p>
-<h3 id="master-command-example">Master Command Example</h3>
-<p>Here is the full command that combines API versioning, certificate paths, and execution inside a pod:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>etcd-master<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>--<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;ETCDCTL_API=3 etcdctl get / --prefix --keys-only --limit=10 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt  --key /etc/kubernetes/pki/etcd/server.key&quot;</span>
-</code></pre></div>
-<h3 id="the-magic-command">The "Magic" Command</h3>
-<p>To see what resides in your cluster's brain, run this from inside the etcd pod (or a node with <code>etcdctl</code> installed):</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># General Syntax</span>
-<span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>etcdctl<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cacert<span class="o">=</span>&lt;path-to-ca&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cert<span class="o">=</span>&lt;path-to-cert&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--key<span class="o">=</span>&lt;path-to-key&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>get<span class="w"> </span>/<span class="w"> </span>--prefix<span class="w"> </span>--keys-only
-</code></pre></div>
-<p><strong>Example (Minikube):</strong>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>etcd-minikube<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>--<span class="w"> </span>etcdctl<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cacert<span class="o">=</span>/var/lib/minikube/certs/etcd/ca.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cert<span class="o">=</span>/var/lib/minikube/certs/etcd/server.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--key<span class="o">=</span>/var/lib/minikube/certs/etcd/server.key<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>get<span class="w"> </span>/registry/pods<span class="w"> </span>--prefix<span class="w"> </span>--keys-only
-</code></pre></div></p>
-<p><strong>Sample Output:</strong>
-<div class="highlight"><pre><span></span><code>/registry/pods/default/my-web-app
-/registry/pods/kube-system/coredns-66bc5c9577-6xrr6
-/registry/pods/kube-system/etcd-minikube
-</code></pre></div></p>
-<hr />
-<h2 id="2-etcd-backup-cka-must-know">2. ETCD Backup (CKA Must-Know)</h2>
-<p>You MUST know how to take a snapshot of the ETCD database.</p>
-<h3 id="step-1-log-in-to-the-control-plane-node">Step 1: Log in to the Control Plane Node</h3>
-<p>In the exam, you will likely run this directly on the master node where <code>etcdctl</code> is installed.</p>
-<h3 id="step-2-run-the-snapshot-command">Step 2: Run the Snapshot Command</h3>
-<p>Use the <code>snapshot save</code> command.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>etcdctl<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--endpoints<span class="o">=</span>https://127.0.0.1:2379<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cacert<span class="o">=</span>/etc/kubernetes/pki/etcd/ca.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cert<span class="o">=</span>/etc/kubernetes/pki/etcd/server.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--key<span class="o">=</span>/etc/kubernetes/pki/etcd/server.key<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>snapshot<span class="w"> </span>save<span class="w"> </span>/tmp/etcd-backup.db
-</code></pre></div>
-<p><strong>Success Output:</strong>
-<div class="highlight"><pre><span></span><code>Snapshot saved at /tmp/etcd-backup.db
-</code></pre></div></p>
-<h3 id="step-3-verify-the-snapshot">Step 3: Verify the Snapshot</h3>
-<p>Always verify your backup was successful.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>etcdctl<span class="w"> </span>--write-out<span class="o">=</span>table<span class="w"> </span>snapshot<span class="w"> </span>status<span class="w"> </span>/tmp/etcd-backup.db
-</code></pre></div>
-<hr />
-<h2 id="3-etcd-restore-disaster-recovery">3. ETCD Restore (Disaster Recovery)</h2>
-<p>If your cluster data is corrupted or deleted, you restore from the snapshot.</p>
-<h3 id="criticial-concept-the-restore-process">Criticial Concept: The Restore Process</h3>
-<p>Restoring doesn't just "overwrite" the running database. It creates a <strong>new data directory</strong>. You then have to tell the ETCD pod to use this new directory.</p>
-<h3 id="step-1-restore-the-snapshot">Step 1: Restore the Snapshot</h3>
-<p>This command extracts the backup file into a new directory path.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># directory where the new data will be extracted</span>
-<span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>etcdctl<span class="w"> </span>snapshot<span class="w"> </span>restore<span class="w"> </span>/tmp/etcd-backup.db<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--data-dir<span class="w"> </span>/var/lib/etcd-restore-new
-</code></pre></div>
-<h3 id="step-2-update-the-etcd-static-pod-manifest">Step 2: Update the ETCD Static Pod Manifest</h3>
-<p>You need to point the running ETCD pod to this new directory.</p>
-<ol>
-<li><strong>Edit the manifest:</strong> <code>/etc/kubernetes/manifests/etcd.yaml</code></li>
-<li><strong>Update <code>hostPath</code>:</strong> look for the volume mount for <code>etcd-data</code>.</li>
-</ol>
-<p><strong>Before:</strong>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostPath</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/etcd</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DirectoryOrCreate</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">etcd-data</span>
-</code></pre></div></p>
-<p><strong>After:</strong>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostPath</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/etcd-restore-new</span><span class="w">  </span><span class="c1"># &lt;--- CHANGED THIS</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DirectoryOrCreate</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">etcd-data</span>
-</code></pre></div></p>
-<h3 id="step-3-wait-for-restart">Step 3: Wait for Restart</h3>
-<p>Kubernetes will detect the file change and restart the ETCD pod automatically. It might take a minute.</p>
-<hr />
-<h2 id="4-cheat-sheet-summary">4. Cheat Sheet Summary</h2>
+<h1 id="cka-exam-curriculum-weightage-20252026">CKA Exam Curriculum &amp; Weightage (2025/2026)</h1>
+<p>The Certified Kubernetes Administrator (CKA) exam is performance-based and tests your ability to solve multiple tasks in a Kubernetes environment.</p>
+<h2 id="domain-weightage">Domain Weightage</h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Task</th>
-<th style="text-align: left;">Command / Flag</th>
+<th style="text-align: left;">Domain</th>
+<th style="text-align: left;">Weightage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>API Version</strong></td>
-<td style="text-align: left;"><code>export ETCDCTL_API=3</code> (Always set this!)</td>
+<td style="text-align: left;"><strong>Troubleshooting</strong></td>
+<td style="text-align: left;">30%</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Endpoint</strong></td>
-<td style="text-align: left;"><code>--endpoints=https://127.0.0.1:2379</code></td>
+<td style="text-align: left;"><strong>Cluster Architecture, Installation &amp; Configuration</strong></td>
+<td style="text-align: left;">25%</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Cert Flags</strong></td>
-<td style="text-align: left;"><code>--cacert</code>, <code>--cert</code>, <code>--key</code></td>
+<td style="text-align: left;"><strong>Services &amp; Networking</strong></td>
+<td style="text-align: left;">20%</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Backup</strong></td>
-<td style="text-align: left;"><code>snapshot save &lt;filename&gt;</code></td>
+<td style="text-align: left;"><strong>Workloads &amp; Scheduling</strong></td>
+<td style="text-align: left;">15%</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Verify</strong></td>
-<td style="text-align: left;"><code>snapshot status &lt;filename&gt;</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Restore</strong></td>
-<td style="text-align: left;"><code>snapshot restore &lt;filename&gt; --data-dir &lt;new-path&gt;</code></td>
+<td style="text-align: left;"><strong>Storage</strong></td>
+<td style="text-align: left;">10%</td>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="detailed-curriculum">Detailed Curriculum</h2>
+<h3 id="1-troubleshooting-30">1. Troubleshooting (30%)</h3>
+<ul>
+<li><strong>Troubleshoot clusters and nodes</strong>: Identify and resolve issues with cluster nodes and infrastructure.</li>
+<li><strong>Troubleshoot cluster components</strong>: Diagnose problems with etcd, control plane components, and kubelet.</li>
+<li><strong>Monitoring</strong>: Monitor cluster and application resource usage.</li>
+<li><strong>Logging</strong>: Manage and evaluate container logs and output streams.</li>
+<li><strong>Networking issues</strong>: Troubleshoot services, DNS resolution (CoreDNS), and connectivity between pods/services.</li>
+</ul>
+<h3 id="2-cluster-architecture-installation-configuration-25">2. Cluster Architecture, Installation &amp; Configuration (25%)</h3>
+<ul>
+<li><strong>RBAC</strong>: Manage Role-Based Access Control (Roles, ClusterRoles, Bindings).</li>
+<li><strong>Installation</strong>: Prepare infrastructure and install Kubernetes clusters using <code>kubeadm</code>.</li>
+<li><strong>Lifecycle Management</strong>: Manage cluster upgrades and maintenance.</li>
+<li><strong>High Availability</strong>: Implement and configure highly-available control planes.</li>
+<li><strong>Tools</strong>: Use <strong>Helm</strong> and <strong>Kustomize</strong> to install and manage cluster components.</li>
+<li><strong>Extensions</strong>: Understand extension interfaces (CNI, CSI, CRI).</li>
+<li><strong>CRDs &amp; Operators</strong>: Manage Custom Resource Definitions and install/configure operators.</li>
+</ul>
+<h3 id="3-services-networking-20">3. Services &amp; Networking (20%)</h3>
+<ul>
+<li><strong>Host Networking</strong>: Understand host networking configuration on cluster nodes.</li>
+<li><strong>Pod Connectivity</strong>: Understand and troubleshoot connectivity between Pods.</li>
+<li><strong>Network Policies</strong>: Define and enforce NetworkPolicies to secure traffic.</li>
+<li><strong>Service Types</strong>: Use ClusterIP, NodePort, and LoadBalancer types effectively.</li>
+<li><strong>Gateway API</strong>: Use the newer Gateway API for managing Ingress traffic.</li>
+<li><strong>Ingress</strong>: Configure Ingress controllers and Ingress resources.</li>
+<li><strong>DNS</strong>: Configure and troubleshoot CoreDNS.</li>
+</ul>
+<h3 id="4-workloads-scheduling-15">4. Workloads &amp; Scheduling (15%)</h3>
+<ul>
+<li><strong>Deployments</strong>: Perform rolling updates and rollbacks.</li>
+<li><strong>Secrets &amp; ConfigMaps</strong>: Use them to configure applications securely.</li>
+<li><strong>Autoscaling</strong>: Configure workload autoscaling (Horizontal Pod Autoscaler).</li>
+<li><strong>Self-Healing</strong>: Understand probes and replicas for robust deployments.</li>
+<li><strong>Advanced Scheduling</strong>: Configure Pod admission and scheduling using <strong>PriorityClass</strong>, Taints, Tolerations, and Node Affinity.</li>
+<li><strong>StatefulSets</strong>: Deploy and manage stateful applications.</li>
+</ul>
+<h3 id="5-storage-10">5. Storage (10%)</h3>
+<ul>
+<li><strong>StorageClasses</strong>: Implement StorageClasses and dynamic volume provisioning.</li>
+<li><strong>Volume Configuration</strong>: Configure volume types, access modes, and reclaim policies.</li>
+<li><strong>PV &amp; PVC</strong>: Manage PersistentVolumes and PersistentVolumeClaims.</li>
+<li><strong>Application Storage</strong>: Configure applications with persistent storage.</li>
+</ul>
+<hr />
+<h2 id="key-updates-for-2025">Key Updates for 2025</h2>
+<ul>
+<li><strong>Weightage Shift</strong>: Troubleshooting (30%) and Cluster Architecture (25%) now make up the majority (55%) of the exam.</li>
+<li><strong>New Tools</strong>: <strong>Helm</strong>, <strong>Kustomize</strong>, and <strong>Gateway API</strong> are now part of the curriculum.</li>
+<li><strong>Modern Scheduling</strong>: <strong>PriorityClass</strong> is explicitly mentioned.</li>
+<li><strong>Extensibility</strong>: Focus on <strong>CRDs</strong> and <strong>Operators</strong>.</li>
+</ul>
 
 
 
@@ -2847,10 +2575,10 @@ To use version 3 commands (which are required for Kubernetes/CKA), you MUST set 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
