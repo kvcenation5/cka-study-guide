@@ -21,6 +21,9 @@ Welcome to my personal study notes for the Certified Kubernetes Administrator (C
 - [kubeadm on Mac (Multipass)](file:///Users/dhee/k8s/CKA/docs/setup-guides/kubeadm-mac-multipass.md)
 - [Kubernetes on AWS (kOps)](file:///Users/dhee/k8s/CKA/docs/setup-guides/kops-aws.md)
 
+### 🎓 Exam Overview
+- [CKA Curriculum & Weightage (2025)](exam-overview/curriculum.md)
+
 ### 🔍 Troubleshooting
 - [Troubleshooting Flowchart](file:///Users/dhee/k8s/CKA/docs/troubleshooting-flowchart.md)
 - [Summary of Issues](file:///Users/dhee/k8s/CKA/docs/SUMMARY.md)
