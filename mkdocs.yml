@@ -84,6 +84,7 @@ nav:
   - Exam Tips:
       - kubectl Commands: exam-tips/kubectl-commands.md
       - Dry-Run Workflow: exam-tips/dry-run-workflow.md
+      - Deployment Components: exam-tips/deployment-components.md
   - Diagrams:
       - Troubleshooting Flowchart: troubleshooting-flowchart.md
       - StatefulSet Architecture: statefulset-architecture.md
