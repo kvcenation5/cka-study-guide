@@ -4,13 +4,18 @@ The Certified Kubernetes Administrator (CKA) exam is performance-based and tests
 
 ## Domain Weightage
 
-| Domain | Weightage |
-| :--- | :--- |
-| **Troubleshooting** | 30% |
-| **Cluster Architecture, Installation & Configuration** | 25% |
-| **Services & Networking** | 20% |
-| **Workloads & Scheduling** | 15% |
-| **Storage** | 10% |
+| Domain | Weightage | Questions (Out of 20) |
+| :--- | :--- | :--- |
+| **Troubleshooting** | 30% | ~6 |
+| **Cluster Architecture, Installation & Configuration** | 25% | ~5 |
+| **Services & Networking** | 20% | ~4 |
+| **Workloads & Scheduling** | 15% | ~3 |
+| **Storage** | 10% | ~2 |
+
+---
+
+> [!NOTE]
+> In a typical 20-question exam scenario, **each question is worth approximately 5%** of the total score. This distribution ensures the domain weightages are met accurately.
 
 ---
 
