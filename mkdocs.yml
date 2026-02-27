@@ -79,6 +79,10 @@ nav:
       - ETCD & Backup: etcd-deep-dive.md
       - CoreDNS Guide: coredns-guide.md
   - StatefulSet & PVC: statefulset-pvc-explained.md
+  - Security:
+      - Overview: security/overview.md
+      - Security Primitives: security/security-primitives.md
+      - AuthN vs AuthZ vs TLS: security/auth-vs-authz-vs-tls.md
   - Exam Overview:
       - Curriculum & Weightage: exam-overview/curriculum.md
   - Exam Tips:
