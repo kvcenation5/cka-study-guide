@@ -11,26 +11,28 @@
       
       
       
-        <link rel="prev" href="../statefulset-architecture/">
+        <link rel="prev" href="../auth-vs-authz-vs-tls/">
       
+      
+        <link rel="next" href="../../exam-overview/curriculum/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Network Policy Architecture - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Network Policies - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#network-policy-architecture" class="md-skip">
+        <a href="#network-policies" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Network Policy Architecture
+              Network Policies
             
           </span>
         </div>
@@ -207,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -226,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -247,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../yaml-guide/" class="md-tabs__link">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -267,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -287,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -305,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -326,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -344,7 +346,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../statefulset-pvc-explained/" class="md-tabs__link">
+      <a href="../../statefulset-pvc-explained/" class="md-tabs__link">
         
   
   
@@ -361,11 +363,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -385,7 +389,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -405,7 +409,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -421,13 +425,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../troubleshooting-flowchart/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -461,7 +463,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -479,7 +481,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -506,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -585,7 +587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -613,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -641,7 +643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -669,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -697,7 +699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -725,7 +727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -753,7 +755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -781,7 +783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -809,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -837,7 +839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -865,7 +867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -893,7 +895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -921,7 +923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1001,7 +1003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1029,7 +1031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1057,7 +1059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1085,7 +1087,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1113,7 +1115,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1141,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1169,7 +1171,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1197,7 +1199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1233,7 +1235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1320,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1348,7 +1350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1376,7 +1378,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1463,7 +1465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1491,7 +1493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1519,7 +1521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1547,7 +1549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1575,7 +1577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1603,7 +1605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1631,7 +1633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1666,7 +1668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1745,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -1773,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -1808,7 +1810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-pvc-explained/" class="md-nav__link">
+      <a href="../../statefulset-pvc-explained/" class="md-nav__link">
         
   
   
@@ -1832,26 +1834,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -1869,7 +1876,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1887,7 +1894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -1915,7 +1922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -1943,7 +1950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -1959,6 +1966,192 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Policies
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-default-behavior-vs-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Default Behavior vs. Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-three-selectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Three Selectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-allowing-ingress-from-a-specific-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Allowing Ingress from a Specific App
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-cka-gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important CKA Gotchas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Important CKA Gotchas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-default-deny-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The "Default Deny" All
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dont-forget-dns-egress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Don't Forget DNS (Egress)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-and-vs-or-in-selectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. "And" vs "Or" in Selectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Pitfalls
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2030,7 +2223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -2117,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2145,7 +2338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2173,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -2205,31 +2398,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
   
   
@@ -2247,7 +2435,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2265,7 +2453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -2293,7 +2481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-architecture/" class="md-nav__link">
+      <a href="../../statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2309,198 +2497,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Network Policy Architecture
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Network Policy Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#how-networkpolicies-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How NetworkPolicies Work
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How NetworkPolicies Work">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#default-behavior" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Default Behavior
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#policy-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Policy Types
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Policy Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ingress-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ingress Rules
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#egress-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Egress Rules
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#label-selectors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Label Selectors
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Label Selectors">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#podselector" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        podSelector
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#namespaceselector" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        namespaceSelector
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-pitfalls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Pitfalls
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2540,22 +2536,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-networkpolicies-work" class="md-nav__link">
+  <a href="#core-concepts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How NetworkPolicies Work
+        Core Concepts
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How NetworkPolicies Work">
+    <nav class="md-nav" aria-label="Core Concepts">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-behavior" class="md-nav__link">
+  <a href="#1-default-behavior-vs-isolation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Default Behavior
+        1. Default Behavior vs. Isolation
       
     </span>
   </a>
@@ -2563,33 +2559,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#policy-types" class="md-nav__link">
+  <a href="#2-the-three-selectors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Policy Types
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Policy Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ingress-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ingress Rules
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#egress-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Egress Rules
+        2. The Three Selectors
       
     </span>
   </a>
@@ -2600,24 +2573,35 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#label-selectors" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#example-allowing-ingress-from-a-specific-app" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Label Selectors
+        Example: Allowing Ingress from a Specific App
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Label Selectors">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-cka-gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important CKA Gotchas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Important CKA Gotchas">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#podselector" class="md-nav__link">
+  <a href="#1-the-default-deny-all" class="md-nav__link">
     <span class="md-ellipsis">
       
-        podSelector
+        1. The "Default Deny" All
       
     </span>
   </a>
@@ -2625,18 +2609,24 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#namespaceselector" class="md-nav__link">
+  <a href="#2-dont-forget-dns-egress" class="md-nav__link">
     <span class="md-ellipsis">
       
-        namespaceSelector
+        2. Don't Forget DNS (Egress)
       
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#3-and-vs-or-in-selectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. "And" vs "Or" in Selectors
+      
+    </span>
+  </a>
   
 </li>
         
@@ -2673,48 +2663,80 @@
 
 
 
-<h1 id="network-policy-architecture">Network Policy Architecture</h1>
-<p>This diagram illustrates how NetworkPolicies control pod-to-pod communication in Kubernetes.</p>
+<h1 id="network-policies">Network Policies</h1>
+<p>Network Policies are the Kubernetes equivalent of a firewall. They allow you to control traffic flow at the IP address or port level (Layer 3 or 4) for Pod communication.</p>
 <p><img alt="Network Policy Architecture" src="../network-policy-architecture-v3.png" /></p>
-<h2 id="how-networkpolicies-work">How NetworkPolicies Work</h2>
-<h3 id="default-behavior">Default Behavior</h3>
+<h2 id="core-concepts">Core Concepts</h2>
+<h3 id="1-default-behavior-vs-isolation">1. Default Behavior vs. Isolation</h3>
 <ul>
-<li>By default, all pods can communicate with each other</li>
-<li>Once a NetworkPolicy selects a pod, that pod becomes isolated</li>
-<li>Must explicitly allow desired traffic (whitelist approach)</li>
+<li><strong>Non-isolated:</strong> By default, all Pods in a cluster can communicate with each other (<strong>All Allow</strong>).</li>
+<li><strong>Isolated:</strong> As soon as a Pod is selected by <em>any</em> <code>NetworkPolicy</code>, it becomes isolated for that traffic type (Ingress/Egress). You must then explicitly "whitelist" any traffic you want to allow.</li>
 </ul>
-<h3 id="policy-types">Policy Types</h3>
-<h4 id="ingress-rules">Ingress Rules</h4>
+<h3 id="2-the-three-selectors">2. The Three Selectors</h3>
+<p>You can define allow rules based on three types of selectors:
+1.  <strong>podSelector:</strong> Traffic to/from Pods with specific labels in the same namespace.
+2.  <strong>namespaceSelector:</strong> Traffic to/from Pods in namespaces that have specific labels.
+3.  <strong>ipBlock:</strong> Traffic to/from specific IP ranges (CIDR).</p>
+<hr />
+<h2 id="example-allowing-ingress-from-a-specific-app">Example: Allowing Ingress from a Specific App</h2>
+<p>This is a common CKA task: "Allow traffic to the <code>db</code> pod only from the <code>frontend</code> pod."</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkPolicy</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db-policy</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">podSelector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db</span>
+<span class="w">  </span><span class="nt">policyTypes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
+<span class="w">  </span><span class="nt">ingress</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">from</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">podSelector</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432</span>
+</code></pre></div>
+<hr />
+<h2 id="important-cka-gotchas">Important CKA Gotchas</h2>
+<h3 id="1-the-default-deny-all">1. The "Default Deny" All</h3>
+<p>To secure a namespace, it is common practice to start with a "Deny All" policy.
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">podSelector</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"> </span><span class="c1"># Selects all pods in the namespace</span>
+<span class="w">  </span><span class="nt">policyTypes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Egress</span>
+<span class="w">  </span><span class="c1"># No rules defined = Deny All</span>
+</code></pre></div></p>
+<h3 id="2-dont-forget-dns-egress">2. Don't Forget DNS (Egress)</h3>
+<p>If you apply an <strong>Egress</strong> policy to a Pod, it will likely lose the ability to resolve service names unless you explicitly allow DNS traffic.
+- <strong>Port:</strong> 53
+- <strong>Protocol:</strong> UDP (and TCP)
+- <strong>Destination:</strong> kube-system namespace (usually)</p>
+<h3 id="3-and-vs-or-in-selectors">3. "And" vs "Or" in Selectors</h3>
 <ul>
-<li>Control incoming traffic TO the selected pods</li>
-<li>Specify which sources can connect (pods, namespaces, IP blocks)</li>
-<li>Define allowed ports and protocols</li>
+<li><strong>List items (Dash <code>-</code>):</strong> These are <strong>OR</strong> conditions.</li>
+<li><strong>Key-Value pairs (No Dash):</strong> These are <strong>AND</strong> conditions.</li>
 </ul>
-<h4 id="egress-rules">Egress Rules</h4>
-<ul>
-<li>Control outgoing traffic FROM the selected pods</li>
-<li>Specify allowed destinations</li>
-<li>Critical: Must allow DNS (port 53) for name resolution</li>
-</ul>
-<h3 id="label-selectors">Label Selectors</h3>
-<h4 id="podselector">podSelector</h4>
-<ul>
-<li>Selects which pods the policy applies to</li>
-<li>Uses label matching (exact match required)</li>
-<li>Empty podSelector = applies to all pods in namespace</li>
-</ul>
-<h4 id="namespaceselector">namespaceSelector</h4>
-<ul>
-<li>Selects pods from specific namespaces</li>
-<li>Useful for cross-namespace communication</li>
-<li>Can combine with podSelector for fine-grained control</li>
-</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example of AND (Pod in Namespace with label)</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">from</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namespaceSelector</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">    </span><span class="nt">podSelector</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client</span>
+</code></pre></div>
+<hr />
 <h2 id="common-pitfalls">Common Pitfalls</h2>
 <ol>
-<li><strong>Implicit Deny</strong>: Empty egress rules block ALL outbound traffic (including DNS)</li>
-<li><strong>Label Typos</strong>: Selector doesn't warn if 0 pods match</li>
-<li><strong>One-Way Rules</strong>: Allowing egress doesn't automatically allow ingress on destination</li>
-<li><strong>Missing DNS</strong>: Always allow port 53 UDP to kube-system namespace</li>
+<li><strong>Implicit Deny</strong>: Empty egress rules block ALL outbound traffic (including DNS).</li>
+<li><strong>Label Typos</strong>: Selectors don't warn if 0 pods match.</li>
+<li><strong>One-Way Rules</strong>: Allowing egress doesn't automatically allow ingress on the destination.</li>
+<li><strong>Missing CNI Plugin</strong>: Network Policies <strong>require</strong> a networking plugin that supports them (like Calico, Cilium, or Canal). Flannel does NOT support Network Policies.</li>
 </ol>
 
 
@@ -2766,10 +2788,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
