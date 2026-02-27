@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../mutating-admission-controllers/">
+        <link rel="prev" href="../security/network-policies/">
       
       
-        <link rel="next" href="../etcd-data-model/">
+        <link rel="next" href="../exam-overview/curriculum/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Kube-Proxy Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Security Focus - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kube-proxy-deep-dive" class="md-skip">
+        <a href="#cka-security-focus" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Kube-Proxy Deep Dive
+              Security Focus
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../SUMMARY/" class="md-tabs__link">
+      <a href="../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -249,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../yaml-guide/" class="md-tabs__link">
+        <a href="../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -269,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -285,13 +285,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -309,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -330,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -348,7 +346,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../statefulset-pvc-explained/" class="md-tabs__link">
+      <a href="../statefulset-pvc-explained/" class="md-tabs__link">
         
   
   
@@ -369,7 +367,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../security/overview/" class="md-tabs__link">
+        <a href="../security/overview/" class="md-tabs__link">
           
   
   
@@ -385,9 +383,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../../security-focus/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -408,7 +408,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -428,7 +428,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -448,7 +448,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -482,7 +482,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -500,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -527,7 +527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SUMMARY/" class="md-nav__link">
+      <a href="../SUMMARY/" class="md-nav__link">
         
   
   
@@ -606,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../yaml-guide/" class="md-nav__link">
+      <a href="../yaml-guide/" class="md-nav__link">
         
   
   
@@ -634,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
+      <a href="../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -662,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/api-versions/" class="md-nav__link">
+      <a href="../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -690,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/service-types/" class="md-nav__link">
+      <a href="../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -718,7 +718,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
+      <a href="../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -746,7 +746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/annotations/" class="md-nav__link">
+      <a href="../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -774,7 +774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/resource-management/" class="md-nav__link">
+      <a href="../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -802,7 +802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/limitrange/" class="md-nav__link">
+      <a href="../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -830,7 +830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
+      <a href="../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -858,7 +858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
+      <a href="../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -886,7 +886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/static-pods/" class="md-nav__link">
+      <a href="../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -914,7 +914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/configmaps/" class="md-nav__link">
+      <a href="../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -942,7 +942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1022,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
+      <a href="../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1050,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1078,7 +1078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1106,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1134,7 +1134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1162,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1190,7 +1190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1218,7 +1218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1254,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
+      <a href="../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1341,7 +1341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1369,7 +1369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1397,7 +1397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1429,31 +1429,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -1471,7 +1466,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1489,7 +1484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1517,7 +1512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../component-management/" class="md-nav__link">
+      <a href="../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1545,7 +1540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controllers/" class="md-nav__link">
+      <a href="../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1573,7 +1568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controller-types/" class="md-nav__link">
+      <a href="../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1601,7 +1596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mutating-admission-controllers/" class="md-nav__link">
+      <a href="../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1626,37 +1621,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Kube-Proxy Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1672,132 +1640,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-how-it-runs-the-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. How it Runs (The Architecture)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. How it Runs (The Architecture)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubeadm-standard-clusters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubeadm / Standard Clusters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-hard-way-legacy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        "The Hard Way" / Legacy
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-configuration-where-is-the-config-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Configuration (Where is the config file?)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Configuration (Where is the config file?)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#finding-the-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Finding the Config
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-operations-what-does-it-actually-do" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Operations: What does it actually do?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Operations: What does it actually do?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-modes-implementing-the-magic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Modes (Implementing the Magic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Cheat Sheet Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1810,7 +1652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-data-model/" class="md-nav__link">
+      <a href="../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1845,7 +1687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1924,7 +1766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../etcd-deep-dive/" class="md-nav__link">
+      <a href="../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -1952,7 +1794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../coredns-guide/" class="md-nav__link">
+      <a href="../coredns-guide/" class="md-nav__link">
         
   
   
@@ -1987,7 +1829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../statefulset-pvc-explained/" class="md-nav__link">
+      <a href="../statefulset-pvc-explained/" class="md-nav__link">
         
   
   
@@ -2066,7 +1908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/overview/" class="md-nav__link">
+      <a href="../security/overview/" class="md-nav__link">
         
   
   
@@ -2094,7 +1936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/security-primitives/" class="md-nav__link">
+      <a href="../security/security-primitives/" class="md-nav__link">
         
   
   
@@ -2122,7 +1964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../security/auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2150,7 +1992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/network-policies/" class="md-nav__link">
+      <a href="../security/network-policies/" class="md-nav__link">
         
   
   
@@ -2182,10 +2024,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../security-focus/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Focus
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2201,6 +2070,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#security-mapping-17-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Mapping (17 Questions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-security-tasks-to-master" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Top Security Tasks to Master
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Top Security Tasks to Master">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rbac-role-based-access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. RBAC (Role Based Access Control)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-networkpolicies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. NetworkPolicies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Secrets Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-certificates-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Certificates &amp; TLS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2264,7 +2225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -2351,7 +2312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2379,7 +2340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2407,7 +2368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -2494,7 +2455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -2522,7 +2483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../statefulset-architecture/" class="md-nav__link">
+      <a href="../statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2577,22 +2538,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-how-it-runs-the-architecture" class="md-nav__link">
+  <a href="#security-mapping-17-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. How it Runs (The Architecture)
+        Security Mapping (17 Questions)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. How it Runs (The Architecture)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-security-tasks-to-master" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Top Security Tasks to Master
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Top Security Tasks to Master">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kubeadm-standard-clusters" class="md-nav__link">
+  <a href="#1-rbac-role-based-access-control" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kubeadm / Standard Clusters
+        1. RBAC (Role Based Access Control)
       
     </span>
   </a>
@@ -2600,10 +2572,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-hard-way-legacy" class="md-nav__link">
+  <a href="#2-networkpolicies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        "The Hard Way" / Legacy
+        2. NetworkPolicies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Secrets Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-certificates-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Certificates &amp; TLS
       
     </span>
   </a>
@@ -2612,73 +2606,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-configuration-where-is-the-config-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Configuration (Where is the config file?)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Configuration (Where is the config file?)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#finding-the-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Finding the Config
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-operations-what-does-it-actually-do" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Operations: What does it actually do?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Operations: What does it actually do?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-modes-implementing-the-magic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Modes (Implementing the Magic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Cheat Sheet Summary
-      
-    </span>
-  </a>
   
 </li>
       
@@ -2699,97 +2626,86 @@
 
 
 
-<h1 id="kube-proxy-deep-dive">Kube-Proxy Deep Dive</h1>
-<p><strong>Kube-Proxy</strong> is the network "plumber" of your Kubernetes cluster. It runs on every single node and ensures that "Services" (like ClusterIP) actually work.</p>
-<p>Without Kube-Proxy, <code>Service</code> IPs (e.g., <code>10.96.0.10</code>) would just be dead IP addresses that route nowhere.</p>
-<hr />
-<h2 id="1-how-it-runs-the-architecture">1. How it Runs (The Architecture)</h2>
-<h3 id="kubeadm-standard-clusters">Kubeadm / Standard Clusters</h3>
-<p>In 99% of modern clusters (and the CKA exam), Kube-Proxy runs as a <strong>DaemonSet</strong>.</p>
-<ul>
-<li><strong>Type:</strong> DaemonSet (Ensures exactly one pod runs on every node).</li>
-<li><strong>Namespace:</strong> <code>kube-system</code></li>
-<li><strong>Process:</strong> It talks to the API server to watch for new Services and Endpoints.</li>
-</ul>
-<p>To see it:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>daemonset<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-proxy
-</code></pre></div></p>
-<h3 id="the-hard-way-legacy">"The Hard Way" / Legacy</h3>
-<p>In manual binary installations, <code>kube-proxy</code> is installed as a Systemd Service (binary) directly on the worker node OS, just like the Kubelet.</p>
-<hr />
-<h2 id="2-configuration-where-is-the-config-file">2. Configuration (Where is the config file?)</h2>
-<p>This is where Kube-Proxy differs from Static Pods.</p>
-<ul>
-<li><strong>Static Pods (Scheduler/API):</strong> Config is a <strong>local file</strong> on the node (<code>/etc/kubernetes/...</code>).</li>
-<li><strong>Kube-Proxy:</strong> Config is a <strong>ConfigMap</strong> inside Kubernetes.</li>
-</ul>
-<h3 id="finding-the-config">Finding the Config</h3>
-<p>You cannot just SSH into a node and edit a file to change Kube-Proxy settings. You must edit the ConfigMap object.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># View the config</span>
-kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>kube-proxy<span class="w"> </span>-o<span class="w"> </span>yaml
-
-<span class="c1"># Edit the config (e.g., to change mode from iptables to ipvs)</span>
-kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>edit<span class="w"> </span>cm<span class="w"> </span>kube-proxy
-</code></pre></div>
-<p><strong>CRITICAL STEP:</strong> After editing the ConfigMap, the Pods <strong>will not update automatically</strong>. You must restart the DaemonSet pods to pick up the changes:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>daemonset<span class="w"> </span>kube-proxy
-</code></pre></div>
-<hr />
-<h2 id="3-operations-what-does-it-actually-do">3. Operations: What does it actually do?</h2>
-<p>Kube-Proxy watches the API Server for <strong>Services</strong> and <strong>Endpoints</strong>. When you create a Service, Kube-Proxy wakes up and writes network rules on the Node's kernel.</p>
-<h3 id="the-modes-implementing-the-magic">The Modes (Implementing the Magic)</h3>
-<ol>
-<li>
-<p><strong>IPTables Mode (Default):</strong></p>
-<ul>
-<li>Kube-Proxy writes standard Linux <code>iptables</code> rules.</li>
-<li>Traffic to the Service IP is intercepted by the kernel and DNAT'ed (Forwarded) to a random Pod IP.</li>
-<li><strong>Pros:</strong> Universal, mature.</li>
-<li><strong>Cons:</strong> Slow at massive scale (5,000+ services).</li>
-</ul>
-</li>
-<li>
-<p><strong>IPVS Mode (High Performance):</strong></p>
-<ul>
-<li>Uses the Linux Kernel's IP Virtual Server (L4 Load Balancer).</li>
-<li>Uses hash tables instead of linear lists.</li>
-<li><strong>Pros:</strong> Much faster for large clusters.</li>
-<li><strong>Cons:</strong> Requires extra kernel modules to be loaded on the OS.</li>
-</ul>
-</li>
-</ol>
-<hr />
-<h2 id="4-cheat-sheet-summary">4. Cheat Sheet Summary</h2>
+<h1 id="cka-security-focus">🔐 CKA Security Focus</h1>
+<p>In the CKA exam, security is not a standalone domain but a critical thread woven through the most important tasks. This page highlights the <strong>Security Focus</strong> for each question in our 17-question plan.</p>
+<h2 id="security-mapping-17-questions">Security Mapping (17 Questions)</h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Details</th>
+<th style="text-align: left;">Domain</th>
+<th style="text-align: left;">Weight</th>
+<th style="text-align: left;">Questions</th>
+<th style="text-align: left;">Security Focus Area</th>
+<th style="text-align: left;">Key Tasks</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Run As</strong></td>
-<td style="text-align: left;">DaemonSet (Namespace: <code>kube-system</code>)</td>
+<td style="text-align: left;"><strong>Troubleshooting</strong></td>
+<td style="text-align: left;">30%</td>
+<td style="text-align: left;"><strong>~5</strong></td>
+<td style="text-align: left;"><strong>Auth &amp; Certs</strong></td>
+<td style="text-align: left;">Fix broken RBAC, troubleshoot expired Kubeadm certs, debug API 401/403 errors.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Managed By</strong></td>
-<td style="text-align: left;">Kubernetes Deployment Controller (DaemonSet controller)</td>
+<td style="text-align: left;"><strong>Arch &amp; Intro</strong></td>
+<td style="text-align: left;">25%</td>
+<td style="text-align: left;"><strong>~4</strong></td>
+<td style="text-align: left;"><strong>RBAC</strong></td>
+<td style="text-align: left;">Create Roles/ClusterRoles, Bindings, and verify permissions with <code>auth can-i</code>.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Configuration</strong></td>
-<td style="text-align: left;"><code>ConfigMap: kube-proxy</code></td>
+<td style="text-align: left;"><strong>Networking</strong></td>
+<td style="text-align: left;">20%</td>
+<td style="text-align: left;"><strong>~3</strong></td>
+<td style="text-align: left;"><strong>Network Isolation</strong></td>
+<td style="text-align: left;">Implement Ingress/Egress NetworkPolicies and secure Ingress with TLS Secrets.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Logs</strong></td>
-<td style="text-align: left;"><code>kubectl logs -n kube-system -l k8s-app=kube-proxy</code></td>
+<td style="text-align: left;"><strong>Workloads</strong></td>
+<td style="text-align: left;">15%</td>
+<td style="text-align: left;"><strong>~3</strong></td>
+<td style="text-align: left;"><strong>Identity &amp; Secrets</strong></td>
+<td style="text-align: left;">Manage ServiceAccounts for Pods and securely inject Secrets/ConfigMaps.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Core Job</strong></td>
-<td style="text-align: left;">Translates Service VIPs -&gt; Pod IPs using iptables/ipvs</td>
+<td style="text-align: left;"><strong>Storage</strong></td>
+<td style="text-align: left;">10%</td>
+<td style="text-align: left;"><strong>~2</strong></td>
+<td style="text-align: left;"><strong>N/A</strong></td>
+<td style="text-align: left;">Volume access modes and persistence.</td>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="top-security-tasks-to-master">🎯 Top Security Tasks to Master</h2>
+<h3 id="1-rbac-role-based-access-control">1. RBAC (Role Based Access Control)</h3>
+<ul>
+<li><strong>Create Roles/ClusterRoles</strong>: Grant specific verbs (get, list, watch, create) to resources.</li>
+<li><strong>Bindings</strong>: Link users or ServiceAccounts to those roles.</li>
+<li><strong>Verification</strong>: Always use <code>kubectl auth can-i ...</code> to test your work.</li>
+</ul>
+<h3 id="2-networkpolicies">2. NetworkPolicies</h3>
+<ul>
+<li><strong>Default Deny</strong>: Understand how to isolate a namespace.</li>
+<li><strong>Selective Allow</strong>: Permit traffic only from specific Pods (label selectors) or CIDR ranges.</li>
+<li><strong>Port Security</strong>: Limit traffic to specific ports (e.g., 80, 443, 6379).</li>
+</ul>
+<h3 id="3-secrets-management">3. Secrets Management</h3>
+<ul>
+<li><strong>Creation</strong>: Create secrets from literal values or files.</li>
+<li><strong>Mounting</strong>: Inject secrets as environment variables or as volumes in the Pod spec.</li>
+</ul>
+<h3 id="4-certificates-tls">4. Certificates &amp; TLS</h3>
+<ul>
+<li><strong>Control Plane Security</strong>: Know where the CA, Server, and Client certs live (usually <code>/etc/kubernetes/pki</code>).</li>
+<li><strong>Kubeconfig</strong>: Manage user credentials and context within the kubeconfig file.</li>
+</ul>
+<hr />
+<blockquote>
+<p>[!TIP]
+<strong>Pro-Tip</strong>: When troubleshooting in the exam, if a Pod is failing to start or a command is failing with "Forbidden", <strong>RBAC</strong> or <strong>SecurityContext</strong> is the usual suspect!</p>
+</blockquote>
 
 
 
@@ -2840,10 +2756,10 @@ kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class=
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
