@@ -84,6 +84,7 @@ nav:
       - Security Primitives: security/security-primitives.md
       - AuthN vs AuthZ vs TLS: security/auth-vs-authz-vs-tls.md
       - Network Policies: security/network-policies.md
+  - Security Focus: security-focus.md
   - Exam Overview:
       - Curriculum & Weightage: exam-overview/curriculum.md
   - Exam Tips:
