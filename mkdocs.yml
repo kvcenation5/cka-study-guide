@@ -83,6 +83,7 @@ nav:
       - Overview: security/overview.md
       - Security Primitives: security/security-primitives.md
       - AuthN vs AuthZ vs TLS: security/auth-vs-authz-vs-tls.md
+      - Network Policies: security/network-policies.md
   - Exam Overview:
       - Curriculum & Weightage: exam-overview/curriculum.md
   - Exam Tips:
@@ -92,7 +93,6 @@ nav:
   - Diagrams:
       - Troubleshooting Flowchart: troubleshooting-flowchart.md
       - StatefulSet Architecture: statefulset-architecture.md
-      - Network Policy Architecture: network-policy-architecture.md
 
 plugins:
   - search
