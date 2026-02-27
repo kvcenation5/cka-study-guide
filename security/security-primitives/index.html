@@ -11,24 +11,28 @@
       
       
       
+        <link rel="prev" href="../overview/">
+      
+      
+        <link rel="next" href="../auth-vs-authz-vs-tls/">
       
       
         
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Security Primitives - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -47,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -71,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#kubernetes-security-primitives" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -81,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -101,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Security Primitives
             
           </span>
         </div>
@@ -200,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -219,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -240,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/yaml-guide/" class="md-tabs__link">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -260,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -280,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -298,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -319,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -337,7 +346,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/statefulset-pvc-explained/" class="md-tabs__link">
+      <a href="../../statefulset-pvc-explained/" class="md-tabs__link">
         
   
   
@@ -354,11 +363,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -378,7 +389,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -398,7 +409,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -418,7 +429,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -452,7 +463,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -470,7 +481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -497,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -576,7 +587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -604,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -632,7 +643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -660,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -688,7 +699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -716,7 +727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -744,7 +755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -772,7 +783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -800,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -828,7 +839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -856,7 +867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -884,7 +895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -912,7 +923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -992,7 +1003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1020,7 +1031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1048,7 +1059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1076,7 +1087,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1104,7 +1115,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1132,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1160,7 +1171,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1188,7 +1199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1224,7 +1235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/fundamentals/custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1311,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1339,7 +1350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1367,7 +1378,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1454,7 +1465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1482,7 +1493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1510,7 +1521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1538,7 +1549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1566,7 +1577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1594,7 +1605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1622,7 +1633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1657,7 +1668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1736,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -1764,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -1799,7 +1810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/statefulset-pvc-explained/" class="md-nav__link">
+      <a href="../../statefulset-pvc-explained/" class="md-nav__link">
         
   
   
@@ -1823,26 +1834,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -1860,7 +1876,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1878,7 +1894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -1903,10 +1919,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/security/security-primitives/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Primitives
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1922,6 +1965,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-request-lifecycle-the-three-pillars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Request Lifecycle (The Three Pillars)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Request Lifecycle (The Three Pillars)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-authentication-who-are-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Authentication (Who are you?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-authorization-what-can-you-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Authorization (What can you do?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-admission-control-policy-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Admission Control (Policy Enforcement)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-communication-security-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Communication Security (TLS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pod-security-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pod Security Primitives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-host-level-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Host Level Security
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1934,7 +2080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2021,7 +2167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -2108,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2136,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2164,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -2251,7 +2397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -2279,7 +2425,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/statefulset-architecture/" class="md-nav__link">
+      <a href="../../statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2307,7 +2453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/network-policy-architecture/" class="md-nav__link">
+      <a href="../../network-policy-architecture/" class="md-nav__link">
         
   
   
@@ -2352,6 +2498,99 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-request-lifecycle-the-three-pillars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Request Lifecycle (The Three Pillars)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Request Lifecycle (The Three Pillars)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-authentication-who-are-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Authentication (Who are you?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-authorization-what-can-you-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Authorization (What can you do?)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-admission-control-policy-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Admission Control (Policy Enforcement)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-communication-security-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Communication Security (TLS)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pod-security-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Pod Security Primitives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-host-level-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Host Level Security
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -2364,8 +2603,68 @@
               
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+
+<h1 id="kubernetes-security-primitives">Kubernetes Security Primitives</h1>
+<p>Kubernetes security is built on multiple layers of protection. Understanding how a request gets from a user (or service) to the API server and eventually to a resource is fundamental for the CKA exam.</p>
+<h2 id="1-the-request-lifecycle-the-three-pillars">1. The Request Lifecycle (The Three Pillars)</h2>
+<p>Every request to the Kubernetes API server goes through three major stages:</p>
+<h3 id="a-authentication-who-are-you">A. Authentication (Who are you?)</h3>
+<p>Kubernetes does not have a built-in "User" database. It relies on internal <strong>ServiceAccounts</strong> or external methods for human users:
+- <strong>Files/Tokens:</strong> Static Token File, Bootstrap Tokens.
+- <strong>Certificates:</strong> Client Certificates (X.509).
+- <strong>External Providers:</strong> LDAP, OIDC (Google, GitHub), Keystone.</p>
+<blockquote>
+<p>[!NOTE]
+If a request fails authentication, it returns a <strong>401 Unauthorized</strong> error.</p>
+</blockquote>
+<h3 id="b-authorization-what-can-you-do">B. Authorization (What can you do?)</h3>
+<p>Once identified, Kubernetes checks if the user has permission to perform the specific action (verb) on the resource.
+- <strong>RBAC (Role-Based Access Control):</strong> The most common method (used in CKA).
+- <strong>ABAC (Attribute-Based Access Control):</strong> Policy-based, less common.
+- <strong>Node Authorization:</strong> Specifically for Kubelets.
+- <strong>Webhook:</strong> External authorization service.</p>
+<blockquote>
+<p>[!NOTE]
+If a request fails authorization, it returns a <strong>403 Forbidden</strong> error.</p>
+</blockquote>
+<h3 id="c-admission-control-policy-enforcement">C. Admission Control (Policy Enforcement)</h3>
+<p>Even if you are authorized, an Admission Controller can still block or modify your request based on cluster-wide policies.
+- <strong>Mutating Admission Controllers:</strong> Modify the request (e.g., inject a sidecar).
+- <strong>Validating Admission Controllers:</strong> Check the request against rules (e.g., check if the image comes from a trusted registry).</p>
+<hr />
+<h2 id="2-communication-security-tls">2. Communication Security (TLS)</h2>
+<p>By default, all communication between Kubernetes components is encrypted using <strong>TLS</strong>.
+- <strong>Control Plane components</strong> (API Server, Scheduler, Controller Manager) use TLS to talk to each other.
+- <strong>Kubelet</strong> uses TLS to talk to the API Server.
+- <strong>etcd</strong> should be secured with its own set of certificates.</p>
+<h2 id="3-pod-security-primitives">3. Pod Security Primitives</h2>
+<p>Beyond the API server, security applies to the workloads themselves:
+- <strong>Security Contexts:</strong> Define user IDs, group IDs, and capabilities at the Pod or Container level.
+- <strong>Secrets:</strong> Store sensitive data (though they are only Base64 encoded by default—not encrypted at rest unless configured).
+- <strong>Network Policies:</strong> Control the flow of traffic between Pods (Layer 3/4 Firewall).</p>
+<hr />
+<h2 id="4-host-level-security">4. Host Level Security</h2>
+<ul>
+<li><strong>Node Hardening:</strong> Disabling unused services.</li>
+<li><strong>SSH Access:</strong> Restricting access to the underlying nodes.</li>
+<li><strong>Kubelet Security:</strong> Disabling anonymous access and ensuring only authorized API requests are processed.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -2403,10 +2702,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "/assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
