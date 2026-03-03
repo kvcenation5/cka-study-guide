@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../cluster-architecture/etcd-data-model/">
+        <link rel="prev" href="../auth-vs-authz-vs-tls/">
       
       
-        <link rel="next" href="../etcd-deep-dive/">
+        <link rel="next" href="../network-policies/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Components - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>TLS Certificates - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-identify-kubernetes-components" class="md-skip">
+        <a href="#tls-certificates-in-kubernetes" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Components
+              TLS Certificates
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -249,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../yaml-guide/" class="md-tabs__link">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -269,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -289,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -305,11 +305,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -330,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -348,7 +346,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../statefulset-pvc-explained/" class="md-tabs__link">
+      <a href="../../statefulset-pvc-explained/" class="md-tabs__link">
         
   
   
@@ -365,11 +363,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -387,7 +387,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../security-focus/" class="md-tabs__link">
+      <a href="../../security-focus/" class="md-tabs__link">
         
   
   
@@ -408,7 +408,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -428,7 +428,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -448,7 +448,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -482,7 +482,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -500,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -527,7 +527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -606,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -634,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -662,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -690,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -718,7 +718,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -746,7 +746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -774,7 +774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -802,7 +802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -830,7 +830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -858,7 +858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -886,7 +886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -914,7 +914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -942,7 +942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1022,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1050,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1078,7 +1078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1106,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1134,7 +1134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1162,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1190,7 +1190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1218,7 +1218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1254,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1341,7 +1341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1369,7 +1369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1397,7 +1397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1484,7 +1484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1512,7 +1512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1540,7 +1540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1568,7 +1568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1596,7 +1596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1624,7 +1624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1652,7 +1652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1684,37 +1684,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Components
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1730,148 +1703,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-magic-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. The "Magic" Command
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-common-system-components-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Common System Components (Cheat Sheet)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Common System Components (Cheat Sheet)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#daemonsets-runs-on-every-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ DaemonSets (Runs on EVERY Node)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#deployments-runs-anywhere" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ Deployments (Runs ANYWHERE)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#static-pods-control-plane-only" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ Static Pods (Control Plane Only)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-heuristic-rule-of-thumb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Heuristic / Rule of Thumb
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-default-cluster-inventory-what-to-expect-in-a-fresh-cluster" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Default Cluster Inventory (What to expect in a fresh cluster)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Default Cluster Inventory (What to expect in a fresh cluster)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-control-plane-the-brains" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧠 The Control Plane (The Brains)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#networking-the-plumbing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔌 Networking (The Plumbing)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optional-but-common" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛡️ Optional but Common
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1935,7 +1766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -1963,7 +1794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -1998,7 +1829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-pvc-explained/" class="md-nav__link">
+      <a href="../../statefulset-pvc-explained/" class="md-nav__link">
         
   
   
@@ -2022,26 +1853,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2059,7 +1895,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2077,7 +1913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2105,7 +1941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2133,7 +1969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2158,10 +1994,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../security/tls-certificates/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TLS Certificates
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2177,6 +2040,198 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-hierarchy-of-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. The Hierarchy of Trust
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-certificate-locations-kubeadm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📂 2. Certificate Locations (Kubeadm)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-inspecting-certificates-cka-must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 3. Inspecting Certificates (CKA Must-Know)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 3. Inspecting Certificates (CKA Must-Know)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-expiration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Expiration:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-common-name-cn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Common Name (CN):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-kubeadm-easier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Kubeadm (Easier):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-creating-a-new-user-csr-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 4. Creating a New User (CSR Workflow)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 4. Creating a New User (CSR Workflow)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-generate-private-key-csr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Generate Private Key &amp; CSR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-a-kubernetes-csr-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create a Kubernetes CSR Object
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-approve-the-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Approve the Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-extract-the-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Extract the Certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-troubleshooting-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 5. Troubleshooting Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 5. Troubleshooting Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-unable-to-connect-to-the-server-x509-certificate-has-expired" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: "Unable to connect to the server: x509: certificate has expired"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-broken-kubelet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: "Broken Kubelet"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2189,7 +2244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -2224,7 +2279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-focus/" class="md-nav__link">
+      <a href="../../security-focus/" class="md-nav__link">
         
   
   
@@ -2303,7 +2358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -2390,7 +2445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2418,7 +2473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2446,7 +2501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -2533,7 +2588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -2561,7 +2616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-architecture/" class="md-nav__link">
+      <a href="../../statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2616,10 +2671,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-magic-command" class="md-nav__link">
+  <a href="#1-the-hierarchy-of-trust" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The "Magic" Command
+        🏗️ 1. The Hierarchy of Trust
       
     </span>
   </a>
@@ -2627,22 +2682,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-common-system-components-cheat-sheet" class="md-nav__link">
+  <a href="#2-certificate-locations-kubeadm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Common System Components (Cheat Sheet)
+        📂 2. Certificate Locations (Kubeadm)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Common System Components (Cheat Sheet)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-inspecting-certificates-cka-must-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 3. Inspecting Certificates (CKA Must-Know)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 3. Inspecting Certificates (CKA Must-Know)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#daemonsets-runs-on-every-node" class="md-nav__link">
+  <a href="#check-expiration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ DaemonSets (Runs on EVERY Node)
+        Check Expiration:
       
     </span>
   </a>
@@ -2650,10 +2716,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#deployments-runs-anywhere" class="md-nav__link">
+  <a href="#check-common-name-cn" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ Deployments (Runs ANYWHERE)
+        Check Common Name (CN):
       
     </span>
   </a>
@@ -2661,10 +2727,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#static-pods-control-plane-only" class="md-nav__link">
+  <a href="#using-kubeadm-easier" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ Static Pods (Control Plane Only)
+        Using Kubeadm (Easier):
       
     </span>
   </a>
@@ -2677,33 +2743,83 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-heuristic-rule-of-thumb" class="md-nav__link">
+  <a href="#4-creating-a-new-user-csr-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Heuristic / Rule of Thumb
+        📝 4. Creating a New User (CSR Workflow)
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="📝 4. Creating a New User (CSR Workflow)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-generate-private-key-csr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Generate Private Key &amp; CSR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-a-kubernetes-csr-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create a Kubernetes CSR Object
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-approve-the-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Approve the Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-extract-the-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Extract the Certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-default-cluster-inventory-what-to-expect-in-a-fresh-cluster" class="md-nav__link">
+  <a href="#5-troubleshooting-scenarios" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Default Cluster Inventory (What to expect in a fresh cluster)
+        🔧 5. Troubleshooting Scenarios
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="4. Default Cluster Inventory (What to expect in a fresh cluster)">
+    <nav class="md-nav" aria-label="🔧 5. Troubleshooting Scenarios">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-control-plane-the-brains" class="md-nav__link">
+  <a href="#scenario-unable-to-connect-to-the-server-x509-certificate-has-expired" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Control Plane (The Brains)
+        Scenario: "Unable to connect to the server: x509: certificate has expired"
       
     </span>
   </a>
@@ -2711,21 +2827,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#networking-the-plumbing" class="md-nav__link">
+  <a href="#scenario-broken-kubelet" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔌 Networking (The Plumbing)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optional-but-common" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛡️ Optional but Common
+        Scenario: "Broken Kubelet"
       
     </span>
   </a>
@@ -2754,118 +2859,105 @@
 
 
 
-<h1 id="how-to-identify-kubernetes-components">How to Identify Kubernetes Components</h1>
-<p><strong>(Is it a DaemonSet, Deployment, or Service?)</strong></p>
-<h2 id="1-the-magic-command">1. The "Magic" Command</h2>
-<p>The easiest way to see <strong>everything</strong> and its type is to run:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>all<span class="w"> </span>-n<span class="w"> </span>kube-system
-</code></pre></div>
-<p>Look at the <strong>PREFIX</strong> of the output lines:
-- <code>pod/coredns-...</code> → <strong>Pod</strong> (Actual container running)
-- <code>service/kube-dns</code> → <strong>Service</strong> (Network endpoint/IP)
-- <code>daemonset.apps/kube-proxy</code> → <strong>DaemonSet</strong>
-- <code>deployment.apps/coredns</code> → <strong>Deployment</strong></p>
+<h1 id="tls-certificates-in-kubernetes">TLS Certificates in Kubernetes</h1>
+<p>TLS (Transport Layer Security) is the foundation of security in Kubernetes. Every component communicates over HTTPS, and most use <strong>Mutual TLS (mTLS)</strong> to verify each other's identity.</p>
 <hr />
-<h2 id="2-common-system-components-cheat-sheet">2. Common System Components (Cheat Sheet)</h2>
-<h3 id="daemonsets-runs-on-every-node">✅ DaemonSets (Runs on EVERY Node)</h3>
-<p><em>Agents that act as the "glue" for the cluster.</em>
-- <strong><code>kube-proxy</code></strong>: Manages network rules on every node.
-- <strong>CNI Plugins</strong> (e.g., <code>calico-node</code>, <code>flannel</code>, <code>aws-node</code>): provides Pod networking.
-- <strong>Log Collectors</strong> (e.g., <code>fluentd</code>, <code>filebeat</code>): Scrapes logs from every node.</p>
-<h3 id="deployments-runs-anywhere">✅ Deployments (Runs ANYWHERE)</h3>
-<p><em>Scalable applications that don't need to be on every single machine.</em>
-- <strong><code>coredns</code></strong>: DNS Server (usually 2 replicas for redundancy).
-- <strong><code>metrics-server</code></strong>: Aggregates CPU/Memory stats.
-- <strong><code>kubernetes-dashboard</code></strong>: Valid Web UI.</p>
-<h3 id="static-pods-control-plane-only">✅ Static Pods (Control Plane Only)</h3>
-<p><em>These run directly on the Master Node manifest files. They often don't have a Deployment or DaemonSet controlling them.</em>
-- <strong><code>kube-apiserver</code></strong>: The Brain.
-- <strong><code>etcd</code></strong>: The Database.
-- <strong><code>kube-scheduler</code></strong>: The Decision Maker.
-- <strong><code>kube-controller-manager</code></strong>: The Loop Master.</p>
+<h2 id="1-the-hierarchy-of-trust">🏗️ 1. The Hierarchy of Trust</h2>
+<p>Kubernetes typically uses multiple "Trust Domains" (CAs):
+1.  <strong>Cluster CA:</strong> Signs certs for API Server, Kubelets, and Scheduler.
+2.  <strong>Etcd CA:</strong> Signs certs specifically for Etcd communication.
+3.  <strong>Front Proxy CA:</strong> Signs certs for the Aggregation Layer (API extensions).</p>
 <hr />
-<h2 id="3-heuristic-rule-of-thumb">3. Heuristic / Rule of Thumb</h2>
+<h2 id="2-certificate-locations-kubeadm">📂 2. Certificate Locations (Kubeadm)</h2>
+<p>On a control plane node installed with <code>kubeadm</code>, all certificates are stored in:
+<code>/etc/kubernetes/pki/</code></p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Question to Ask</th>
-<th style="text-align: left;">It probably is a...</th>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Path</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">"Does this provide a steady IP address?"</td>
-<td style="text-align: left;"><strong>Service</strong></td>
+<td style="text-align: left;"><strong>CA Root</strong></td>
+<td style="text-align: left;"><code>ca.crt</code>, <code>ca.key</code></td>
+<td style="text-align: left;">The primary root certificate.</td>
 </tr>
 <tr>
-<td style="text-align: left;">"Does this need to handle networking/logs on <strong>hardware</strong>?"</td>
-<td style="text-align: left;"><strong>DaemonSet</strong></td>
+<td style="text-align: left;"><strong>API Server</strong></td>
+<td style="text-align: left;"><code>apiserver.crt</code>, <code>apiserver.key</code></td>
+<td style="text-align: left;">Used by the API server to identify itself.</td>
 </tr>
 <tr>
-<td style="text-align: left;">"Is this a standard app (web server, dns)?"</td>
-<td style="text-align: left;"><strong>Deployment</strong></td>
+<td style="text-align: left;"><strong>Etcd</strong></td>
+<td style="text-align: left;"><code>etcd/ca.crt</code>, <code>etcd/healthcheck-client.crt</code></td>
+<td style="text-align: left;">Etcd-specific security.</td>
 </tr>
 <tr>
-<td style="text-align: left;">"Does this hold unique data (database)?"</td>
-<td style="text-align: left;"><strong>StatefulSet</strong></td>
+<td style="text-align: left;"><strong>Kubeconfig</strong></td>
+<td style="text-align: left;"><code>/etc/kubernetes/admin.conf</code></td>
+<td style="text-align: left;">Contains the <code>client-certificate-data</code>.</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="4-default-cluster-inventory-what-to-expect-in-a-fresh-cluster">4. Default Cluster Inventory (What to expect in a fresh cluster)</h2>
-<p>When you run <code>kubectl get all -n kube-system</code> on a brand new cluster (e.g., Kubeadm, Minikube, or EKS), here is the standard checklist of what you will see.</p>
-<h3 id="the-control-plane-the-brains">🧠 The Control Plane (The Brains)</h3>
-<p><em>Usually run as Static Pods on the Master Node(s). You won't see Deployments for these in managed clouds (EKS/GKE).</em></p>
+<h2 id="3-inspecting-certificates-cka-must-know">🔍 3. Inspecting Certificates (CKA Must-Know)</h2>
+<p>Use <code>openssl</code> to check if a certificate is valid and see its "Subject" or "Expiry".</p>
+<h3 id="check-expiration">Check Expiration:</h3>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/kubernetes/pki/apiserver.crt<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Not
+</code></pre></div>
+<h3 id="check-common-name-cn">Check Common Name (CN):</h3>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/kubernetes/pki/apiserver.crt<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Subject:
+</code></pre></div>
+<h3 id="using-kubeadm-easier">Using Kubeadm (Easier):</h3>
+<div class="highlight"><pre><span></span><code>kubeadm<span class="w"> </span>certs<span class="w"> </span>check-expiration
+</code></pre></div>
+<hr />
+<h2 id="4-creating-a-new-user-csr-workflow">📝 4. Creating a New User (CSR Workflow)</h2>
+<p>In the CKA exam, you might be asked to grant a new user access.</p>
+<h3 id="step-1-generate-private-key-csr">Step 1: Generate Private Key &amp; CSR</h3>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>john.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>john.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=john/O=developers&quot;</span><span class="w"> </span>-out<span class="w"> </span>john.csr
+</code></pre></div>
+<h3 id="step-2-create-a-kubernetes-csr-object">Step 2: Create a Kubernetes CSR Object</h3>
+<p><div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certificates.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CertificateSigningRequest</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">john-developer</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">request</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;BASE64_ENCODED_CSR_HERE&gt;</span>
+<span class="w">  </span><span class="nt">signerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/kube-apiserver-client</span>
+<span class="w">  </span><span class="nt">usages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client auth</span>
+</code></pre></div>
+<em>(Use <code>cat john.csr | base64 | tr -d '\n'</code> to get the request data)</em></p>
+<h3 id="step-3-approve-the-request">Step 3: Approve the Request</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr
+kubectl<span class="w"> </span>certificate<span class="w"> </span>approve<span class="w"> </span>john-developer
+</code></pre></div>
+<h3 id="step-4-extract-the-certificate">Step 4: Extract the Certificate</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span>john.crt
+</code></pre></div>
+<hr />
+<h2 id="5-troubleshooting-scenarios">🔧 5. Troubleshooting Scenarios</h2>
+<h3 id="scenario-unable-to-connect-to-the-server-x509-certificate-has-expired">Scenario: "Unable to connect to the server: x509: certificate has expired"</h3>
 <ol>
-<li><strong><code>etcd</code></strong> (Database)<ul>
-<li><strong>What is it?</strong> The single source of truth. Stores all YAMLs, secrets, and cluster state.</li>
-<li><strong>Type:</strong> Static Pod.</li>
-</ul>
-</li>
-<li><strong><code>kube-apiserver</code></strong> (Front Door)<ul>
-<li><strong>What is it?</strong> The only component you talk to (via <code>kubectl</code>). It validates valid requests and updates <code>etcd</code>.</li>
-<li><strong>Type:</strong> Static Pod.</li>
-</ul>
-</li>
-<li><strong><code>kube-controller-manager</code></strong> (Automation)<ul>
-<li><strong>What is it?</strong> A loop that fixes things. If a pod dies, this process notices and creates a new one.</li>
-<li><strong>Type:</strong> Static Pod.</li>
-</ul>
-</li>
-<li><strong><code>kube-scheduler</code></strong> (Placement)<ul>
-<li><strong>What is it?</strong> Decides <em>which</em> node a new pod should go to (based on CPU, RAM, Taints).</li>
-<li><strong>Type:</strong> Static Pod.</li>
-</ul>
-</li>
+<li>Run <code>kubeadm certs check-expiration</code>.</li>
+<li>If expired, run <code>kubeadm certs renew all</code>.</li>
+<li>Restart control plane components (API server, Scheduler, Controller Manager).</li>
 </ol>
-<h3 id="networking-the-plumbing">🔌 Networking (The Plumbing)</h3>
-<p><em>These make sure Pod A can talk to Pod B.</em></p>
-<ol>
-<li><strong><code>coredns</code></strong> (Phonebook)<ul>
-<li><strong>What is it?</strong> Allows you to reach services by name (e.g., <code>db-service</code>) instead of IP (<code>10.96.0.1</code>).</li>
-<li><strong>Type:</strong> <strong>Deployment</strong> (usually 2 replicas).</li>
-<li><strong>Service:</strong> <code>kube-dns</code> (ClusterIP).</li>
-</ul>
-</li>
-<li><strong><code>kube-proxy</code></strong> (Traffic Cop)<ul>
-<li><strong>What is it?</strong> Maintains network rules (iptables/IPVS) on nodes to route traffic.</li>
-<li><strong>Type:</strong> <strong>DaemonSet</strong> (Must run on every node).</li>
-</ul>
-</li>
-<li><strong>CNI Plugin</strong> (The Cables - e.g., Flannel, Calico, Weave, AWS-VPC-CNI)<ul>
-<li><strong>What is it?</strong> Assigns IP addresses to Pods. Without this, nodes are "NotReady".</li>
-<li><strong>Type:</strong> <strong>DaemonSet</strong> (Must run on every node).</li>
-</ul>
-</li>
-</ol>
-<h3 id="optional-but-common">🛡️ Optional but Common</h3>
-<ol>
-<li><strong><code>metrics-server</code></strong> (Stats)<ul>
-<li><strong>What is it?</strong> Enables <code>kubectl top nodes</code> and Horizontal Pod Autoscaling.</li>
-<li><strong>Type:</strong> Deployment.</li>
-</ul>
-</li>
-</ol>
+<h3 id="scenario-broken-kubelet">Scenario: "Broken Kubelet"</h3>
+<p>Kubelets often use <strong>Client Certificate Rotation</strong>. If a kubelet can't join, check if there's a pending CSR:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr
+<span class="c1"># Look for &#39;node-csr-...&#39; and approve if necessary</span>
+</code></pre></div></p>
+<hr />
+<blockquote>
+<p>[!TIP]
+<strong>Exam Strategy</strong>: Don't memorize the CSR YAML perfectly. Use <code>kubectl explain csr.spec</code> or search for "CSR" in the official K8s documentation during the exam!</p>
+</blockquote>
 
 
 
@@ -2916,10 +3008,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
