@@ -84,5 +84,56 @@ spec:
 
 ---
 
-> [!WARNING]
-> Remember that `emptyDir` data is wiped if the Pod is deleted. If you need data to survive Pod restarts/deletions, use **PV and PVC**.
+## 🔗 3. Manual PV & PVC Binding
+
+This example shows how to manually create a PersistentVolume and a PersistentVolumeClaim that bind together based on their `storageClassName`, `accessModes`, and `capacity`.
+
+### The YAML (`pv-pvc-manual.yaml`)
+
+```yaml
+# 1. The PersistentVolume (Cluster-wide resource)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: manual-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/manual-storage"
+
+---
+
+# 2. The PersistentVolumeClaim (Namespaced resource)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: manual-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+### Key Binding Rules:
+1.  **StorageClassName**: Both must match (in this case, `manual`).
+2.  **AccessModes**: The PV must support at least the access mode requested by the PVC.
+3.  **Capacity**: The PV capacity must be greater than or equal to the PVC request.
+
+### How to test:
+1.  Create the resources: `kubectl apply -f pv-pvc-manual.yaml`
+2.  Check the PV status: `kubectl get pv manual-pv` (Should be **Bound**)
+3.  Check the PVC status: `kubectl get pvc manual-pvc` (Should be **Bound**)
+
+---
+
+> [!TIP]
+> **Dynamic vs Manual**: In production, you'll likely use a **StorageClass** to automate this (Dynamic Provisioning). In the CKA exam, you will often be asked to perform a **Manual binding** like this example.

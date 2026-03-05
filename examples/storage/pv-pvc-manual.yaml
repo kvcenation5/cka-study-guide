@@ -1,0 +1,30 @@
+# 1. The PersistentVolume (Cluster-wide resource)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: manual-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/manual-storage"
+
+---
+
+# 2. The PersistentVolumeClaim (Namespaced resource)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: manual-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
