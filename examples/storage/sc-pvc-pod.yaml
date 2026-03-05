@@ -1,0 +1,45 @@
+# 1. The StorageClass (Defines the Provisioner)
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner: kubernetes.io/no-provisioner # Typically a cloud name like 'kubernetes.io/aws-ebs'
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+
+---
+
+# 2. The PersistentVolumeClaim (Dynamic Request)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dynamic-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: fast-storage
+  resources:
+    requests:
+      storage: 2Gi
+
+---
+
+# 3. The Pod (Application Configuration with Storage)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: storage-app
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: data-vol
+      mountPath: /usr/share/nginx/html # Main path
+    - name: data-vol
+      mountPath: /etc/nginx/conf.d/config.txt # Specific file mount
+      subPath: config.txt # Uses subPath to avoid wiping the directory
+  volumes:
+  - name: data-vol
+    persistentVolumeClaim:
+      claimName: dynamic-pvc

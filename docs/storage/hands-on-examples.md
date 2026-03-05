@@ -135,5 +135,74 @@ spec:
 
 ---
 
-> [!TIP]
-> **Dynamic vs Manual**: In production, you'll likely use a **StorageClass** to automate this (Dynamic Provisioning). In the CKA exam, you will often be asked to perform a **Manual binding** like this example.
+## 🚀 4. Dynamic Provisioning (Storage Class)
+
+This is the modern way to handle storage. Instead of creating PVs manually, we define a **StorageClass**, and Kubernetes creates the PV for us as soon as a PVC is requested.
+
+### The YAML (`sc-pvc-pod.yaml`)
+
+```yaml
+# 1. The StorageClass (The Blueprint)
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast-storage
+provisioner: kubernetes.io/no-provisioner # e.g., 'ebs.csi.aws.com' in real clusters
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+
+---
+
+# 2. The PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dynamic-pvc
+spec:
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: fast-storage
+  resources:
+    requests:
+      storage: 2Gi
+```
+
+### Key Concept: `volumeBindingMode`
+*   **Immediate**: The PV is created as soon as the PVC is created.
+*   **WaitForFirstConsumer**: The PV is only created once a **Pod** is scheduled. This is critical for cloud environments to ensure the disk is created in the same **Availability Zone** as the Pod.
+
+---
+
+## 🏗️ 5. Application Configuration with Storage
+
+When mounting volumes into your containers, there are several ways to configure how the application sees the files.
+
+### 1. mounting a Full Directory
+The most common method. The entire directory at the `mountPath` will be replaced/overlaid by the volume content.
+```yaml
+volumeMounts:
+- name: html-storage
+  mountPath: /usr/share/nginx/html
+```
+
+### 2. Using `subPath`
+Useful when you want to mount a **single file** from a volume into an existing directory without overwriting the other files in that directory.
+```yaml
+volumeMounts:
+- name: config-vol
+  mountPath: /etc/nginx/nginx.conf
+  subPath: custom-nginx.conf # Only mounts this specific file
+```
+
+### 3. Read-Only Mounts
+Ensure the application cannot modify the storage.
+```yaml
+volumeMounts:
+- name: shared-data
+  mountPath: /data
+  readOnly: true
+```
+
+---
+
+> [!IMPORTANT]
+> **Check your mount paths!** If you mount a volume to a non-empty directory in your container image (like `/etc`), the original files in that directory will be **hidden** and replaced by the volume's content. Use `subPath` to avoid this.
