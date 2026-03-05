@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../../coredns-guide/">
+        <link rel="prev" href="../csi-architecture-workflow/">
       
       
-        <link rel="next" href="../volumes-pv-pvc/">
+        <link rel="next" href="../statefulset-pvc-explained/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Hands-on Examples - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#storage-deep-dive" class="md-skip">
+        <a href="#hands-on-storage-examples" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deep Dive
+              Hands-on Examples
             
           </span>
         </div>
@@ -350,7 +350,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -1884,37 +1884,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -1930,176 +1903,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-core-storage-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 1. Core Storage Components
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ 1. Core Storage Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#persistentvolume-pv" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PersistentVolume (PV)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#persistentvolumeclaim-pvc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PersistentVolumeClaim (PVC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#storageclass-sc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        StorageClass (SC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-access-modes-reclaim-policies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 2. Access Modes &amp; Reclaim Policies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 2. Access Modes &amp; Reclaim Policies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#access-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access Modes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reclaim-policies-what-happens-to-pv-when-pvc-is-deleted" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reclaim Policies (What happens to PV when PVC is deleted)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-dynamic-provisioning-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Dynamic Provisioning Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-troubleshooting-storage-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 4. Troubleshooting Storage Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔧 4. Troubleshooting Storage Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pvc-stuck-in-pending" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PVC stuck in "Pending"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pod-stuck-in-containercreating" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod stuck in "ContainerCreating"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-exam-tips-cka" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Exam Tips (CKA)
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2165,10 +1968,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../hands-on-examples/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on Examples
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2184,6 +2014,76 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-random-number-generator-emptydir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎲 1. Random Number Generator (emptyDir)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎲 1. Random Number Generator (emptyDir)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-yaml-random-generatoryaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The YAML (random-generator.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to test:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-persistent-storage-with-hostpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💾 2. Persistent Storage with HostPath
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2822,22 +2722,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-core-storage-components" class="md-nav__link">
+  <a href="#1-random-number-generator-emptydir" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. Core Storage Components
+        🎲 1. Random Number Generator (emptyDir)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. Core Storage Components">
+    <nav class="md-nav" aria-label="🎲 1. Random Number Generator (emptyDir)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#persistentvolume-pv" class="md-nav__link">
+  <a href="#the-yaml-random-generatoryaml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PersistentVolume (PV)
+        The YAML (random-generator.yaml)
       
     </span>
   </a>
@@ -2845,21 +2745,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#persistentvolumeclaim-pvc" class="md-nav__link">
+  <a href="#how-to-test" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PersistentVolumeClaim (PVC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#storageclass-sc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        StorageClass (SC)
+        How to test:
       
     </span>
   </a>
@@ -2872,99 +2761,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-access-modes-reclaim-policies" class="md-nav__link">
+  <a href="#2-persistent-storage-with-hostpath" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 2. Access Modes &amp; Reclaim Policies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 2. Access Modes &amp; Reclaim Policies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#access-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access Modes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reclaim-policies-what-happens-to-pv-when-pvc-is-deleted" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reclaim Policies (What happens to PV when PVC is deleted)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-dynamic-provisioning-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Dynamic Provisioning Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-troubleshooting-storage-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 4. Troubleshooting Storage Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔧 4. Troubleshooting Storage Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pvc-stuck-in-pending" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PVC stuck in "Pending"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pod-stuck-in-containercreating" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod stuck in "ContainerCreating"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-exam-tips-cka" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Exam Tips (CKA)
+        💾 2. Persistent Storage with HostPath
       
     </span>
   </a>
@@ -2988,106 +2788,83 @@
 
 
 
-<h1 id="storage-deep-dive">Storage Deep Dive</h1>
-<p>Storage in Kubernetes allows stateful applications to persist data beyond the lifecycle of a Pod. For the CKA exam, you must understand the relationship between PersistentVolumes (PV), PersistentVolumeClaims (PVC), and StorageClasses (SC).</p>
+<h1 id="hands-on-storage-examples">Hands-on Storage Examples</h1>
+<p>This page provides practical YAML examples for common storage scenarios in Kubernetes.</p>
 <hr />
-<h2 id="1-core-storage-components">🏗️ 1. Core Storage Components</h2>
-<h3 id="persistentvolume-pv">PersistentVolume (PV)</h3>
-<p>A piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using a StorageClass.
-*   <strong>Scope</strong>: Cluster-wide (not namespaced).
-*   <strong>Resources</strong>: Physical disks, NFS, cloud storage (EBS/GCP PD), or local storage.</p>
-<h3 id="persistentvolumeclaim-pvc">PersistentVolumeClaim (PVC)</h3>
-<p>A request for storage by a user. It is similar to a Pod; Pods consume Node resources, and PVCs consume PV resources.
-*   <strong>Scope</strong>: Namespaced.
-*   <strong>Match</strong>: K8s matches a PVC to a PV based on size, access modes, and StorageClass.</p>
-<h3 id="storageclass-sc">StorageClass (SC)</h3>
-<p>Defines "classes" of storage (e.g., "fast-ssd", "slow-hdd"). It enables <strong>Dynamic Provisioning</strong>, so you don't have to manually create PVs.</p>
-<hr />
-<h2 id="2-access-modes-reclaim-policies">🔍 2. Access Modes &amp; Reclaim Policies</h2>
-<h3 id="access-modes">Access Modes</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Mode</th>
-<th style="text-align: left;">Short</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteOnce</strong></td>
-<td style="text-align: left;"><code>RWO</code></td>
-<td style="text-align: left;">Mounted as read-write by a single Node.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadOnlyMany</strong></td>
-<td style="text-align: left;"><code>ROX</code></td>
-<td style="text-align: left;">Mounted as read-only by many Nodes.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteMany</strong></td>
-<td style="text-align: left;"><code>RWX</code></td>
-<td style="text-align: left;">Mounted as read-write by many Nodes (requires NFS/EFS/AzureFiles).</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteOncePod</strong></td>
-<td style="text-align: left;"><code>RWOP</code></td>
-<td style="text-align: left;">Mounted as read-write by a single Pod (K8s v1.22+).</td>
-</tr>
-</tbody>
-</table>
-<h3 id="reclaim-policies-what-happens-to-pv-when-pvc-is-deleted">Reclaim Policies (What happens to PV when PVC is deleted)</h3>
-<ol>
-<li><strong>Retain</strong>: PV is kept. Administrator must manually clean up/reclaim data.</li>
-<li><strong>Delete</strong>: Physical storage (e.g., AWS EBS) is deleted immediately.</li>
-<li><strong>Recycle</strong>: (Deprecated) Performs a basic <code>rm -rf /</code> on the volume.</li>
-</ol>
-<hr />
-<h2 id="3-dynamic-provisioning-workflow">🛠️ 3. Dynamic Provisioning Workflow</h2>
-<ol>
-<li><strong>Create StorageClass</strong>: Define the provisioner (e.g., <code>kubernetes.io/aws-ebs</code>).</li>
-<li><strong>Create PVC</strong>: Reference the <code>storageClassName</code>.</li>
-<li><strong>Automatic PV Creation</strong>: Kubernetes automatically creates a PV that matches the PVC.</li>
-<li><strong>Pod Usage</strong>: Reference the PVC in the Pod spec under <code>volumes</code>.</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="c1"># Pod using a PVC</span>
+<h2 id="1-random-number-generator-emptydir">🎲 1. Random Number Generator (emptyDir)</h2>
+<p>This example demonstrates how two containers in the same Pod can share data using an <code>emptyDir</code> volume.</p>
+<ul>
+<li><strong>Generator Container</strong>: Writes a random number between 1-100 to <code>/opt/data/number.txt</code> every 5 seconds.</li>
+<li><strong>Logger Container (Sidecar)</strong>: Reads the number from the same file and prints it to its logs.</li>
+</ul>
+<h3 id="the-yaml-random-generatoryaml">The YAML (<code>random-generator.yaml</code>)</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">random-generator</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generator</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alpine</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/bin/sh&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-c&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">while true; do</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">shuf -i 1-100 -n 1 &gt; /opt/data/number.txt;</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">echo &quot;Generated number</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$(cat /opt/data/number.txt)&quot;;</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">sleep 5;</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">done</span>
 <span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage-vol</span>
-<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shared-data</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/data</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logger</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alpine</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/bin/sh&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-c&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">args</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">while true; do</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">if [ -f /opt/data/number.txt ]; then</span>
+<span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">echo &quot;Sidecar reading number</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$(cat /opt/data/number.txt)&quot;;</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">fi;</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">sleep 5;</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">done</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shared-data</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/data</span>
+
 <span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage-vol</span>
-<span class="w">    </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-pvc</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shared-data</span>
+<span class="w">    </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </code></pre></div>
-<hr />
-<h2 id="4-troubleshooting-storage-issues">🔧 4. Troubleshooting Storage Issues</h2>
-<h3 id="pvc-stuck-in-pending">PVC stuck in "Pending"</h3>
-<ul>
-<li><strong>No matching PV</strong>: If using static provisioning, check if a PV exists with enough capacity and matching AccessModes.</li>
-<li><strong>StorageClass Issues</strong>: Check if the provisioner is running or if the <code>storageClassName</code> is misspelled.</li>
-<li><strong>WaitForFirstConsumer</strong>: If the SC uses <code>volumeBindingMode: WaitForFirstConsumer</code>, the PVC will stay Pending until a <strong>Pod</strong> is created that uses it.</li>
-</ul>
-<h3 id="pod-stuck-in-containercreating">Pod stuck in "ContainerCreating"</h3>
-<ul>
-<li><strong>Multi-Attach Error</strong>: A <code>ReadWriteOnce</code> volume is already attached to another Node.</li>
-<li><strong>Mount Failures</strong>: Check <code>kubectl describe pod</code> for specific mount errors (permissions, network path etc).</li>
-</ul>
-<hr />
-<h2 id="5-exam-tips-cka">🎯 5. Exam Tips (CKA)</h2>
+<h3 id="how-to-test">How to test:</h3>
 <ol>
-<li><strong>Check Capacity</strong>: PV capacity must be $\ge$ PVC request.</li>
-<li><strong>Matching Labels</strong>: PVs and PVCs can use labels/selectors to bind to specific volumes.</li>
-<li><strong>Resizing</strong>: Some StorageClasses allow <code>allowVolumeExpansion: true</code>. You can edit the PVC size, but the volume usually won't shrink.</li>
-<li><strong>HostPath</strong>: For local lab environments, <code>hostPath</code> is often used. Remember it only works on the specific node where the pod is scheduled!</li>
+<li>Apply the pod: <code>kubectl apply -f random-generator.yaml</code></li>
+<li>Check the logs of the generator: <code>kubectl logs random-generator -c generator</code></li>
+<li>Check the logs of the sidecar: <code>kubectl logs random-generator -c logger</code></li>
 </ol>
 <hr />
+<h2 id="2-persistent-storage-with-hostpath">💾 2. Persistent Storage with HostPath</h2>
+<p>This is useful for local testing or when you need to access files from the underlying node.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hostpath-pod</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node-log</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/log/host-node</span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node-log</span>
+<span class="w">    </span><span class="nt">hostPath</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/log</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Directory</span>
+</code></pre></div>
+<hr />
 <blockquote>
-<p>[!IMPORTANT]
-<strong>Check your spelling</strong>: Kubernetes is strict. <code>ReadWriteOnce</code> is NOT the same as <code>Readwriteonce</code>. Always use the official Case-Sensitive strings.</p>
+<p>[!WARNING]
+Remember that <code>emptyDir</code> data is wiped if the Pod is deleted. If you need data to survive Pod restarts/deletions, use <strong>PV and PVC</strong>.</p>
 </blockquote>
 
 
