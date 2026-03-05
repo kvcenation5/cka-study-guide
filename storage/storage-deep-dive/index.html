@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../limitrange/">
+        <link rel="prev" href="../../coredns-guide/">
       
       
-        <link rel="next" href="../daemonsets/">
+        <link rel="next" href="../statefulset-pvc-explained/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Resource Quota (The Budget) - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#resource-quotas-the-budget" class="md-skip">
+        <a href="#storage-deep-dive" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Resource Quota (The Budget)
+              Deep Dive
             
           </span>
         </div>
@@ -245,12 +245,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../yaml-guide/" class="md-tabs__link">
           
   
@@ -346,11 +344,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   
@@ -552,31 +552,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -640,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -668,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -696,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -724,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -752,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -780,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -808,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -833,37 +828,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Resource Quota (The Budget)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -879,154 +847,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-dining-budget-analogy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. The "Dining Budget" Analogy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-why-tech-companies-love-quotas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Why Tech Companies Love Quotas
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Why Tech Companies Love Quotas">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-tech-sayings-of-resource-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The "Tech Sayings" of Resource Management:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-real-life-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Real-Life Scenarios
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Real-Life Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-a-the-free-tier-vs-paid-tier" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario A: The "Free Tier" vs "Paid Tier"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-b-cost-center-billing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario B: Cost Center Billing
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-practical-example-the-hard-limit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Practical Example (The "Hard Limit")
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-the-chicken-and-egg-problem-crucial-tip" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. The "Chicken and Egg" Problem (Crucial Tip)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-commands-to-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Commands to check
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Commands to check">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-describe-looks-like" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What describe looks like:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1039,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -1067,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -1095,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -1123,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1157,20 +977,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1206,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1234,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1262,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1290,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1318,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1346,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1374,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1402,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1438,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -2010,26 +1827,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
             
   
   
@@ -2047,7 +1869,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2062,10 +1884,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2081,6 +1930,176 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-core-storage-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. Core Storage Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. Core Storage Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistentvolume-pv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PersistentVolume (PV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistentvolumeclaim-pvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PersistentVolumeClaim (PVC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storageclass-sc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StorageClass (SC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-access-modes-reclaim-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 2. Access Modes &amp; Reclaim Policies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 2. Access Modes &amp; Reclaim Policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Access Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reclaim-policies-what-happens-to-pv-when-pvc-is-deleted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reclaim Policies (What happens to PV when PVC is deleted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dynamic-provisioning-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 3. Dynamic Provisioning Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-troubleshooting-storage-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 4. Troubleshooting Storage Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 4. Troubleshooting Storage Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pvc-stuck-in-pending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PVC stuck in "Pending"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pod-stuck-in-containercreating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pod stuck in "ContainerCreating"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-exam-tips-cka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 5. Exam Tips (CKA)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2093,7 +2112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storage/statefulset-pvc-explained/" class="md-nav__link">
+      <a href="../statefulset-pvc-explained/" class="md-nav__link">
         
   
   
@@ -2121,7 +2140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
+      <a href="../statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2719,33 +2738,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-dining-budget-analogy" class="md-nav__link">
+  <a href="#1-core-storage-components" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The "Dining Budget" Analogy
+        🏗️ 1. Core Storage Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. Core Storage Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistentvolume-pv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PersistentVolume (PV)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#2-why-tech-companies-love-quotas" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#persistentvolumeclaim-pvc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Why Tech Companies Love Quotas
+        PersistentVolumeClaim (PVC)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Why Tech Companies Love Quotas">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#the-tech-sayings-of-resource-management" class="md-nav__link">
+  <a href="#storageclass-sc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The "Tech Sayings" of Resource Management:
+        StorageClass (SC)
       
     </span>
   </a>
@@ -2758,22 +2788,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-real-life-scenarios" class="md-nav__link">
+  <a href="#2-access-modes-reclaim-policies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Real-Life Scenarios
+        🔍 2. Access Modes &amp; Reclaim Policies
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Real-Life Scenarios">
+    <nav class="md-nav" aria-label="🔍 2. Access Modes &amp; Reclaim Policies">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scenario-a-the-free-tier-vs-paid-tier" class="md-nav__link">
+  <a href="#access-modes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario A: The "Free Tier" vs "Paid Tier"
+        Access Modes
       
     </span>
   </a>
@@ -2781,10 +2811,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#scenario-b-cost-center-billing" class="md-nav__link">
+  <a href="#reclaim-policies-what-happens-to-pv-when-pvc-is-deleted" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario B: Cost Center Billing
+        Reclaim Policies (What happens to PV when PVC is deleted)
       
     </span>
   </a>
@@ -2797,10 +2827,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-practical-example-the-hard-limit" class="md-nav__link">
+  <a href="#3-dynamic-provisioning-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Practical Example (The "Hard Limit")
+        🛠️ 3. Dynamic Provisioning Workflow
       
     </span>
   </a>
@@ -2808,33 +2838,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-the-chicken-and-egg-problem-crucial-tip" class="md-nav__link">
+  <a href="#4-troubleshooting-storage-issues" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. The "Chicken and Egg" Problem (Crucial Tip)
+        🔧 4. Troubleshooting Storage Issues
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-commands-to-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Commands to check
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Commands to check">
+    <nav class="md-nav" aria-label="🔧 4. Troubleshooting Storage Issues">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#what-describe-looks-like" class="md-nav__link">
+  <a href="#pvc-stuck-in-pending" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What describe looks like:
+        PVC stuck in "Pending"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pod-stuck-in-containercreating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pod stuck in "ContainerCreating"
       
     </span>
   </a>
@@ -2843,6 +2873,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-exam-tips-cka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 5. Exam Tips (CKA)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2863,93 +2904,107 @@
 
 
 
-<h1 id="resource-quotas-the-budget">Resource Quotas (The Budget)</h1>
-<p>A <strong>ResourceQuota</strong> provides constraints that limit the <strong>aggregate</strong> resource consumption per namespace. While LimitRange is about the individual, ResourceQuota is about the <strong>Total</strong>.</p>
+<h1 id="storage-deep-dive">Storage Deep Dive</h1>
+<p>Storage in Kubernetes allows stateful applications to persist data beyond the lifecycle of a Pod. For the CKA exam, you must understand the relationship between PersistentVolumes (PV), PersistentVolumeClaims (PVC), and StorageClasses (SC).</p>
 <hr />
-<h2 id="1-the-dining-budget-analogy">1. The "Dining Budget" Analogy</h2>
+<h2 id="1-core-storage-components">🏗️ 1. Core Storage Components</h2>
+<h3 id="persistentvolume-pv">PersistentVolume (PV)</h3>
+<p>A piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using a StorageClass.
+*   <strong>Scope</strong>: Cluster-wide (not namespaced).
+*   <strong>Resources</strong>: Physical disks, NFS, cloud storage (EBS/GCP PD), or local storage.</p>
+<h3 id="persistentvolumeclaim-pvc">PersistentVolumeClaim (PVC)</h3>
+<p>A request for storage by a user. It is similar to a Pod; Pods consume Node resources, and PVCs consume PV resources.
+*   <strong>Scope</strong>: Namespaced.
+*   <strong>Match</strong>: K8s matches a PVC to a PV based on size, access modes, and StorageClass.</p>
+<h3 id="storageclass-sc">StorageClass (SC)</h3>
+<p>Defines "classes" of storage (e.g., "fast-ssd", "slow-hdd"). It enables <strong>Dynamic Provisioning</strong>, so you don't have to manually create PVs.</p>
+<hr />
+<h2 id="2-access-modes-reclaim-policies">🔍 2. Access Modes &amp; Reclaim Policies</h2>
+<h3 id="access-modes">Access Modes</h3>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">LimitRange</th>
-<th style="text-align: left;">ResourceQuota</th>
+<th style="text-align: left;">Mode</th>
+<th style="text-align: left;">Short</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Concept</strong></td>
-<td style="text-align: left;">Menu Item Price Limit</td>
-<td style="text-align: left;">The Total Bill</td>
+<td style="text-align: left;"><strong>ReadWriteOnce</strong></td>
+<td style="text-align: left;"><code>RWO</code></td>
+<td style="text-align: left;">Mounted as read-write by a single Node.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Logic</strong></td>
-<td style="text-align: left;">"Nobody can order a steak that costs more than $50."</td>
-<td style="text-align: left;">"The whole table cannot spend more than $200 total."</td>
+<td style="text-align: left;"><strong>ReadOnlyMany</strong></td>
+<td style="text-align: left;"><code>ROX</code></td>
+<td style="text-align: left;">Mounted as read-only by many Nodes.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Enforcement</strong></td>
-<td style="text-align: left;">Individual Containers</td>
-<td style="text-align: left;">Entire Namespace</td>
+<td style="text-align: left;"><strong>ReadWriteMany</strong></td>
+<td style="text-align: left;"><code>RWX</code></td>
+<td style="text-align: left;">Mounted as read-write by many Nodes (requires NFS/EFS/AzureFiles).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ReadWriteOncePod</strong></td>
+<td style="text-align: left;"><code>RWOP</code></td>
+<td style="text-align: left;">Mounted as read-write by a single Pod (K8s v1.22+).</td>
 </tr>
 </tbody>
 </table>
+<h3 id="reclaim-policies-what-happens-to-pv-when-pvc-is-deleted">Reclaim Policies (What happens to PV when PVC is deleted)</h3>
+<ol>
+<li><strong>Retain</strong>: PV is kept. Administrator must manually clean up/reclaim data.</li>
+<li><strong>Delete</strong>: Physical storage (e.g., AWS EBS) is deleted immediately.</li>
+<li><strong>Recycle</strong>: (Deprecated) Performs a basic <code>rm -rf /</code> on the volume.</li>
+</ol>
 <hr />
-<h2 id="2-why-tech-companies-love-quotas">2. Why Tech Companies Love Quotas</h2>
-<p>In large companies (like Google or Netflix), hundreds of teams share the same physical clusters. This is called <strong>Multi-tenancy</strong>.</p>
-<h3 id="the-tech-sayings-of-resource-management">The "Tech Sayings" of Resource Management:</h3>
+<h2 id="3-dynamic-provisioning-workflow">🛠️ 3. Dynamic Provisioning Workflow</h2>
+<ol>
+<li><strong>Create StorageClass</strong>: Define the provisioner (e.g., <code>kubernetes.io/aws-ebs</code>).</li>
+<li><strong>Create PVC</strong>: Reference the <code>storageClassName</code>.</li>
+<li><strong>Automatic PV Creation</strong>: Kubernetes automatically creates a PV that matches the PVC.</li>
+<li><strong>Pod Usage</strong>: Reference the PVC in the Pod spec under <code>volumes</code>.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pod using a PVC</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage-vol</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data</span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage-vol</span>
+<span class="w">    </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-pvc</span>
+</code></pre></div>
+<hr />
+<h2 id="4-troubleshooting-storage-issues">🔧 4. Troubleshooting Storage Issues</h2>
+<h3 id="pvc-stuck-in-pending">PVC stuck in "Pending"</h3>
 <ul>
-<li><strong>"Good fences make good neighbors"</strong>: Quotas ensure that one "hungry" team doesn't accidentally eat all the CPU in the cluster and crash everyone else's apps.</li>
-<li><strong>"Trust but Verify"</strong>: You trust your developers to set their resources correctly, but you verify with a Quota to ensure they don't bankrupt the cluster.</li>
-<li><strong>"Preventing Cluster Starvation"</strong>: Without quotas, a runaway script could request 1000 pods and leave zero space for critical production services.</li>
+<li><strong>No matching PV</strong>: If using static provisioning, check if a PV exists with enough capacity and matching AccessModes.</li>
+<li><strong>StorageClass Issues</strong>: Check if the provisioner is running or if the <code>storageClassName</code> is misspelled.</li>
+<li><strong>WaitForFirstConsumer</strong>: If the SC uses <code>volumeBindingMode: WaitForFirstConsumer</code>, the PVC will stay Pending until a <strong>Pod</strong> is created that uses it.</li>
+</ul>
+<h3 id="pod-stuck-in-containercreating">Pod stuck in "ContainerCreating"</h3>
+<ul>
+<li><strong>Multi-Attach Error</strong>: A <code>ReadWriteOnce</code> volume is already attached to another Node.</li>
+<li><strong>Mount Failures</strong>: Check <code>kubectl describe pod</code> for specific mount errors (permissions, network path etc).</li>
 </ul>
 <hr />
-<h2 id="3-real-life-scenarios">3. Real-Life Scenarios</h2>
-<h3 id="scenario-a-the-free-tier-vs-paid-tier">Scenario A: The "Free Tier" vs "Paid Tier"</h3>
-<p>An Ed-tech company gives students free namespaces to practice. 
-*   <strong>Quota</strong>: 1 CPU and 2Gi RAM total per student.
-*   <strong>Outcome</strong>: Even if a student writes a loop that spins up 100 pods, they will all fail after the 1st CPU is used. The student's "mess" is contained.</p>
-<h3 id="scenario-b-cost-center-billing">Scenario B: Cost Center Billing</h3>
-<p>A company wants to charge the "Marketing" team for their cloud usage. 
-*   <strong>Quota</strong>: They are allocated 50 CPU Cores.
-*   <strong>Outcome</strong>: If they want more, they have to "buy" more quota. This makes cloud costs predictable for the finance department.</p>
+<h2 id="5-exam-tips-cka">🎯 5. Exam Tips (CKA)</h2>
+<ol>
+<li><strong>Check Capacity</strong>: PV capacity must be $\ge$ PVC request.</li>
+<li><strong>Matching Labels</strong>: PVs and PVCs can use labels/selectors to bind to specific volumes.</li>
+<li><strong>Resizing</strong>: Some StorageClasses allow <code>allowVolumeExpansion: true</code>. You can edit the PVC size, but the volume usually won't shrink.</li>
+<li><strong>HostPath</strong>: For local lab environments, <code>hostPath</code> is often used. Remember it only works on the specific node where the pod is scheduled!</li>
+</ol>
 <hr />
-<h2 id="4-practical-example-the-hard-limit">4. Practical Example (The "Hard Limit")</h2>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ResourceQuota</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-resources</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">marketing</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">hard</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">requests.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;4&quot;</span><span class="w">         </span><span class="c1"># Total CPU guaranteed to this team</span>
-<span class="w">    </span><span class="nt">requests.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8Gi</span><span class="w">      </span><span class="c1"># Total RAM guaranteed to this team</span>
-<span class="w">    </span><span class="nt">limits.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w">          </span><span class="c1"># Total max CPU (burst) allowed</span>
-<span class="w">    </span><span class="nt">limits.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16Gi</span><span class="w">       </span><span class="c1"># Total max RAM allowed</span>
-<span class="w">    </span><span class="nt">pods</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;20&quot;</span><span class="w">                </span><span class="c1"># Max number of pods allowed</span>
-<span class="w">    </span><span class="nt">services</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w">             </span><span class="c1"># Max number of load balancers/services</span>
-</code></pre></div>
-<hr />
-<h2 id="5-the-chicken-and-egg-problem-crucial-tip">5. The "Chicken and Egg" Problem (Crucial Tip)</h2>
-<div class="admonition failure">
-<p class="admonition-title">PRO TIP for CKA &amp; PRODUCTION</p>
-<p>If you have a <strong>ResourceQuota</strong> in a namespace, every single Pod <strong>MUST</strong> have its own <code>requests</code> and <code>limits</code> defined. </p>
-<p>If a developer tries to run a pod without defining them, Kubernetes will <strong>REJECT</strong> the pod because it doesn't know how to "bill" it against the quota. This is why <strong>LimitRange and ResourceQuota are almost always used together.</strong></p>
-</div>
-<hr />
-<h2 id="6-commands-to-check">6. Commands to check</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># See quotas in the namespace</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>quota
-
-<span class="c1"># See current usage vs limits (Very helpful!)</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>quota<span class="w"> </span>compute-resources
-</code></pre></div>
-<h3 id="what-describe-looks-like">What <code>describe</code> looks like:</h3>
-<div class="highlight"><pre><span></span><code>Resource           Used  Hard
---------           ----  ----
-requests.cpu       100m  4
-requests.memory    256Mi 8Gi
-pods               1     20
-</code></pre></div>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Check your spelling</strong>: Kubernetes is strict. <code>ReadWriteOnce</code> is NOT the same as <code>Readwriteonce</code>. Always use the official Case-Sensitive strings.</p>
+</blockquote>
 
 
 
