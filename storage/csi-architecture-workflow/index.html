@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../cluster-architecture/etcd-data-model/">
+        <link rel="prev" href="../storage-deep-dive/">
       
       
-        <link rel="next" href="../etcd-deep-dive/">
+        <link rel="next" href="../statefulset-pvc-explained/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Components - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>CSI Architecture & Workflow - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-identify-kubernetes-components" class="md-skip">
+        <a href="#container-orchestrator-storage-csi-workflow" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Components
+              CSI Architecture & Workflow
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -249,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../yaml-guide/" class="md-tabs__link">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -269,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -289,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -305,11 +305,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -330,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -346,11 +344,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../storage/storage-deep-dive/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -370,7 +370,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../security/overview/" class="md-tabs__link">
+        <a href="../../security/overview/" class="md-tabs__link">
           
   
   
@@ -388,7 +388,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../security-focus/" class="md-tabs__link">
+      <a href="../../security-focus/" class="md-tabs__link">
         
   
   
@@ -409,7 +409,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -429,7 +429,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -449,7 +449,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -483,7 +483,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -501,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -528,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -607,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -635,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -663,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -691,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -719,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -747,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -775,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -803,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -831,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -859,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -887,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -915,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -943,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1023,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1051,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1079,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1107,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1135,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1163,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1191,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1219,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1255,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1342,7 +1342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1370,7 +1370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1398,7 +1398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1485,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1513,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1541,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1569,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1597,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1625,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1653,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1685,37 +1685,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Components
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1731,148 +1704,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-magic-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. The "Magic" Command
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-common-system-components-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Common System Components (Cheat Sheet)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Common System Components (Cheat Sheet)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#daemonsets-runs-on-every-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ DaemonSets (Runs on EVERY Node)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#deployments-runs-anywhere" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ Deployments (Runs ANYWHERE)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#static-pods-control-plane-only" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ Static Pods (Control Plane Only)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-heuristic-rule-of-thumb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Heuristic / Rule of Thumb
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-default-cluster-inventory-what-to-expect-in-a-fresh-cluster" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Default Cluster Inventory (What to expect in a fresh cluster)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Default Cluster Inventory (What to expect in a fresh cluster)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-control-plane-the-brains" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧠 The Control Plane (The Brains)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#networking-the-plumbing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔌 Networking (The Plumbing)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optional-but-common" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛡️ Optional but Common
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1936,7 +1767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -1964,7 +1795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -1996,26 +1827,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
             
   
   
@@ -2033,7 +1869,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2051,7 +1887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/storage-deep-dive/" class="md-nav__link">
+      <a href="../storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2076,10 +1912,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../storage/csi-architecture-workflow/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSI Architecture & Workflow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2095,6 +1958,126 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-relationship-the-translator-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. The Relationship: The "Translator" Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. The Relationship: The &#34;Translator&#34; Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-actors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Actors 🎭
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interaction-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interaction Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step-by-step-how-a-volume-is-born" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 2. Step-by-Step: How a Volume is Born
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 2. Step-by-Step: How a Volume is Born">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-provisioning-the-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Provisioning (The Request)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-attaching-the-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Attaching (The Connection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-mounting-the-hand-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Mounting (The Hand-off)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-summary-of-csi-sidecars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 3. Summary of CSI Sidecars
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2107,7 +2090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/statefulset-pvc-explained/" class="md-nav__link">
+      <a href="../statefulset-pvc-explained/" class="md-nav__link">
         
   
   
@@ -2135,7 +2118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/statefulset-architecture/" class="md-nav__link">
+      <a href="../statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2222,7 +2205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/overview/" class="md-nav__link">
+      <a href="../../security/overview/" class="md-nav__link">
         
   
   
@@ -2250,7 +2233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/security-primitives/" class="md-nav__link">
+      <a href="../../security/security-primitives/" class="md-nav__link">
         
   
   
@@ -2278,7 +2261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2306,7 +2289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/tls-certificates/" class="md-nav__link">
+      <a href="../../security/tls-certificates/" class="md-nav__link">
         
   
   
@@ -2334,7 +2317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/network-policies/" class="md-nav__link">
+      <a href="../../security/network-policies/" class="md-nav__link">
         
   
   
@@ -2369,7 +2352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-focus/" class="md-nav__link">
+      <a href="../../security-focus/" class="md-nav__link">
         
   
   
@@ -2448,7 +2431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -2535,7 +2518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2563,7 +2546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2591,7 +2574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -2678,7 +2661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -2733,33 +2716,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-magic-command" class="md-nav__link">
+  <a href="#1-the-relationship-the-translator-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The "Magic" Command
+        🏗️ 1. The Relationship: The "Translator" Model
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-common-system-components-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Common System Components (Cheat Sheet)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Common System Components (Cheat Sheet)">
+    <nav class="md-nav" aria-label="🏗️ 1. The Relationship: The &#34;Translator&#34; Model">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#daemonsets-runs-on-every-node" class="md-nav__link">
+  <a href="#the-actors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ DaemonSets (Runs on EVERY Node)
+        The Actors 🎭
       
     </span>
   </a>
@@ -2767,21 +2739,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#deployments-runs-anywhere" class="md-nav__link">
+  <a href="#interaction-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ Deployments (Runs ANYWHERE)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#static-pods-control-plane-only" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ Static Pods (Control Plane Only)
+        Interaction Flow
       
     </span>
   </a>
@@ -2794,33 +2755,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-heuristic-rule-of-thumb" class="md-nav__link">
+  <a href="#2-step-by-step-how-a-volume-is-born" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Heuristic / Rule of Thumb
+        🔄 2. Step-by-Step: How a Volume is Born
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-default-cluster-inventory-what-to-expect-in-a-fresh-cluster" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Default Cluster Inventory (What to expect in a fresh cluster)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Default Cluster Inventory (What to expect in a fresh cluster)">
+    <nav class="md-nav" aria-label="🔄 2. Step-by-Step: How a Volume is Born">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-control-plane-the-brains" class="md-nav__link">
+  <a href="#phase-1-provisioning-the-request" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧠 The Control Plane (The Brains)
+        Phase 1: Provisioning (The Request)
       
     </span>
   </a>
@@ -2828,10 +2778,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#networking-the-plumbing" class="md-nav__link">
+  <a href="#phase-2-attaching-the-connection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔌 Networking (The Plumbing)
+        Phase 2: Attaching (The Connection)
       
     </span>
   </a>
@@ -2839,10 +2789,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#optional-but-common" class="md-nav__link">
+  <a href="#phase-3-mounting-the-hand-off" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛡️ Optional but Common
+        Phase 3: Mounting (The Hand-off)
       
     </span>
   </a>
@@ -2851,6 +2801,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-summary-of-csi-sidecars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 3. Summary of CSI Sidecars
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2871,118 +2832,62 @@
 
 
 
-<h1 id="how-to-identify-kubernetes-components">How to Identify Kubernetes Components</h1>
-<p><strong>(Is it a DaemonSet, Deployment, or Service?)</strong></p>
-<h2 id="1-the-magic-command">1. The "Magic" Command</h2>
-<p>The easiest way to see <strong>everything</strong> and its type is to run:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>all<span class="w"> </span>-n<span class="w"> </span>kube-system
+<h1 id="container-orchestrator-storage-csi-workflow">Container Orchestrator &amp; Storage (CSI) Workflow</h1>
+<p>Understanding the relationship between the <strong>Container Orchestrator</strong> (Kubernetes) and the <strong>Storage Driver</strong> (CSI) is key to mastering stateful workloads. </p>
+<hr />
+<h2 id="1-the-relationship-the-translator-model">🏗️ 1. The Relationship: The "Translator" Model</h2>
+<p>In older versions of Kubernetes, storage drivers were "in-tree" (built directly into the K8s binary). This was slow and hard to maintain. Today, Kubernetes uses the <strong>Container Storage Interface (CSI)</strong>.</p>
+<h3 id="the-actors">The Actors 🎭</h3>
+<ol>
+<li><strong>Orchestrator (Kubernetes)</strong>: The "Manager". It knows <em>when</em> a Pod needs storage but doesn't know <em>how</em> to talk to a specific disk (like an AWS EBS or an NFS share).</li>
+<li><strong>CSI Driver</strong>: The "Translator". It is a plugin that speaks "Kubernetes" on one side and the "Storage Provider's API" on the other. </li>
+<li><strong>Storage Provider</strong>: The "Infrastructure". The actual physical or virtual disk located in your cloud or data center.</li>
+</ol>
+<h3 id="interaction-flow">Interaction Flow</h3>
+<div class="highlight"><pre><span></span><code>graph LR
+    A[Kubernetes Control Plane] -- &quot;gRPC Call&quot; --&gt; B[CSI Driver Controller]
+    B -- &quot;API Call&quot; --&gt; C[Cloud/Storage Provider]
+    D[Kubelet on Worker Node] -- &quot;gRPC Call&quot; --&gt; E[CSI Driver Node]
+    E -- &quot;Mount Command&quot; --&gt; F[Attached Disk]
 </code></pre></div>
-<p>Look at the <strong>PREFIX</strong> of the output lines:
-- <code>pod/coredns-...</code> → <strong>Pod</strong> (Actual container running)
-- <code>service/kube-dns</code> → <strong>Service</strong> (Network endpoint/IP)
-- <code>daemonset.apps/kube-proxy</code> → <strong>DaemonSet</strong>
-- <code>deployment.apps/coredns</code> → <strong>Deployment</strong></p>
 <hr />
-<h2 id="2-common-system-components-cheat-sheet">2. Common System Components (Cheat Sheet)</h2>
-<h3 id="daemonsets-runs-on-every-node">✅ DaemonSets (Runs on EVERY Node)</h3>
-<p><em>Agents that act as the "glue" for the cluster.</em>
-- <strong><code>kube-proxy</code></strong>: Manages network rules on every node.
-- <strong>CNI Plugins</strong> (e.g., <code>calico-node</code>, <code>flannel</code>, <code>aws-node</code>): provides Pod networking.
-- <strong>Log Collectors</strong> (e.g., <code>fluentd</code>, <code>filebeat</code>): Scrapes logs from every node.</p>
-<h3 id="deployments-runs-anywhere">✅ Deployments (Runs ANYWHERE)</h3>
-<p><em>Scalable applications that don't need to be on every single machine.</em>
-- <strong><code>coredns</code></strong>: DNS Server (usually 2 replicas for redundancy).
-- <strong><code>metrics-server</code></strong>: Aggregates CPU/Memory stats.
-- <strong><code>kubernetes-dashboard</code></strong>: Valid Web UI.</p>
-<h3 id="static-pods-control-plane-only">✅ Static Pods (Control Plane Only)</h3>
-<p><em>These run directly on the Master Node manifest files. They often don't have a Deployment or DaemonSet controlling them.</em>
-- <strong><code>kube-apiserver</code></strong>: The Brain.
-- <strong><code>etcd</code></strong>: The Database.
-- <strong><code>kube-scheduler</code></strong>: The Decision Maker.
-- <strong><code>kube-controller-manager</code></strong>: The Loop Master.</p>
+<h2 id="2-step-by-step-how-a-volume-is-born">🔄 2. Step-by-Step: How a Volume is Born</h2>
+<p>When a user creates a PVC, a complex orchestration of events occurs to get that disk into a container.</p>
+<h3 id="phase-1-provisioning-the-request">Phase 1: Provisioning (The Request)</h3>
+<ol>
+<li><strong>User creates a PVC</strong>: A user submits a YAML file requesting 10GB of storage.</li>
+<li><strong>External Provisioner (Watcher)</strong>: A CSI sidecar container (the Provisioner) watches for new PVCs and sees the request.</li>
+<li><strong>CreateVolume RPC</strong>: The Provisioner sends a <code>CreateVolume</code> request to the <strong>CSI Driver</strong>.</li>
+<li><strong>Cloud API Call</strong>: The CSI Driver calls the Storage Provider API (e.g., AWS CreateVolume) to create the physical disk.</li>
+<li><strong>PV Creation</strong>: Kubernetes automatically creates a <strong>PersistentVolume (PV)</strong> object and binds it to the <strong>PVC</strong>.</li>
+</ol>
+<h3 id="phase-2-attaching-the-connection">Phase 2: Attaching (The Connection)</h3>
+<ol>
+<li><strong>Pod Scheduling</strong>: A Pod is created and references the PVC. The Scheduler places the Pod on <strong>Node-A</strong>.</li>
+<li><strong>External Attacher</strong>: Another CSI sidecar (the Attacher) sees that the volume needs to be attached to <strong>Node-A</strong>.</li>
+<li><strong>ControllerPublishVolume RPC</strong>: The Attacher calls the CSI Driver to "Publish" (Attach) the volume.</li>
+<li><strong>Storage Provider Attach</strong>: The Driver tells the Cloud Provider to attach the disk to the virtual machine (Node-A).</li>
+</ol>
+<h3 id="phase-3-mounting-the-hand-off">Phase 3: Mounting (The Hand-off)</h3>
+<ol>
+<li><strong>Kubelet Recognition</strong>: The Kubelet on <strong>Node-A</strong> sees that a volume is attached but not yet usable.</li>
+<li><strong>NodeStageVolume</strong>: The Kubelet calls the CSI Driver on that specific node to format the disk (e.g., ext4) and prepare a "staging" mount point.</li>
+<li><strong>NodePublishVolume</strong>: The Kubelet calls the CSI Driver for the final mount. The volume is mounted from the node's host path into the <strong>Pod's container</strong>.</li>
+</ol>
 <hr />
-<h2 id="3-heuristic-rule-of-thumb">3. Heuristic / Rule of Thumb</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Question to Ask</th>
-<th style="text-align: left;">It probably is a...</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">"Does this provide a steady IP address?"</td>
-<td style="text-align: left;"><strong>Service</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;">"Does this need to handle networking/logs on <strong>hardware</strong>?"</td>
-<td style="text-align: left;"><strong>DaemonSet</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;">"Is this a standard app (web server, dns)?"</td>
-<td style="text-align: left;"><strong>Deployment</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;">"Does this hold unique data (database)?"</td>
-<td style="text-align: left;"><strong>StatefulSet</strong></td>
-</tr>
-</tbody>
-</table>
+<h2 id="3-summary-of-csi-sidecars">⚡ 3. Summary of CSI Sidecars</h2>
+<p>Kubernetes uses these helper containers (Sidecars) to bridge the gap between K8s and the CSI Driver:</p>
+<ul>
+<li><strong>external-provisioner</strong>: Watches PVCs $\rightarrow$ Creates/Deletes volumes.</li>
+<li><strong>external-attacher</strong>: Watches Pods $\rightarrow$ Attaches/Detaches volumes to nodes.</li>
+<li><strong>external-resizer</strong>: Watches PVC size changes $\rightarrow$ Expands volumes.</li>
+<li><strong>node-driver-registrar</strong>: Registers the CSI driver with the Kubelet on each node.</li>
+</ul>
 <hr />
-<h2 id="4-default-cluster-inventory-what-to-expect-in-a-fresh-cluster">4. Default Cluster Inventory (What to expect in a fresh cluster)</h2>
-<p>When you run <code>kubectl get all -n kube-system</code> on a brand new cluster (e.g., Kubeadm, Minikube, or EKS), here is the standard checklist of what you will see.</p>
-<h3 id="the-control-plane-the-brains">🧠 The Control Plane (The Brains)</h3>
-<p><em>Usually run as Static Pods on the Master Node(s). You won't see Deployments for these in managed clouds (EKS/GKE).</em></p>
-<ol>
-<li><strong><code>etcd</code></strong> (Database)<ul>
-<li><strong>What is it?</strong> The single source of truth. Stores all YAMLs, secrets, and cluster state.</li>
-<li><strong>Type:</strong> Static Pod.</li>
-</ul>
-</li>
-<li><strong><code>kube-apiserver</code></strong> (Front Door)<ul>
-<li><strong>What is it?</strong> The only component you talk to (via <code>kubectl</code>). It validates valid requests and updates <code>etcd</code>.</li>
-<li><strong>Type:</strong> Static Pod.</li>
-</ul>
-</li>
-<li><strong><code>kube-controller-manager</code></strong> (Automation)<ul>
-<li><strong>What is it?</strong> A loop that fixes things. If a pod dies, this process notices and creates a new one.</li>
-<li><strong>Type:</strong> Static Pod.</li>
-</ul>
-</li>
-<li><strong><code>kube-scheduler</code></strong> (Placement)<ul>
-<li><strong>What is it?</strong> Decides <em>which</em> node a new pod should go to (based on CPU, RAM, Taints).</li>
-<li><strong>Type:</strong> Static Pod.</li>
-</ul>
-</li>
-</ol>
-<h3 id="networking-the-plumbing">🔌 Networking (The Plumbing)</h3>
-<p><em>These make sure Pod A can talk to Pod B.</em></p>
-<ol>
-<li><strong><code>coredns</code></strong> (Phonebook)<ul>
-<li><strong>What is it?</strong> Allows you to reach services by name (e.g., <code>db-service</code>) instead of IP (<code>10.96.0.1</code>).</li>
-<li><strong>Type:</strong> <strong>Deployment</strong> (usually 2 replicas).</li>
-<li><strong>Service:</strong> <code>kube-dns</code> (ClusterIP).</li>
-</ul>
-</li>
-<li><strong><code>kube-proxy</code></strong> (Traffic Cop)<ul>
-<li><strong>What is it?</strong> Maintains network rules (iptables/IPVS) on nodes to route traffic.</li>
-<li><strong>Type:</strong> <strong>DaemonSet</strong> (Must run on every node).</li>
-</ul>
-</li>
-<li><strong>CNI Plugin</strong> (The Cables - e.g., Flannel, Calico, Weave, AWS-VPC-CNI)<ul>
-<li><strong>What is it?</strong> Assigns IP addresses to Pods. Without this, nodes are "NotReady".</li>
-<li><strong>Type:</strong> <strong>DaemonSet</strong> (Must run on every node).</li>
-</ul>
-</li>
-</ol>
-<h3 id="optional-but-common">🛡️ Optional but Common</h3>
-<ol>
-<li><strong><code>metrics-server</code></strong> (Stats)<ul>
-<li><strong>What is it?</strong> Enables <code>kubectl top nodes</code> and Horizontal Pod Autoscaling.</li>
-<li><strong>Type:</strong> Deployment.</li>
-</ul>
-</li>
-</ol>
+<blockquote>
+<p>[!TIP]
+<strong>CKA Insight</strong>: In the exam, if a Volume isn't mounting, check the <strong>CSI Driver Pods</strong> (usually in <code>kube-system</code> or a dedicated namespace). If the driver is dead, the "Provisioning" and "Attaching" logic will fail even if the Cloud Provider is healthy!</p>
+</blockquote>
 
 
 
@@ -3033,10 +2938,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
