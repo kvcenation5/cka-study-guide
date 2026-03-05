@@ -2130,6 +2130,95 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#4-dynamic-provisioning-storage-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 4. Dynamic Provisioning (Storage Class)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 4. Dynamic Provisioning (Storage Class)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-yaml-sc-pvc-podyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The YAML (sc-pvc-pod.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concept-volumebindingmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concept: volumeBindingMode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-application-configuration-with-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 5. Application Configuration with Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 5. Application Configuration with Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mounting-a-full-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. mounting a Full Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-using-subpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Using subPath
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-read-only-mounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Read-Only Mounts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2871,6 +2960,95 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#4-dynamic-provisioning-storage-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 4. Dynamic Provisioning (Storage Class)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 4. Dynamic Provisioning (Storage Class)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-yaml-sc-pvc-podyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The YAML (sc-pvc-pod.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concept-volumebindingmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concept: volumeBindingMode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-application-configuration-with-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 5. Application Configuration with Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 5. Application Configuration with Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mounting-a-full-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. mounting a Full Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-using-subpath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Using subPath
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-read-only-mounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Read-Only Mounts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3009,9 +3187,64 @@
 <li>Check the PVC status: <code>kubectl get pvc manual-pvc</code> (Should be <strong>Bound</strong>)</li>
 </ol>
 <hr />
+<h2 id="4-dynamic-provisioning-storage-class">🚀 4. Dynamic Provisioning (Storage Class)</h2>
+<p>This is the modern way to handle storage. Instead of creating PVs manually, we define a <strong>StorageClass</strong>, and Kubernetes creates the PV for us as soon as a PVC is requested.</p>
+<h3 id="the-yaml-sc-pvc-podyaml">The YAML (<code>sc-pvc-pod.yaml</code>)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. The StorageClass (The Blueprint)</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StorageClass</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-storage</span>
+<span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/no-provisioner</span><span class="w"> </span><span class="c1"># e.g., &#39;ebs.csi.aws.com&#39; in real clusters</span>
+<span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Retain</span>
+<span class="nt">volumeBindingMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WaitForFirstConsumer</span>
+
+<span class="nn">---</span>
+
+<span class="c1"># 2. The PersistentVolumeClaim</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PersistentVolumeClaim</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dynamic-pvc</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;ReadWriteOnce&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fast-storage</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+</code></pre></div>
+<h3 id="key-concept-volumebindingmode">Key Concept: <code>volumeBindingMode</code></h3>
+<ul>
+<li><strong>Immediate</strong>: The PV is created as soon as the PVC is created.</li>
+<li><strong>WaitForFirstConsumer</strong>: The PV is only created once a <strong>Pod</strong> is scheduled. This is critical for cloud environments to ensure the disk is created in the same <strong>Availability Zone</strong> as the Pod.</li>
+</ul>
+<hr />
+<h2 id="5-application-configuration-with-storage">🏗️ 5. Application Configuration with Storage</h2>
+<p>When mounting volumes into your containers, there are several ways to configure how the application sees the files.</p>
+<h3 id="1-mounting-a-full-directory">1. mounting a Full Directory</h3>
+<p>The most common method. The entire directory at the <code>mountPath</code> will be replaced/overlaid by the volume content.
+<div class="highlight"><pre><span></span><code><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html-storage</span>
+<span class="w">  </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/share/nginx/html</span>
+</code></pre></div></p>
+<h3 id="2-using-subpath">2. Using <code>subPath</code></h3>
+<p>Useful when you want to mount a <strong>single file</strong> from a volume into an existing directory without overwriting the other files in that directory.
+<div class="highlight"><pre><span></span><code><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config-vol</span>
+<span class="w">  </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/nginx/nginx.conf</span>
+<span class="w">  </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom-nginx.conf</span><span class="w"> </span><span class="c1"># Only mounts this specific file</span>
+</code></pre></div></p>
+<h3 id="3-read-only-mounts">3. Read-Only Mounts</h3>
+<p>Ensure the application cannot modify the storage.
+<div class="highlight"><pre><span></span><code><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shared-data</span>
+<span class="w">  </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data</span>
+<span class="w">  </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></p>
+<hr />
 <blockquote>
-<p>[!TIP]
-<strong>Dynamic vs Manual</strong>: In production, you'll likely use a <strong>StorageClass</strong> to automate this (Dynamic Provisioning). In the CKA exam, you will often be asked to perform a <strong>Manual binding</strong> like this example.</p>
+<p>[!IMPORTANT]
+<strong>Check your mount paths!</strong> If you mount a volume to a non-empty directory in your container image (like <code>/etc</code>), the original files in that directory will be <strong>hidden</strong> and replaced by the volume's content. Use <code>subPath</code> to avoid this.</p>
 </blockquote>
 
 
