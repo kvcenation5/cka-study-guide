@@ -78,7 +78,10 @@ nav:
   - Deep Dives:
       - ETCD & Backup: etcd-deep-dive.md
       - CoreDNS Guide: coredns-guide.md
-  - StatefulSet & PVC: statefulset-pvc-explained.md
+  - Storage:
+      - Deep Dive: storage/storage-deep-dive.md
+      - StatefulSet & PVC Explained: storage/statefulset-pvc-explained.md
+      - StatefulSet Architecture: storage/statefulset-architecture.md
   - Security:
       - Overview: security/overview.md
       - Security Primitives: security/security-primitives.md
@@ -94,7 +97,7 @@ nav:
       - Deployment Components: exam-tips/deployment-components.md
   - Diagrams:
       - Troubleshooting Flowchart: troubleshooting-flowchart.md
-      - StatefulSet Architecture: statefulset-architecture.md
+
 
 plugins:
   - search
