@@ -80,6 +80,7 @@ nav:
       - CoreDNS Guide: coredns-guide.md
   - Storage:
       - Deep Dive: storage/storage-deep-dive.md
+      - Volumes vs PV vs PVC: storage/volumes-pv-pvc.md
       - CSI Architecture & Workflow: storage/csi-architecture-workflow.md
       - StatefulSet & PVC Explained: storage/statefulset-pvc-explained.md
       - StatefulSet Architecture: storage/statefulset-architecture.md
