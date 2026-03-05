@@ -2080,6 +2080,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#3-manual-pv-pvc-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 3. Manual PV &amp; PVC Binding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 3. Manual PV &amp; PVC Binding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-yaml-pv-pvc-manualyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The YAML (pv-pvc-manual.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-binding-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Binding Rules:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to test:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2771,6 +2821,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#3-manual-pv-pvc-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 3. Manual PV &amp; PVC Binding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 3. Manual PV &amp; PVC Binding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-yaml-pv-pvc-manualyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The YAML (pv-pvc-manual.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-binding-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Binding Rules:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to test:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2862,9 +2962,56 @@
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Directory</span>
 </code></pre></div>
 <hr />
+<h2 id="3-manual-pv-pvc-binding">🔗 3. Manual PV &amp; PVC Binding</h2>
+<p>This example shows how to manually create a PersistentVolume and a PersistentVolumeClaim that bind together based on their <code>storageClassName</code>, <code>accessModes</code>, and <code>capacity</code>.</p>
+<h3 id="the-yaml-pv-pvc-manualyaml">The YAML (<code>pv-pvc-manual.yaml</code>)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. The PersistentVolume (Cluster-wide resource)</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PersistentVolume</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">manual-pv</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">manual</span>
+<span class="w">  </span><span class="nt">capacity</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
+<span class="w">  </span><span class="nt">hostPath</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/mnt/data/manual-storage&quot;</span>
+
+<span class="nn">---</span>
+
+<span class="c1"># 2. The PersistentVolumeClaim (Namespaced resource)</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PersistentVolumeClaim</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">manual-pvc</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">manual</span>
+<span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+</code></pre></div>
+<h3 id="key-binding-rules">Key Binding Rules:</h3>
+<ol>
+<li><strong>StorageClassName</strong>: Both must match (in this case, <code>manual</code>).</li>
+<li><strong>AccessModes</strong>: The PV must support at least the access mode requested by the PVC.</li>
+<li><strong>Capacity</strong>: The PV capacity must be greater than or equal to the PVC request.</li>
+</ol>
+<h3 id="how-to-test_1">How to test:</h3>
+<ol>
+<li>Create the resources: <code>kubectl apply -f pv-pvc-manual.yaml</code></li>
+<li>Check the PV status: <code>kubectl get pv manual-pv</code> (Should be <strong>Bound</strong>)</li>
+<li>Check the PVC status: <code>kubectl get pvc manual-pvc</code> (Should be <strong>Bound</strong>)</li>
+</ol>
+<hr />
 <blockquote>
-<p>[!WARNING]
-Remember that <code>emptyDir</code> data is wiped if the Pod is deleted. If you need data to survive Pod restarts/deletions, use <strong>PV and PVC</strong>.</p>
+<p>[!TIP]
+<strong>Dynamic vs Manual</strong>: In production, you'll likely use a <strong>StorageClass</strong> to automate this (Dynamic Provisioning). In the CKA exam, you will often be asked to perform a <strong>Manual binding</strong> like this example.</p>
 </blockquote>
 
 
