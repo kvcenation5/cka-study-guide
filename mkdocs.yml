@@ -82,6 +82,7 @@ nav:
       - Deep Dive: storage/storage-deep-dive.md
       - Volumes vs PV vs PVC: storage/volumes-pv-pvc.md
       - CSI Architecture & Workflow: storage/csi-architecture-workflow.md
+      - Hands-on Examples: storage/hands-on-examples.md
       - StatefulSet & PVC Explained: storage/statefulset-pvc-explained.md
       - StatefulSet Architecture: storage/statefulset-architecture.md
   - Security:

@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: random-generator
+  labels:
+    app: random-number
+spec:
+  containers:
+  - name: generator
+    image: alpine
+    command: ["/bin/sh", "-c"]
+    args:
+    - while true; do
+        shuf -i 1-100 -n 1 > /opt/data/number.txt;
+        echo "Generated number: $(cat /opt/data/number.txt)";
+        sleep 5;
+      done
+    volumeMounts:
+    - name: shared-data
+      mountPath: /opt/data
+  
+  # Optional: Sidecar container to read the generated number
+  - name: logger
+    image: alpine
+    command: ["/bin/sh", "-c"]
+    args:
+    - while true; do
+        if [ -f /opt/data/number.txt ]; then
+          echo "Sidecar reading number: $(cat /opt/data/number.txt)";
+        fi;
+        sleep 5;
+      done
+    volumeMounts:
+    - name: shared-data
+      mountPath: /opt/data
+
+  volumes:
+  - name: shared-data
+    emptyDir: {}
