@@ -2292,10 +2292,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-server-certificates-the-face-of-the-component" class="md-nav__link">
+  <a href="#a-client-certificates-the-id-badge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. Server Certificates (The "Face" of the component)
+        A. Client Certificates (The "ID Badge")
       
     </span>
   </a>
@@ -2303,10 +2303,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-client-certificates-the-id-badge-of-the-component" class="md-nav__link">
+  <a href="#b-server-certificates-the-face" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. Client Certificates (The "ID Badge" of the component)
+        B. Server Certificates (The "Face")
       
     </span>
   </a>
@@ -2917,10 +2917,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-server-certificates-the-face-of-the-component" class="md-nav__link">
+  <a href="#a-client-certificates-the-id-badge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. Server Certificates (The "Face" of the component)
+        A. Client Certificates (The "ID Badge")
       
     </span>
   </a>
@@ -2928,10 +2928,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-client-certificates-the-id-badge-of-the-component" class="md-nav__link">
+  <a href="#b-server-certificates-the-face" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. Client Certificates (The "ID Badge" of the component)
+        B. Server Certificates (The "Face")
       
     </span>
   </a>
@@ -3171,17 +3171,21 @@
 <hr />
 <h2 id="3-server-vs-client-certificates">🛠️ 3. Server vs. Client Certificates</h2>
 <p>Understanding which certificate is used when is key to debugging "Unauthorized" vs "Handshake" errors.</p>
-<h3 id="a-server-certificates-the-face-of-the-component">A. Server Certificates (The "Face" of the component)</h3>
-<p>A component acts as a <strong>Server</strong> when it receives requests. It identifies itself via a server cert.
-*   <strong>Kube-APIServer</strong>: The main server for you (kubectl) and the cluster.
-*   <strong>Etcd</strong>: The database server (acts as a server to the API server).
-*   <strong>Kubelet (Server Role)</strong>: Acts as a server on port <code>10250</code> when the API server requests logs or executes commands (<code>kubectl exec/logs</code>).</p>
-<h3 id="b-client-certificates-the-id-badge-of-the-component">B. Client Certificates (The "ID Badge" of the component)</h3>
+<h3 id="a-client-certificates-the-id-badge">A. Client Certificates (The "ID Badge")</h3>
 <p>A component acts as a <strong>Client</strong> when it initiates a request. It proves its identity via a client cert.
-*   <strong>Kube-Scheduler / Kube-Controller-Manager</strong>: Clients that talk to the API server.
-*   <strong>Kube-Proxy</strong>: A client that watches the API server for service and endpoint changes.
-*   <strong>Kubelet (Client Role)</strong>: Acts as a client to register itself and send pod status to the API server.
-*   <strong>Kube-APIServer (as a Client)</strong>: The API server is unique—it also behaves as a client when it calls <strong>Etcd</strong> or the <strong>Kubelets</strong>.</p>
+*   <strong>Admin</strong>: For the cluster administrator to authenticate to the API server.
+*   <strong>Kube-APIServer</strong>: Acts as a client for external/internal communication.
+*   <strong>Kube-Scheduler</strong>: Talks to the API server to schedule pods.
+*   <strong>Kube-Controller-Manager</strong>: Talks to the API server to manage controllers.
+*   <strong>API-Server-ETCD</strong>: Client cert specifically for the API server $\rightarrow$ Etcd connection.
+*   <strong>API-Server-Kubelet</strong>: Client cert specifically for the API server $\rightarrow$ Kubelet connection.
+*   <strong>Kube-Proxy</strong>: Watches the API server for networking updates.
+*   <strong>Kubelet (Client)</strong>: Registers the node and reports heartbeats to the API server.</p>
+<h3 id="b-server-certificates-the-face">B. Server Certificates (The "Face")</h3>
+<p>A component acts as a <strong>Server</strong> when it receives requests. It identifies itself via a server cert.
+*   <strong>Etcd Server</strong>: Responds to queries from the API server.
+*   <strong>Kubelet (Server)</strong>: Responds to the API server for logs and exec commands.
+*   <strong>Kube-APIServer</strong>: Responds to you (kubectl) and all cluster components.</p>
 <hr />
 <h2 id="3-inspecting-certificates-cka-must-know">🔍 3. Inspecting Certificates (CKA Must-Know)</h2>
 <p>Use <code>openssl</code> to check if a certificate is valid and see its "Subject" or "Expiry".</p>
