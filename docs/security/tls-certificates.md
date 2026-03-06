@@ -32,18 +32,22 @@ On a control plane node installed with `kubeadm`, all certificates are stored in
 
 Understanding which certificate is used when is key to debugging "Unauthorized" vs "Handshake" errors.
 
-### A. Server Certificates (The "Face" of the component)
-A component acts as a **Server** when it receives requests. It identifies itself via a server cert.
-*   **Kube-APIServer**: The main server for you (kubectl) and the cluster.
-*   **Etcd**: The database server (acts as a server to the API server).
-*   **Kubelet (Server Role)**: Acts as a server on port `10250` when the API server requests logs or executes commands (`kubectl exec/logs`).
-
-### B. Client Certificates (The "ID Badge" of the component)
+### A. Client Certificates (The "ID Badge")
 A component acts as a **Client** when it initiates a request. It proves its identity via a client cert.
-*   **Kube-Scheduler / Kube-Controller-Manager**: Clients that talk to the API server.
-*   **Kube-Proxy**: A client that watches the API server for service and endpoint changes.
-*   **Kubelet (Client Role)**: Acts as a client to register itself and send pod status to the API server.
-*   **Kube-APIServer (as a Client)**: The API server is unique—it also behaves as a client when it calls **Etcd** or the **Kubelets**.
+*   **Admin**: For the cluster administrator to authenticate to the API server.
+*   **Kube-APIServer**: Acts as a client for external/internal communication.
+*   **Kube-Scheduler**: Talks to the API server to schedule pods.
+*   **Kube-Controller-Manager**: Talks to the API server to manage controllers.
+*   **API-Server-ETCD**: Client cert specifically for the API server $\rightarrow$ Etcd connection.
+*   **API-Server-Kubelet**: Client cert specifically for the API server $\rightarrow$ Kubelet connection.
+*   **Kube-Proxy**: Watches the API server for networking updates.
+*   **Kubelet (Client)**: Registers the node and reports heartbeats to the API server.
+
+### B. Server Certificates (The "Face")
+A component acts as a **Server** when it receives requests. It identifies itself via a server cert.
+*   **Etcd Server**: Responds to queries from the API server.
+*   **Kubelet (Server)**: Responds to the API server for logs and exec commands.
+*   **Kube-APIServer**: Responds to you (kubectl) and all cluster components.
 
 ---
 
