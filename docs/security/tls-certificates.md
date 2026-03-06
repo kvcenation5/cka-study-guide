@@ -18,10 +18,32 @@ On a control plane node installed with `kubeadm`, all certificates are stored in
 
 | Component | Path | Description |
 | :--- | :--- | :--- |
-| **CA Root** | `ca.crt`, `ca.key` | The primary root certificate. |
-| **API Server** | `apiserver.crt`, `apiserver.key` | Used by the API server to identify itself. |
-| **Etcd** | `etcd/ca.crt`, `etcd/healthcheck-client.crt` | Etcd-specific security. |
-| **Kubeconfig** | `/etc/kubernetes/admin.conf` | Contains the `client-certificate-data`. |
+| **CA Root** | `ca.crt`, `ca.key` | The primary root certificate for the cluster. |
+| **API Server** | `apiserver.crt`, `apiserver.key` | **Server Cert**: Identifies the API server to clients. |
+| **Etcd Server** | `etcd/server.crt`, `etcd/server.key` | **Server Cert**: Identifies Etcd to candidates. |
+| **Kubelet Server** | Provided by Kubelet | **Server Cert**: Used for HTTPS access to kubelet logs/exec. |
+| **Admin Client** | `admin.conf` | **Client Cert**: Full cluster access for the administrator. |
+| **API -> Etcd** | `apiserver-etcd-client.crt` | **Client Cert**: Used by API server to talk to Etcd. |
+| **API -> Kubelet** | `apiserver-kubelet-client.crt` | **Client Cert**: Used by API server to talk to Kubelets. |
+
+---
+
+## 🛠️ 3. Server vs. Client Certificates
+
+Understanding which certificate is used when is key to debugging "Unauthorized" vs "Handshake" errors.
+
+### A. Server Certificates (The "Face" of the component)
+A component acts as a **Server** when it receives requests. It identifies itself via a server cert.
+*   **Kube-APIServer**: The main server for you (kubectl) and the cluster.
+*   **Etcd**: The database server (acts as a server to the API server).
+*   **Kubelet (Server Role)**: Acts as a server on port `10250` when the API server requests logs or executes commands (`kubectl exec/logs`).
+
+### B. Client Certificates (The "ID Badge" of the component)
+A component acts as a **Client** when it initiates a request. It proves its identity via a client cert.
+*   **Kube-Scheduler / Kube-Controller-Manager**: Clients that talk to the API server.
+*   **Kube-Proxy**: A client that watches the API server for service and endpoint changes.
+*   **Kubelet (Client Role)**: Acts as a client to register itself and send pod status to the API server.
+*   **Kube-APIServer (as a Client)**: The API server is unique—it also behaves as a client when it calls **Etcd** or the **Kubelets**.
 
 ---
 
