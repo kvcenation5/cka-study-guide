@@ -2280,6 +2280,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#3-server-vs-client-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 3. Server vs. Client Certificates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 3. Server vs. Client Certificates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-server-certificates-the-face-of-the-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Server Certificates (The "Face" of the component)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-client-certificates-the-id-badge-of-the-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Client Certificates (The "ID Badge" of the component)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#3-inspecting-certificates-cka-must-know" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2866,6 +2905,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#3-server-vs-client-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 3. Server vs. Client Certificates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 3. Server vs. Client Certificates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-server-certificates-the-face-of-the-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Server Certificates (The "Face" of the component)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-client-certificates-the-id-badge-of-the-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Client Certificates (The "ID Badge" of the component)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#3-inspecting-certificates-cka-must-know" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3056,25 +3134,54 @@
 <tr>
 <td style="text-align: left;"><strong>CA Root</strong></td>
 <td style="text-align: left;"><code>ca.crt</code>, <code>ca.key</code></td>
-<td style="text-align: left;">The primary root certificate.</td>
+<td style="text-align: left;">The primary root certificate for the cluster.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>API Server</strong></td>
 <td style="text-align: left;"><code>apiserver.crt</code>, <code>apiserver.key</code></td>
-<td style="text-align: left;">Used by the API server to identify itself.</td>
+<td style="text-align: left;"><strong>Server Cert</strong>: Identifies the API server to clients.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Etcd</strong></td>
-<td style="text-align: left;"><code>etcd/ca.crt</code>, <code>etcd/healthcheck-client.crt</code></td>
-<td style="text-align: left;">Etcd-specific security.</td>
+<td style="text-align: left;"><strong>Etcd Server</strong></td>
+<td style="text-align: left;"><code>etcd/server.crt</code>, <code>etcd/server.key</code></td>
+<td style="text-align: left;"><strong>Server Cert</strong>: Identifies Etcd to candidates.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Kubeconfig</strong></td>
-<td style="text-align: left;"><code>/etc/kubernetes/admin.conf</code></td>
-<td style="text-align: left;">Contains the <code>client-certificate-data</code>.</td>
+<td style="text-align: left;"><strong>Kubelet Server</strong></td>
+<td style="text-align: left;">Provided by Kubelet</td>
+<td style="text-align: left;"><strong>Server Cert</strong>: Used for HTTPS access to kubelet logs/exec.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Admin Client</strong></td>
+<td style="text-align: left;"><code>admin.conf</code></td>
+<td style="text-align: left;"><strong>Client Cert</strong>: Full cluster access for the administrator.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>API -&gt; Etcd</strong></td>
+<td style="text-align: left;"><code>apiserver-etcd-client.crt</code></td>
+<td style="text-align: left;"><strong>Client Cert</strong>: Used by API server to talk to Etcd.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>API -&gt; Kubelet</strong></td>
+<td style="text-align: left;"><code>apiserver-kubelet-client.crt</code></td>
+<td style="text-align: left;"><strong>Client Cert</strong>: Used by API server to talk to Kubelets.</td>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="3-server-vs-client-certificates">🛠️ 3. Server vs. Client Certificates</h2>
+<p>Understanding which certificate is used when is key to debugging "Unauthorized" vs "Handshake" errors.</p>
+<h3 id="a-server-certificates-the-face-of-the-component">A. Server Certificates (The "Face" of the component)</h3>
+<p>A component acts as a <strong>Server</strong> when it receives requests. It identifies itself via a server cert.
+*   <strong>Kube-APIServer</strong>: The main server for you (kubectl) and the cluster.
+*   <strong>Etcd</strong>: The database server (acts as a server to the API server).
+*   <strong>Kubelet (Server Role)</strong>: Acts as a server on port <code>10250</code> when the API server requests logs or executes commands (<code>kubectl exec/logs</code>).</p>
+<h3 id="b-client-certificates-the-id-badge-of-the-component">B. Client Certificates (The "ID Badge" of the component)</h3>
+<p>A component acts as a <strong>Client</strong> when it initiates a request. It proves its identity via a client cert.
+*   <strong>Kube-Scheduler / Kube-Controller-Manager</strong>: Clients that talk to the API server.
+*   <strong>Kube-Proxy</strong>: A client that watches the API server for service and endpoint changes.
+*   <strong>Kubelet (Client Role)</strong>: Acts as a client to register itself and send pod status to the API server.
+*   <strong>Kube-APIServer (as a Client)</strong>: The API server is unique—it also behaves as a client when it calls <strong>Etcd</strong> or the <strong>Kubelets</strong>.</p>
 <hr />
 <h2 id="3-inspecting-certificates-cka-must-know">🔍 3. Inspecting Certificates (CKA Must-Know)</h2>
 <p>Use <code>openssl</code> to check if a certificate is valid and see its "Subject" or "Expiry".</p>
