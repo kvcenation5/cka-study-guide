@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../node-affinity/">
+        <link rel="prev" href="../certificate-generation-openssl/">
       
       
-        <link rel="next" href="../priority-classes/">
+        <link rel="next" href="../network-policies/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Taints vs Affinity (Comparison) - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Certificate API (CSR) - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#taints-tolerations-vs-node-affinity" class="md-skip">
+        <a href="#kubernetes-certificate-api-management" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Taints vs Affinity (Comparison)
+              Certificate API (CSR)
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -245,13 +245,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../yaml-guide/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -271,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -291,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -309,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -330,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -350,7 +348,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../storage/storage-deep-dive/" class="md-tabs__link">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -388,7 +388,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../security-focus/" class="md-tabs__link">
+      <a href="../../security-focus/" class="md-tabs__link">
         
   
   
@@ -409,7 +409,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -429,7 +429,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -449,7 +449,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -483,7 +483,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -501,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -528,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -552,31 +552,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -612,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -640,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -668,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -696,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -724,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -752,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -780,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -808,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -836,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -864,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -892,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -920,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -948,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -973,31 +968,26 @@
                 
   
   
-    
   
   
-  
     
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1015,7 +1005,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_14">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1033,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1061,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1089,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1117,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1142,37 +1132,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Taints vs Affinity (Comparison)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1188,137 +1151,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-core-logic-the-push-vs-pull" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Core Logic: The "Push" vs. "Pull"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Core Logic: The &#34;Push&#34; vs. &#34;Pull&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#taints-tolerations-the-push" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Taints &amp; Tolerations (The "Push")
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#node-affinity-the-pull" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Node Affinity (The "Pull")
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-practical-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Practical Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Practical Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-a-dedicated-gpu-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario A: Dedicated GPU Node
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-b-spreading-pods-across-zones" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario B: Spreading Pods across Zones
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-pros-and-cons" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Pros and Cons
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-when-to-use-both-the-dedicated-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. When to use BOTH? (The "Dedicated Node")
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-which-is-most-important" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Which is Most Important?
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1331,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1359,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1387,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1423,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1510,7 +1342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1538,7 +1370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1566,7 +1398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1653,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1681,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1709,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1737,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1765,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1793,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1821,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1856,7 +1688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1935,7 +1767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -1963,7 +1795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -2050,7 +1882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2078,7 +1910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2106,7 +1938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2134,7 +1966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2162,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2190,7 +2022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2222,26 +2054,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2259,7 +2096,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2277,7 +2114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2305,7 +2142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2333,7 +2170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2361,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/tls-certificates/" class="md-nav__link">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2389,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2414,10 +2251,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../security/certificate-api-management/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certificate API (CSR)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2433,6 +2297,198 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. Core Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-root-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a Root Certificate?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-ca-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is a CA Server?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-base64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Base64?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-certificate-api-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 2. The Certificate API Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-hands-on-managing-a-csr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 3. Hands-on: Managing a CSR
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 3. Hands-on: Managing a CSR">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-create-the-standard-csr-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Create the standard CSR (OpenSSL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-submit-to-kubernetes-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Submit to Kubernetes API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-admin-commands-review-approve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Admin Commands (Review &amp; Approve)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-retrieve-the-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Retrieve the Certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-controller-managers-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 4. The Controller Manager's Role
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-security-where-to-store-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 5. Security: Where to store certificates?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 5. Security: Where to store certificates?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-it-okay-to-place-certificates-on-the-master-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is it okay to place certificates on the Master Node?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-keep-the-ca-file-safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to keep the CA file safe?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2445,7 +2501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -2480,7 +2536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security-focus/" class="md-nav__link">
+      <a href="../../security-focus/" class="md-nav__link">
         
   
   
@@ -2559,7 +2615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -2646,7 +2702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2674,7 +2730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2702,7 +2758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -2789,7 +2845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -2817,7 +2873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting/crictl-guide/" class="md-nav__link">
+      <a href="../../troubleshooting/crictl-guide/" class="md-nav__link">
         
   
   
@@ -2872,22 +2928,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-core-logic-the-push-vs-pull" class="md-nav__link">
+  <a href="#1-core-concepts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Core Logic: The "Push" vs. "Pull"
+        🏗️ 1. Core Concepts
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Core Logic: The &#34;Push&#34; vs. &#34;Pull&#34;">
+    <nav class="md-nav" aria-label="🏗️ 1. Core Concepts">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#taints-tolerations-the-push" class="md-nav__link">
+  <a href="#what-is-a-root-certificate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Taints &amp; Tolerations (The "Push")
+        What is a Root Certificate?
       
     </span>
   </a>
@@ -2895,10 +2951,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#node-affinity-the-pull" class="md-nav__link">
+  <a href="#what-is-a-ca-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Node Affinity (The "Pull")
+        What is a CA Server?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-base64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Base64?
       
     </span>
   </a>
@@ -2911,22 +2978,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-practical-examples" class="md-nav__link">
+  <a href="#2-the-certificate-api-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Practical Examples
+        🔄 2. The Certificate API Workflow
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Practical Examples">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-hands-on-managing-a-csr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 3. Hands-on: Managing a CSR
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 3. Hands-on: Managing a CSR">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scenario-a-dedicated-gpu-node" class="md-nav__link">
+  <a href="#a-create-the-standard-csr-openssl" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario A: Dedicated GPU Node
+        A. Create the standard CSR (OpenSSL)
       
     </span>
   </a>
@@ -2934,10 +3012,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#scenario-b-spreading-pods-across-zones" class="md-nav__link">
+  <a href="#b-submit-to-kubernetes-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario B: Spreading Pods across Zones
+        B. Submit to Kubernetes API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-admin-commands-review-approve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Admin Commands (Review &amp; Approve)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-retrieve-the-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Retrieve the Certificate
       
     </span>
   </a>
@@ -2950,10 +3050,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-pros-and-cons" class="md-nav__link">
+  <a href="#4-the-controller-managers-role" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Pros and Cons
+        ⚙️ 4. The Controller Manager's Role
       
     </span>
   </a>
@@ -2961,24 +3061,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-when-to-use-both-the-dedicated-node" class="md-nav__link">
+  <a href="#5-security-where-to-store-certificates" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. When to use BOTH? (The "Dedicated Node")
+        🔐 5. Security: Where to store certificates?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔐 5. Security: Where to store certificates?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is-it-okay-to-place-certificates-on-the-master-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Is it okay to place certificates on the Master Node?
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#5-which-is-most-important" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-keep-the-ca-file-safe" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. Which is Most Important?
+        How to keep the CA file safe?
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2999,87 +3116,124 @@
 
 
 
-<h1 id="taints-tolerations-vs-node-affinity">Taints &amp; Tolerations vs. Node Affinity</h1>
-<p>In Kubernetes scheduling, these are the two main ways to control where Pods land. The easiest way to remember the difference is the <strong>"Push vs. Pull"</strong> concept.</p>
+<h1 id="kubernetes-certificate-api-management">Kubernetes Certificate API Management</h1>
+<p>In a production cluster, you don't always want to manually run OpenSSL commands on the Master node to sign certificates. Kubernetes provides a built-in <strong>Certificate API</strong> to automate and audit the certificate request and signing process.</p>
 <hr />
-<h2 id="1-core-logic-the-push-vs-pull">1. Core Logic: The "Push" vs. "Pull"</h2>
-<h3 id="taints-tolerations-the-push">Taints &amp; Tolerations (The "Push")</h3>
-<ul>
-<li><strong>Concept</strong>: Nodes use Taints to <strong>repel</strong> Pods.</li>
-<li><strong>Analogy</strong>: A "No Entry" sign on a door. Only people with a specific key (Toleration) can enter.</li>
-<li><strong>Primary Goal</strong>: To prevent certain Pods from landing on certain Nodes.</li>
-</ul>
-<h3 id="node-affinity-the-pull">Node Affinity (The "Pull")</h3>
-<ul>
-<li><strong>Concept</strong>: Pods use Affinity to be <strong>attracted</strong> to Nodes.</li>
-<li><strong>Analogy</strong>: A "Wanted" poster. The Pod is looking for a node that matches its requirements.</li>
-<li><strong>Primary Goal</strong>: To force or prefer certain Pods to land on specific Nodes.</li>
-</ul>
+<h2 id="1-core-concepts">🏗️ 1. Core Concepts</h2>
+<h3 id="what-is-a-root-certificate">What is a Root Certificate?</h3>
+<p>The <strong>Root Certificate</strong> (e.g., <code>ca.crt</code>) is the "Trust Anchor" of your entire cluster. 
+*   It is the only certificate that is <strong>self-signed</strong>.
+*   Every other certificate in the cluster is "derived" from this one.
+*   If a client trusts the Root Certificate, it will automatically trust any certificate signed by it.</p>
+<h3 id="what-is-a-ca-server">What is a CA Server?</h3>
+<p>A <strong>CA (Certificate Authority) Server</strong> is simply a machine or service that holds the Root CA private key (<code>ca.key</code>) and runs software to sign incoming Certificate Signing Requests (CSRs). 
+*   In Kubernetes, the <strong>Master Node</strong> effectively acts as the CA Server by default because it holds the <code>ca.key</code>.</p>
+<h3 id="what-is-base64">What is Base64?</h3>
+<p>Base64 is NOT encryption; it is <strong>encoding</strong>. It turns binary data (like a private key) into plain text that can be safely put into YAML files or environment variables.
+*   <strong>Kubectl Command</strong>: <code>echo "mydata" | base64</code> (Encode)
+*   <strong>Kubectl Command</strong>: <code>echo "bXlkYXRhCg==" | base64 --decode</code> (Decode)</p>
 <hr />
-<h2 id="2-practical-examples">2. Practical Examples</h2>
-<h3 id="scenario-a-dedicated-gpu-node">Scenario A: Dedicated GPU Node</h3>
-<p>You have a node with a expensive GPU. You don't want "regular" web apps wasting its resources.
-*   <strong>Taint the Node</strong>: <code>gpu=true:NoSchedule</code>
-*   <strong>Effect</strong>: Every normal Pod in your cluster is now "pushed" away from this node.
-*   <strong>Add Toleration</strong>: Only your AI/ML Pods get the <code>gpu=true</code> toleration, so they are the only ones allowed in.</p>
-<h3 id="scenario-b-spreading-pods-across-zones">Scenario B: Spreading Pods across Zones</h3>
-<p>You want your app to run in the <code>us-east-1</code> zone for low latency.
-*   <strong>Node Affinity</strong>: <code>requiredDuringScheduling...</code> with <code>zone in [us-east-1]</code>.
-*   <strong>Effect</strong>: The Pod "pulls" itself toward nodes in that zone.</p>
-<hr />
-<h2 id="3-pros-and-cons">3. Pros and Cons</h2>
+<h2 id="2-the-certificate-api-workflow">🔄 2. The Certificate API Workflow</h2>
+<p>The API allows users to request certificates without needing direct access to the <code>ca.key</code> file.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Taints &amp; Tolerations</th>
-<th style="text-align: left;">Node Affinity</th>
+<th style="text-align: left;">Step</th>
+<th style="text-align: left;">Action</th>
+<th style="text-align: left;">Responsibility</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Logic</strong></td>
-<td style="text-align: left;">Exclusive (Keep others out)</td>
-<td style="text-align: left;">Inclusive (Get me in)</td>
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;">Generate a private key and a standard CSR file.</td>
+<td style="text-align: left;">User/Developer</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Strength</strong></td>
-<td style="text-align: left;"><strong>Guaranteed Exclusion.</strong> Non-tolerating pods will NEVER land here.</td>
-<td style="text-align: left;"><strong>Flexible.</strong> Can be Hard (Required) or Soft (Preferred).</td>
+<td style="text-align: left;"><strong>2</strong></td>
+<td style="text-align: left;">Create a Kubernetes <code>CertificateSigningRequest</code> (CSR) object.</td>
+<td style="text-align: left;">User/Developer</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Complexity</strong></td>
-<td style="text-align: left;">Simple key/value/effect.</td>
-<td style="text-align: left;">Complex expressions (In, NotIn, Exists).</td>
+<td style="text-align: left;"><strong>3</strong></td>
+<td style="text-align: left;">List and review the pending CSR.</td>
+<td style="text-align: left;">Cluster Admin</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Con</strong></td>
-<td style="text-align: left;">It only <em>allows</em> a pod to enter; it doesn't <em>force</em> it to go there.</td>
-<td style="text-align: left;">It doesn't stop <em>other</em> pods from landing on your node if they have no preference.</td>
+<td style="text-align: left;"><strong>4</strong></td>
+<td style="text-align: left;">Approve the CSR.</td>
+<td style="text-align: left;">Cluster Admin</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5</strong></td>
+<td style="text-align: left;">Sign the certificate using the CA key.</td>
+<td style="text-align: left;"><strong>Kube-Controller-Manager</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>6</strong></td>
+<td style="text-align: left;">Download the signed certificate from the API.</td>
+<td style="text-align: left;">User/Developer</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="4-when-to-use-both-the-dedicated-node">4. When to use BOTH? (The "Dedicated Node")</h2>
-<p>If you want a node to be <strong>EXCLUSIVELY</strong> for a specific team (e.g., The "Finance" team), one tool is not enough.</p>
-<ol>
-<li><strong>If you only use Taints</strong>: Other pods stay out (Good), but the Finance pods might accidentally land on a "General" node because they are <em>allowed</em> everywhere else (Bad).</li>
-<li><strong>If you only use Affinity</strong>: Finance pods land on the Finance node (Good), but General pods might also land on the Finance node because they don't have any restrictions (Bad).</li>
-</ol>
-<p><strong>The Solution: Use Both!</strong>
-*   <strong>Taint the Node</strong>: Keeps everyone else out.
-*   <strong>Toleration on Pod</strong>: Allows the Finance pod to enter.
-*   <strong>Affinity on Pod</strong>: Forces the Finance pod to choose that node specifically.</p>
+<h2 id="3-hands-on-managing-a-csr">🛠️ 3. Hands-on: Managing a CSR</h2>
+<h3 id="a-create-the-standard-csr-openssl">A. Create the standard CSR (OpenSSL)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate key</span>
+openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>john.key<span class="w"> </span><span class="m">2048</span>
+<span class="c1"># Generate CSR</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>john.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=john&quot;</span><span class="w"> </span>-out<span class="w"> </span>john.csr
+</code></pre></div>
+<h3 id="b-submit-to-kubernetes-api">B. Submit to Kubernetes API</h3>
+<p>You must take the content of <code>john.csr</code>, encode it in <strong>Base64</strong>, and put it into the YAML.</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>john.csr<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span>
+</code></pre></div>
+<p><strong>CSR YAML (<code>john-csr.yaml</code>):</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certificates.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CertificateSigningRequest</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">john-developer</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">request</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;BASE64_CONTENT_HERE&gt;</span>
+<span class="w">  </span><span class="nt">signerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/kube-apiserver-client</span>
+<span class="w">  </span><span class="nt">usages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client auth</span>
+</code></pre></div></p>
+<h3 id="c-admin-commands-review-approve">C. Admin Commands (Review &amp; Approve)</h3>
+<p>Admin sees a new request:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr
+</code></pre></div></p>
+<p>Admin reviews the details (CN, Groups):
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>csr<span class="w"> </span>john-developer
+</code></pre></div></p>
+<p>Admin Approves:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>certificate<span class="w"> </span>approve<span class="w"> </span>john-developer
+</code></pre></div></p>
+<h3 id="d-retrieve-the-certificate">D. Retrieve the Certificate</h3>
+<p>Once approved, the certificate is saved back into the CSR object.
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>--decode<span class="w"> </span>&gt;<span class="w"> </span>john.crt
+</code></pre></div></p>
 <hr />
-<h2 id="5-which-is-most-important">5. Which is Most Important?</h2>
-<ul>
-<li><strong>Node Affinity</strong> is the <strong>most important</strong> for application developers. It ensures high availability and correct resource placement.</li>
-<li><strong>Taints &amp; Tolerations</strong> are <strong>most important</strong> for Cluster Administrators. It's used to "reserve" master nodes, handle hardware maintenance (drain), and manage specialized hardware.</li>
-</ul>
-<p><strong>Summary for CKA:</strong>
-*   Use <strong>Taints</strong> to "Lock" a node.
-*   Use <strong>Affinity</strong> to "Direct" a pod.
-*   Use <strong>Both</strong> to "Dedicate" a node.</p>
+<h2 id="4-the-controller-managers-role">⚙️ 4. The Controller Manager's Role</h2>
+<p>The <strong>Kube-Controller-Manager</strong> is the "engine" behind this API. It runs two specific controllers:
+1.  <strong>CSR Approver</strong>: Automatically approves certain system requests (like Kubelet node certificates).
+2.  <strong>CSR Signer</strong>: Watches for approved CSR objects, takes the <code>ca.key</code> from the master disk, signs the request, and updates the object's <code>.status.certificate</code> field.</p>
+<hr />
+<h2 id="5-security-where-to-store-certificates">🔐 5. Security: Where to store certificates?</h2>
+<h3 id="is-it-okay-to-place-certificates-on-the-master-node">Is it okay to place certificates on the Master Node?</h3>
+<p><strong>Yes</strong>, by default, Kubernetes stores them in <code>/etc/kubernetes/pki/</code> on the master node. 
+*   <strong>Pros</strong>: Easy management, Kube-Controller-Manager can reach them easily.
+*   <strong>Cons</strong>: If the Master node is compromised, the attacker has the "Keys to the Kingdom" (<code>ca.key</code>).</p>
+<h3 id="how-to-keep-the-ca-file-safe">How to keep the CA file safe?</h3>
+<ol>
+<li><strong>Restrict Access</strong>: Use Linux permissions (<code>chmod 600</code>) so only <code>root</code> can read the <code>.key</code> files.</li>
+<li><strong>External CA</strong>: In high-security environments, the <code>ca.key</code> is kept in a <strong>HSM (Hardware Security Module)</strong> or an offline "Air-gapped" server, and Kubernetes is configured to talk to an external CA API.</li>
+</ol>
+<hr />
+<blockquote>
+<p>[!TIP]
+<strong>CKA Exam Shortcut</strong>: You will almost certainly be asked to troubleshoot or approve a CSR. Remember: <code>kubectl get csr</code> -&gt; <code>kubectl certificate approve &lt;name&gt;</code>.</p>
+</blockquote>
 
 
 
@@ -3130,10 +3284,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
