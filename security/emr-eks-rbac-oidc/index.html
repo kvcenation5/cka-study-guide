@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../storage-deep-dive/">
+        <link rel="prev" href="../rolebinding-deep-dive/">
       
       
-        <link rel="next" href="../csi-architecture-workflow/">
+        <link rel="next" href="../authorization-mechanisms/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Volumes vs PV vs PVC - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Case Study: EMR on EKS (OIDC) - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#volumes-vs-pv-vs-pvc" class="md-skip">
+        <a href="#real-world-case-study-emr-on-eks-auth-rbac-oidc" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Volumes vs PV vs PVC
+              Case Study: EMR on EKS (OIDC)
             
           </span>
         </div>
@@ -344,13 +344,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../storage-deep-dive/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -1911,6 +1911,233 @@
       
   
   
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Storage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Volumes vs PV vs PVC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSI Architecture & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hands-on Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSets Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    StatefulSet Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -1932,17 +2159,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Storage
+    Security
   
 
     
@@ -1953,12 +2180,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_8">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Storage
+    Security
   
 
           </label>
@@ -1971,14 +2198,322 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage-deep-dive/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Deep Dive
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security-primitives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Primitives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AuthN vs AuthZ vs TLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tls-certificates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TLS Certificates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certificate Generation (OpenSSL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../certificate-api-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Certificate API (CSR)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeconfig-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubeconfig Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rbac-authorization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RBAC & Authorization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster-roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ClusterRoles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rbac-practical-examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practical RBAC Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rbac-kubectl-cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RBAC kubectl Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rolebinding-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RoleBinding Deep Dive
   
 
     
@@ -2015,7 +2550,7 @@
   <span class="md-ellipsis">
     
   
-    Volumes vs PV vs PVC
+    Case Study: EMR on EKS (OIDC)
   
 
     
@@ -2033,7 +2568,7 @@
   <span class="md-ellipsis">
     
   
-    Volumes vs PV vs PVC
+    Case Study: EMR on EKS (OIDC)
   
 
     
@@ -2059,22 +2594,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-storage-hierarchy" class="md-nav__link">
+  <a href="#1-the-trust-architecture-oidc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Storage Hierarchy
+        🏗️ 1. The "Trust" Architecture (OIDC)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. The Storage Hierarchy">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-role-vs-clusterrole-in-emr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 2. Role vs. ClusterRole in EMR
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ 2. Role vs. ClusterRole in EMR">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-basic-volumes-pod-level" class="md-nav__link">
+  <a href="#a-the-emr-service-role-clusterrole" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. Basic Volumes (Pod-level)
+        A. The EMR Service Role (ClusterRole)
       
     </span>
   </a>
@@ -2082,21 +2628,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-persistentvolumes-pv-cluster-level" class="md-nav__link">
+  <a href="#b-the-job-execution-role-role" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. PersistentVolumes (PV) (Cluster-level)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-persistentvolumeclaims-pvc-user-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C. PersistentVolumeClaims (PVC) (User-level)
+        B. The Job Execution Role (Role)
       
     </span>
   </a>
@@ -2109,22 +2644,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-how-they-work-together-the-binding" class="md-nav__link">
+  <a href="#3-putting-it-together-the-serviceaccount" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔄 2. How they work together (The Binding)
+        🔗 3. Putting it Together: The ServiceAccount
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔄 2. How they work together (The Binding)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-troubleshooting-for-emr-on-eks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential Troubleshooting for EMR on EKS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential Troubleshooting for EMR on EKS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-binding-process" class="md-nav__link">
+  <a href="#1-check-the-webhook" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Binding Process:
+        1. Check the Webhook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-verify-the-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Verify the Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rbac-permission-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. RBAC "Permission Denied"
       
     </span>
   </a>
@@ -2133,67 +2701,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-comparison-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 3. Comparison Table
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-yaml-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📝 4. YAML Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📝 4. YAML Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pod-with-a-simple-emptydir-volume" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod with a simple emptyDir Volume
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-pv-pvc-pod-chain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The PV -&gt; PVC -&gt; Pod Chain
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-troubleshooting-the-binding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Troubleshooting the Binding
-      
-    </span>
-  </a>
   
 </li>
       
@@ -2213,542 +2720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../csi-architecture-workflow/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CSI Architecture & Workflow
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../hands-on-examples/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Hands-on Examples
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../statefulsets-deep-dive/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    StatefulSets Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../statefulset-architecture/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    StatefulSet Architecture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
-        
-          
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Security
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Security
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/security-primitives/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Security Primitives
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    AuthN vs AuthZ vs TLS
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/tls-certificates/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    TLS Certificates
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Certificate Generation (OpenSSL)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/certificate-api-management/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Certificate API (CSR)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Kubeconfig Guide
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/rbac-authorization/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    RBAC & Authorization
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/cluster-roles/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ClusterRoles
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Practical RBAC Examples
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    RBAC kubectl Cheatsheet
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    RoleBinding Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/emr-eks-rbac-oidc/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Case Study: EMR on EKS (OIDC)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2776,7 +2748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/abac-authorization/" class="md-nav__link">
+      <a href="../abac-authorization/" class="md-nav__link">
         
   
   
@@ -2804,7 +2776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -2832,7 +2804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -2860,7 +2832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -3287,22 +3259,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-storage-hierarchy" class="md-nav__link">
+  <a href="#1-the-trust-architecture-oidc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Storage Hierarchy
+        🏗️ 1. The "Trust" Architecture (OIDC)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. The Storage Hierarchy">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-role-vs-clusterrole-in-emr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 2. Role vs. ClusterRole in EMR
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ 2. Role vs. ClusterRole in EMR">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-basic-volumes-pod-level" class="md-nav__link">
+  <a href="#a-the-emr-service-role-clusterrole" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. Basic Volumes (Pod-level)
+        A. The EMR Service Role (ClusterRole)
       
     </span>
   </a>
@@ -3310,21 +3293,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-persistentvolumes-pv-cluster-level" class="md-nav__link">
+  <a href="#b-the-job-execution-role-role" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. PersistentVolumes (PV) (Cluster-level)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-persistentvolumeclaims-pvc-user-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C. PersistentVolumeClaims (PVC) (User-level)
+        B. The Job Execution Role (Role)
       
     </span>
   </a>
@@ -3337,22 +3309,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-how-they-work-together-the-binding" class="md-nav__link">
+  <a href="#3-putting-it-together-the-serviceaccount" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔄 2. How they work together (The Binding)
+        🔗 3. Putting it Together: The ServiceAccount
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔄 2. How they work together (The Binding)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-troubleshooting-for-emr-on-eks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential Troubleshooting for EMR on EKS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential Troubleshooting for EMR on EKS">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-binding-process" class="md-nav__link">
+  <a href="#1-check-the-webhook" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Binding Process:
+        1. Check the Webhook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-verify-the-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Verify the Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rbac-permission-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. RBAC "Permission Denied"
       
     </span>
   </a>
@@ -3361,67 +3366,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-comparison-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 3. Comparison Table
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-yaml-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📝 4. YAML Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📝 4. YAML Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pod-with-a-simple-emptydir-volume" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod with a simple emptyDir Volume
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-pv-pvc-pod-chain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The PV -&gt; PVC -&gt; Pod Chain
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-troubleshooting-the-binding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Troubleshooting the Binding
-      
-    </span>
-  </a>
   
 </li>
       
@@ -3442,146 +3386,68 @@
 
 
 
-<h1 id="volumes-vs-pv-vs-pvc">Volumes vs. PV vs. PVC</h1>
-<p>In Kubernetes, storage is decoupled from the compute (Pods). Understanding the difference between a simple <strong>Volume</strong> and the <strong>PV/PVC</strong> system is crucial for the CKA exam.</p>
+<h1 id="real-world-case-study-emr-on-eks-auth-rbac-oidc">Real-World Case Study: EMR on EKS Auth (RBAC + OIDC)</h1>
+<p>When running <strong>Amazon EMR on EKS</strong>, you navigate a three-way intersection of <strong>IAM Roles</strong>, <strong>OIDC Authentication</strong>, and <strong>Kubernetes RBAC</strong>. This is a perfect example of how ClusterRoles manage infrastructure while Roles manage the data jobs.</p>
 <hr />
-<h2 id="1-the-storage-hierarchy">🏗️ 1. The Storage Hierarchy</h2>
-<h3 id="a-basic-volumes-pod-level">A. Basic Volumes (Pod-level)</h3>
-<p>A Volume is just a directory accessible to the containers in a Pod. 
-*   <strong>Lifecycle</strong>: Tied to the Pod. If the Pod is deleted, the data in an <code>emptyDir</code> is lost.
-*   <strong>Definition</strong>: Defined directly in the <code>Pod</code> spec.
-*   <strong>Common Types</strong>:
-    *   <code>emptyDir</code>: Temporary storage (scratch space).
-    *   <code>hostPath</code>: Mounts a file/directory from the host node's filesystem.
-    *   <code>configMap</code> / <code>secret</code>: Injects configuration data as files.</p>
-<h3 id="b-persistentvolumes-pv-cluster-level">B. PersistentVolumes (PV) (Cluster-level)</h3>
-<p>A PV is a piece of storage in the cluster that has been provisioned by an administrator.
-*   <strong>Lifecycle</strong>: Independent of any Pod. It exists even if no Pod is using it.
-*   <strong>Definition</strong>: A cluster-wide resource (like a Node).</p>
-<h3 id="c-persistentvolumeclaims-pvc-user-level">C. PersistentVolumeClaims (PVC) (User-level)</h3>
-<p>A PVC is a request for storage. It’s the "ticket" a developer uses to get a PV.
-*   <strong>Lifecycle</strong>: Bound to a PV. 
-*   <strong>Definition</strong>: A namespaced resource.</p>
+<h2 id="1-the-trust-architecture-oidc">🏗️ 1. The "Trust" Architecture (OIDC)</h2>
+<p>Kubernetes itself doesn't know about AWS IAM. To bridge this gap, we use <strong>IRSA (IAM Roles for Service Accounts)</strong>.</p>
+<ol>
+<li><strong>OIDC Provider</strong>: Each EKS cluster has a unique OIDC Identity Provider (IdP).</li>
+<li><strong>ServiceAccount</strong>: You create a standard Kubernetes ServiceAccount and <strong>annotate</strong> it with the IAM Role ARN.</li>
+<li><strong>Trust Policy</strong>: The IAM Role has a policy that says: <em>"I trust the EKS OIDC provider, but only for requests coming from this specific ServiceAccount."</em></li>
+</ol>
 <hr />
-<h2 id="2-how-they-work-together-the-binding">🔄 2. How they work together (The Binding)</h2>
-<p>Think of it like a <strong>Library</strong>:
-1.  <strong>PV</strong> is a <strong>Book</strong> on the shelf (Storage is available).
-2.  <strong>PVC</strong> is a <strong>Library Card</strong> request (I want a book with 500 pages).
-3.  <strong>Pod</strong> is the <strong>Reader</strong> who takes the book home (The container uses the storage).</p>
-<h3 id="the-binding-process">The Binding Process:</h3>
-<ul>
-<li>A PVC looks for a PV that meets its requirements (Capacity, Access Mode).</li>
-<li>Once matched, they are <strong>Bound</strong>. A PV can only be bound to one PVC at a time.</li>
-<li>The Pod then references the PVC to mount the volume.</li>
-</ul>
+<h2 id="2-role-vs-clusterrole-in-emr">⚡ 2. Role vs. ClusterRole in EMR</h2>
+<p>In EMR on EKS, permissions are split between the <strong>EMR Service itself</strong> and the <strong>Spark Job</strong>.</p>
+<h3 id="a-the-emr-service-role-clusterrole">A. The EMR Service Role (ClusterRole)</h3>
+<p>The EMR service needs to manage resources across the entire cluster (like creating Namespaces or viewing Nodes). This requires a <strong>ClusterRole</strong>.</p>
+<p><strong>Common ClusterRole permissions for EMR:</strong>
+*   <code>nodes</code>: (get, list) to see where to place pods.
+*   <code>namespaces</code>: (get, list, create) to manage virtual clusters.
+*   <code>certificatesigningrequests</code>: (create, get) if using internal TLS.</p>
+<h3 id="b-the-job-execution-role-role">B. The Job Execution Role (Role)</h3>
+<p>The Spark Pod (Driver/Executor) is usually locked into a single namespace. It only needs a namespaced <strong>Role</strong>.</p>
+<p><strong>Example Job Role YAML:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">emr-spark-job-role</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spark-jobs</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;services&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;configmaps&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div></p>
 <hr />
-<h2 id="3-comparison-table">📊 3. Comparison Table</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Volume (Basic)</th>
-<th style="text-align: left;">PersistentVolume (PV)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Scope</strong></td>
-<td style="text-align: left;">Pod Spec</td>
-<td style="text-align: left;">Cluster-wide</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Lifecycle</strong></td>
-<td style="text-align: left;">Tied to Pod</td>
-<td style="text-align: left;">Independent of Pod</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Storage Type</strong></td>
-<td style="text-align: left;">Manual/Local</td>
-<td style="text-align: left;">Can be Cloud (EBS/Azure), NFS, etc.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Persistence</strong></td>
-<td style="text-align: left;">Volatile (usually)</td>
-<td style="text-align: left;">Durable</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Use Case</strong></td>
-<td style="text-align: left;">Temporary data, Configs</td>
-<td style="text-align: left;">Databases, Log storage, Backups</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="4-yaml-examples">📝 4. YAML Examples</h2>
-<h3 id="pod-with-a-simple-emptydir-volume">Pod with a simple <code>emptyDir</code> Volume</h3>
+<h2 id="3-putting-it-together-the-serviceaccount">🔗 3. Putting it Together: The ServiceAccount</h2>
+<p>This is the "Glue" that connects your RBAC to your AWS IAM.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-pod</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/cache</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-volume</span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-volume</span>
-<span class="w">    </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
-</code></pre></div>
-<h3 id="the-pv-pvc-pod-chain">The PV -&gt; PVC -&gt; Pod Chain</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. The PersistentVolume (Admin creates)</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PersistentVolume</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pv-disk</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">capacity</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-<span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
-<span class="w">  </span><span class="nt">hostPath</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/mnt/data&quot;</span>
-
-<span class="nn">---</span>
-<span class="c1"># 2. The PersistentVolumeClaim (User creates)</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PersistentVolumeClaim</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvc-request</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
-<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
-
-<span class="nn">---</span>
-<span class="c1"># 3. The Pod (Consumes the PVC)</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-vol</span>
-<span class="w">      </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvc-request</span>
-<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/share/nginx/html&quot;</span>
-<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-vol</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">emr-execution-sa</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spark-jobs</span>
+<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># This connects the SA to the AWS IAM Role!</span>
+<span class="w">    </span><span class="nt">eks.amazonaws.com/role-arn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:iam::123456789012:role/EMRJobExecutionRole</span>
 </code></pre></div>
 <hr />
-<h2 id="5-troubleshooting-the-binding">🎯 5. Troubleshooting the Binding</h2>
-<p>If your Pod is <strong>Pending</strong> and the PVC is <strong>Pending</strong>:
-1.  <strong>Check Access Modes</strong>: PV and PVC must have at least one mode in common (e.g., both <code>ReadWriteOnce</code>).
-2.  <strong>Check Capacity</strong>: The PV must have <em>enough</em> space. A 500Mi PVC cannot bind to a 400Mi PV.
-3.  <strong>Check StorageClass</strong>: If the PVC asks for a specific <code>storageClassName</code>, the PV must have the same one. If the PVC asks for "", it will only bind to a PV that also has an empty class name.</p>
+<h2 id="4-essential-troubleshooting-for-emr-on-eks">🛠️ 4. Essential Troubleshooting for EMR on EKS</h2>
+<h3 id="1-check-the-webhook">1. Check the Webhook</h3>
+<p>If your Pods are not getting AWS credentials, check if the EKS Pod Identity Webhook is working:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>pod-identity-webhook
+</code></pre></div></p>
+<h3 id="2-verify-the-token">2. Verify the Token</h3>
+<p>When OIDC is working, the webhook injects a token into the pod. You can see it by describing a Spark pod:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;spark-pod-name&gt;
+<span class="c1"># Look for &#39;AWS_WEB_IDENTITY_TOKEN_FILE&#39; in environment variables</span>
+</code></pre></div></p>
+<h3 id="3-rbac-permission-denied">3. RBAC "Permission Denied"</h3>
+<p>If EMR fails to start the job, it's often a missing <strong>RoleBinding</strong>.
+*   <strong>Fix</strong>: Ensure your <code>RoleBinding</code> links the <code>emr-execution-sa</code> to the <code>emr-spark-job-role</code>.</p>
 <hr />
 <blockquote>
 <p>[!IMPORTANT]
-<strong>Static vs Dynamic</strong>: 
-*   <strong>Static</strong>: Admin manually creates PVs. 
-*   <strong>Dynamic</strong>: Admin creates a <strong>StorageClass</strong>, and PVs are created automatically when a PVC is submitted.</p>
+<strong>Least Privilege</strong>: In EMR on EKS, always prefer <strong>Roles</strong> over <strong>ClusterRoles</strong> for Spark jobs. A Spark job should NEVER have the power to view nodes or delete namespaces. Keep those permissions in a dedicated administrative <code>ClusterRole</code>.</p>
 </blockquote>
 
 
