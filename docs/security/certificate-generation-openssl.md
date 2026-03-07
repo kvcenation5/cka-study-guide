@@ -21,6 +21,15 @@ The **Root CA** consists of two files: `ca.key` (the private master key) and `ca
     openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt
     ```
 
+### 🌎 Distribution: Where does `ca.crt` go?
+The `ca.crt` is the **same file** for everyone. It must be copied to every component so they can trust each other.
+
+| Location | Path (Kubeadm) | Who uses it? |
+| :--- | :--- | :--- |
+| **Control Plane** | `/etc/kubernetes/pki/ca.crt` | API Server, Controller Manager, Scheduler |
+| **Worker Nodes** | `/etc/kubernetes/pki/ca.crt` | Kubelet (to verify the API Server) |
+| **User (You)** | `~/.kube/config` | Included in your `certificate-authority-data` |
+
 ---
 
 ## 🔁 2. The Standard Workflow for Components
