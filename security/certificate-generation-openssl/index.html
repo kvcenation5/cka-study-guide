@@ -2478,6 +2478,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="How to Decode &amp; Verify a Certificate?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tip-subject-vs-issuer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Tip: Subject vs. Issuer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3248,6 +3265,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="How to Decode &amp; Verify a Certificate?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tip-subject-vs-issuer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Tip: Subject vs. Issuer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3606,6 +3640,12 @@ openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> 
 2.  <strong>Issuer</strong>: This MUST match your <strong>Kubernetes CA</strong>. If it says something else, the certificate was signed by the wrong key.
 3.  <strong>Validity</strong>: Check the <code>Not Before</code> and <code>Not After</code> dates. If the current date is outside this range, the cluster will fail with "Certificate Expired" errors.
 4.  <strong>X509v3 Subject Alternative Name</strong>: For the API Server, ensure it lists the IP addresses and DNS names you expect.</p>
+<h4 id="tip-subject-vs-issuer">💡 Tip: Subject vs. Issuer</h4>
+<ul>
+<li><strong>Issuer</strong>: The one who <strong>Signed</strong> the file (The Boss).</li>
+<li><strong>Subject</strong>: The one who <strong>Owns</strong> the file (The Component/Node).</li>
+<li><em>Example</em>: If <code>Issuer: CN = etcd-ca</code> and <code>Subject: CN = controlplane</code>, it means the <code>etcd-ca</code> signed a certificate for the node named <code>controlplane</code>.</li>
+</ul>
 <h3 id="how-to-check-if-a-cert-matches-a-key">How to check if a cert matches a key?</h3>
 <p>If they don't match, the component won't start. Compare the modulus hash:
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-noout<span class="w"> </span>-modulus<span class="w"> </span>-in<span class="w"> </span>server.crt<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>md5
