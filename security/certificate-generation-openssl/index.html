@@ -2289,12 +2289,12 @@
   <a href="#1-the-core-infrastructure-root-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏛️ 1. The Core Infrastructure: Root CA
+        🏗️ 1. The Core Infrastructure: Root CA
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏛️ 1. The Core Infrastructure: Root CA">
+    <nav class="md-nav" aria-label="🏗️ 1. The Core Infrastructure: Root CA">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2470,10 +2470,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-to-verify-a-certificate" class="md-nav__link">
+  <a href="#how-to-decode-verify-a-certificate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to verify a certificate?
+        How to Decode &amp; Verify a Certificate?
       
     </span>
   </a>
@@ -2492,10 +2492,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#troubleshooting-unauthorized-or-bad-certificate" class="md-nav__link">
+  <a href="#troubleshooting-checklist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Troubleshooting: "Unauthorized" or "Bad Certificate"
+        Troubleshooting Checklist
       
     </span>
   </a>
@@ -2571,6 +2571,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-real-world-example-minikube-apiserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔎 8. Real World Example: Minikube APIServer
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2992,12 +3003,12 @@
   <a href="#1-the-core-infrastructure-root-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏛️ 1. The Core Infrastructure: Root CA
+        🏗️ 1. The Core Infrastructure: Root CA
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏛️ 1. The Core Infrastructure: Root CA">
+    <nav class="md-nav" aria-label="🏗️ 1. The Core Infrastructure: Root CA">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3173,10 +3184,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-to-verify-a-certificate" class="md-nav__link">
+  <a href="#how-to-decode-verify-a-certificate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to verify a certificate?
+        How to Decode &amp; Verify a Certificate?
       
     </span>
   </a>
@@ -3195,10 +3206,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#troubleshooting-unauthorized-or-bad-certificate" class="md-nav__link">
+  <a href="#troubleshooting-checklist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Troubleshooting: "Unauthorized" or "Bad Certificate"
+        Troubleshooting Checklist
       
     </span>
   </a>
@@ -3277,6 +3288,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#8-real-world-example-minikube-apiserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔎 8. Real World Example: Minikube APIServer
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3297,7 +3319,7 @@
 <h1 id="manual-certificate-management-the-production-way">Manual Certificate Management (The Production Way)</h1>
 <p>This guide provides a comprehensive, step-by-step workflow for setting up all Kubernetes certificates from scratch using <strong>OpenSSL</strong>. This reflects how a new infrastructure team would set up a cluster manually (the "Hard Way").</p>
 <hr />
-<h2 id="1-the-core-infrastructure-root-ca">🏛️ 1. The Core Infrastructure: Root CA</h2>
+<h2 id="1-the-core-infrastructure-root-ca">🏗️ 1. The Core Infrastructure: Root CA</h2>
 <p>The <strong>Root CA</strong> consists of two files: <code>ca.key</code> (the private master key) and <code>ca.crt</code> (the public trust certificate). <strong>All certificates in this guide are signed by this CA key.</strong></p>
 <h3 id="step-by-step-generation">Step-by-Step Generation:</h3>
 <ol>
@@ -3489,21 +3511,28 @@ openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> 
 </table>
 <hr />
 <h2 id="5-verification-troubleshooting">🔍 5. Verification &amp; Troubleshooting</h2>
-<h3 id="how-to-verify-a-certificate">How to verify a certificate?</h3>
-<p>Use <code>openssl</code> to see the internal details (CN, Dates, Expiry):
+<h3 id="how-to-decode-verify-a-certificate">How to Decode &amp; Verify a Certificate?</h3>
+<p>Use <code>openssl</code> to peek inside the <code>.crt</code> file. This is the <strong>number one skill</strong> for debugging TLS issues in the CKA exam.</p>
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>&lt;filename&gt;.crt<span class="w"> </span>-text<span class="w"> </span>-noout
-</code></pre></div></p>
+</code></pre></div>
+<p><strong>What to look for in the output?</strong>
+1.  <strong>Subject</strong>: Check the <strong>CN</strong> (Common Name). 
+    -   Does it have the right prefix? (e.g., <code>system:node:name</code>)
+    -   Does it have the right Group? (e.g., <code>O=system:masters</code>)
+2.  <strong>Issuer</strong>: This MUST match your <strong>Kubernetes CA</strong>. If it says something else, the certificate was signed by the wrong key.
+3.  <strong>Validity</strong>: Check the <code>Not Before</code> and <code>Not After</code> dates. If the current date is outside this range, the cluster will fail with "Certificate Expired" errors.
+4.  <strong>X509v3 Subject Alternative Name</strong>: For the API Server, ensure it lists the IP addresses and DNS names you expect.</p>
 <h3 id="how-to-check-if-a-cert-matches-a-key">How to check if a cert matches a key?</h3>
 <p>If they don't match, the component won't start. Compare the modulus hash:
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-noout<span class="w"> </span>-modulus<span class="w"> </span>-in<span class="w"> </span>server.crt<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>md5
 openssl<span class="w"> </span>rsa<span class="w"> </span>-noout<span class="w"> </span>-modulus<span class="w"> </span>-in<span class="w"> </span>server.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>md5
-<span class="c1"># The hashes MUST match!</span>
+<span class="c1"># The hashes MUST match exactly!</span>
 </code></pre></div></p>
-<h3 id="troubleshooting-unauthorized-or-bad-certificate">Troubleshooting: "Unauthorized" or "Bad Certificate"</h3>
+<h3 id="troubleshooting-checklist">Troubleshooting Checklist</h3>
 <ol>
-<li><strong>Check the CN</strong>: Does it start with <code>system:</code>? If not, the RBAC rules won't recognize it.</li>
-<li><strong>Check the Group (O)</strong>: Is the Admin cert in <code>system:masters</code>? Are the Nodes in <code>system:nodes</code>?</li>
-<li><strong>Check the CA</strong>: Did you sign the <code>.crt</code> using the same <code>ca.key</code> that is configured in the API Server's <code>--client-ca-file</code> flag?</li>
+<li><strong>Prefixes</strong>: Ensure <code>system:node:</code> or <code>system:kube-scheduler</code> etc. are correct.</li>
+<li><strong>Groups (O)</strong>: Ensure <code>system:masters</code> for admin and <code>system:nodes</code> for kubelets.</li>
+<li><strong>CA Path</strong>: Ensure the API server's <code>--client-ca-file</code> points to the same CA that signed the certificates.</li>
 </ol>
 <hr />
 <blockquote>
@@ -3515,7 +3544,7 @@ When people talk about the "Admin Key", they usually mean the <strong><code>ca.k
 <h2 id="6-api-server-flags-which-ca-goes-where">🚩 6. API Server Flags: Which CA goes where?</h2>
 <p>When configuring the <code>kube-apiserver</code> static pod, you will see multiple CA flags. This is a common source of confusion in the CKA exam.</p>
 <h3 id="pem-vs-crt"><code>.pem</code> vs <code>.crt</code>?</h3>
-<p>In Kubernetes, these are <strong>the same</strong>. They are both PEM-encoded Base64 files. You can use whichever extension you prefer, as long as the content matches your generated CA.</p>
+<p>In Kubernetes, these are <strong>the same</strong>. They are both PEM-encoded Base64 files.</p>
 <table>
 <thead>
 <tr>
@@ -3546,36 +3575,40 @@ When people talk about the "Admin Key", they usually mean the <strong><code>ca.k
 <h2 id="7-component-configuration-using-the-certs">🛠️ 7. Component Configuration: Using the Certs</h2>
 <p>Once you have generated the certificates, you must tell the Kubernetes services where to find them.</p>
 <h3 id="a-kubelet-configuration-varlibkubeletconfigyaml">A. Kubelet Configuration (<code>/var/lib/kubelet/config.yaml</code>)</h3>
-<p>The Kubelet needs to know which CA to trust for incoming requests and which certificate to show when the API server calls it.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeletConfiguration</span>
 <span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubelet.config.k8s.io/v1beta1</span>
 <span class="nt">authentication</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">x509</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">clientCAFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/kubernetes/pki/ca.crt&quot;</span><span class="w"> </span><span class="c1"># Trusts requests signed by this CA</span>
-<span class="nt">tlsCertFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/var/lib/kubelet/pki/node01.crt&quot;</span><span class="w"> </span><span class="c1"># Its own identity</span>
+<span class="w">    </span><span class="nt">clientCAFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/kubernetes/pki/ca.crt&quot;</span>
+<span class="nt">tlsCertFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/var/lib/kubelet/pki/node01.crt&quot;</span>
 <span class="nt">tlsPrivateKeyFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/var/lib/kubelet/pki/node01.key&quot;</span>
 </code></pre></div>
 <h3 id="b-kube-apiserver-connection-to-etcd">B. Kube-APIServer Connection to Etcd</h3>
-<p>This is the most critical secure connection in the cluster. The API server acts as a <strong>client</strong> to the Etcd server.</p>
-<p><strong>Full Detailed Command:</strong>
 <div class="highlight"><pre><span></span><code>kube-apiserver<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="c1"># 1. Verification of Clients (Users, Pods, Scheduler)</span>
 <span class="w">  </span>--client-ca-file<span class="o">=</span>/etc/kubernetes/pki/ca.crt<span class="w"> </span><span class="se">\</span>
-
-<span class="w">  </span><span class="c1"># 2. Connection to Etcd (API Server as a Client)</span>
 <span class="w">  </span>--etcd-cafile<span class="o">=</span>/etc/kubernetes/pki/etcd/ca.crt<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--etcd-certfile<span class="o">=</span>/etc/kubernetes/pki/apiserver-etcd-client.crt<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--etcd-keyfile<span class="o">=</span>/etc/kubernetes/pki/apiserver-etcd-client.key<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--etcd-servers<span class="o">=</span>https://127.0.0.1:2379<span class="w"> </span><span class="se">\</span>
-
-<span class="w">  </span><span class="c1"># 3. Connection to Kubelets (API Server as a Client)</span>
-<span class="w">  </span>--kubelet-client-certificate<span class="o">=</span>/etc/kubernetes/pki/apiserver-kubelet-client.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--kubelet-client-key<span class="o">=</span>/etc/kubernetes/pki/apiserver-kubelet-client.key<span class="w"> </span><span class="se">\</span>
-
-<span class="w">  </span><span class="c1"># 4. Identity of the API Server itself</span>
 <span class="w">  </span>--tls-cert-file<span class="o">=</span>/etc/kubernetes/pki/apiserver.crt<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--tls-private-key-file<span class="o">=</span>/etc/kubernetes/pki/apiserver.key
-</code></pre></div></p>
+</code></pre></div>
+<hr />
+<h2 id="8-real-world-example-minikube-apiserver">🔎 8. Real World Example: Minikube APIServer</h2>
+<p>Notice how the flags point to specific certificates for each task:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-apiserver</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--client-ca-file=/var/lib/minikube/certs/ca.crt</span><span class="w"> </span><span class="c1"># Cluster CA</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--etcd-cafile=/var/lib/minikube/certs/etcd/ca.crt</span><span class="w"> </span><span class="c1"># Dedicated Etcd CA</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--etcd-certfile=/var/lib/minikube/certs/apiserver-etcd-client.crt</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--etcd-keyfile=/var/lib/minikube/certs/apiserver-etcd-client.key</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--kubelet-client-certificate=/var/lib/minikube/certs/apiserver-kubelet-client.crt</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--kubelet-client-key=/var/lib/minikube/certs/apiserver-kubelet-client.key</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--tls-cert-file=/var/lib/minikube/certs/apiserver.crt</span><span class="w"> </span><span class="c1"># APIServer Identity</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--tls-private-key-file=/var/lib/minikube/certs/apiserver.key</span>
+</code></pre></div>
 <hr />
 <blockquote>
 <p>[!TIP]
