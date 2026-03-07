@@ -2500,6 +2500,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Troubleshooting Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-error-etcd-handshake-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Common Error: Etcd Handshake Failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3253,6 +3270,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Troubleshooting Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-error-etcd-handshake-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Common Error: Etcd Handshake Failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3582,8 +3616,51 @@ openssl<span class="w"> </span>rsa<span class="w"> </span>-noout<span class="w">
 <ol>
 <li><strong>Prefixes</strong>: Ensure <code>system:node:</code> or <code>system:kube-scheduler</code> etc. are correct.</li>
 <li><strong>Groups (O)</strong>: Ensure <code>system:masters</code> for admin and <code>system:nodes</code> for kubelets.</li>
-<li><strong>CA Path</strong>: Ensure the API server's <code>--client-ca-file</code> points to the same CA that signed the certificates.</li>
 </ol>
+<h4 id="common-error-etcd-handshake-failure">🚨 Common Error: Etcd Handshake Failure</h4>
+<p><strong>Error</strong>: <code>authentication handshake failed: x509: certificate signed by unknown authority</code>
+<strong>Context</strong>: Look for the <strong>Service Port</strong> in the log (e.g., <code>Addr: "127.0.0.1:2379"</code>).</p>
+<p><strong>How to identify the component?</strong>
+The "Generic" error becomes specific once you identify the port:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Evidence (Port)</th>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Port Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>2379</strong></td>
+<td style="text-align: left;"><strong>Etcd</strong></td>
+<td style="text-align: left;">Server port for database requests.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2380</strong></td>
+<td style="text-align: left;"><strong>Etcd</strong></td>
+<td style="text-align: left;">Peer port for Etcd-to-Etcd sync.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>10250</strong></td>
+<td style="text-align: left;"><strong>Kubelet</strong></td>
+<td style="text-align: left;">API port on worker nodes (logs/exec).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>10259</strong></td>
+<td style="text-align: left;"><strong>Scheduler</strong></td>
+<td style="text-align: left;">Secure port for the Scheduler.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>10257</strong></td>
+<td style="text-align: left;"><strong>Controller</strong></td>
+<td style="text-align: left;">Secure port for the Controller-Manager.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cause</strong>: The <code>--etcd-cafile</code> (or similar) is pointing to the wrong CA.
+<strong>Fix</strong>: Match the CA flag to the CA used to sign that specific component's certificates.</p>
+<hr />
 <hr />
 <blockquote>
 <p>[!IMPORTANT]
