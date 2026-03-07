@@ -92,7 +92,23 @@ kubectl get csr john-developer -o jsonpath='{.status.certificate}' | base64 --de
 
 ---
 
-## ⚙️ 4. The Controller Manager's Role
+## 🛡️ 4. The Admin Approval Checklist
+
+Before approving a CSR, you MUST run `kubectl describe csr <name>` and verify these fields:
+
+1.  **Common Name (CN)**: Who is the user? Are they who they say they are?
+2.  **Organization (O)**: What **Groups** will they be in? Watch out for `system:masters`!
+3.  **Usages**: Does a developer need `server auth`? (Usually they only need `client auth`).
+4.  **Requestor**: Which Kubernetes account submitted this YAML? If it doesn't match the CN, it might be a spoofing attempt.
+
+| Decision | Logic |
+| :--- | :--- |
+| **Approve ✅** | Valid user, correct group, minimal usages. |
+| **Deny ❌** | Unauthorized group (`system:masters`), suspicious CN, or anonymous requestor. |
+
+---
+
+## ⚙️ 5. The Controller Manager's Role
 The **Kube-Controller-Manager** is the "engine" behind this API. It runs two specific controllers:
 1.  **CSR Approver**: Automatically approves certain system requests (like Kubelet node certificates).
 2.  **CSR Signer**: Watches for approved CSR objects, takes the `ca.key` from the master disk, signs the request, and updates the object's `.status.certificate` field.
