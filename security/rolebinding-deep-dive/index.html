@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../../coredns-guide/">
+        <link rel="prev" href="../rbac-practical-examples/">
       
       
-        <link rel="next" href="../volumes-pv-pvc/">
+        <link rel="next" href="../authorization-mechanisms/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>RoleBinding Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#storage-deep-dive" class="md-skip">
+        <a href="#rolebinding-clusterrolebinding" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deep Dive
+              RoleBinding Deep Dive
             
           </span>
         </div>
@@ -344,13 +344,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -1883,31 +1883,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -1925,7 +1920,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1940,37 +1935,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -1986,176 +1954,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-core-storage-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 1. Core Storage Components
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ 1. Core Storage Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#persistentvolume-pv" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PersistentVolume (PV)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#persistentvolumeclaim-pvc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PersistentVolumeClaim (PVC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#storageclass-sc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        StorageClass (SC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-access-modes-reclaim-policies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 2. Access Modes &amp; Reclaim Policies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 2. Access Modes &amp; Reclaim Policies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#access-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access Modes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reclaim-policies-what-happens-to-pv-when-pvc-is-deleted" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reclaim Policies (What happens to PV when PVC is deleted)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-dynamic-provisioning-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Dynamic Provisioning Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-troubleshooting-storage-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 4. Troubleshooting Storage Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔧 4. Troubleshooting Storage Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pvc-stuck-in-pending" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PVC stuck in "Pending"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pod-stuck-in-containercreating" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod stuck in "ContainerCreating"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-exam-tips-cka" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Exam Tips (CKA)
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2168,7 +1966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2196,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2224,7 +2022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2252,7 +2050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2280,7 +2078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2312,26 +2110,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2349,7 +2152,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2367,7 +2170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2395,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2423,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2451,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/tls-certificates/" class="md-nav__link">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2479,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2507,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-api-management/" class="md-nav__link">
+      <a href="../certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2535,7 +2338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2563,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-authorization/" class="md-nav__link">
+      <a href="../rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2591,7 +2394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
+      <a href="../rbac-practical-examples/" class="md-nav__link">
         
   
   
@@ -2616,10 +2419,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RoleBinding Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2635,6 +2465,159 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-three-types-of-subjects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👤 1. The Three Types of Subjects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-three-mapping-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 2. The Three Mapping Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 2. The Three Mapping Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-a-role-rolebinding-namespace-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern A: Role + RoleBinding (Namespace Restricted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-b-clusterrole-clusterrolebinding-the-whole-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern B: ClusterRole + ClusterRoleBinding (The Whole Cluster)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-c-clusterrole-rolebinding-the-limited-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern C: ClusterRole + RoleBinding (The "Limited" Trick)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-anatomy-of-a-rolebinding-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 3. Anatomy of a RoleBinding YAML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential kubectl Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-rolebinding-to-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a RoleBinding (to a User)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-rolebinding-to-a-serviceaccount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a RoleBinding (to a ServiceAccount)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-clusterrolebinding-to-a-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a ClusterRoleBinding (to a Group)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-testing-with-auth-can-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 5. Testing with "auth can-i"
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2647,7 +2630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2675,7 +2658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/abac-authorization/" class="md-nav__link">
+      <a href="../abac-authorization/" class="md-nav__link">
         
   
   
@@ -2703,7 +2686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -2731,7 +2714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -2759,7 +2742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -3186,22 +3169,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-core-storage-components" class="md-nav__link">
+  <a href="#1-the-three-types-of-subjects" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. Core Storage Components
+        👤 1. The Three Types of Subjects
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. Core Storage Components">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-three-mapping-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 2. The Three Mapping Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 2. The Three Mapping Patterns">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#persistentvolume-pv" class="md-nav__link">
+  <a href="#pattern-a-role-rolebinding-namespace-restricted" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PersistentVolume (PV)
+        Pattern A: Role + RoleBinding (Namespace Restricted)
       
     </span>
   </a>
@@ -3209,10 +3203,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#persistentvolumeclaim-pvc" class="md-nav__link">
+  <a href="#pattern-b-clusterrole-clusterrolebinding-the-whole-cluster" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PersistentVolumeClaim (PVC)
+        Pattern B: ClusterRole + ClusterRoleBinding (The Whole Cluster)
       
     </span>
   </a>
@@ -3220,10 +3214,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#storageclass-sc" class="md-nav__link">
+  <a href="#pattern-c-clusterrole-rolebinding-the-limited-trick" class="md-nav__link">
     <span class="md-ellipsis">
       
-        StorageClass (SC)
+        Pattern C: ClusterRole + RoleBinding (The "Limited" Trick)
       
     </span>
   </a>
@@ -3236,22 +3230,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-access-modes-reclaim-policies" class="md-nav__link">
+  <a href="#3-anatomy-of-a-rolebinding-yaml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 2. Access Modes &amp; Reclaim Policies
+        📄 3. Anatomy of a RoleBinding YAML
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔍 2. Access Modes &amp; Reclaim Policies">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential kubectl Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#access-modes" class="md-nav__link">
+  <a href="#create-a-rolebinding-to-a-user" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Access Modes
+        Create a RoleBinding (to a User)
       
     </span>
   </a>
@@ -3259,10 +3264,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#reclaim-policies-what-happens-to-pv-when-pvc-is-deleted" class="md-nav__link">
+  <a href="#create-a-rolebinding-to-a-serviceaccount" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reclaim Policies (What happens to PV when PVC is deleted)
+        Create a RoleBinding (to a ServiceAccount)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-clusterrolebinding-to-a-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a ClusterRoleBinding (to a Group)
       
     </span>
   </a>
@@ -3275,60 +3291,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-dynamic-provisioning-workflow" class="md-nav__link">
+  <a href="#5-testing-with-auth-can-i" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛠️ 3. Dynamic Provisioning Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-troubleshooting-storage-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 4. Troubleshooting Storage Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔧 4. Troubleshooting Storage Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pvc-stuck-in-pending" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PVC stuck in "Pending"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pod-stuck-in-containercreating" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod stuck in "ContainerCreating"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-exam-tips-cka" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Exam Tips (CKA)
+        🧪 5. Testing with "auth can-i"
       
     </span>
   </a>
@@ -3352,106 +3318,81 @@
 
 
 
-<h1 id="storage-deep-dive">Storage Deep Dive</h1>
-<p>Storage in Kubernetes allows stateful applications to persist data beyond the lifecycle of a Pod. For the CKA exam, you must understand the relationship between PersistentVolumes (PV), PersistentVolumeClaims (PVC), and StorageClasses (SC).</p>
+<h1 id="rolebinding-clusterrolebinding">RoleBinding &amp; ClusterRoleBinding</h1>
+<p>While <strong>Roles</strong> define <em>what</em> can be done, <strong>Bindings</strong> define <em>who</em> can do it. In Kubernetes, a Binding is the "Glue" that connects a <strong>Subject</strong> to a <strong>Role</strong>.</p>
 <hr />
-<h2 id="1-core-storage-components">🏗️ 1. Core Storage Components</h2>
-<h3 id="persistentvolume-pv">PersistentVolume (PV)</h3>
-<p>A piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using a StorageClass.
-*   <strong>Scope</strong>: Cluster-wide (not namespaced).
-*   <strong>Resources</strong>: Physical disks, NFS, cloud storage (EBS/GCP PD), or local storage.</p>
-<h3 id="persistentvolumeclaim-pvc">PersistentVolumeClaim (PVC)</h3>
-<p>A request for storage by a user. It is similar to a Pod; Pods consume Node resources, and PVCs consume PV resources.
-*   <strong>Scope</strong>: Namespaced.
-*   <strong>Match</strong>: K8s matches a PVC to a PV based on size, access modes, and StorageClass.</p>
-<h3 id="storageclass-sc">StorageClass (SC)</h3>
-<p>Defines "classes" of storage (e.g., "fast-ssd", "slow-hdd"). It enables <strong>Dynamic Provisioning</strong>, so you don't have to manually create PVs.</p>
-<hr />
-<h2 id="2-access-modes-reclaim-policies">🔍 2. Access Modes &amp; Reclaim Policies</h2>
-<h3 id="access-modes">Access Modes</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Mode</th>
-<th style="text-align: left;">Short</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteOnce</strong></td>
-<td style="text-align: left;"><code>RWO</code></td>
-<td style="text-align: left;">Mounted as read-write by a single Node.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadOnlyMany</strong></td>
-<td style="text-align: left;"><code>ROX</code></td>
-<td style="text-align: left;">Mounted as read-only by many Nodes.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteMany</strong></td>
-<td style="text-align: left;"><code>RWX</code></td>
-<td style="text-align: left;">Mounted as read-write by many Nodes (requires NFS/EFS/AzureFiles).</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteOncePod</strong></td>
-<td style="text-align: left;"><code>RWOP</code></td>
-<td style="text-align: left;">Mounted as read-write by a single Pod (K8s v1.22+).</td>
-</tr>
-</tbody>
-</table>
-<h3 id="reclaim-policies-what-happens-to-pv-when-pvc-is-deleted">Reclaim Policies (What happens to PV when PVC is deleted)</h3>
+<h2 id="1-the-three-types-of-subjects">👤 1. The Three Types of Subjects</h2>
+<p>A Binding can grant permissions to three different types of entities:</p>
 <ol>
-<li><strong>Retain</strong>: PV is kept. Administrator must manually clean up/reclaim data.</li>
-<li><strong>Delete</strong>: Physical storage (e.g., AWS EBS) is deleted immediately.</li>
-<li><strong>Recycle</strong>: (Deprecated) Performs a basic <code>rm -rf /</code> on the volume.</li>
+<li><strong>User</strong>: A human being (e.g., <code>CN=jane</code> from a certificate).</li>
+<li><strong>Group</strong>: A collection of users (e.g., <code>O=system:masters</code>).</li>
+<li><strong>ServiceAccount</strong>: An identity for a <strong>Pod</strong> (e.g., <code>system:serviceaccount:default:my-app</code>).</li>
 </ol>
 <hr />
-<h2 id="3-dynamic-provisioning-workflow">🛠️ 3. Dynamic Provisioning Workflow</h2>
-<ol>
-<li><strong>Create StorageClass</strong>: Define the provisioner (e.g., <code>kubernetes.io/aws-ebs</code>).</li>
-<li><strong>Create PVC</strong>: Reference the <code>storageClassName</code>.</li>
-<li><strong>Automatic PV Creation</strong>: Kubernetes automatically creates a PV that matches the PVC.</li>
-<li><strong>Pod Usage</strong>: Reference the PVC in the Pod spec under <code>volumes</code>.</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="c1"># Pod using a PVC</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage-vol</span>
-<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data</span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage-vol</span>
-<span class="w">    </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-pvc</span>
+<h2 id="2-the-three-mapping-patterns">🔗 2. The Three Mapping Patterns</h2>
+<p>This is the most critical part for the CKA exam. There are three ways to link roles and bindings:</p>
+<h3 id="pattern-a-role-rolebinding-namespace-restricted">Pattern A: Role + RoleBinding (Namespace Restricted)</h3>
+<ul>
+<li><strong>Role</strong>: Defines permissions in Namespace <code>A</code>.</li>
+<li><strong>RoleBinding</strong>: Created in Namespace <code>A</code>.</li>
+<li><strong>Result</strong>: The user can only access resources inside Namespace <code>A</code>.</li>
+</ul>
+<h3 id="pattern-b-clusterrole-clusterrolebinding-the-whole-cluster">Pattern B: ClusterRole + ClusterRoleBinding (The Whole Cluster)</h3>
+<ul>
+<li><strong>ClusterRole</strong>: Defines permissions (e.g., "read secrets").</li>
+<li><strong>ClusterRoleBinding</strong>: Created at the cluster level (no namespace).</li>
+<li><strong>Result</strong>: The user can read secrets in <strong>EVERY</strong> namespace and access cluster-wide resources like Nodes.</li>
+</ul>
+<h3 id="pattern-c-clusterrole-rolebinding-the-limited-trick">Pattern C: ClusterRole + RoleBinding (The "Limited" Trick)</h3>
+<ul>
+<li><strong>ClusterRole</strong>: A generic role (e.g., the built-in <code>view</code> or <code>edit</code> role).</li>
+<li><strong>RoleBinding</strong>: Created in Namespace <code>B</code>.</li>
+<li><strong>Result</strong>: The user gets the permissions of the ClusterRole, but <strong>ONLY</strong> inside Namespace <code>B</code>.</li>
+<li><strong>Why use this?</strong>: It allows you to define a common role once (like "Admin") and re-use it across many namespaces without duplicating the Role YAML.</li>
+</ul>
+<hr />
+<h2 id="3-anatomy-of-a-rolebinding-yaml">📄 3. Anatomy of a RoleBinding YAML</h2>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-binding</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">development</span><span class="w"> </span><span class="c1"># Where the permissions apply</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">martin</span>
+<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span><span class="w"> </span><span class="c1"># or ClusterRole (for Pattern C)</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-manager</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
 </code></pre></div>
 <hr />
-<h2 id="4-troubleshooting-storage-issues">🔧 4. Troubleshooting Storage Issues</h2>
-<h3 id="pvc-stuck-in-pending">PVC stuck in "Pending"</h3>
-<ul>
-<li><strong>No matching PV</strong>: If using static provisioning, check if a PV exists with enough capacity and matching AccessModes.</li>
-<li><strong>StorageClass Issues</strong>: Check if the provisioner is running or if the <code>storageClassName</code> is misspelled.</li>
-<li><strong>WaitForFirstConsumer</strong>: If the SC uses <code>volumeBindingMode: WaitForFirstConsumer</code>, the PVC will stay Pending until a <strong>Pod</strong> is created that uses it.</li>
-</ul>
-<h3 id="pod-stuck-in-containercreating">Pod stuck in "ContainerCreating"</h3>
-<ul>
-<li><strong>Multi-Attach Error</strong>: A <code>ReadWriteOnce</code> volume is already attached to another Node.</li>
-<li><strong>Mount Failures</strong>: Check <code>kubectl describe pod</code> for specific mount errors (permissions, network path etc).</li>
-</ul>
+<h2 id="4-essential-kubectl-commands">🛠️ 4. Essential kubectl Commands</h2>
+<h3 id="create-a-rolebinding-to-a-user">Create a RoleBinding (to a User)</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>my-binding<span class="w"> </span>--role<span class="o">=</span>admin<span class="w"> </span>--user<span class="o">=</span>martin<span class="w"> </span>-n<span class="w"> </span>development
+</code></pre></div>
+<h3 id="create-a-rolebinding-to-a-serviceaccount">Create a RoleBinding (to a ServiceAccount)</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>sa-binding<span class="w"> </span>--role<span class="o">=</span>view<span class="w"> </span>--serviceaccount<span class="o">=</span>default:my-sa<span class="w"> </span>-n<span class="w"> </span>production
+</code></pre></div>
+<h3 id="create-a-clusterrolebinding-to-a-group">Create a ClusterRoleBinding (to a Group)</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>group-binding<span class="w"> </span>--clusterrole<span class="o">=</span>view<span class="w"> </span>--group<span class="o">=</span>system:serviceaccounts:frontend
+</code></pre></div>
 <hr />
-<h2 id="5-exam-tips-cka">🎯 5. Exam Tips (CKA)</h2>
-<ol>
-<li><strong>Check Capacity</strong>: PV capacity must be $\ge$ PVC request.</li>
-<li><strong>Matching Labels</strong>: PVs and PVCs can use labels/selectors to bind to specific volumes.</li>
-<li><strong>Resizing</strong>: Some StorageClasses allow <code>allowVolumeExpansion: true</code>. You can edit the PVC size, but the volume usually won't shrink.</li>
-<li><strong>HostPath</strong>: For local lab environments, <code>hostPath</code> is often used. Remember it only works on the specific node where the pod is scheduled!</li>
-</ol>
+<h2 id="5-testing-with-auth-can-i">🧪 5. Testing with "auth can-i"</h2>
+<p>Always verify your bindings. If you use <code>ClusterRole + RoleBinding</code>, you must specify the namespace in your test!</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify Pattern C (ClusterRole + RoleBinding)</span>
+<span class="c1"># Does Jane have &#39;view&#39; access (from ClusterRole) in namespace &#39;blue&#39;?</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--as<span class="w"> </span>jane<span class="w"> </span>-n<span class="w"> </span>blue
+<span class="c1"># Expected: yes</span>
+
+<span class="c1"># Does she have it in namespace &#39;red&#39;?</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--as<span class="w"> </span>jane<span class="w"> </span>-n<span class="w"> </span>red
+<span class="c1"># Expected: no (unless there is a binding there too)</span>
+</code></pre></div>
 <hr />
 <blockquote>
 <p>[!IMPORTANT]
-<strong>Check your spelling</strong>: Kubernetes is strict. <code>ReadWriteOnce</code> is NOT the same as <code>Readwriteonce</code>. Always use the official Case-Sensitive strings.</p>
+<strong>Immortal RoleRefs</strong>: Once a RoleBinding is created, you <strong>cannot</strong> change the <code>roleRef</code> (the role it points to). If you want to point to a different role, you must <strong>delete</strong> the RoleBinding and recreate it.</p>
 </blockquote>
 
 
