@@ -98,7 +98,8 @@ nav:
       - RBAC & Authorization: security/rbac-authorization.md
       - Authorization Mechanisms: security/authorization-mechanisms.md
       - ABAC Authorization: security/abac-authorization.md
-      - OPA & Gatekeeper: security/opa-gatekeeper.md
+      - OPA Gatekeeper Overview: security/opa-gatekeeper.md
+      - OPA Kubernetes Deep Dive: security/opa-kubernetes-deep-dive.md
       - Network Policies: security/network-policies.md
   - Security Focus: security-focus.md
   - Exam Overview:
