@@ -2507,6 +2507,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-api-server-flags-which-ca-goes-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 6. API Server Flags: Which CA goes where?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚩 6. API Server Flags: Which CA goes where?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pem-vs-crt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .pem vs .crt?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3143,6 +3171,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-api-server-flags-which-ca-goes-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 6. API Server Flags: Which CA goes where?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚩 6. API Server Flags: Which CA goes where?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pem-vs-crt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .pem vs .crt?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3365,6 +3421,42 @@ openssl<span class="w"> </span>rsa<span class="w"> </span>-noout<span class="w">
 <p>[!IMPORTANT]
 <strong>Which is the "Admin Key"?</strong>
 When people talk about the "Admin Key", they usually mean the <strong><code>ca.key</code></strong>. If you lose this, you can no longer sign new certificates or rotate existing ones. Keep it secure and offline if possible!</p>
+</blockquote>
+<hr />
+<h2 id="6-api-server-flags-which-ca-goes-where">🚩 6. API Server Flags: Which CA goes where?</h2>
+<p>When configuring the <code>kube-apiserver</code> static pod, you will see multiple CA flags. This is a common source of confusion in the CKA exam.</p>
+<h3 id="pem-vs-crt"><code>.pem</code> vs <code>.crt</code>?</h3>
+<p>In Kubernetes, these are <strong>the same</strong>. They are both PEM-encoded Base64 files. You can use whichever extension you prefer, as long as the content matches your generated CA.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Flag</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Usually points to...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>--client-ca-file</code></strong></td>
+<td style="text-align: left;">Verifies <strong>Clients</strong> (You, Scheduler, Nodes)</td>
+<td style="text-align: left;"><code>/etc/kubernetes/pki/ca.crt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>--etcd-ca-file</code></strong></td>
+<td style="text-align: left;">Verifies the <strong>Etcd Server's identity</strong></td>
+<td style="text-align: left;"><code>/etc/kubernetes/pki/etcd/ca.crt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>--kubelet-client-certificate</code></strong></td>
+<td style="text-align: left;">Used by API Server to <strong>prove its identity</strong> to Kubelets</td>
+<td style="text-align: left;"><code>/etc/kubernetes/pki/apiserver-kubelet-client.crt</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<blockquote>
+<p>[!CAUTION]
+<strong>Common Exam Failure</strong>: If you point the <code>--etcd-ca-file</code> to your main Cluster CA, but Etcd was signed by a separate Etcd CA, the API server will crash because it cannot trust the database!</p>
 </blockquote>
 
 
