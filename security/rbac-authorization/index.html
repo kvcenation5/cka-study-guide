@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../kubeconfig-guide/">
       
       
-        <link rel="next" href="../node-selector/">
+        <link rel="next" href="../network-policies/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Taints and Tolerations - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>RBAC & Authorization - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#taints-and-tolerations" class="md-skip">
+        <a href="#rbac-role-based-access-control" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Taints and Tolerations
+              RBAC & Authorization
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -245,13 +245,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../yaml-guide/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -271,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -291,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -309,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -330,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -350,7 +348,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../storage/storage-deep-dive/" class="md-tabs__link">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -388,7 +388,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../security-focus/" class="md-tabs__link">
+      <a href="../../security-focus/" class="md-tabs__link">
         
   
   
@@ -409,7 +409,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -429,7 +429,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -449,7 +449,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -483,7 +483,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -501,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -528,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -552,31 +552,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -612,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -640,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -668,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -696,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -724,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -752,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -780,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -808,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -836,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -864,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -892,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -920,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -948,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -973,31 +968,26 @@
                 
   
   
-    
   
   
-  
     
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1015,7 +1005,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_14">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1033,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1058,37 +1048,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Taints and Tolerations
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1104,176 +1067,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-golden-rule" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔑 The Golden Rule
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-real-world-analogy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎭 The Real-World Analogy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-taint-a-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ How to Taint a Node
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ How to Taint a Node">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-three-effects" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Three Effects
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-a-toleration-to-a-pod" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🩹 Adding a Toleration to a Pod
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🩹 Adding a Toleration to a Pod">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#operators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Operators
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#real-life-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🌍 Real-Life Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🌍 Real-Life Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-the-control-plane-isolation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. The "Control Plane" Isolation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-dedicated-hardware-gpu-nodes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Dedicated Hardware (GPU Nodes)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-maintenance-evacuation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Maintenance / Evacuation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-edge-computing-cloud-bursting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Edge Computing / Cloud Bursting
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⌨️ Useful Commands
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1286,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1314,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1342,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1370,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1398,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1426,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1462,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1549,7 +1342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1577,7 +1370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1605,7 +1398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1692,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1720,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1748,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1776,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1804,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1832,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1860,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1888,7 +1681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1916,7 +1709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1951,7 +1744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -2030,7 +1823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -2058,7 +1851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -2145,7 +1938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2173,7 +1966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2201,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2229,7 +2022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2257,7 +2050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2285,7 +2078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2317,26 +2110,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2354,7 +2152,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2372,7 +2170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2400,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2428,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2456,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/tls-certificates/" class="md-nav__link">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2484,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2512,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/certificate-api-management/" class="md-nav__link">
+      <a href="../certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2540,7 +2338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2565,10 +2363,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../security/rbac-authorization/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RBAC & Authorization
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2584,6 +2409,154 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-rbac-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. The RBAC Matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-defining-permissions-the-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 2. Defining Permissions (The "Rules")
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📄 2. Defining Permissions (The &#34;Rules&#34;)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-role-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Role YAML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-binding-linking-users-to-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 3. Binding: Linking Users to Roles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 3. Binding: Linking Users to Roles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-rolebinding-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example RoleBinding YAML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential kubectl Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-rbac-objects-fast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create RBAC Objects Fast
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-permissions-the-gold-mine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Testing Permissions (The Gold Mine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-serviceaccounts-and-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 5. ServiceAccounts and RBAC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cka-exam-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 6. CKA Exam Strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2596,7 +2569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -2631,7 +2604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security-focus/" class="md-nav__link">
+      <a href="../../security-focus/" class="md-nav__link">
         
   
   
@@ -2710,7 +2683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -2797,7 +2770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2825,7 +2798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2853,7 +2826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -2940,7 +2913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -2968,7 +2941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting/crictl-guide/" class="md-nav__link">
+      <a href="../../troubleshooting/crictl-guide/" class="md-nav__link">
         
   
   
@@ -3023,10 +2996,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-golden-rule" class="md-nav__link">
+  <a href="#1-the-rbac-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔑 The Golden Rule
+        🏗️ 1. The RBAC Matrix
       
     </span>
   </a>
@@ -3034,33 +3007,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-real-world-analogy" class="md-nav__link">
+  <a href="#2-defining-permissions-the-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🎭 The Real-World Analogy
+        📄 2. Defining Permissions (The "Rules")
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-taint-a-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ How to Taint a Node
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ How to Taint a Node">
+    <nav class="md-nav" aria-label="📄 2. Defining Permissions (The &#34;Rules&#34;)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-three-effects" class="md-nav__link">
+  <a href="#example-role-yaml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Three Effects
+        Example Role YAML
       
     </span>
   </a>
@@ -3073,22 +3035,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#adding-a-toleration-to-a-pod" class="md-nav__link">
+  <a href="#3-binding-linking-users-to-roles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🩹 Adding a Toleration to a Pod
+        🔗 3. Binding: Linking Users to Roles
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🩹 Adding a Toleration to a Pod">
+    <nav class="md-nav" aria-label="🔗 3. Binding: Linking Users to Roles">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#operators" class="md-nav__link">
+  <a href="#example-rolebinding-yaml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Operators
+        Example RoleBinding YAML
       
     </span>
   </a>
@@ -3101,22 +3063,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#real-life-examples" class="md-nav__link">
+  <a href="#4-essential-kubectl-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🌍 Real-Life Examples
+        🛠️ 4. Essential kubectl Commands
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🌍 Real-Life Examples">
+    <nav class="md-nav" aria-label="🛠️ 4. Essential kubectl Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-the-control-plane-isolation" class="md-nav__link">
+  <a href="#create-rbac-objects-fast" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The "Control Plane" Isolation
+        Create RBAC Objects Fast
       
     </span>
   </a>
@@ -3124,32 +3086,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-dedicated-hardware-gpu-nodes" class="md-nav__link">
+  <a href="#testing-permissions-the-gold-mine" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Dedicated Hardware (GPU Nodes)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-maintenance-evacuation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Maintenance / Evacuation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-edge-computing-cloud-bursting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Edge Computing / Cloud Bursting
+        🧪 Testing Permissions (The Gold Mine)
       
     </span>
   </a>
@@ -3162,10 +3102,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#useful-commands" class="md-nav__link">
+  <a href="#5-serviceaccounts-and-rbac" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⌨️ Useful Commands
+        🤖 5. ServiceAccounts and RBAC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cka-exam-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 6. CKA Exam Strategy
       
     </span>
   </a>
@@ -3189,115 +3140,124 @@
 
 
 
-<h1 id="taints-and-tolerations">Taints and Tolerations</h1>
-<p>Taints and Tolerations work together to ensure that Pods are not scheduled onto inappropriate Nodes. While <strong>Node Affinity</strong> attracts Pods to a certain set of Nodes, <strong>Taints</strong> allow a Node to repel a set of Pods.</p>
-<blockquote>
-<p>[!CAUTION]</p>
-<h3 id="the-golden-rule">🔑 The Golden Rule</h3>
-<ul>
-<li><strong>Taints</strong> are set on <strong>Nodes</strong>.</li>
-<li><strong>Tolerations</strong> are set on <strong>Pods</strong>.</li>
-</ul>
-</blockquote>
+<h1 id="rbac-role-based-access-control">RBAC: Role-Based Access Control</h1>
+<p>Authorization is the process of determining <strong>what</strong> an authenticated user is allowed to do. In Kubernetes, the standard way to manage this is through <strong>RBAC (Role-Based Access Control)</strong>.</p>
 <hr />
-<h2 id="the-real-world-analogy">🎭 The Real-World Analogy</h2>
-<p>Think of a <strong>Taint</strong> as a <strong>Lock</strong> on a door (the Node) and a <strong>Toleration</strong> as the <strong>Key</strong> carried by the Pod.</p>
+<h2 id="1-the-rbac-matrix">🏗️ 1. The RBAC Matrix</h2>
+<p>RBAC is built on four core objects. To understand them, you must distinguish between <strong>Scope</strong> (Namespace vs. Cluster).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Object</th>
+<th style="text-align: left;">Scope</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Role</strong></td>
+<td style="text-align: left;">Namespace</td>
+<td style="text-align: left;">Defines permissions <strong>within a specific namespace</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ClusterRole</strong></td>
+<td style="text-align: left;">Cluster</td>
+<td style="text-align: left;">Defines permissions <strong>across the entire cluster</strong> (or for non-namespaced resources like Nodes).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>RoleBinding</strong></td>
+<td style="text-align: left;">Namespace</td>
+<td style="text-align: left;">Grants the permissions defined in a Role to a user/group <strong>within a namespace</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ClusterRoleBinding</strong></td>
+<td style="text-align: left;">Cluster</td>
+<td style="text-align: left;">Grants the permissions defined in a ClusterRole to a user/group <strong>cluster-wide</strong>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-defining-permissions-the-rules">📄 2. Defining Permissions (The "Rules")</h2>
+<p>A Role contains a list of <strong>Rules</strong>. Each rule has three parts:
+1.  <strong>apiGroups</strong>: Which API group the resource belongs to (e.g., <code>""</code> for core, <code>"apps"</code> for deployments).
+2.  <strong>resources</strong>: What you want to access (e.g., <code>pods</code>, <code>services</code>, <code>deployments</code>).
+3.  <strong>verbs</strong>: What you are allowed to do (e.g., <code>get</code>, <code>list</code>, <code>watch</code>, <code>create</code>, <code>update</code>, <code>delete</code>).</p>
+<h3 id="example-role-yaml">Example Role YAML</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blue</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-reader</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># &quot;&quot; indicates the core API group</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<hr />
+<h2 id="3-binding-linking-users-to-roles">🔗 3. Binding: Linking Users to Roles</h2>
+<p>A <strong>Binding</strong> connects a <strong>Subject</strong> (User, Group, or ServiceAccount) to a <strong>Role</strong>.</p>
+<h3 id="example-rolebinding-yaml">Example RoleBinding YAML</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read-pods</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blue</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane</span>
+<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-reader</span><span class="w"> </span><span class="c1"># Must match the name of the Role</span>
+<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
+<hr />
+<h2 id="4-essential-kubectl-commands">🛠️ 4. Essential kubectl Commands</h2>
+<p>The CKA exam heavily uses these "imperative" commands to save time.</p>
+<h3 id="create-rbac-objects-fast">Create RBAC Objects Fast</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a Role</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>role<span class="w"> </span>developer<span class="w"> </span>--verb<span class="o">=</span>get,list,create<span class="w"> </span>--resource<span class="o">=</span>pods,services<span class="w"> </span>-n<span class="w"> </span>development
+
+<span class="c1"># Create a RoleBinding</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>dev-user-binding<span class="w"> </span>--role<span class="o">=</span>developer<span class="w"> </span>--user<span class="o">=</span>jane<span class="w"> </span>-n<span class="w"> </span>development
+
+<span class="c1"># Create a ClusterRole</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>clusterrole<span class="w"> </span>node-reader<span class="w"> </span>--verb<span class="o">=</span>get,list<span class="w"> </span>--resource<span class="o">=</span>nodes
+
+<span class="c1"># Create a ClusterRoleBinding</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>jane-node-binding<span class="w"> </span>--clusterrole<span class="o">=</span>node-reader<span class="w"> </span>--user<span class="o">=</span>jane
+</code></pre></div>
+<h3 id="testing-permissions-the-gold-mine">🧪 Testing Permissions (The Gold Mine)</h3>
+<p>Before you finish a task, always verify it works using the <code>can-i</code> command.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Can I do this?</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>pods
+
+<span class="c1"># Can &quot;Jane&quot; do this? (Requires Admin)</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>list<span class="w"> </span>secrets<span class="w"> </span>--as<span class="w"> </span>jane
+
+<span class="c1"># Can &quot;Jane&quot; do this in a specific namespace?</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>list<span class="w"> </span>pods<span class="w"> </span>--as<span class="w"> </span>jane<span class="w"> </span>-n<span class="w"> </span>blue
+</code></pre></div>
+<hr />
+<h2 id="5-serviceaccounts-and-rbac">🤖 5. ServiceAccounts and RBAC</h2>
+<p><strong>ServiceAccounts</strong> are for processes (Pods) rather than humans.
+*   When a Pod needs to talk to the API (e.g., a dashboard or a CI/CD tool), it uses a ServiceAccount.
+*   You bind a Role to a ServiceAccount exactly like you do for a User.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>serviceaccount<span class="w"> </span>dashboard-sa
+kubectl<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>dash-bind<span class="w"> </span>--role<span class="o">=</span>pod-reader<span class="w"> </span>--serviceaccount<span class="o">=</span>default:dashboard-sa
+</code></pre></div>
+<hr />
+<h2 id="6-cka-exam-strategy">🚩 6. CKA Exam Strategy</h2>
 <ol>
-<li><strong>The Taint (The Lock)</strong>: You put a lock on a room that says <em>"Only authorized personnel"</em>. Anyone without a key is kept out.</li>
-<li><strong>The Toleration (The Key)</strong>: A person (the Pod) has a special key. They can enter the locked room, but they don't <em>have</em> to. They can still choose to sleep in the common area (an untainted node).</li>
+<li><strong>Namespace Awareness</strong>: If a question mentions a namespace, use <code>Role</code> and <code>RoleBinding</code>. If it's cluster-wide (Nodes, PVs) or "across all namespaces," use <code>ClusterRole</code>.</li>
+<li><strong>Check API Groups</strong>: If you can't remember if <code>deployments</code> belongs to <code>apps</code> or <code>""</code>, run <code>kubectl api-resources</code>.</li>
+<li><strong>Verify with <code>can-i</code></strong>: This is the only way to be 100% sure your RBAC setup is correct before moving to the next question.</li>
 </ol>
+<hr />
 <blockquote>
 <p>[!IMPORTANT]
-A Toleration <strong>allows</strong> a Pod to schedule on a Tainted node, but it does not <strong>force</strong> it there. To force a Pod to a specific node, you use Node Affinity.</p>
+<strong>Superuser Alert</strong>: The built-in ClusterRole <strong><code>cluster-admin</code></strong> and the group <strong><code>system:masters</code></strong> have "God Mode" permissions. They can do anything to any resource. Be extremely careful when binding to these!</p>
 </blockquote>
-<hr />
-<h2 id="how-to-taint-a-node">🛠️ How to Taint a Node</h2>
-<p>A Taint consists of a <strong>Key</strong>, a <strong>Value</strong>, and an <strong>Effect</strong>.</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>taint<span class="w"> </span>nodes<span class="w"> </span>node1<span class="w"> </span><span class="nv">dedicated</span><span class="o">=</span>finance:NoSchedule
-</code></pre></div>
-<h3 id="the-three-effects">The Three Effects</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Effect</th>
-<th style="text-align: left;">Behavior</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>NoSchedule</strong></td>
-<td style="text-align: left;">New pods will not be scheduled unless they have a matching toleration. Existing pods remain.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>PreferNoSchedule</strong></td>
-<td style="text-align: left;">The scheduler will <em>try</em> to avoid placing untolerated pods here, but it's not a hard requirement.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>NoExecute</strong></td>
-<td style="text-align: left;">New pods are blocked, AND <strong>existing pods</strong> without a toleration are immediately evicted from the node.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="adding-a-toleration-to-a-pod">🩹 Adding a Toleration to a Pod</h2>
-<p>To allow a Pod to "pass through" the taint, you add a <code>tolerations</code> section to the Pod spec.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">  </span><span class="nt">tolerations</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dedicated&quot;</span>
-<span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Equal&quot;</span>
-<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;finance&quot;</span>
-<span class="w">    </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;NoSchedule&quot;</span>
-</code></pre></div>
-<h3 id="operators">Operators</h3>
-<ul>
-<li><strong>Equal</strong>: The key, value, and effect must match exactly.</li>
-<li><strong>Exists</strong>: The key must exist (the value is ignored). Useful for matching any pod to a specific "maintenance" taint.</li>
-</ul>
-<hr />
-<h2 id="real-life-examples">🌍 Real-Life Examples</h2>
-<h3 id="1-the-control-plane-isolation">1. The "Control Plane" Isolation</h3>
-<p>By default, Kubernetes taints the Control Plane nodes so that your application pods don't take up resources meant for the API server or ETCD. 
-- <strong>Taint</strong>: <code>node-role.kubernetes.io/control-plane:NoSchedule</code>
-- <strong>Toleration</strong>: Critical system pods (like CoreDNS or Kube-Proxy) have a toleration for this so they can run on the masters.</p>
-<h3 id="2-dedicated-hardware-gpu-nodes">2. Dedicated Hardware (GPU Nodes)</h3>
-<p>If you have expensive GPU nodes, you don't want a simple "Hello World" app taking up space there.
-- <strong>Action</strong>: Taint the GPU nodes with <code>hardware=gpu:NoSchedule</code>.
-- <strong>Result</strong>: Only your Machine Learning pods (with the matching toleration) will land there.</p>
-<h3 id="3-maintenance-evacuation">3. Maintenance / Evacuation</h3>
-<p>You need to perform hardware maintenance on <code>worker-3</code>.
-- <strong>Action</strong>: Apply a <code>NoExecute</code> taint.
-- <strong>Result</strong>: All pods currently running on <code>worker-3</code> are kicked off and rescheduled elsewhere, clearing the path for your maintenance.</p>
-<h3 id="4-edge-computing-cloud-bursting">4. Edge Computing / Cloud Bursting</h3>
-<p>You have some local nodes and some expensive nodes in the cloud.
-- <strong>Taint</strong>: <code>location=cloud:PreferNoSchedule</code>
-- <strong>Result</strong>: Kubernetes will fill up your local nodes first and only use the cloud nodes when the local ones are full.</p>
-<hr />
-<h2 id="useful-commands">⌨️ Useful Commands</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Goal</th>
-<th style="text-align: left;">Command</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Apply Taint</strong></td>
-<td style="text-align: left;"><code>kubectl taint nodes node-name key=value:Effect</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Remove Taint</strong></td>
-<td style="text-align: left;"><code>kubectl taint nodes node-name key:Effect-</code> (Suffix with dash)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Verify Taints</strong></td>
-<td style="text-align: left;"><code>kubectl describe node node-name | grep Taints</code></td>
-</tr>
-</tbody>
-</table>
 
 
 
@@ -3348,10 +3308,10 @@ A Toleration <strong>allows</strong> a Pod to schedule on a Tainted node, but it
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
