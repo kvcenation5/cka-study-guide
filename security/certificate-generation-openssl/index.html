@@ -2392,10 +2392,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#e-kubelet-worker-nodes" class="md-nav__link">
+  <a href="#e-kubelet-worker-nodes-per-node-identity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        E. Kubelet (Worker Nodes)
+        E. Kubelet (Worker Nodes - Per Node Identity)
       
     </span>
   </a>
@@ -3056,10 +3056,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#e-kubelet-worker-nodes" class="md-nav__link">
+  <a href="#e-kubelet-worker-nodes-per-node-identity" class="md-nav__link">
     <span class="md-ellipsis">
       
-        E. Kubelet (Worker Nodes)
+        E. Kubelet (Worker Nodes - Per Node Identity)
       
     </span>
   </a>
@@ -3305,15 +3305,26 @@ openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> <
 openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>etcd.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>etcd.crt
 </code></pre></div></li>
 </ul>
-<h3 id="e-kubelet-worker-nodes">E. Kubelet (Worker Nodes)</h3>
+<h3 id="e-kubelet-worker-nodes-per-node-identity">E. Kubelet (Worker Nodes - Per Node Identity)</h3>
+<p>Unlike other components, Kubelets <strong>cannot</strong> share the same certificate. Every node in your cluster must have its own unique set of files named after the node itself.</p>
 <ul>
-<li><strong>Purpose</strong>: Node identity to communicate with API server.</li>
-<li><strong>Naming</strong>: <code>CN=system:node:&lt;node-name&gt;</code>, <code>O=system:nodes</code>.
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>node01.key<span class="w"> </span><span class="m">2048</span>
-openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>node01.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=system:node:node01/O=system:nodes&quot;</span><span class="w"> </span>-out<span class="w"> </span>node01.csr
-openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>node01.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>node01.crt
-</code></pre></div></li>
+<li><strong>Naming Rule</strong>: Filename should be <code>node01.crt</code>, <code>node02.crt</code>, etc.</li>
+<li><strong>CN (Common Name)</strong>: Must be <code>system:node:&lt;node-name&gt;</code>.</li>
+<li><strong>O (Organization)</strong>: Must be <code>system:nodes</code>.</li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Create unique key for node01</span>
+openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>node01.key<span class="w"> </span><span class="m">2048</span>
+
+<span class="c1"># 2. CSR with specific CN for node01</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>node01.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=system:node:node01/O=system:nodes&quot;</span><span class="w"> </span>-out<span class="w"> </span>node01.csr
+
+<span class="c1"># 3. Sign for node01</span>
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>node01.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>node01.crt
+</code></pre></div>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Repeat this for every node!</strong> If you have 3 nodes, you must repeat these steps 3 times, changing <code>node01</code> to <code>node02</code>, etc., in every command. Each node needs its own unique identity to join the cluster.</p>
+</blockquote>
 <h3 id="f-kube-proxy">F. Kube-Proxy</h3>
 <ul>
 <li><strong>Purpose</strong>: Network rule management on nodes.</li>
