@@ -11,10 +11,8 @@
       
       
       
-        <link rel="prev" href="../../BETTER_ARCHITECTURE/">
+        <link rel="prev" href="../../troubleshooting-flowchart/">
       
-      
-        <link rel="next" href="../admission-controllers/">
       
       
         
@@ -25,7 +23,7 @@
     
     
       
-        <title>Static Pods vs Systemd - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>crictl Guide - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#component-management-static-pods-vs-systemd" class="md-skip">
+        <a href="#crictl-container-runtime-interface-cli" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Static Pods vs Systemd
+              crictl Guide
             
           </span>
         </div>
@@ -285,12 +283,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -445,10 +441,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
@@ -1430,31 +1428,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -1472,7 +1465,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1515,37 +1508,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Static Pods vs Systemd
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1561,115 +1527,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-kubelet-exception" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. The "Kubelet" Exception
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. The &#34;Kubelet&#34; Exception">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-the-captain-analogy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why? (The "Captain" Analogy)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-static-pods-the-mirror-concept" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Static Pods (The "Mirror" Concept)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Static Pods (The &#34;Mirror&#34; Concept)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-is-a-static-pod" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What is a Static Pod?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How it works
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-topologies-summary-cka-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Topologies Summary (CKA Cheat Sheet)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-the-kube-proxy-exception-daemonset" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. The Kube-Proxy Exception (DaemonSet)
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1682,7 +1539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1710,7 +1567,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1738,7 +1595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1766,7 +1623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1794,7 +1651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -2679,26 +2536,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
         
           
-          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
             
   
   
@@ -2716,7 +2578,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2759,10 +2621,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../troubleshooting/crictl-guide/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    crictl Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2778,6 +2667,137 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-crictl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧐 What is crictl?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧐 What is crictl?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-use-it-in-the-cka-exam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why use it in the CKA Exam?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-configuration-etccrictlyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 1. Configuration (/etc/crictl.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-common-troubleshooting-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Common Troubleshooting Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Common Troubleshooting Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pod-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pod Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-comparison-docker-vs-crictl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 3. Comparison: Docker vs. crictl
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cka-debugging-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 4. CKA Debugging Scenario
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2817,22 +2837,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-kubelet-exception" class="md-nav__link">
+  <a href="#what-is-crictl" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The "Kubelet" Exception
+        🧐 What is crictl?
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. The &#34;Kubelet&#34; Exception">
+    <nav class="md-nav" aria-label="🧐 What is crictl?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-the-captain-analogy" class="md-nav__link">
+  <a href="#why-use-it-in-the-cka-exam" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why? (The "Captain" Analogy)
+        Why use it in the CKA Exam?
       
     </span>
   </a>
@@ -2845,22 +2865,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-static-pods-the-mirror-concept" class="md-nav__link">
+  <a href="#1-configuration-etccrictlyaml" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Static Pods (The "Mirror" Concept)
+        ⚙️ 1. Configuration (/etc/crictl.yaml)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Static Pods (The &#34;Mirror&#34; Concept)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-common-troubleshooting-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Common Troubleshooting Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Common Troubleshooting Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#what-is-a-static-pod" class="md-nav__link">
+  <a href="#pod-operations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is a Static Pod?
+        Pod Operations
       
     </span>
   </a>
@@ -2868,10 +2899,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#container-operations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Container Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Operations
       
     </span>
   </a>
@@ -2884,10 +2926,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-topologies-summary-cka-cheat-sheet" class="md-nav__link">
+  <a href="#3-comparison-docker-vs-crictl" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Topologies Summary (CKA Cheat Sheet)
+        🔄 3. Comparison: Docker vs. crictl
       
     </span>
   </a>
@@ -2895,10 +2937,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-the-kube-proxy-exception-daemonset" class="md-nav__link">
+  <a href="#4-cka-debugging-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. The Kube-Proxy Exception (DaemonSet)
+        🧪 4. CKA Debugging Scenario
       
     </span>
   </a>
@@ -2922,105 +2964,177 @@
 
 
 
-<h1 id="component-management-static-pods-vs-systemd">Component Management: Static Pods vs. Systemd</h1>
-<p>Understanding how Kubernetes components are run is the <strong>single most common</strong> stumbling block for CKA students.</p>
-<p>Kubernetes components are run in one of two ways:
-1.  <strong>Systemd Services</strong> (Native Binary)
-2.  <strong>Static Pods</strong> (Containerized)</p>
-<h2 id="1-the-kubelet-exception">1. The "Kubelet" Exception</h2>
-<p>The <strong>Kubelet</strong> is unique. It is the only component that is <strong>ALWAYS</strong> run as a binary (Systemd Service).</p>
-<h3 id="why-the-captain-analogy">Why? (The "Captain" Analogy)</h3>
-<p>Imagine a ship (the Node).
-*   <strong>The Containers (Static Pods)</strong> are the cargo.
-*   <strong>The Kubelet</strong> is the Captain.</p>
-<p><strong>The Captain cannot be cargo.</strong>
-The Kubelet's job is to talk to the Container Runtime (Docker/Containerd) and say "Start this container." If the Kubelet <em>was</em> a container itself, who would start it? It's a chicken-and-egg problem.</p>
-<p>Therefore, the Kubelet must always be installed on the Operating System <code>(apt-get install kubelet)</code> and managed by the OS init system <code>(systemctl start kubelet)</code>.</p>
+<h1 id="crictl-container-runtime-interface-cli">crictl: Container Runtime Interface CLI</h1>
+<p><code>crictl</code> is a command-line interface for CRI-compatible container runtimes. For the CKA exam, it is a vital tool for troubleshooting nodes when <code>kubectl</code> is unavailable or when you need to inspect what is happening at the runtime level (containerd, CRI-O, etc.).</p>
 <hr />
-<h2 id="2-static-pods-the-mirror-concept">2. Static Pods (The "Mirror" Concept)</h2>
-<p>Once the Kubelet (Captain) is running, it can start other components (API Server, ETCD, Scheduler) as Containers.</p>
-<h3 id="what-is-a-static-pod">What is a Static Pod?</h3>
-<p>A Static Pod is a pod managed directly by the Kubelet on a specific node, <strong>without</strong> the API Server observing it initially.</p>
-<ul>
-<li><strong>Normal Pod:</strong> API Server -&gt; Scheduler -&gt; Kubelet -&gt; Run Pod.</li>
-<li><strong>Static Pod:</strong> Kubelet -&gt; Reads File -&gt; Run Pod.</li>
-</ul>
-<h3 id="how-it-works">How it works</h3>
+<h2 id="what-is-crictl">🧐 What is <code>crictl</code>?</h2>
+<p>While <code>kubectl</code> talks to the <strong>API Server</strong>, <code>crictl</code> talks directly to the <strong>Container Runtime</strong> (like <code>containerd</code>) on the node.</p>
+<h3 id="why-use-it-in-the-cka-exam">Why use it in the CKA Exam?</h3>
 <ol>
-<li><strong>Configuration:</strong> The Kubelet config file (<code>/var/lib/kubelet/config.yaml</code>) has a setting: <code>staticPodPath: 
-/etc/kubernetes/manifests</code>.</li>
-<li><strong>The Watch:</strong> The Kubelet watches that folder constantly.</li>
-<li><strong>The Action:</strong><ul>
-<li>If you put a file <code>etcd.yaml</code> there -&gt; Kubelet starts the pod.</li>
-<li>If you delete the file -&gt; Kubelet kills the pod.</li>
-</ul>
-</li>
-<li><strong>The Mirror:</strong> The Kubelet creates a "Mirror Pod" on the API Server so you can see it with <code>kubectl get pods</code>, but you <strong>cannot edit it</strong> via kubectl. It is read-only in the API.</li>
+<li><strong>Node Troubleshooting</strong>: If a node is <code>NotReady</code> and you can't see pods via <code>kubectl</code>, you SSH into the node and use <code>crictl</code> to see if containers are actually running.</li>
+<li><strong>Static Pods</strong>: Static pods (like the API Server or Etcd) are managed by the Kubelet, not the API Server. <code>crictl</code> is the best way to see their "real" status on the disk.</li>
+<li><strong>No Docker</strong>: Modern Kubernetes clusters (v1.24+) have removed the "Dockershim". You can no longer use <code>docker ps</code> on many clusters. <code>crictl</code> is the standardized replacement.</li>
 </ol>
-<div class="admonition info">
-<p class="admonition-title">Deep Dive</p>
-<p>For a complete guide on Static Pods (Creation, Use Cases, Master-Down scenarios), see the <a href="../../fundamentals/static-pods/">Static Pods Fundamentals</a> guide.</p>
-</div>
 <hr />
-<h2 id="3-topologies-summary-cka-cheat-sheet">3. Topologies Summary (CKA Cheat Sheet)</h2>
+<h2 id="1-configuration-etccrictlyaml">⚙️ 1. Configuration (<code>/etc/crictl.yaml</code>)</h2>
+<p>Before using <code>crictl</code>, it must be pointed to the correct runtime socket. If it's not configured, commands will fail with "cannot connect to runtime".</p>
+<p><strong>Check or create the config:</strong>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/crictl.yaml
+</code></pre></div></p>
+<p><strong>Standard Configuration (for containerd):</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">runtime-endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unix:///run/containerd/containerd.sock</span>
+<span class="nt">image-endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unix:///run/containerd/containerd.sock</span>
+<span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div></p>
+<hr />
+<h2 id="2-common-troubleshooting-commands">🛠️ 2. Common Troubleshooting Commands</h2>
+<p><code>crictl</code> commands are very similar to Docker commands, making them easy to remember.</p>
+<h3 id="pod-operations">Pod Operations</h3>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Component</th>
-<th style="text-align: left;">Run As</th>
-<th style="text-align: left;">Location of Config</th>
-<th style="text-align: left;">managed By</th>
+<th style="text-align: left;">Task</th>
+<th style="text-align: left;">Command</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Kubelet</strong></td>
-<td style="text-align: left;"><strong>Systemd Service</strong></td>
-<td style="text-align: left;"><code>/var/lib/kubelet/config.yaml</code></td>
-<td style="text-align: left;"><code>systemctl</code></td>
+<td style="text-align: left;"><strong>List all Pods</strong></td>
+<td style="text-align: left;"><code>crictl pods</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Etcd</strong></td>
-<td style="text-align: left;">Static Pod</td>
-<td style="text-align: left;"><code>/etc/kubernetes/manifests/etcd.yaml</code></td>
-<td style="text-align: left;">Kubelet (File edit)</td>
+<td style="text-align: left;"><strong>Inspect a Pod</strong></td>
+<td style="text-align: left;"><code>crictl inspectp &lt;pod-id&gt;</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>API Server</strong></td>
-<td style="text-align: left;">Static Pod</td>
-<td style="text-align: left;"><code>/etc/kubernetes/manifests/kube-apiserver.yaml</code></td>
-<td style="text-align: left;">Kubelet (File edit)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Scheduler</strong></td>
-<td style="text-align: left;">Static Pod</td>
-<td style="text-align: left;"><code>/etc/kubernetes/manifests/kube-scheduler.yaml</code></td>
-<td style="text-align: left;">Kubelet (File edit)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Controller Mgr</strong></td>
-<td style="text-align: left;">Static Pod</td>
-<td style="text-align: left;"><code>/etc/kubernetes/manifests/kube-controller-manager.yaml</code></td>
-<td style="text-align: left;">Kubelet (File edit)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Kube-Proxy</strong></td>
-<td style="text-align: left;"><strong>DaemonSet</strong></td>
-<td style="text-align: left;">ConfigMap/API</td>
-<td style="text-align: left;">Kubernetes (API)</td>
+<td style="text-align: left;"><strong>Remove a Pod</strong></td>
+<td style="text-align: left;"><code>crictl rmp &lt;pod-id&gt;</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="4-the-kube-proxy-exception-daemonset">4. The Kube-Proxy Exception (DaemonSet)</h2>
-<p>You might notice <code>kube-proxy</code> is missing from the Static Pod folder.</p>
-<p><strong>It is NOT a Static Pod.</strong>
-*   <strong>Why?</strong> Static Pods are for the "Brain" (Control Plane) that creates the cluster. <code>kube-proxy</code> is a worker Process that runs on <em>every</em> node (even workers).
-*   <strong>How it runs:</strong> It is run as a <strong>DaemonSet</strong>.
-    *   This means the <strong>Scheduler</strong> schedules it.
-    *   You manage it via <code>kubectl edit daemonset kube-proxy -n kube-system</code>.
-    *   It reads its configuration from a <strong>ConfigMap</strong> (not a local file).</p>
-<p><strong>Why this matters:</strong>
-If you try to find <code>/etc/kubernetes/manifests/kube-proxy.yaml</code>, it won't be there. You must use <code>kubectl</code> to configure it.</p>
+<h3 id="container-operations">Container Operations</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Task</th>
+<th style="text-align: left;">Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>List running containers</strong></td>
+<td style="text-align: left;"><code>crictl ps</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>List all containers</strong></td>
+<td style="text-align: left;"><code>crictl ps -a</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>View logs</strong></td>
+<td style="text-align: left;"><code>crictl logs &lt;container-id&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exec into container</strong></td>
+<td style="text-align: left;"><code>crictl exec -it &lt;container-id&gt; sh</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inspect container</strong></td>
+<td style="text-align: left;"><code>crictl inspect &lt;container-id&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Stop a container</strong></td>
+<td style="text-align: left;"><code>crictl stop &lt;container-id&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="image-operations">Image Operations</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Task</th>
+<th style="text-align: left;">Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>List images</strong></td>
+<td style="text-align: left;"><code>crictl images</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pull an image</strong></td>
+<td style="text-align: left;"><code>crictl pull &lt;image-name&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Remove an image</strong></td>
+<td style="text-align: left;"><code>crictl rmi &lt;image-id&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-comparison-docker-vs-crictl">🔄 3. Comparison: Docker vs. crictl</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Docker CLI</th>
+<th style="text-align: left;">crictl</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>List Containers</strong></td>
+<td style="text-align: left;"><code>docker ps</code></td>
+<td style="text-align: left;"><code>crictl ps</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>List Images</strong></td>
+<td style="text-align: left;"><code>docker images</code></td>
+<td style="text-align: left;"><code>crictl images</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Logs</strong></td>
+<td style="text-align: left;"><code>docker logs</code></td>
+<td style="text-align: left;"><code>crictl logs</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Exec</strong></td>
+<td style="text-align: left;"><code>docker exec</code></td>
+<td style="text-align: left;"><code>crictl exec</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pod Awareness</strong></td>
+<td style="text-align: left;">❌ None</td>
+<td style="text-align: left;">✅ <code>crictl pods</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Namespace</strong></td>
+<td style="text-align: left;">Host Only</td>
+<td style="text-align: left;">CRI Runtime Namespace</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-cka-debugging-scenario">🧪 4. CKA Debugging Scenario</h2>
+<p><strong>Scenario</strong>: A student reports that the API Server static pod is crashing, but <code>kubectl</code> is completely unresponsive because the API is down.</p>
+<p><strong>Steps to troubleshoot on the Master Node:</strong>
+1.  <strong>SSH</strong> into the master node.
+2.  <strong>List all containers</strong> to find the API server:
+    <div class="highlight"><pre><span></span><code>crictl<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kube-apiserver
+</code></pre></div>
+3.  <strong>Get the logs</strong> of the crashed container:
+    <div class="highlight"><pre><span></span><code>crictl<span class="w"> </span>logs<span class="w"> </span>&lt;container-id&gt;
+</code></pre></div>
+4.  <strong>Identify the error</strong> (e.g., "invalid certificate path" or "cannot connect to etcd").
+5.  <strong>Fix the manifest</strong> at <code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>.
+6.  <strong>Verify</strong> the container restarts:
+    <div class="highlight"><pre><span></span><code>watch<span class="w"> </span>crictl<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kube-apiserver
+</code></pre></div></p>
+<hr />
+<blockquote>
+<p>[!TIP]
+<strong>Helper for the Exam</strong>: If <code>crictl</code> is not configured on the exam server, they might expect you to use <code>crictl --runtime-endpoint unix:///run/containerd/containerd.sock ps</code>. Always check the <code>/etc/crictl.yaml</code> first!</p>
+</blockquote>
 
 
 
