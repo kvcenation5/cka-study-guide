@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../service-types/">
+        <link rel="prev" href="../api-groups-overview/">
       
       
-        <link rel="next" href="../annotations/">
+        <link rel="next" href="../kube-proxy-vs-kubectl-proxy/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Labels and Selectors - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Namespaced vs Cluster-Scoped - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#labels-and-selectors" class="md-skip">
+        <a href="#namespaced-vs-cluster-scoped-resources" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Labels and Selectors
+              Namespaced vs Cluster-Scoped
             
           </span>
         </div>
@@ -245,12 +245,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../yaml-guide/" class="md-tabs__link">
           
   
@@ -287,10 +285,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -552,31 +552,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -640,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -668,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -696,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -721,37 +716,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Labels and Selectors
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -767,154 +735,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#labels-the-metadata-tags" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏷️ Labels: The metadata "Tags"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏷️ Labels: The metadata &#34;Tags&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#metadata-vs-labels" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metadata vs. Labels
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-pod-with-labels" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example Pod with Labels
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#selectors-the-queries" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 Selectors: The "Queries"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 Selectors: The &#34;Queries&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-equality-based-selectors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Equality-based Selectors
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-set-based-selectors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Set-based Selectors
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-match-making-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ The Match-Making Process
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ The Match-Making Process">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-match-rule" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The "Match" Rule
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cli-power-user-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⌨️ CLI Power User Commands
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cka-tips-best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ CKA Tips &amp; Best Practices
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -927,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -955,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -983,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -1011,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -1039,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -1067,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -1095,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -1123,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1157,20 +977,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1206,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1234,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1262,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1290,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1318,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1346,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1374,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1402,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1438,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1613,26 +1430,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -1650,7 +1472,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1696,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../component-management/" class="md-nav__link">
         
   
   
@@ -1724,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../admission-controllers/" class="md-nav__link">
         
   
   
@@ -1752,7 +1574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1780,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1808,7 +1630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1836,7 +1658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1864,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1889,10 +1711,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespaced vs Cluster-Scoped
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1908,6 +1757,137 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-concept-virtual-vs-global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. Concept: Virtual vs. Global
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. Concept: Virtual vs. Global">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#namespaced-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespaced Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-scoped-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster-Scoped Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-to-discover-resource-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 2. How to discover resource scope
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 2. How to discover resource scope">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-all-namespaced-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List all Namespaced Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-cluster-scoped-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List all Cluster-Scoped Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-common-resource-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 3. Common Resource Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-this-matters-for-rbac-role-vs-clusterrole" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ 4. Why this matters for RBAC (Role vs ClusterRole)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-testing-scope-in-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 5. Testing Scope in the CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1920,7 +1900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -3251,22 +3231,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#labels-the-metadata-tags" class="md-nav__link">
+  <a href="#1-concept-virtual-vs-global" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏷️ Labels: The metadata "Tags"
+        🏗️ 1. Concept: Virtual vs. Global
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏷️ Labels: The metadata &#34;Tags&#34;">
+    <nav class="md-nav" aria-label="🏗️ 1. Concept: Virtual vs. Global">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#metadata-vs-labels" class="md-nav__link">
+  <a href="#namespaced-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Metadata vs. Labels
+        Namespaced Resources
       
     </span>
   </a>
@@ -3274,10 +3254,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#example-pod-with-labels" class="md-nav__link">
+  <a href="#cluster-scoped-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example Pod with Labels
+        Cluster-Scoped Resources
       
     </span>
   </a>
@@ -3290,22 +3270,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#selectors-the-queries" class="md-nav__link">
+  <a href="#2-how-to-discover-resource-scope" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 Selectors: The "Queries"
+        🔍 2. How to discover resource scope
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔍 Selectors: The &#34;Queries&#34;">
+    <nav class="md-nav" aria-label="🔍 2. How to discover resource scope">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-equality-based-selectors" class="md-nav__link">
+  <a href="#list-all-namespaced-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Equality-based Selectors
+        List all Namespaced Resources
       
     </span>
   </a>
@@ -3313,10 +3293,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-set-based-selectors" class="md-nav__link">
+  <a href="#list-all-cluster-scoped-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Set-based Selectors
+        List all Cluster-Scoped Resources
       
     </span>
   </a>
@@ -3329,38 +3309,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-match-making-process" class="md-nav__link">
+  <a href="#3-common-resource-comparison" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ The Match-Making Process
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ The Match-Making Process">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-match-rule" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The "Match" Rule
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cli-power-user-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⌨️ CLI Power User Commands
+        📊 3. Common Resource Comparison
       
     </span>
   </a>
@@ -3368,10 +3320,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cka-tips-best-practices" class="md-nav__link">
+  <a href="#4-why-this-matters-for-rbac-role-vs-clusterrole" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ CKA Tips &amp; Best Practices
+        🛡️ 4. Why this matters for RBAC (Role vs ClusterRole)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-testing-scope-in-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 5. Testing Scope in the CLI
       
     </span>
   </a>
@@ -3395,101 +3358,87 @@
 
 
 
-<h1 id="labels-and-selectors">Labels and Selectors</h1>
-<p>Labels and Selectors are the "glue" that holds Kubernetes together. They provide a sophisticated filtering mechanism that allows resources to find and manage each other without relying on unstable identifiers like IP addresses or Pod names.</p>
-<p>In the ephemeral world of Kubernetes, where Pods are created and destroyed constantly, <strong>labels are the only way to maintain a stable relationship between components.</strong></p>
+<h1 id="namespaced-vs-cluster-scoped-resources">Namespaced vs. Cluster-Scoped Resources</h1>
+<p>In Kubernetes, resources sit at two different levels of the hierarchy: <strong>Namespaced</strong> or <strong>Cluster-Scoped</strong>. Understanding this distinction is the key to mastering RBAC and resource management.</p>
 <hr />
-<h2 id="labels-the-metadata-tags">🏷️ Labels: The metadata "Tags"</h2>
-<p>Labels are simple key-value pairs that are attached to objects, such as Pods. They are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users.</p>
-<h3 id="metadata-vs-labels">Metadata vs. Labels</h3>
-<ul>
-<li><strong>Labels</strong>: Used for identifying and grouping resources (e.g., <code>env=prod</code>, <code>tier=frontend</code>).</li>
-<li><strong>Annotations</strong>: Used for non-identifying metadata (e.g., build timestamps, git commit hashes, contact info). Annotations <strong>cannot</strong> be used for selection.</li>
-</ul>
-<h3 id="example-pod-with-labels">Example Pod with Labels</h3>
-<div class="highlight"><pre><span></span><code><span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-server</span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend</span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
+<h2 id="1-concept-virtual-vs-global">🏗️ 1. Concept: Virtual vs. Global</h2>
+<h3 id="namespaced-resources">Namespaced Resources</h3>
+<p>These resources live inside a <strong>Namespace</strong> (a virtual cluster). They are isolated from other namespaces. 
+*   <strong>Isolation</strong>: A pod in namespace <code>A</code> is completely separate from a pod in namespace <code>B</code>.
+*   <strong>Deletion</strong>: If you delete a namespace, all namespaced resources inside it are deleted.
+*   <strong>RBAC</strong>: Managed by <code>Roles</code> and <code>RoleBindings</code>.</p>
+<h3 id="cluster-scoped-resources">Cluster-Scoped Resources</h3>
+<p>These resources are <strong>global</strong> to the entire cluster. They sit "above" namespaces.
+*   <strong>Scope</strong>: They are visible and shared across the whole cluster.
+*   <strong>RBAC</strong>: Managed by <code>ClusterRoles</code> and <code>ClusterRoleBindings</code>.</p>
+<hr />
+<h2 id="2-how-to-discover-resource-scope">🔍 2. How to discover resource scope</h2>
+<p>The most important tool for the CKA exam is <code>kubectl api-resources</code>. Use the <code>--namespaced</code> flag to filter the list.</p>
+<h3 id="list-all-namespaced-resources">List all Namespaced Resources</h3>
+<p>Use this when you want to see what can be managed with a regular <strong>Role</strong>.
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>api-resources<span class="w"> </span>--namespaced<span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
-<hr />
-<h2 id="selectors-the-queries">🔍 Selectors: The "Queries"</h2>
-<p>A Label Selector is a grouped expression that filters resources based on their labels. It is the core mechanism used by Controllers (Deployments, ReplicaSets) and Services to target specific groups of Pods.</p>
-<h3 id="1-equality-based-selectors">1. Equality-based Selectors</h3>
-<p>These use simple <code>=</code>, <code>==</code>, or <code>!=</code> operators.
-- <code>env=prod</code>: Find resources where the label <code>env</code> is <code>prod</code>.
-- <code>tier!=frontend</code>: Find resources where the label <code>tier</code> is NOT <code>frontend</code>.</p>
-<h3 id="2-set-based-selectors">2. Set-based Selectors</h3>
-<p>These allow filtering based on a set of values.
-- <code>env in (prod, dev)</code>: Find resources where <code>env</code> is either <code>prod</code> or <code>dev</code>.
-- <code>tier notin (frontend, backend)</code>: Find resources where <code>tier</code> is neither.
-- <code>partition</code>: Find resources that simply <strong>have</strong> the label <code>partition</code> defined (regardless of value).</p>
-<hr />
-<h2 id="the-match-making-process">🏗️ The Match-Making Process</h2>
-<p>In most high-level objects like <strong>Deployments</strong> and <strong>Services</strong>, labels appear in two distinct places for specific reasons.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span><span class="w">           </span><span class="c1"># 1. THE SELECTOR (The Search Query)</span>
-<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span><span class="w">         </span><span class="c1"># 2. THE POD LABELS (The Tag applied to new Pods)</span>
+<em>Common results: Pods, Services, Deployments, ConfigMaps, Secrets, PVCs.</em></p>
+<h3 id="list-all-cluster-scoped-resources">List all Cluster-Scoped Resources</h3>
+<p>Use this when you want to see what requires a <strong>ClusterRole</strong>.
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>api-resources<span class="w"> </span>--namespaced<span class="o">=</span><span class="nb">false</span>
 </code></pre></div>
-<h3 id="the-match-rule">The "Match" Rule</h3>
-<p>The values in <code>spec.selector.matchLabels</code> <strong>MUST</strong> be present in the <code>spec.template.metadata.labels</code> of the Pods created. If they don't match, the Deployment controller will never "see" the Pods it just created and will keep trying to create more (infinite loop).</p>
+<em>Common results: Nodes, PersistentVolumes, Namespaces, StorageClasses.</em></p>
 <hr />
-<h2 id="cli-power-user-commands">⌨️ CLI Power User Commands</h2>
-<p>The CKA exam requires speed. Master these <code>kubectl</code> flag combinations:</p>
+<h2 id="3-common-resource-comparison">📊 3. Common Resource Comparison</h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Goal</th>
-<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Namespaced (The "Inside" Stuff)</th>
+<th style="text-align: left;">Cluster-Scoped (The "Infrastructure")</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Visible Check</strong></td>
-<td style="text-align: left;"><code>kubectl get pods --show-labels</code></td>
+<td style="text-align: left;"><strong>Pods</strong></td>
+<td style="text-align: left;"><strong>Nodes</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Simple Filter</strong></td>
-<td style="text-align: left;"><code>kubectl get pods -l app=nginx</code></td>
+<td style="text-align: left;"><strong>Deployments / StatefulSets</strong></td>
+<td style="text-align: left;"><strong>PersistentVolumes (PV)</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>AND Logic</strong></td>
-<td style="text-align: left;"><code>kubectl get pods -l app=nginx,env=prod</code></td>
+<td style="text-align: left;"><strong>Services / Ingresses</strong></td>
+<td style="text-align: left;"><strong>StorageClasses</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>NOT Logic</strong></td>
-<td style="text-align: left;"><code>kubectl get pods -l 'env!=prod'</code></td>
+<td style="text-align: left;"><strong>ConfigMaps / Secrets</strong></td>
+<td style="text-align: left;"><strong>Namespaces</strong> (Yes, namespaces are global!)</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Column View</strong></td>
-<td style="text-align: left;"><code>kubectl get pods -L environment,tier</code> (Shows values as columns)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Bulk Labeling</strong></td>
-<td style="text-align: left;"><code>kubectl label pods -l app=nginx version=v1</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Remove Label</strong></td>
-<td style="text-align: left;"><code>kubectl label pods my-pod version-</code> (Suffix with a dash)</td>
+<td style="text-align: left;"><strong>PersistentVolumeClaims (PVC)</strong></td>
+<td style="text-align: left;"><strong>CustomResourceDefinitions (CRD)</strong></td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="cka-tips-best-practices">✅ CKA Tips &amp; Best Practices</h2>
+<h2 id="4-why-this-matters-for-rbac-role-vs-clusterrole">🛡️ 4. Why this matters for RBAC (Role vs ClusterRole)</h2>
+<p>The scope of the resource dictates which RBAC object you <strong>must</strong> use:</p>
 <ol>
-<li><strong>Stable Services</strong>: Services use selectors to find Pods to send traffic to. If you manually change a Pod's label so it no longer matches the Service selector, that Pod is effectively "removed from rotation" (useful for debugging).</li>
-<li><strong>Deployment Updates</strong>: You cannot change the <code>.spec.selector</code> of an existing Deployment. You must delete the Deployment and recreate it if you need to change the selector.</li>
-<li><strong>Namespace Selectors</strong>: NetworkPolicies often use <code>namespaceSelector</code> combined with <code>podSelector</code>. Ensure your Namespaces have the labels you are trying to select!</li>
+<li><strong>If the resource is Namespaced</strong>: You can use either a <code>Role</code> (local access) or a <code>ClusterRole</code> (global access).</li>
+<li><strong>If the resource is Cluster-Scoped</strong>: You <strong>MUST</strong> use a <code>ClusterRole</code>. A regular <code>Role</code> cannot grant permissions to Nodes or PVs because those resources don't belong to any namespace.</li>
 </ol>
+<hr />
+<h2 id="5-testing-scope-in-the-cli">🧪 5. Testing Scope in the CLI</h2>
+<p>If you aren't sure if a resource is namespaced, try running <code>get</code> without a namespace and then with one:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Nodes don&#39;t have namespaces (Cluster-scoped)</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-n<span class="w"> </span>default<span class="w"> </span>
+<span class="c1"># Result: Still shows all nodes, as the namespace flag is ignored.</span>
+
+<span class="c1"># Pods are namespaced</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>default
+<span class="c1"># Result: Shows only pods in &#39;default&#39;.</span>
+</code></pre></div>
+<hr />
+<blockquote>
+<p>[!TIP]
+<strong>CKA Strategy</strong>: If a question asks you to "List all resources that are NOT namespaced," the answer is exactly the output of <code>kubectl api-resources --namespaced=false</code>.</p>
+</blockquote>
 
 
 
