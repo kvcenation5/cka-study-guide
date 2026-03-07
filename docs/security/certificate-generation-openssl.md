@@ -160,3 +160,23 @@ openssl rsa -noout -modulus -in server.key | openssl md5
 > [!IMPORTANT]
 > **Which is the "Admin Key"?**
 > When people talk about the "Admin Key", they usually mean the **`ca.key`**. If you lose this, you can no longer sign new certificates or rotate existing ones. Keep it secure and offline if possible!
+
+---
+
+## 🚩 6. API Server Flags: Which CA goes where?
+
+When configuring the `kube-apiserver` static pod, you will see multiple CA flags. This is a common source of confusion in the CKA exam.
+
+### `.pem` vs `.crt`?
+In Kubernetes, these are **the same**. They are both PEM-encoded Base64 files. You can use whichever extension you prefer, as long as the content matches your generated CA.
+
+| Flag | Purpose | Usually points to... |
+| :--- | :--- | :--- |
+| **`--client-ca-file`** | Verifies **Clients** (You, Scheduler, Nodes) | `/etc/kubernetes/pki/ca.crt` |
+| **`--etcd-ca-file`** | Verifies the **Etcd Server's identity** | `/etc/kubernetes/pki/etcd/ca.crt` |
+| **`--kubelet-client-certificate`** | Used by API Server to **prove its identity** to Kubelets | `/etc/kubernetes/pki/apiserver-kubelet-client.crt` |
+
+---
+
+> [!CAUTION]
+> **Common Exam Failure**: If you point the `--etcd-ca-file` to your main Cluster CA, but Etcd was signed by a separate Etcd CA, the API server will crash because it cannot trust the database!
