@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../node-affinity/">
+        <link rel="prev" href="../rbac-authorization/">
       
       
-        <link rel="next" href="../priority-classes/">
+        <link rel="next" href="../authorization-mechanisms/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Taints vs Affinity (Comparison) - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Practical RBAC Examples - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#taints-tolerations-vs-node-affinity" class="md-skip">
+        <a href="#practical-rbac-lab-examples-yamls" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Taints vs Affinity (Comparison)
+              Practical RBAC Examples
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -245,13 +245,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../yaml-guide/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -271,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -291,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -309,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -330,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -350,7 +348,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../storage/storage-deep-dive/" class="md-tabs__link">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -388,7 +388,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../security-focus/" class="md-tabs__link">
+      <a href="../../security-focus/" class="md-tabs__link">
         
   
   
@@ -409,7 +409,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -429,7 +429,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -449,7 +449,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -483,7 +483,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -501,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -528,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -552,31 +552,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -612,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -640,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -668,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -696,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -724,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -752,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -780,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -808,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -836,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -864,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -892,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -920,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -948,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -973,31 +968,26 @@
                 
   
   
-    
   
   
-  
     
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1015,7 +1005,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_14">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1033,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1061,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1089,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1117,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1142,37 +1132,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Taints vs Affinity (Comparison)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1188,137 +1151,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-core-logic-the-push-vs-pull" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Core Logic: The "Push" vs. "Pull"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Core Logic: The &#34;Push&#34; vs. &#34;Pull&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#taints-tolerations-the-push" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Taints &amp; Tolerations (The "Push")
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#node-affinity-the-pull" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Node Affinity (The "Pull")
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-practical-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Practical Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Practical Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-a-dedicated-gpu-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario A: Dedicated GPU Node
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-b-spreading-pods-across-zones" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario B: Spreading Pods across Zones
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-pros-and-cons" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Pros and Cons
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-when-to-use-both-the-dedicated-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. When to use BOTH? (The "Dedicated Node")
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-which-is-most-important" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Which is Most Important?
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1331,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1359,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1387,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1423,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1510,7 +1342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1538,7 +1370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1566,7 +1398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1653,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1681,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1709,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1737,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1765,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1793,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1821,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1849,7 +1681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1877,7 +1709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1912,7 +1744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1991,7 +1823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -2019,7 +1851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -2106,7 +1938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2134,7 +1966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2162,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2190,7 +2022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2218,7 +2050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2246,7 +2078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2278,26 +2110,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2315,7 +2152,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2333,7 +2170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2361,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2389,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2417,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/tls-certificates/" class="md-nav__link">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2445,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2473,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/certificate-api-management/" class="md-nav__link">
+      <a href="../certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2501,7 +2338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2529,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/rbac-authorization/" class="md-nav__link">
+      <a href="../rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2554,10 +2391,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../security/rbac-practical-examples/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practical RBAC Examples
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2573,6 +2437,154 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-1-developing-in-a-namespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Scenario 1: Developing in a Namespace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Scenario 1: Developing in a Namespace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1a-create-the-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1a. Create the Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1b-create-the-rolebinding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1b. Create the RoleBinding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-2-cluster-wide-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Scenario 2: Cluster-Wide Monitoring
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Scenario 2: Cluster-Wide Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2a-create-the-clusterrole" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2a. Create the ClusterRole
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2b-create-the-clusterrolebinding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2b. Create the ClusterRoleBinding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-3-secret-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📂 Scenario 3: Secret Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📂 Scenario 3: Secret Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3a-the-support-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3a. The Support Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-cka-check-your-work-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 4. The CKA "Check-Your-Work" Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imperative-shortcut-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Imperative Shortcut Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2585,7 +2597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2613,7 +2625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/abac-authorization/" class="md-nav__link">
+      <a href="../abac-authorization/" class="md-nav__link">
         
   
   
@@ -2641,7 +2653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -2669,7 +2681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -2697,7 +2709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -2732,7 +2744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security-focus/" class="md-nav__link">
+      <a href="../../security-focus/" class="md-nav__link">
         
   
   
@@ -2811,7 +2823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -2898,7 +2910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -2926,7 +2938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -2954,7 +2966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -3041,7 +3053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -3069,7 +3081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting/crictl-guide/" class="md-nav__link">
+      <a href="../../troubleshooting/crictl-guide/" class="md-nav__link">
         
   
   
@@ -3124,22 +3136,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-core-logic-the-push-vs-pull" class="md-nav__link">
+  <a href="#scenario-1-developing-in-a-namespace" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Core Logic: The "Push" vs. "Pull"
+        🛠️ Scenario 1: Developing in a Namespace
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Core Logic: The &#34;Push&#34; vs. &#34;Pull&#34;">
+    <nav class="md-nav" aria-label="🛠️ Scenario 1: Developing in a Namespace">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#taints-tolerations-the-push" class="md-nav__link">
+  <a href="#1a-create-the-role" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Taints &amp; Tolerations (The "Push")
+        1a. Create the Role
       
     </span>
   </a>
@@ -3147,10 +3159,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#node-affinity-the-pull" class="md-nav__link">
+  <a href="#1b-create-the-rolebinding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Node Affinity (The "Pull")
+        1b. Create the RoleBinding
       
     </span>
   </a>
@@ -3163,22 +3175,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-practical-examples" class="md-nav__link">
+  <a href="#scenario-2-cluster-wide-monitoring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Practical Examples
+        🏗️ Scenario 2: Cluster-Wide Monitoring
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Practical Examples">
+    <nav class="md-nav" aria-label="🏗️ Scenario 2: Cluster-Wide Monitoring">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scenario-a-dedicated-gpu-node" class="md-nav__link">
+  <a href="#2a-create-the-clusterrole" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario A: Dedicated GPU Node
+        2a. Create the ClusterRole
       
     </span>
   </a>
@@ -3186,10 +3198,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#scenario-b-spreading-pods-across-zones" class="md-nav__link">
+  <a href="#2b-create-the-clusterrolebinding" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario B: Spreading Pods across Zones
+        2b. Create the ClusterRoleBinding
       
     </span>
   </a>
@@ -3202,10 +3214,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-pros-and-cons" class="md-nav__link">
+  <a href="#scenario-3-secret-security" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Pros and Cons
+        📂 Scenario 3: Secret Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📂 Scenario 3: Secret Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3a-the-support-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3a. The Support Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-cka-check-your-work-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 4. The CKA "Check-Your-Work" Workflow
       
     </span>
   </a>
@@ -3213,21 +3253,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-when-to-use-both-the-dedicated-node" class="md-nav__link">
+  <a href="#imperative-shortcut-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. When to use BOTH? (The "Dedicated Node")
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-which-is-most-important" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Which is Most Important?
+        ⚡ Imperative Shortcut Table
       
     </span>
   </a>
@@ -3251,87 +3280,135 @@
 
 
 
-<h1 id="taints-tolerations-vs-node-affinity">Taints &amp; Tolerations vs. Node Affinity</h1>
-<p>In Kubernetes scheduling, these are the two main ways to control where Pods land. The easiest way to remember the difference is the <strong>"Push vs. Pull"</strong> concept.</p>
+<h1 id="practical-rbac-lab-examples-yamls">Practical RBAC: Lab Examples &amp; YAMLs</h1>
+<p>This guide provides hands-on, CKA-style examples for <strong>Role-Based Access Control</strong>. We will cover practical scenarios you are likely to encounter in the exam and real-world administration.</p>
 <hr />
-<h2 id="1-core-logic-the-push-vs-pull">1. Core Logic: The "Push" vs. "Pull"</h2>
-<h3 id="taints-tolerations-the-push">Taints &amp; Tolerations (The "Push")</h3>
-<ul>
-<li><strong>Concept</strong>: Nodes use Taints to <strong>repel</strong> Pods.</li>
-<li><strong>Analogy</strong>: A "No Entry" sign on a door. Only people with a specific key (Toleration) can enter.</li>
-<li><strong>Primary Goal</strong>: To prevent certain Pods from landing on certain Nodes.</li>
-</ul>
-<h3 id="node-affinity-the-pull">Node Affinity (The "Pull")</h3>
-<ul>
-<li><strong>Concept</strong>: Pods use Affinity to be <strong>attracted</strong> to Nodes.</li>
-<li><strong>Analogy</strong>: A "Wanted" poster. The Pod is looking for a node that matches its requirements.</li>
-<li><strong>Primary Goal</strong>: To force or prefer certain Pods to land on specific Nodes.</li>
-</ul>
+<h2 id="scenario-1-developing-in-a-namespace">🛠️ Scenario 1: Developing in a Namespace</h2>
+<p><strong>Goal</strong>: Allow a developer named <code>martin</code> to manage Pods and Deployments in the <code>development</code> namespace, but nothing else.</p>
+<h3 id="1a-create-the-role">1a. Create the Role</h3>
+<p>Notice the <code>apiGroups</code>. <code>pods</code> are in <code>""</code> (core), while <code>deployments</code> are in <code>"apps"</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">development</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-manager</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;services&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">]</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;apps&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;deployments&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="1b-create-the-rolebinding">1b. Create the RoleBinding</h3>
+<p>This links the user <code>martin</code> to the <code>dev-manager</code> role inside the <code>development</code> namespace.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">martin-dev-binding</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">development</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">martin</span>
+<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-manager</span>
+<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
 <hr />
-<h2 id="2-practical-examples">2. Practical Examples</h2>
-<h3 id="scenario-a-dedicated-gpu-node">Scenario A: Dedicated GPU Node</h3>
-<p>You have a node with a expensive GPU. You don't want "regular" web apps wasting its resources.
-*   <strong>Taint the Node</strong>: <code>gpu=true:NoSchedule</code>
-*   <strong>Effect</strong>: Every normal Pod in your cluster is now "pushed" away from this node.
-*   <strong>Add Toleration</strong>: Only your AI/ML Pods get the <code>gpu=true</code> toleration, so they are the only ones allowed in.</p>
-<h3 id="scenario-b-spreading-pods-across-zones">Scenario B: Spreading Pods across Zones</h3>
-<p>You want your app to run in the <code>us-east-1</code> zone for low latency.
-*   <strong>Node Affinity</strong>: <code>requiredDuringScheduling...</code> with <code>zone in [us-east-1]</code>.
-*   <strong>Effect</strong>: The Pod "pulls" itself toward nodes in that zone.</p>
+<h2 id="scenario-2-cluster-wide-monitoring">🏗️ Scenario 2: Cluster-Wide Monitoring</h2>
+<p><strong>Goal</strong>: Create a service account for a Prometheus-like tool that needs to "list" every Pod in <strong>every namespace</strong>.</p>
+<h3 id="2a-create-the-clusterrole">2a. Create the ClusterRole</h3>
+<p>Since we want this to apply to all namespaces, we use a <code>ClusterRole</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">global-viewer</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;nodes&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;namespaces&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="2b-create-the-clusterrolebinding">2b. Create the ClusterRoleBinding</h3>
+<p>We bind this to a <strong>ServiceAccount</strong> instead of a human user.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitor-global-binding</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring-sa</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span><span class="w"> </span><span class="c1"># The namespace where the SA lives</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">global-viewer</span>
+<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
 <hr />
-<h2 id="3-pros-and-cons">3. Pros and Cons</h2>
+<h2 id="scenario-3-secret-security">📂 Scenario 3: Secret Security</h2>
+<p><strong>Goal</strong>: Allow a specific support user to read <code>logs</code> of pods but <strong>strictly prohibit</strong> them from reading <code>secrets</code>.</p>
+<h3 id="3a-the-support-role">3a. The Support Role</h3>
+<p><div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">support-logs</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;pods/log&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<em>Note: In Kubernetes RBAC, everything is </em><em>denied by default</em><em>. Since we didn't include <code>secrets</code> in the list, the user is automatically prohibited from reading them.</em></p>
+<hr />
+<h2 id="4-the-cka-check-your-work-workflow">🧪 4. The CKA "Check-Your-Work" Workflow</h2>
+<p>In the exam, after creating these files, use the <code>auth can-i</code> tool to verify. This is the difference between a pass and a fail.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Check if Martin can create a deployment in development</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>deployments<span class="w"> </span>--as<span class="w"> </span>martin<span class="w"> </span>-n<span class="w"> </span>development
+<span class="c1"># Expected: yes</span>
+
+<span class="c1"># 2. Check if Martin can create a pod in the &#39;default&#39; namespace</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>pods<span class="w"> </span>--as<span class="w"> </span>martin<span class="w"> </span>-n<span class="w"> </span>default
+<span class="c1"># Expected: no (RoleBindings are namespace-scoped)</span>
+
+<span class="c1"># 3. Check if the monitoring SA can see nodes</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>list<span class="w"> </span>nodes<span class="w"> </span>--as<span class="w"> </span>system:serviceaccount:monitoring:monitoring-sa
+<span class="c1"># Expected: yes</span>
+</code></pre></div>
+<hr />
+<h2 id="imperative-shortcut-table">⚡ Imperative Shortcut Table</h2>
+<p>If you are short on time (under 5 minutes left), use these commands instead of writing YAML:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Taints &amp; Tolerations</th>
-<th style="text-align: left;">Node Affinity</th>
+<th style="text-align: left;">Task</th>
+<th style="text-align: left;">Command</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Logic</strong></td>
-<td style="text-align: left;">Exclusive (Keep others out)</td>
-<td style="text-align: left;">Inclusive (Get me in)</td>
+<td style="text-align: left;"><strong>Role</strong></td>
+<td style="text-align: left;"><code>kubectl create role &lt;name&gt; --verb=get,list --resource=pods -n &lt;ns&gt;</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Strength</strong></td>
-<td style="text-align: left;"><strong>Guaranteed Exclusion.</strong> Non-tolerating pods will NEVER land here.</td>
-<td style="text-align: left;"><strong>Flexible.</strong> Can be Hard (Required) or Soft (Preferred).</td>
+<td style="text-align: left;"><strong>ClusterRole</strong></td>
+<td style="text-align: left;"><code>kubectl create clusterrole &lt;name&gt; --verb=get --resource=nodes</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Complexity</strong></td>
-<td style="text-align: left;">Simple key/value/effect.</td>
-<td style="text-align: left;">Complex expressions (In, NotIn, Exists).</td>
+<td style="text-align: left;"><strong>RoleBinding</strong></td>
+<td style="text-align: left;"><code>kubectl create rolebinding &lt;name&gt; --role=&lt;role&gt; --user=&lt;user&gt; -n &lt;ns&gt;</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Con</strong></td>
-<td style="text-align: left;">It only <em>allows</em> a pod to enter; it doesn't <em>force</em> it to go there.</td>
-<td style="text-align: left;">It doesn't stop <em>other</em> pods from landing on your node if they have no preference.</td>
+<td style="text-align: left;"><strong>Binding to SA</strong></td>
+<td style="text-align: left;"><code>kubectl create rolebinding &lt;name&gt; --role=&lt;role&gt; --serviceaccount=&lt;ns&gt;:&lt;sa&gt;</code></td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="4-when-to-use-both-the-dedicated-node">4. When to use BOTH? (The "Dedicated Node")</h2>
-<p>If you want a node to be <strong>EXCLUSIVELY</strong> for a specific team (e.g., The "Finance" team), one tool is not enough.</p>
-<ol>
-<li><strong>If you only use Taints</strong>: Other pods stay out (Good), but the Finance pods might accidentally land on a "General" node because they are <em>allowed</em> everywhere else (Bad).</li>
-<li><strong>If you only use Affinity</strong>: Finance pods land on the Finance node (Good), but General pods might also land on the Finance node because they don't have any restrictions (Bad).</li>
-</ol>
-<p><strong>The Solution: Use Both!</strong>
-*   <strong>Taint the Node</strong>: Keeps everyone else out.
-*   <strong>Toleration on Pod</strong>: Allows the Finance pod to enter.
-*   <strong>Affinity on Pod</strong>: Forces the Finance pod to choose that node specifically.</p>
-<hr />
-<h2 id="5-which-is-most-important">5. Which is Most Important?</h2>
-<ul>
-<li><strong>Node Affinity</strong> is the <strong>most important</strong> for application developers. It ensures high availability and correct resource placement.</li>
-<li><strong>Taints &amp; Tolerations</strong> are <strong>most important</strong> for Cluster Administrators. It's used to "reserve" master nodes, handle hardware maintenance (drain), and manage specialized hardware.</li>
-</ul>
-<p><strong>Summary for CKA:</strong>
-*   Use <strong>Taints</strong> to "Lock" a node.
-*   Use <strong>Affinity</strong> to "Direct" a pod.
-*   Use <strong>Both</strong> to "Dedicate" a node.</p>
+<blockquote>
+<p>[!TIP]
+<strong>Exam Strategy</strong>: Always double-check the <code>apiGroups</code>. If you use <code>apiVersion: rbac.authorization.k8s.io/v1</code>, the <code>apiGroups</code> field in the rule is almost always <code>[""]</code> for core objects or <code>["apps"]</code> for workloads. Avoid leaving it blank (<code>[]</code>) as that often results in a "no permissions" error.</p>
+</blockquote>
 
 
 
@@ -3382,10 +3459,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
