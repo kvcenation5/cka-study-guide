@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#certificate-generation-with-openssl" class="md-skip">
+        <a href="#manual-certificate-management-the-production-way" class="md-skip">
           Skip to content
         </a>
       
@@ -2286,44 +2286,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-root-certificate-authority-ca" class="md-nav__link">
+  <a href="#1-the-core-infrastructure-root-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Root Certificate Authority (CA)
+        🏛️ 1. The Core Infrastructure: Root CA
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. The Root Certificate Authority (CA)">
+    <nav class="md-nav" aria-label="🏛️ 1. The Core Infrastructure: Root CA">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-generate-private-key" class="md-nav__link">
+  <a href="#step-by-step-generation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Generate Private Key
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-generate-csr-certificate-signing-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Generate CSR (Certificate Signing Request)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-self-sign-the-ca" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Self-Sign the CA
+        Step-by-Step Generation:
       
     </span>
   </a>
@@ -2336,22 +2314,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-admin-user-certificate" class="md-nav__link">
+  <a href="#2-the-standard-workflow-for-components" class="md-nav__link">
     <span class="md-ellipsis">
       
-        👤 2. Admin User Certificate
+        🔁 2. The Standard Workflow for Components
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="👤 2. Admin User Certificate">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-step-by-step-component-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👤 3. Step-by-Step Component Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👤 3. Step-by-Step Component Setup">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-generate-key-csr" class="md-nav__link">
+  <a href="#a-admin-user-the-cluster-admin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Generate Key &amp; CSR
+        A. Admin User (The Cluster Admin)
       
     </span>
   </a>
@@ -2359,10 +2348,65 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-sign-with-ca" class="md-nav__link">
+  <a href="#b-kube-controller-manager" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Sign with CA
+        B. Kube-Controller-Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-kube-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Kube-Scheduler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-etcd-server-the-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Etcd Server (The Database)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-kubelet-worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E. Kubelet (Worker Nodes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F. Kube-Proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#g-kube-api-server-complex-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        G. Kube-API Server (Complex Setup)
       
     </span>
   </a>
@@ -2375,44 +2419,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-system-component-certificates" class="md-nav__link">
+  <a href="#4-how-the-connections-work-mtls" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚙️ 3. System Component Certificates
+        🔗 4. How the Connections Work (mTLS)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-api-server-certificate-the-san-case" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🖥️ 4. API Server Certificate (The "SAN" Case)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🖥️ 4. API Server Certificate (The &#34;SAN&#34; Case)">
+    <nav class="md-nav" aria-label="🔗 4. How the Connections Work (mTLS)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-create-an-openssl-config-file-opensslcnf" class="md-nav__link">
+  <a href="#client-vs-server-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Create an OpenSSL Config File (openssl.cnf)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-generate-sign" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Generate &amp; Sign
+        Client vs. Server Matrix
       
     </span>
   </a>
@@ -2425,22 +2447,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-kubelet-certificates" class="md-nav__link">
+  <a href="#5-verification-troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📦 5. Kubelet Certificates
+        🔍 5. Verification &amp; Troubleshooting
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📦 5. Kubelet Certificates">
+    <nav class="md-nav" aria-label="🔍 5. Verification &amp; Troubleshooting">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#client-cert-format" class="md-nav__link">
+  <a href="#how-to-verify-a-certificate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Client Cert Format
+        How to verify a certificate?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-check-if-a-cert-matches-a-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to check if a cert matches a key?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-unauthorized-or-bad-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting: "Unauthorized" or "Bad Certificate"
       
     </span>
   </a>
@@ -2449,17 +2493,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏁 Summary Checklist
-      
-    </span>
-  </a>
   
 </li>
       
@@ -2878,44 +2911,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-root-certificate-authority-ca" class="md-nav__link">
+  <a href="#1-the-core-infrastructure-root-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Root Certificate Authority (CA)
+        🏛️ 1. The Core Infrastructure: Root CA
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. The Root Certificate Authority (CA)">
+    <nav class="md-nav" aria-label="🏛️ 1. The Core Infrastructure: Root CA">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-generate-private-key" class="md-nav__link">
+  <a href="#step-by-step-generation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Generate Private Key
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-generate-csr-certificate-signing-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Generate CSR (Certificate Signing Request)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-self-sign-the-ca" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Self-Sign the CA
+        Step-by-Step Generation:
       
     </span>
   </a>
@@ -2928,22 +2939,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-admin-user-certificate" class="md-nav__link">
+  <a href="#2-the-standard-workflow-for-components" class="md-nav__link">
     <span class="md-ellipsis">
       
-        👤 2. Admin User Certificate
+        🔁 2. The Standard Workflow for Components
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="👤 2. Admin User Certificate">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-step-by-step-component-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👤 3. Step-by-Step Component Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👤 3. Step-by-Step Component Setup">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-generate-key-csr" class="md-nav__link">
+  <a href="#a-admin-user-the-cluster-admin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Generate Key &amp; CSR
+        A. Admin User (The Cluster Admin)
       
     </span>
   </a>
@@ -2951,10 +2973,65 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-sign-with-ca" class="md-nav__link">
+  <a href="#b-kube-controller-manager" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Sign with CA
+        B. Kube-Controller-Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-kube-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Kube-Scheduler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-etcd-server-the-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Etcd Server (The Database)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-kubelet-worker-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E. Kubelet (Worker Nodes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F. Kube-Proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#g-kube-api-server-complex-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        G. Kube-API Server (Complex Setup)
       
     </span>
   </a>
@@ -2967,44 +3044,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-system-component-certificates" class="md-nav__link">
+  <a href="#4-how-the-connections-work-mtls" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚙️ 3. System Component Certificates
+        🔗 4. How the Connections Work (mTLS)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-api-server-certificate-the-san-case" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🖥️ 4. API Server Certificate (The "SAN" Case)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🖥️ 4. API Server Certificate (The &#34;SAN&#34; Case)">
+    <nav class="md-nav" aria-label="🔗 4. How the Connections Work (mTLS)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-create-an-openssl-config-file-opensslcnf" class="md-nav__link">
+  <a href="#client-vs-server-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Create an OpenSSL Config File (openssl.cnf)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-generate-sign" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Generate &amp; Sign
+        Client vs. Server Matrix
       
     </span>
   </a>
@@ -3017,22 +3072,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-kubelet-certificates" class="md-nav__link">
+  <a href="#5-verification-troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📦 5. Kubelet Certificates
+        🔍 5. Verification &amp; Troubleshooting
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📦 5. Kubelet Certificates">
+    <nav class="md-nav" aria-label="🔍 5. Verification &amp; Troubleshooting">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#client-cert-format" class="md-nav__link">
+  <a href="#how-to-verify-a-certificate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Client Cert Format
+        How to verify a certificate?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-check-if-a-cert-matches-a-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to check if a cert matches a key?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-unauthorized-or-bad-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting: "Unauthorized" or "Bad Certificate"
       
     </span>
   </a>
@@ -3041,17 +3118,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏁 Summary Checklist
-      
-    </span>
-  </a>
   
 </li>
       
@@ -3072,153 +3138,183 @@
 
 
 
-<h1 id="certificate-generation-with-openssl">Certificate Generation with OpenSSL</h1>
-<p>In a production Kubernetes cluster, every component must communicate over a secure channel. This guide walks through the step-by-step process of generating certificates manually using <strong>OpenSSL</strong>, as described in the CKA curriculum.</p>
+<h1 id="manual-certificate-management-the-production-way">Manual Certificate Management (The Production Way)</h1>
+<p>This guide provides a comprehensive, step-by-step workflow for setting up all Kubernetes certificates from scratch using <strong>OpenSSL</strong>. This reflects how a new infrastructure team would set up a cluster manually (the "Hard Way").</p>
 <hr />
-<h2 id="1-the-root-certificate-authority-ca">🏗️ 1. The Root Certificate Authority (CA)</h2>
-<p>The CA is the root of trust for your entire cluster. Everything else is signed by this CA.</p>
-<h3 id="step-1-generate-private-key">Step 1: Generate Private Key</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>ca.key<span class="w"> </span><span class="m">2048</span>
-</code></pre></div>
-<h3 id="step-2-generate-csr-certificate-signing-request">Step 2: Generate CSR (Certificate Signing Request)</h3>
-<p>The <strong>Common Name (CN)</strong> for the CA is usually <code>KUBERNETES-CA</code>.
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>ca.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=KUBERNETES-CA&quot;</span><span class="w"> </span>-out<span class="w"> </span>ca.csr
-</code></pre></div></p>
-<h3 id="step-3-self-sign-the-ca">Step 3: Self-Sign the CA</h3>
-<p>Since this is the root, it signs itself.
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>ca.csr<span class="w"> </span>-signkey<span class="w"> </span>ca.key<span class="w"> </span>-out<span class="w"> </span>ca.crt
-</code></pre></div></p>
+<h2 id="1-the-core-infrastructure-root-ca">🏛️ 1. The Core Infrastructure: Root CA</h2>
+<p>The <strong>Root CA</strong> consists of two files: <code>ca.key</code> (the private master key) and <code>ca.crt</code> (the public trust certificate). <strong>All certificates in this guide are signed by this CA key.</strong></p>
+<h3 id="step-by-step-generation">Step-by-Step Generation:</h3>
+<ol>
+<li><strong>Generate Private Key</strong>: The "Admin Key" of the cluster's trust.
+    <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>ca.key<span class="w"> </span><span class="m">2048</span>
+</code></pre></div></li>
+<li><strong>Generate CSR</strong>:
+    <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>ca.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=Kubernetes CA&quot;</span><span class="w"> </span>-out<span class="w"> </span>ca.csr
+</code></pre></div></li>
+<li><strong>Self-Sign</strong>: Creates the <code>ca.crt</code> that every component needs to verify others.
+    <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>ca.csr<span class="w"> </span>-signkey<span class="w"> </span>ca.key<span class="w"> </span>-out<span class="w"> </span>ca.crt
+</code></pre></div></li>
+</ol>
 <hr />
-<h2 id="2-admin-user-certificate">👤 2. Admin User Certificate</h2>
-<p>The admin user needs administrative privileges. This is identified by the <strong>Group (OU)</strong> in the certificate.</p>
-<h3 id="step-1-generate-key-csr">Step 1: Generate Key &amp; CSR</h3>
+<h2 id="2-the-standard-workflow-for-components">🔁 2. The Standard Workflow for Components</h2>
+<p>For every component listed below (Admin, Scheduler, etc.), we follow the exact same <strong>3-Step Loop</strong>:
+1.  <strong>Create Private Key</strong>: <code>openssl genrsa -out &lt;name&gt;.key 2048</code>
+2.  <strong>Create CSR</strong>: <code>openssl req -new -key &lt;name&gt;.key -subj "/CN=&lt;...&gt;/O=&lt;...&gt;" -out &lt;name&gt;.csr</code>
+3.  <strong>Sign with Root CA</strong>: <code>openssl x509 -req -in &lt;name&gt;.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out &lt;name&gt;.crt</code></p>
+<hr />
+<h2 id="3-step-by-step-component-setup">👤 3. Step-by-Step Component Setup</h2>
+<h3 id="a-admin-user-the-cluster-admin">A. Admin User (The Cluster Admin)</h3>
 <ul>
-<li><strong>CN</strong>: <code>admin</code> (or <code>kube-admin</code>)</li>
-<li><strong>OU</strong>: <code>system:masters</code> (This is the "magic" group that K8s recognizes for cluster-admin access).
+<li><strong>Purpose</strong>: Full control via <code>kubectl</code>.</li>
+<li><strong>Naming</strong>: <code>CN=kube-admin</code>, <code>O=system:masters</code>.
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>admin.key<span class="w"> </span><span class="m">2048</span>
-openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>admin.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=admin/O=system:masters&quot;</span><span class="w"> </span>-out<span class="w"> </span>admin.csr
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>admin.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=kube-admin/O=system:masters&quot;</span><span class="w"> </span>-out<span class="w"> </span>admin.csr
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>admin.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>admin.crt
 </code></pre></div></li>
 </ul>
-<h3 id="step-2-sign-with-ca">Step 2: Sign with CA</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>admin.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>admin.crt
-</code></pre></div>
-<hr />
-<h2 id="3-system-component-certificates">⚙️ 3. System Component Certificates</h2>
-<p>Components like the Scheduler and Controller Manager are "System" components and must be prefixed with <code>system:</code>.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Component</th>
-<th style="text-align: left;">Common Name (CN)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Scheduler</strong></td>
-<td style="text-align: left;"><code>system:kube-scheduler</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Controller Manager</strong></td>
-<td style="text-align: left;"><code>system:kube-controller-manager</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Kube Proxy</strong></td>
-<td style="text-align: left;"><code>system:kube-proxy</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example for Scheduler:</strong>
+<h3 id="b-kube-controller-manager">B. Kube-Controller-Manager</h3>
+<ul>
+<li><strong>Purpose</strong>: Manage cluster state (Nodes, ReplicaSets).</li>
+<li><strong>Naming</strong>: <code>CN=system:kube-controller-manager</code>.
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>controller-manager.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>controller-manager.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=system:kube-controller-manager&quot;</span><span class="w"> </span>-out<span class="w"> </span>controller-manager.csr
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>controller-manager.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>controller-manager.crt
+</code></pre></div></li>
+</ul>
+<h3 id="c-kube-scheduler">C. Kube-Scheduler</h3>
+<ul>
+<li><strong>Purpose</strong>: Decisions on where to place Pods.</li>
+<li><strong>Naming</strong>: <code>CN=system:kube-scheduler</code>.
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>scheduler.key<span class="w"> </span><span class="m">2048</span>
 openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>scheduler.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=system:kube-scheduler&quot;</span><span class="w"> </span>-out<span class="w"> </span>scheduler.csr
 openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>scheduler.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>scheduler.crt
-</code></pre></div></p>
-<hr />
-<h2 id="4-api-server-certificate-the-san-case">🖥️ 4. API Server Certificate (The "SAN" Case)</h2>
-<p>The API server goes by many names (IP address, <code>kubernetes</code>, <code>kubernetes.default.svc</code>, etc.). We must use <strong>Subject Alternative Names (SAN)</strong> to include all these names.</p>
-<h3 id="step-1-create-an-openssl-config-file-opensslcnf">Step 1: Create an OpenSSL Config File (<code>openssl.cnf</code>)</h3>
-<div class="highlight"><pre><span></span><code><span class="k">[req]</span>
-<span class="na">req_extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">v3_req</span>
-<span class="na">distinguished_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">req_distinguished_name</span>
-<span class="k">[req_distinguished_name]</span>
-<span class="k">[ v3_req ]</span>
-<span class="na">basicConstraints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">CA:FALSE</span>
-<span class="na">keyUsage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">nonRepudiation, digitalSignature, keyEncipherment</span>
-<span class="na">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@alt_names</span>
-<span class="k">[alt_names]</span>
-<span class="na">DNS.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes</span>
-<span class="na">DNS.2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes.default</span>
-<span class="na">DNS.3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes.default.svc</span>
-<span class="na">DNS.4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes.default.svc.cluster.local</span>
-<span class="na">IP.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10.96.0.1</span>
-<span class="na">IP.2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">192.168.1.10</span><span class="w">  </span><span class="c1"># Master Node IP</span>
-</code></pre></div>
-<h3 id="step-2-generate-sign">Step 2: Generate &amp; Sign</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>apiserver.key<span class="w"> </span><span class="m">2048</span>
-openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>apiserver.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=kube-apiserver&quot;</span><span class="w"> </span>-config<span class="w"> </span>openssl.cnf<span class="w"> </span>-out<span class="w"> </span>apiserver.csr
-openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>apiserver.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>apiserver.crt<span class="w"> </span>-extensions<span class="w"> </span>v3_req<span class="w"> </span>-extfile<span class="w"> </span>openssl.cnf
-</code></pre></div>
-<hr />
-<h2 id="5-kubelet-certificates">📦 5. Kubelet Certificates</h2>
-<p>Each worker node needs two sets of certificates:
-1.  <strong>Server Certificate</strong>: For the API server to talk to the Kubelet.
-2.  <strong>Client Certificate</strong>: For the Kubelet to talk to the API server.</p>
-<h3 id="client-cert-format">Client Cert Format</h3>
-<ul>
-<li><strong>CN</strong>: <code>system:node:&lt;node-name&gt;</code> (e.g., <code>system:node:node01</code>)</li>
-<li><strong>OU</strong>: <code>system:nodes</code></li>
+</code></pre></div></li>
 </ul>
+<h3 id="d-etcd-server-the-database">D. Etcd Server (The Database)</h3>
+<ul>
+<li><strong>Purpose</strong>: Store cluster data.</li>
+<li><strong>Naming</strong>: <code>CN=etcd-server</code>.
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>etcd.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>etcd.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=etcd-server&quot;</span><span class="w"> </span>-out<span class="w"> </span>etcd.csr
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>etcd.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>etcd.crt
+</code></pre></div></li>
+</ul>
+<h3 id="e-kubelet-worker-nodes">E. Kubelet (Worker Nodes)</h3>
+<ul>
+<li><strong>Purpose</strong>: Node identity to communicate with API server.</li>
+<li><strong>Naming</strong>: <code>CN=system:node:&lt;node-name&gt;</code>, <code>O=system:nodes</code>.
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>node01.key<span class="w"> </span><span class="m">2048</span>
 openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>node01.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=system:node:node01/O=system:nodes&quot;</span><span class="w"> </span>-out<span class="w"> </span>node01.csr
 openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>node01.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>node01.crt
-</code></pre></div>
+</code></pre></div></li>
+</ul>
+<h3 id="f-kube-proxy">F. Kube-Proxy</h3>
+<ul>
+<li><strong>Purpose</strong>: Network rule management on nodes.</li>
+<li><strong>Naming</strong>: <code>CN=system:kube-proxy</code>.
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>kube-proxy.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>kube-proxy.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=system:kube-proxy&quot;</span><span class="w"> </span>-out<span class="w"> </span>kube-proxy.csr
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>kube-proxy.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>kube-proxy.crt
+</code></pre></div></li>
+</ul>
+<h3 id="g-kube-api-server-complex-setup">G. Kube-API Server (Complex Setup)</h3>
+<p>The API server needs a <strong>Server Certificate</strong> with multiple SANs (Subject Alternative Names).</p>
+<ol>
+<li><strong>Create Config (<code>openssl.cnf</code>)</strong>:
+    <div class="highlight"><pre><span></span><code><span class="k">[alt_names]</span>
+<span class="na">DNS.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes</span>
+<span class="na">DNS.2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes.default</span>
+<span class="na">DNS.3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes.default.svc</span>
+<span class="na">IP.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10.96.0.1</span><span class="w">  </span><span class="c1"># Cluster Service IP</span>
+<span class="na">IP.2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">192.168.1.10</span><span class="w"> </span><span class="c1"># Master Host IP</span>
+</code></pre></div></li>
+<li><strong>Generate &amp; Sign</strong>:
+    <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>apiserver.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>apiserver.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=kube-apiserver&quot;</span><span class="w"> </span>-config<span class="w"> </span>openssl.cnf<span class="w"> </span>-out<span class="w"> </span>apiserver.csr
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>apiserver.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>apiserver.crt<span class="w"> </span>-extensions<span class="w"> </span>v3_req<span class="w"> </span>-extfile<span class="w"> </span>openssl.cnf
+</code></pre></div></li>
+</ol>
 <hr />
-<h2 id="summary-checklist">🏁 Summary Checklist</h2>
+<h2 id="4-how-the-connections-work-mtls">🔗 4. How the Connections Work (mTLS)</h2>
+<p>In Kubernetes, we use <strong>Mutual TLS (mTLS)</strong>. This means both the server and the client must present certificates signed by the <strong>same CA</strong>.</p>
+<h3 id="client-vs-server-matrix">Client vs. Server Matrix</h3>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Role</th>
-<th style="text-align: left;">CN</th>
-<th style="text-align: left;">OU</th>
-<th style="text-align: left;">Note</th>
+<th style="text-align: left;">Component</th>
+<th style="text-align: center;">Needs Server Cert?</th>
+<th style="text-align: center;">Needs Client Cert?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Admin</strong></td>
-<td style="text-align: left;"><code>admin</code></td>
-<td style="text-align: left;"><code>system:masters</code></td>
-<td style="text-align: left;">Core Admin</td>
+<td style="text-align: left;"><strong>Server</strong></td>
+<td style="text-align: left;">API Server</td>
+<td style="text-align: center;">✅ (Faces everyone)</td>
+<td style="text-align: center;">✅ (Calls Etcd/Kubelet)</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Scheduler</strong></td>
-<td style="text-align: left;"><code>system:kube-scheduler</code></td>
-<td style="text-align: left;">N/A</td>
-<td style="text-align: left;">System Component</td>
+<td style="text-align: left;"><strong>Server</strong></td>
+<td style="text-align: left;">Etcd</td>
+<td style="text-align: center;">✅ (Faces API Server)</td>
+<td style="text-align: center;">❌</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Controller</strong></td>
-<td style="text-align: left;"><code>system:kube-controller-manager</code></td>
-<td style="text-align: left;">N/A</td>
-<td style="text-align: left;">System Component</td>
+<td style="text-align: left;"><strong>Server</strong></td>
+<td style="text-align: left;">Kubelet</td>
+<td style="text-align: center;">✅ (Faces API Server)</td>
+<td style="text-align: center;">✅ (Calls API Server)</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Kubelet</strong></td>
-<td style="text-align: left;"><code>system:node:&lt;node_name&gt;</code></td>
-<td style="text-align: left;"><code>system:nodes</code></td>
-<td style="text-align: left;">Node Identity</td>
+<td style="text-align: left;"><strong>Client</strong></td>
+<td style="text-align: left;">Admin (You)</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>API Server</strong></td>
-<td style="text-align: left;"><code>kube-apiserver</code></td>
-<td style="text-align: left;">N/A</td>
-<td style="text-align: left;">Needs SAN config</td>
+<td style="text-align: left;"><strong>Client</strong></td>
+<td style="text-align: left;">Scheduler</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Client</strong></td>
+<td style="text-align: left;">Controller</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Client</strong></td>
+<td style="text-align: left;">Kube-Proxy</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
 </tr>
 </tbody>
 </table>
 <hr />
+<h2 id="5-verification-troubleshooting">🔍 5. Verification &amp; Troubleshooting</h2>
+<h3 id="how-to-verify-a-certificate">How to verify a certificate?</h3>
+<p>Use <code>openssl</code> to see the internal details (CN, Dates, Expiry):
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>&lt;filename&gt;.crt<span class="w"> </span>-text<span class="w"> </span>-noout
+</code></pre></div></p>
+<h3 id="how-to-check-if-a-cert-matches-a-key">How to check if a cert matches a key?</h3>
+<p>If they don't match, the component won't start. Compare the modulus hash:
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-noout<span class="w"> </span>-modulus<span class="w"> </span>-in<span class="w"> </span>server.crt<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>md5
+openssl<span class="w"> </span>rsa<span class="w"> </span>-noout<span class="w"> </span>-modulus<span class="w"> </span>-in<span class="w"> </span>server.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>md5
+<span class="c1"># The hashes MUST match!</span>
+</code></pre></div></p>
+<h3 id="troubleshooting-unauthorized-or-bad-certificate">Troubleshooting: "Unauthorized" or "Bad Certificate"</h3>
+<ol>
+<li><strong>Check the CN</strong>: Does it start with <code>system:</code>? If not, the RBAC rules won't recognize it.</li>
+<li><strong>Check the Group (O)</strong>: Is the Admin cert in <code>system:masters</code>? Are the Nodes in <code>system:nodes</code>?</li>
+<li><strong>Check the CA</strong>: Did you sign the <code>.crt</code> using the same <code>ca.key</code> that is configured in the API Server's <code>--client-ca-file</code> flag?</li>
+</ol>
+<hr />
 <blockquote>
-<p>[!TIP]
-<strong>Production vs. Exam</strong>: In production, we often use <code>kubeadm</code> which handles this automatically (<code>kubeadm certs renew all</code>). However, understanding this manual flow is essential for troubleshooting broken clusters in the CKA exam!</p>
+<p>[!IMPORTANT]
+<strong>Which is the "Admin Key"?</strong>
+When people talk about the "Admin Key", they usually mean the <strong><code>ca.key</code></strong>. If you lose this, you can no longer sign new certificates or rotate existing ones. Keep it secure and offline if possible!</p>
 </blockquote>
 
 
