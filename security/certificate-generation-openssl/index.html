@@ -2308,6 +2308,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#distribution-where-does-cacrt-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌎 Distribution: Where does ca.crt go?
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2933,6 +2944,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#distribution-where-does-cacrt-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌎 Distribution: Where does ca.crt go?
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3155,6 +3177,34 @@
     <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>ca.csr<span class="w"> </span>-signkey<span class="w"> </span>ca.key<span class="w"> </span>-out<span class="w"> </span>ca.crt
 </code></pre></div></li>
 </ol>
+<h3 id="distribution-where-does-cacrt-go">🌎 Distribution: Where does <code>ca.crt</code> go?</h3>
+<p>The <code>ca.crt</code> is the <strong>same file</strong> for everyone. It must be copied to every component so they can trust each other.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Location</th>
+<th style="text-align: left;">Path (Kubeadm)</th>
+<th style="text-align: left;">Who uses it?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Control Plane</strong></td>
+<td style="text-align: left;"><code>/etc/kubernetes/pki/ca.crt</code></td>
+<td style="text-align: left;">API Server, Controller Manager, Scheduler</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Worker Nodes</strong></td>
+<td style="text-align: left;"><code>/etc/kubernetes/pki/ca.crt</code></td>
+<td style="text-align: left;">Kubelet (to verify the API Server)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>User (You)</strong></td>
+<td style="text-align: left;"><code>~/.kube/config</code></td>
+<td style="text-align: left;">Included in your <code>certificate-authority-data</code></td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="2-the-standard-workflow-for-components">🔁 2. The Standard Workflow for Components</h2>
 <p>For every component listed below (Admin, Scheduler, etc.), we follow the exact same <strong>3-Step Loop</strong>:
