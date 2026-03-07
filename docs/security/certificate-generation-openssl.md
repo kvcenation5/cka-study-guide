@@ -190,5 +190,48 @@ In Kubernetes, these are **the same**. They are both PEM-encoded Base64 files. Y
 
 ---
 
-> [!CAUTION]
-> **Common Exam Failure**: If you point the `--etcd-ca-file` to your main Cluster CA, but Etcd was signed by a separate Etcd CA, the API server will crash because it cannot trust the database!
+## 🛠️ 7. Component Configuration: Using the Certs
+
+Once you have generated the certificates, you must tell the Kubernetes services where to find them.
+
+### A. Kubelet Configuration (`/var/lib/kubelet/config.yaml`)
+The Kubelet needs to know which CA to trust for incoming requests and which certificate to show when the API server calls it.
+
+```yaml
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+authentication:
+  x509:
+    clientCAFile: "/etc/kubernetes/pki/ca.crt" # Trusts requests signed by this CA
+tlsCertFile: "/var/lib/kubelet/pki/node01.crt" # Its own identity
+tlsPrivateKeyFile: "/var/lib/kubelet/pki/node01.key"
+```
+
+### B. Kube-APIServer Connection to Etcd
+This is the most critical secure connection in the cluster. The API server acts as a **client** to the Etcd server.
+
+**Full Detailed Command:**
+```bash
+kube-apiserver \
+  # 1. Verification of Clients (Users, Pods, Scheduler)
+  --client-ca-file=/etc/kubernetes/pki/ca.crt \
+  
+  # 2. Connection to Etcd (API Server as a Client)
+  --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt \
+  --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt \
+  --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key \
+  --etcd-servers=https://127.0.0.1:2379 \
+  
+  # 3. Connection to Kubelets (API Server as a Client)
+  --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt \
+  --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key \
+  
+  # 4. Identity of the API Server itself
+  --tls-cert-file=/etc/kubernetes/pki/apiserver.crt \
+  --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+```
+
+---
+
+> [!TIP]
+> **CKA Strategy**: If you are asked to fix a broken cluster where the API Server is down, check the **Static Pod manifest** at `/etc/kubernetes/manifests/kube-apiserver.yaml`. Often, a certificate path is mistyped!
