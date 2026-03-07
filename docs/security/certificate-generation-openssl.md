@@ -78,14 +78,26 @@ openssl req -new -key etcd.key -subj "/CN=etcd-server" -out etcd.csr
 openssl x509 -req -in etcd.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out etcd.crt
 ```
 
-### E. Kubelet (Worker Nodes)
-*   **Purpose**: Node identity to communicate with API server.
-*   **Naming**: `CN=system:node:<node-name>`, `O=system:nodes`.
+### E. Kubelet (Worker Nodes - Per Node Identity)
+Unlike other components, Kubelets **cannot** share the same certificate. Every node in your cluster must have its own unique set of files named after the node itself.
+
+*   **Naming Rule**: Filename should be `node01.crt`, `node02.crt`, etc.
+*   **CN (Common Name)**: Must be `system:node:<node-name>`.
+*   **O (Organization)**: Must be `system:nodes`.
+
 ```bash
+# 1. Create unique key for node01
 openssl genrsa -out node01.key 2048
+
+# 2. CSR with specific CN for node01
 openssl req -new -key node01.key -subj "/CN=system:node:node01/O=system:nodes" -out node01.csr
+
+# 3. Sign for node01
 openssl x509 -req -in node01.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out node01.crt
 ```
+
+> [!IMPORTANT]
+> **Repeat this for every node!** If you have 3 nodes, you must repeat these steps 3 times, changing `node01` to `node02`, etc., in every command. Each node needs its own unique identity to join the cluster.
 
 ### F. Kube-Proxy
 *   **Purpose**: Network rule management on nodes.
