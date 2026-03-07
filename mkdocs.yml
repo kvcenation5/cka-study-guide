@@ -96,6 +96,7 @@ nav:
       - Certificate API (CSR): security/certificate-api-management.md
       - Kubeconfig Guide: security/kubeconfig-guide.md
       - RBAC & Authorization: security/rbac-authorization.md
+      - Authorization Mechanisms: security/authorization-mechanisms.md
       - Network Policies: security/network-policies.md
   - Security Focus: security-focus.md
   - Exam Overview:
