@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../auth-vs-authz-vs-tls/">
+        <link rel="prev" href="../tls-certificates/">
       
       
-        <link rel="next" href="../certificate-generation-openssl/">
+        <link rel="next" href="../network-policies/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>TLS Certificates - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Certificate Generation (OpenSSL) - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tls-certificates-in-kubernetes" class="md-skip">
+        <a href="#certificate-generation-with-openssl" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              TLS Certificates
+              Certificate Generation (OpenSSL)
             
           </span>
         </div>
@@ -2195,6 +2195,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../tls-certificates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TLS Certificates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -2214,7 +2242,7 @@
   <span class="md-ellipsis">
     
   
-    TLS Certificates
+    Certificate Generation (OpenSSL)
   
 
     
@@ -2232,7 +2260,7 @@
   <span class="md-ellipsis">
     
   
-    TLS Certificates
+    Certificate Generation (OpenSSL)
   
 
     
@@ -2258,44 +2286,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-hierarchy-of-trust" class="md-nav__link">
+  <a href="#1-the-root-certificate-authority-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Hierarchy of Trust
+        🏗️ 1. The Root Certificate Authority (CA)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-certificate-locations-kubeadm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📂 2. Certificate Locations (Kubeadm)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-server-vs-client-certificates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Server vs. Client Certificates
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ 3. Server vs. Client Certificates">
+    <nav class="md-nav" aria-label="🏗️ 1. The Root Certificate Authority (CA)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-client-certificates-the-id-badge" class="md-nav__link">
+  <a href="#step-1-generate-private-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. Client Certificates (The "ID Badge")
+        Step 1: Generate Private Key
       
     </span>
   </a>
@@ -2303,10 +2309,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-server-certificates-the-face" class="md-nav__link">
+  <a href="#step-2-generate-csr-certificate-signing-request" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. Server Certificates (The "Face")
+        Step 2: Generate CSR (Certificate Signing Request)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-self-sign-the-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Self-Sign the CA
       
     </span>
   </a>
@@ -2319,22 +2336,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-inspecting-certificates-cka-must-know" class="md-nav__link">
+  <a href="#2-admin-user-certificate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 3. Inspecting Certificates (CKA Must-Know)
+        👤 2. Admin User Certificate
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔍 3. Inspecting Certificates (CKA Must-Know)">
+    <nav class="md-nav" aria-label="👤 2. Admin User Certificate">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-expiration" class="md-nav__link">
+  <a href="#step-1-generate-key-csr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Check Expiration:
+        Step 1: Generate Key &amp; CSR
       
     </span>
   </a>
@@ -2342,21 +2359,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#check-common-name-cn" class="md-nav__link">
+  <a href="#step-2-sign-with-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Check Common Name (CN):
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-kubeadm-easier" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using Kubeadm (Easier):
+        Step 2: Sign with CA
       
     </span>
   </a>
@@ -2369,22 +2375,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-creating-a-new-user-csr-workflow" class="md-nav__link">
+  <a href="#3-system-component-certificates" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 4. Creating a New User (CSR Workflow)
+        ⚙️ 3. System Component Certificates
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📝 4. Creating a New User (CSR Workflow)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-api-server-certificate-the-san-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖥️ 4. API Server Certificate (The "SAN" Case)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖥️ 4. API Server Certificate (The &#34;SAN&#34; Case)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-generate-private-key-csr" class="md-nav__link">
+  <a href="#step-1-create-an-openssl-config-file-opensslcnf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Generate Private Key &amp; CSR
+        Step 1: Create an OpenSSL Config File (openssl.cnf)
       
     </span>
   </a>
@@ -2392,32 +2409,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-create-a-kubernetes-csr-object" class="md-nav__link">
+  <a href="#step-2-generate-sign" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Create a Kubernetes CSR Object
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-approve-the-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Approve the Request
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-extract-the-certificate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Extract the Certificate
+        Step 2: Generate &amp; Sign
       
     </span>
   </a>
@@ -2430,33 +2425,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-troubleshooting-scenarios" class="md-nav__link">
+  <a href="#5-kubelet-certificates" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔧 5. Troubleshooting Scenarios
+        📦 5. Kubelet Certificates
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔧 5. Troubleshooting Scenarios">
+    <nav class="md-nav" aria-label="📦 5. Kubelet Certificates">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scenario-unable-to-connect-to-the-server-x509-certificate-has-expired" class="md-nav__link">
+  <a href="#client-cert-format" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario: "Unable to connect to the server: x509: certificate has expired"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-broken-kubelet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario: "Broken Kubelet"
+        Client Cert Format
       
     </span>
   </a>
@@ -2465,6 +2449,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏁 Summary Checklist
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2472,34 +2467,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../certificate-generation-openssl/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Certificate Generation (OpenSSL)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2911,44 +2878,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-hierarchy-of-trust" class="md-nav__link">
+  <a href="#1-the-root-certificate-authority-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Hierarchy of Trust
+        🏗️ 1. The Root Certificate Authority (CA)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-certificate-locations-kubeadm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📂 2. Certificate Locations (Kubeadm)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-server-vs-client-certificates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Server vs. Client Certificates
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ 3. Server vs. Client Certificates">
+    <nav class="md-nav" aria-label="🏗️ 1. The Root Certificate Authority (CA)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-client-certificates-the-id-badge" class="md-nav__link">
+  <a href="#step-1-generate-private-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. Client Certificates (The "ID Badge")
+        Step 1: Generate Private Key
       
     </span>
   </a>
@@ -2956,10 +2901,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-server-certificates-the-face" class="md-nav__link">
+  <a href="#step-2-generate-csr-certificate-signing-request" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. Server Certificates (The "Face")
+        Step 2: Generate CSR (Certificate Signing Request)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-self-sign-the-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Self-Sign the CA
       
     </span>
   </a>
@@ -2972,22 +2928,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-inspecting-certificates-cka-must-know" class="md-nav__link">
+  <a href="#2-admin-user-certificate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 3. Inspecting Certificates (CKA Must-Know)
+        👤 2. Admin User Certificate
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔍 3. Inspecting Certificates (CKA Must-Know)">
+    <nav class="md-nav" aria-label="👤 2. Admin User Certificate">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-expiration" class="md-nav__link">
+  <a href="#step-1-generate-key-csr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Check Expiration:
+        Step 1: Generate Key &amp; CSR
       
     </span>
   </a>
@@ -2995,21 +2951,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#check-common-name-cn" class="md-nav__link">
+  <a href="#step-2-sign-with-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Check Common Name (CN):
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-kubeadm-easier" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using Kubeadm (Easier):
+        Step 2: Sign with CA
       
     </span>
   </a>
@@ -3022,22 +2967,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-creating-a-new-user-csr-workflow" class="md-nav__link">
+  <a href="#3-system-component-certificates" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 4. Creating a New User (CSR Workflow)
+        ⚙️ 3. System Component Certificates
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📝 4. Creating a New User (CSR Workflow)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-api-server-certificate-the-san-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖥️ 4. API Server Certificate (The "SAN" Case)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖥️ 4. API Server Certificate (The &#34;SAN&#34; Case)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-generate-private-key-csr" class="md-nav__link">
+  <a href="#step-1-create-an-openssl-config-file-opensslcnf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Generate Private Key &amp; CSR
+        Step 1: Create an OpenSSL Config File (openssl.cnf)
       
     </span>
   </a>
@@ -3045,32 +3001,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-create-a-kubernetes-csr-object" class="md-nav__link">
+  <a href="#step-2-generate-sign" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Create a Kubernetes CSR Object
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-approve-the-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Approve the Request
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-extract-the-certificate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Extract the Certificate
+        Step 2: Generate &amp; Sign
       
     </span>
   </a>
@@ -3083,33 +3017,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-troubleshooting-scenarios" class="md-nav__link">
+  <a href="#5-kubelet-certificates" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔧 5. Troubleshooting Scenarios
+        📦 5. Kubelet Certificates
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔧 5. Troubleshooting Scenarios">
+    <nav class="md-nav" aria-label="📦 5. Kubelet Certificates">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scenario-unable-to-connect-to-the-server-x509-certificate-has-expired" class="md-nav__link">
+  <a href="#client-cert-format" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario: "Unable to connect to the server: x509: certificate has expired"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-broken-kubelet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario: "Broken Kubelet"
+        Client Cert Format
       
     </span>
   </a>
@@ -3118,6 +3041,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏁 Summary Checklist
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3138,137 +3072,153 @@
 
 
 
-<h1 id="tls-certificates-in-kubernetes">TLS Certificates in Kubernetes</h1>
-<p>TLS (Transport Layer Security) is the foundation of security in Kubernetes. Every component communicates over HTTPS, and most use <strong>Mutual TLS (mTLS)</strong> to verify each other's identity.</p>
+<h1 id="certificate-generation-with-openssl">Certificate Generation with OpenSSL</h1>
+<p>In a production Kubernetes cluster, every component must communicate over a secure channel. This guide walks through the step-by-step process of generating certificates manually using <strong>OpenSSL</strong>, as described in the CKA curriculum.</p>
 <hr />
-<h2 id="1-the-hierarchy-of-trust">🏗️ 1. The Hierarchy of Trust</h2>
-<p>Kubernetes typically uses multiple "Trust Domains" (CAs):
-1.  <strong>Cluster CA:</strong> Signs certs for API Server, Kubelets, and Scheduler.
-2.  <strong>Etcd CA:</strong> Signs certs specifically for Etcd communication.
-3.  <strong>Front Proxy CA:</strong> Signs certs for the Aggregation Layer (API extensions).</p>
+<h2 id="1-the-root-certificate-authority-ca">🏗️ 1. The Root Certificate Authority (CA)</h2>
+<p>The CA is the root of trust for your entire cluster. Everything else is signed by this CA.</p>
+<h3 id="step-1-generate-private-key">Step 1: Generate Private Key</h3>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>ca.key<span class="w"> </span><span class="m">2048</span>
+</code></pre></div>
+<h3 id="step-2-generate-csr-certificate-signing-request">Step 2: Generate CSR (Certificate Signing Request)</h3>
+<p>The <strong>Common Name (CN)</strong> for the CA is usually <code>KUBERNETES-CA</code>.
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>ca.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=KUBERNETES-CA&quot;</span><span class="w"> </span>-out<span class="w"> </span>ca.csr
+</code></pre></div></p>
+<h3 id="step-3-self-sign-the-ca">Step 3: Self-Sign the CA</h3>
+<p>Since this is the root, it signs itself.
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>ca.csr<span class="w"> </span>-signkey<span class="w"> </span>ca.key<span class="w"> </span>-out<span class="w"> </span>ca.crt
+</code></pre></div></p>
 <hr />
-<h2 id="2-certificate-locations-kubeadm">📂 2. Certificate Locations (Kubeadm)</h2>
-<p>On a control plane node installed with <code>kubeadm</code>, all certificates are stored in:
-<code>/etc/kubernetes/pki/</code></p>
+<h2 id="2-admin-user-certificate">👤 2. Admin User Certificate</h2>
+<p>The admin user needs administrative privileges. This is identified by the <strong>Group (OU)</strong> in the certificate.</p>
+<h3 id="step-1-generate-key-csr">Step 1: Generate Key &amp; CSR</h3>
+<ul>
+<li><strong>CN</strong>: <code>admin</code> (or <code>kube-admin</code>)</li>
+<li><strong>OU</strong>: <code>system:masters</code> (This is the "magic" group that K8s recognizes for cluster-admin access).
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>admin.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>admin.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=admin/O=system:masters&quot;</span><span class="w"> </span>-out<span class="w"> </span>admin.csr
+</code></pre></div></li>
+</ul>
+<h3 id="step-2-sign-with-ca">Step 2: Sign with CA</h3>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>admin.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>admin.crt
+</code></pre></div>
+<hr />
+<h2 id="3-system-component-certificates">⚙️ 3. System Component Certificates</h2>
+<p>Components like the Scheduler and Controller Manager are "System" components and must be prefixed with <code>system:</code>.</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Component</th>
-<th style="text-align: left;">Path</th>
-<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Common Name (CN)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>CA Root</strong></td>
-<td style="text-align: left;"><code>ca.crt</code>, <code>ca.key</code></td>
-<td style="text-align: left;">The primary root certificate for the cluster.</td>
+<td style="text-align: left;"><strong>Scheduler</strong></td>
+<td style="text-align: left;"><code>system:kube-scheduler</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Controller Manager</strong></td>
+<td style="text-align: left;"><code>system:kube-controller-manager</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Kube Proxy</strong></td>
+<td style="text-align: left;"><code>system:kube-proxy</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example for Scheduler:</strong>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>scheduler.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>scheduler.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=system:kube-scheduler&quot;</span><span class="w"> </span>-out<span class="w"> </span>scheduler.csr
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>scheduler.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>scheduler.crt
+</code></pre></div></p>
+<hr />
+<h2 id="4-api-server-certificate-the-san-case">🖥️ 4. API Server Certificate (The "SAN" Case)</h2>
+<p>The API server goes by many names (IP address, <code>kubernetes</code>, <code>kubernetes.default.svc</code>, etc.). We must use <strong>Subject Alternative Names (SAN)</strong> to include all these names.</p>
+<h3 id="step-1-create-an-openssl-config-file-opensslcnf">Step 1: Create an OpenSSL Config File (<code>openssl.cnf</code>)</h3>
+<div class="highlight"><pre><span></span><code><span class="k">[req]</span>
+<span class="na">req_extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">v3_req</span>
+<span class="na">distinguished_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">req_distinguished_name</span>
+<span class="k">[req_distinguished_name]</span>
+<span class="k">[ v3_req ]</span>
+<span class="na">basicConstraints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">CA:FALSE</span>
+<span class="na">keyUsage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">nonRepudiation, digitalSignature, keyEncipherment</span>
+<span class="na">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@alt_names</span>
+<span class="k">[alt_names]</span>
+<span class="na">DNS.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes</span>
+<span class="na">DNS.2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes.default</span>
+<span class="na">DNS.3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes.default.svc</span>
+<span class="na">DNS.4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kubernetes.default.svc.cluster.local</span>
+<span class="na">IP.1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">10.96.0.1</span>
+<span class="na">IP.2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">192.168.1.10</span><span class="w">  </span><span class="c1"># Master Node IP</span>
+</code></pre></div>
+<h3 id="step-2-generate-sign">Step 2: Generate &amp; Sign</h3>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>apiserver.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>apiserver.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=kube-apiserver&quot;</span><span class="w"> </span>-config<span class="w"> </span>openssl.cnf<span class="w"> </span>-out<span class="w"> </span>apiserver.csr
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>apiserver.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>apiserver.crt<span class="w"> </span>-extensions<span class="w"> </span>v3_req<span class="w"> </span>-extfile<span class="w"> </span>openssl.cnf
+</code></pre></div>
+<hr />
+<h2 id="5-kubelet-certificates">📦 5. Kubelet Certificates</h2>
+<p>Each worker node needs two sets of certificates:
+1.  <strong>Server Certificate</strong>: For the API server to talk to the Kubelet.
+2.  <strong>Client Certificate</strong>: For the Kubelet to talk to the API server.</p>
+<h3 id="client-cert-format">Client Cert Format</h3>
+<ul>
+<li><strong>CN</strong>: <code>system:node:&lt;node-name&gt;</code> (e.g., <code>system:node:node01</code>)</li>
+<li><strong>OU</strong>: <code>system:nodes</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>node01.key<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>node01.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=system:node:node01/O=system:nodes&quot;</span><span class="w"> </span>-out<span class="w"> </span>node01.csr
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>node01.csr<span class="w"> </span>-CA<span class="w"> </span>ca.crt<span class="w"> </span>-CAkey<span class="w"> </span>ca.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-out<span class="w"> </span>node01.crt
+</code></pre></div>
+<hr />
+<h2 id="summary-checklist">🏁 Summary Checklist</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">CN</th>
+<th style="text-align: left;">OU</th>
+<th style="text-align: left;">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Admin</strong></td>
+<td style="text-align: left;"><code>admin</code></td>
+<td style="text-align: left;"><code>system:masters</code></td>
+<td style="text-align: left;">Core Admin</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Scheduler</strong></td>
+<td style="text-align: left;"><code>system:kube-scheduler</code></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">System Component</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Controller</strong></td>
+<td style="text-align: left;"><code>system:kube-controller-manager</code></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">System Component</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Kubelet</strong></td>
+<td style="text-align: left;"><code>system:node:&lt;node_name&gt;</code></td>
+<td style="text-align: left;"><code>system:nodes</code></td>
+<td style="text-align: left;">Node Identity</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>API Server</strong></td>
-<td style="text-align: left;"><code>apiserver.crt</code>, <code>apiserver.key</code></td>
-<td style="text-align: left;"><strong>Server Cert</strong>: Identifies the API server to clients.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Etcd Server</strong></td>
-<td style="text-align: left;"><code>etcd/server.crt</code>, <code>etcd/server.key</code></td>
-<td style="text-align: left;"><strong>Server Cert</strong>: Identifies Etcd to candidates.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Kubelet Server</strong></td>
-<td style="text-align: left;">Provided by Kubelet</td>
-<td style="text-align: left;"><strong>Server Cert</strong>: Used for HTTPS access to kubelet logs/exec.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Admin Client</strong></td>
-<td style="text-align: left;"><code>admin.conf</code></td>
-<td style="text-align: left;"><strong>Client Cert</strong>: Full cluster access for the administrator.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>API -&gt; Etcd</strong></td>
-<td style="text-align: left;"><code>apiserver-etcd-client.crt</code></td>
-<td style="text-align: left;"><strong>Client Cert</strong>: Used by API server to talk to Etcd.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>API -&gt; Kubelet</strong></td>
-<td style="text-align: left;"><code>apiserver-kubelet-client.crt</code></td>
-<td style="text-align: left;"><strong>Client Cert</strong>: Used by API server to talk to Kubelets.</td>
+<td style="text-align: left;"><code>kube-apiserver</code></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Needs SAN config</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="3-server-vs-client-certificates">🛠️ 3. Server vs. Client Certificates</h2>
-<p>Understanding which certificate is used when is key to debugging "Unauthorized" vs "Handshake" errors.</p>
-<h3 id="a-client-certificates-the-id-badge">A. Client Certificates (The "ID Badge")</h3>
-<p>A component acts as a <strong>Client</strong> when it initiates a request. It proves its identity via a client cert.
-*   <strong>Admin</strong>: For the cluster administrator to authenticate to the API server.
-*   <strong>Kube-APIServer</strong>: Acts as a client for external/internal communication.
-*   <strong>Kube-Scheduler</strong>: Talks to the API server to schedule pods.
-*   <strong>Kube-Controller-Manager</strong>: Talks to the API server to manage controllers.
-*   <strong>API-Server-ETCD</strong>: Client cert specifically for the API server $\rightarrow$ Etcd connection.
-*   <strong>API-Server-Kubelet</strong>: Client cert specifically for the API server $\rightarrow$ Kubelet connection.
-*   <strong>Kube-Proxy</strong>: Watches the API server for networking updates.
-*   <strong>Kubelet (Client)</strong>: Registers the node and reports heartbeats to the API server.</p>
-<h3 id="b-server-certificates-the-face">B. Server Certificates (The "Face")</h3>
-<p>A component acts as a <strong>Server</strong> when it receives requests. It identifies itself via a server cert.
-*   <strong>Etcd Server</strong>: Responds to queries from the API server.
-*   <strong>Kubelet (Server)</strong>: Responds to the API server for logs and exec commands.
-*   <strong>Kube-APIServer</strong>: Responds to you (kubectl) and all cluster components.</p>
-<hr />
-<h2 id="3-inspecting-certificates-cka-must-know">🔍 3. Inspecting Certificates (CKA Must-Know)</h2>
-<p>Use <code>openssl</code> to check if a certificate is valid and see its "Subject" or "Expiry".</p>
-<h3 id="check-expiration">Check Expiration:</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/kubernetes/pki/apiserver.crt<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Not
-</code></pre></div>
-<h3 id="check-common-name-cn">Check Common Name (CN):</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/kubernetes/pki/apiserver.crt<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Subject:
-</code></pre></div>
-<h3 id="using-kubeadm-easier">Using Kubeadm (Easier):</h3>
-<div class="highlight"><pre><span></span><code>kubeadm<span class="w"> </span>certs<span class="w"> </span>check-expiration
-</code></pre></div>
-<hr />
-<h2 id="4-creating-a-new-user-csr-workflow">📝 4. Creating a New User (CSR Workflow)</h2>
-<p>In the CKA exam, you might be asked to grant a new user access.</p>
-<h3 id="step-1-generate-private-key-csr">Step 1: Generate Private Key &amp; CSR</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>john.key<span class="w"> </span><span class="m">2048</span>
-openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>john.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=john/O=developers&quot;</span><span class="w"> </span>-out<span class="w"> </span>john.csr
-</code></pre></div>
-<h3 id="step-2-create-a-kubernetes-csr-object">Step 2: Create a Kubernetes CSR Object</h3>
-<p><div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certificates.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CertificateSigningRequest</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">john-developer</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">request</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;BASE64_ENCODED_CSR_HERE&gt;</span>
-<span class="w">  </span><span class="nt">signerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/kube-apiserver-client</span>
-<span class="w">  </span><span class="nt">usages</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client auth</span>
-</code></pre></div>
-<em>(Use <code>cat john.csr | base64 | tr -d '\n'</code> to get the request data)</em></p>
-<h3 id="step-3-approve-the-request">Step 3: Approve the Request</h3>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr
-kubectl<span class="w"> </span>certificate<span class="w"> </span>approve<span class="w"> </span>john-developer
-</code></pre></div>
-<h3 id="step-4-extract-the-certificate">Step 4: Extract the Certificate</h3>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span>john.crt
-</code></pre></div>
-<hr />
-<h2 id="5-troubleshooting-scenarios">🔧 5. Troubleshooting Scenarios</h2>
-<h3 id="scenario-unable-to-connect-to-the-server-x509-certificate-has-expired">Scenario: "Unable to connect to the server: x509: certificate has expired"</h3>
-<ol>
-<li>Run <code>kubeadm certs check-expiration</code>.</li>
-<li>If expired, run <code>kubeadm certs renew all</code>.</li>
-<li>Restart control plane components (API server, Scheduler, Controller Manager).</li>
-</ol>
-<h3 id="scenario-broken-kubelet">Scenario: "Broken Kubelet"</h3>
-<p>Kubelets often use <strong>Client Certificate Rotation</strong>. If a kubelet can't join, check if there's a pending CSR:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr
-<span class="c1"># Look for &#39;node-csr-...&#39; and approve if necessary</span>
-</code></pre></div></p>
-<hr />
 <blockquote>
 <p>[!TIP]
-<strong>Exam Strategy</strong>: Don't memorize the CSR YAML perfectly. Use <code>kubectl explain csr.spec</code> or search for "CSR" in the official K8s documentation during the exam!</p>
+<strong>Production vs. Exam</strong>: In production, we often use <code>kubeadm</code> which handles this automatically (<code>kubeadm certs renew all</code>). However, understanding this manual flow is essential for troubleshooting broken clusters in the CKA exam!</p>
 </blockquote>
 
 
