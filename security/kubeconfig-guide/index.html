@@ -2392,6 +2392,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2-kubeconfig-yaml-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 2. Kubeconfig YAML Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2-file-location-precedence" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2967,6 +2978,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2-kubeconfig-yaml-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 2. Kubeconfig YAML Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2-file-location-precedence" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3086,6 +3108,37 @@
 *   <strong>Cluster</strong>: Which cluster to use.
 *   <strong>User</strong>: Which credentials to use.
 *   <strong>Namespace</strong>: (Optional) The default namespace for this context.</p>
+<hr />
+<h2 id="2-kubeconfig-yaml-example">📄 2. Kubeconfig YAML Example</h2>
+<p>Here is a complete example showing how these sections are structured in a single file:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Config</span>
+
+<span class="c1"># 1. Clusters Section</span>
+<span class="nt">clusters</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production-cluster</span>
+<span class="w">  </span><span class="nt">cluster</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://10.0.0.10:6443</span>
+<span class="w">    </span><span class="nt">certificate-authority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/pki/ca.crt</span>
+
+<span class="c1"># 2. Users Section</span>
+<span class="nt">users</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-user</span>
+<span class="w">  </span><span class="nt">user</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">client-certificate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/pki/admin.crt</span>
+<span class="w">    </span><span class="nt">client-key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/pki/admin.key</span>
+
+<span class="c1"># 3. Contexts Section (The Mapping)</span>
+<span class="nt">contexts</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-admin-context</span>
+<span class="w">  </span><span class="nt">context</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production-cluster</span>
+<span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-user</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">finance</span>
+
+<span class="c1"># 4. Current Context (Setting the Default)</span>
+<span class="nt">current-context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-admin-context</span>
+</code></pre></div>
 <hr />
 <h2 id="2-file-location-precedence">📂 2. File Location &amp; Precedence</h2>
 <p>Kubernetes looks for configurations in this specific order:</p>
