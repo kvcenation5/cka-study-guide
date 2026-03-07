@@ -174,7 +174,26 @@ openssl rsa -noout -modulus -in server.key | openssl md5
 ### Troubleshooting Checklist
 1.  **Prefixes**: Ensure `system:node:` or `system:kube-scheduler` etc. are correct.
 2.  **Groups (O)**: Ensure `system:masters` for admin and `system:nodes` for kubelets.
-3.  **CA Path**: Ensure the API server's `--client-ca-file` points to the same CA that signed the certificates.
+
+#### 🚨 Common Error: Etcd Handshake Failure
+**Error**: `authentication handshake failed: x509: certificate signed by unknown authority`
+**Context**: Look for the **Service Port** in the log (e.g., `Addr: "127.0.0.1:2379"`).
+
+**How to identify the component?**
+The "Generic" error becomes specific once you identify the port:
+
+| Evidence (Port) | Component | Port Role |
+| :--- | :--- | :--- |
+| **2379** | **Etcd** | Server port for database requests. |
+| **2380** | **Etcd** | Peer port for Etcd-to-Etcd sync. |
+| **10250** | **Kubelet** | API port on worker nodes (logs/exec). |
+| **10259** | **Scheduler** | Secure port for the Scheduler. |
+| **10257** | **Controller** | Secure port for the Controller-Manager. |
+
+**Cause**: The `--etcd-cafile` (or similar) is pointing to the wrong CA.
+**Fix**: Match the CA flag to the CA used to sign that specific component's certificates.
+
+---
 
 ---
 
