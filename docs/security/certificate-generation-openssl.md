@@ -163,6 +163,12 @@ openssl x509 -in <filename>.crt -text -noout
 3.  **Validity**: Check the `Not Before` and `Not After` dates. If the current date is outside this range, the cluster will fail with "Certificate Expired" errors.
 4.  **X509v3 Subject Alternative Name**: For the API Server, ensure it lists the IP addresses and DNS names you expect.
 
+#### 💡 Tip: Subject vs. Issuer
+*   **Issuer**: The one who **Signed** the file (The Boss).
+*   **Subject**: The one who **Owns** the file (The Component/Node).
+*   *Example*: If `Issuer: CN = etcd-ca` and `Subject: CN = controlplane`, it means the `etcd-ca` signed a certificate for the node named `controlplane`.
+
+
 ### How to check if a cert matches a key?
 If they don't match, the component won't start. Compare the modulus hash:
 ```bash
