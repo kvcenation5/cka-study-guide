@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../annotations/">
+        <link rel="prev" href="../rbac-authorization/">
       
       
-        <link rel="next" href="../limitrange/">
+        <link rel="next" href="../rbac-practical-examples/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Resource Requests & Limits - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>ClusterRoles - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#resource-requests-and-limits" class="md-skip">
+        <a href="#clusterroles-cluster-wide-permissions" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Resource Requests & Limits
+              ClusterRoles
             
           </span>
         </div>
@@ -245,12 +245,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../yaml-guide/" class="md-tabs__link">
           
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -552,31 +552,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -640,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -668,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -696,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -724,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -752,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -777,37 +772,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Resource Requests & Limits
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -823,254 +791,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-requests-vs-limits-the-bank-analogy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Requests vs. Limits (The Bank Analogy)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-cpu-vs-memory-the-pressure-difference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. CPU vs. Memory: The "Pressure" Difference
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. CPU vs. Memory: The &#34;Pressure&#34; Difference">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a-cpu-compressible-resource" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A. CPU (Compressible Resource)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b-memory-non-compressible-resource" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B. Memory (Non-Compressible Resource)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-detailed-behavior-comparison" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Detailed Behavior Comparison
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Detailed Behavior Comparison">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-the-difference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why the difference?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-the-ideal-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. The "Ideal Scenarios"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. The &#34;Ideal Scenarios&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-ideal-memory-scenario-requests-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Ideal Memory Scenario (Requests = Limits)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-ideal-cpu-scenario-requests-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Ideal CPU Scenario (Requests &lt; Limits)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-goldilocks-rule" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The "Goldilocks" Rule
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-the-no-cpu-limits-strategy-expert-tip" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. The "No CPU Limits" Strategy (Expert Tip)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. The &#34;No CPU Limits&#34; Strategy (Expert Tip)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-remove-cpu-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why remove CPU Limits?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-qos-classes-explained" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. QoS Classes Explained
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-real-time-examples-troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Real-Time Examples &amp; Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Real-Time Examples &amp; Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-1-the-throttled-web-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example 1: The "Throttled" Web Server
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-2-the-popping-java-app-oomkilled" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example 2: The "Popping" Java App (OOMKilled)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-summary-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Summary Cheat Sheet
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-how-to-check-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. How to check usage
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1083,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -1111,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -1139,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -1167,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -1195,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -1223,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1257,20 +977,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1306,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1334,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1362,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1390,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1418,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1446,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1474,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1502,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1538,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -2393,26 +2110,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2430,7 +2152,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2448,7 +2170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2476,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2504,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2532,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/tls-certificates/" class="md-nav__link">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2560,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2588,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-api-management/" class="md-nav__link">
+      <a href="../certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2616,7 +2338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2644,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-authorization/" class="md-nav__link">
+      <a href="../rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2669,10 +2391,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../security/cluster-roles/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ClusterRoles
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2688,6 +2437,159 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-do-we-need-cluster-level-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. Why do we need Cluster-Level Roles?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. Why do we need Cluster-Level Roles?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-non-namespaced-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Non-Namespaced Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-access-across-all-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Access Across ALL Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-non-resource-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Non-Resource Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-clusterrole-yaml-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 2. ClusterRole YAML Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-power-of-the-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 3. The Power of the Binding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential kubectl Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-clusterrole" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a ClusterRole
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-clusterroles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View ClusterRoles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cka-exam-strategy-spotting-the-difference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. CKA Exam Strategy: Spotting the Difference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2700,7 +2602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
+      <a href="../rbac-practical-examples/" class="md-nav__link">
         
   
   
@@ -2728,7 +2630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
+      <a href="../rbac-kubectl-cheatsheet/" class="md-nav__link">
         
   
   
@@ -2756,7 +2658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
+      <a href="../rolebinding-deep-dive/" class="md-nav__link">
         
   
   
@@ -2784,7 +2686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2812,7 +2714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/abac-authorization/" class="md-nav__link">
+      <a href="../abac-authorization/" class="md-nav__link">
         
   
   
@@ -2840,7 +2742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -2868,7 +2770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -2896,7 +2798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -3323,33 +3225,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-requests-vs-limits-the-bank-analogy" class="md-nav__link">
+  <a href="#1-why-do-we-need-cluster-level-roles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Requests vs. Limits (The Bank Analogy)
+        🏗️ 1. Why do we need Cluster-Level Roles?
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-cpu-vs-memory-the-pressure-difference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. CPU vs. Memory: The "Pressure" Difference
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. CPU vs. Memory: The &#34;Pressure&#34; Difference">
+    <nav class="md-nav" aria-label="🏗️ 1. Why do we need Cluster-Level Roles?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-cpu-compressible-resource" class="md-nav__link">
+  <a href="#a-non-namespaced-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. CPU (Compressible Resource)
+        A. Non-Namespaced Resources
       
     </span>
   </a>
@@ -3357,10 +3248,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-memory-non-compressible-resource" class="md-nav__link">
+  <a href="#b-access-across-all-namespaces" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. Memory (Non-Compressible Resource)
+        B. Access Across ALL Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-non-resource-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Non-Resource Endpoints
       
     </span>
   </a>
@@ -3373,22 +3275,66 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-detailed-behavior-comparison" class="md-nav__link">
+  <a href="#2-clusterrole-yaml-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Detailed Behavior Comparison
+        📄 2. ClusterRole YAML Example
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Detailed Behavior Comparison">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-power-of-the-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 3. The Power of the Binding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential kubectl Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-the-difference" class="md-nav__link">
+  <a href="#create-a-clusterrole" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why the difference?
+        Create a ClusterRole
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-clusterroles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View ClusterRoles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Scope
       
     </span>
   </a>
@@ -3401,149 +3347,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-the-ideal-scenarios" class="md-nav__link">
+  <a href="#5-cka-exam-strategy-spotting-the-difference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. The "Ideal Scenarios"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. The &#34;Ideal Scenarios&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-ideal-memory-scenario-requests-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Ideal Memory Scenario (Requests = Limits)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-ideal-cpu-scenario-requests-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Ideal CPU Scenario (Requests &lt; Limits)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-goldilocks-rule" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The "Goldilocks" Rule
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-the-no-cpu-limits-strategy-expert-tip" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. The "No CPU Limits" Strategy (Expert Tip)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. The &#34;No CPU Limits&#34; Strategy (Expert Tip)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#why-remove-cpu-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why remove CPU Limits?
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-qos-classes-explained" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. QoS Classes Explained
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-real-time-examples-troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Real-Time Examples &amp; Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Real-Time Examples &amp; Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-1-the-throttled-web-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example 1: The "Throttled" Web Server
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-2-the-popping-java-app-oomkilled" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example 2: The "Popping" Java App (OOMKilled)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-summary-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Summary Cheat Sheet
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-how-to-check-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. How to check usage
+        🚩 5. CKA Exam Strategy: Spotting the Difference
       
     </span>
   </a>
@@ -3567,184 +3374,86 @@
 
 
 
-<h1 id="resource-requests-and-limits">Resource Requests and Limits</h1>
-<p>In Kubernetes, managing CPU and Memory is critical for cluster stability. Without these settings, a single "noisy neighbor" pod can crash your entire node.</p>
+<h1 id="clusterroles-cluster-wide-permissions">ClusterRoles: Cluster-Wide Permissions</h1>
+<p>In Kubernetes, a <strong>ClusterRole</strong> is a non-namespaced resource. While a regular <code>Role</code> is always trapped inside a specific namespace, a <code>ClusterRole</code> defines permissions that apply at the <strong>Cluster Level</strong>.</p>
 <hr />
-<h2 id="1-requests-vs-limits-the-bank-analogy">1. Requests vs. Limits (The Bank Analogy)</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Term</th>
-<th style="text-align: left;">What it is</th>
-<th style="text-align: left;">Analogy</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Requests</strong></td>
-<td style="text-align: left;"><strong>Minimum Guaranteed.</strong> The amount of resources the pod is guaranteed to have.</td>
-<td style="text-align: left;"><strong>Minimum Balance</strong>: The bank promises you can always withdraw this much.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Limits</strong></td>
-<td style="text-align: left;"><strong>Maximum Allowed.</strong> The upper ceiling the pod is not allowed to cross.</td>
-<td style="text-align: left;"><strong>Credit Limit</strong>: The absolute maximum the bank allows you to spend.</td>
-</tr>
-</tbody>
-</table>
+<h2 id="1-why-do-we-need-cluster-level-roles">🏗️ 1. Why do we need Cluster-Level Roles?</h2>
+<p>There are three specific scenarios where a regular <code>Role</code> simply cannot work:</p>
+<h3 id="a-non-namespaced-resources">A. Non-Namespaced Resources</h3>
+<p>Some resources in Kubernetes don't belong to any namespace. You cannot use a <code>Role</code> to manage them.
+*   <strong>Examples</strong>: <code>Nodes</code>, <code>PersistentVolumes</code>, <code>Namespaces</code>, <code>CustomResourceDefinitions</code>.</p>
+<h3 id="b-access-across-all-namespaces">B. Access Across ALL Namespaces</h3>
+<p>If you want a user (like a Security Auditor) to be able to "list pods" in every single namespace in the cluster, you don't want to create 50 separate <code>Roles</code>. A single <code>ClusterRole</code> can grant this power globally.</p>
+<h3 id="c-non-resource-endpoints">C. Non-Resource Endpoints</h3>
+<p>Permissions for administrative URLs that exist outside of the standard API paths.
+*   <strong>Example</strong>: <code>/healthz</code>, <code>/metrics</code>, <code>/logs</code>.</p>
 <hr />
-<h2 id="2-cpu-vs-memory-the-pressure-difference">2. CPU vs. Memory: The "Pressure" Difference</h2>
-<p>It is vital to understand that Kubernetes treats CPU and Memory very differently when a pod hits its limit.</p>
-<h3 id="a-cpu-compressible-resource">A. CPU (Compressible Resource)</h3>
-<ul>
-<li><strong>Behavior</strong>: When a pod hits its CPU limit, Kubernetes <strong>throttles</strong> it.</li>
-<li><strong>Result</strong>: The app doesn't crash; it just runs <strong>slower</strong>. (Like a car hitting a speed governor).</li>
-<li><strong>Unit</strong>: Measured in "millicores" (e.g., <code>500m</code> = 0.5 CPU cores).</li>
-</ul>
-<h3 id="b-memory-non-compressible-resource">B. Memory (Non-Compressible Resource)</h3>
-<ul>
-<li><strong>Behavior</strong>: When a pod hits its Memory limit, Kubernetes <strong>Terminates</strong> it immediately.</li>
-<li><strong>Result</strong>: The Pod is <strong>OOMKilled</strong> (Out Of Memory). (Like a balloon popping).</li>
-<li><strong>Unit</strong>: Measured in bytes (e.g., <code>256Mi</code>, <code>1Gi</code>).</li>
-</ul>
-<hr />
-<h2 id="3-detailed-behavior-comparison">3. Detailed Behavior Comparison</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Resource Type</th>
-<th style="text-align: left;">At <strong>Request</strong> level</th>
-<th style="text-align: left;">At <strong>Limit</strong> level</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>CPU</strong> (Compressible)</td>
-<td style="text-align: left;"><strong>Minimum Guaranteed.</strong> If the node has spare CPU, the pod can "burst" above this.</td>
-<td style="text-align: left;"><strong>Hard Ceiling.</strong> App is throttled. It is NOT killed, but performance drops.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Memory</strong> (Non-Compressible)</td>
-<td style="text-align: left;"><strong>Reserved.</strong> This amount is physically set aside. If a node is full, no new pods can request it.</td>
-<td style="text-align: left;"><strong>Kill Switch.</strong> If the app tries to use even 1 byte more, it is killed (OOM) immediately.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="why-the-difference">Why the difference?</h3>
-<ul>
-<li><strong>CPU</strong> is a "time" resource. You can just give a process fewer slices of time per second. It's like a person walking slower.</li>
-<li><strong>Memory</strong> is a "space" resource. If you run out of physical space, you can't just "slow down" the memory usage. It's like a room that's full—you can't fit another person in without someone leaving or the walls breaking.</li>
-</ul>
-<hr />
-<h2 id="4-the-ideal-scenarios">4. The "Ideal Scenarios"</h2>
-<p>Setting these numbers is an art, but there are some "Golden Rules" used in production:</p>
-<h3 id="the-ideal-memory-scenario-requests-limits">The Ideal Memory Scenario (Requests = Limits)</h3>
-<p>For <strong>Memory</strong>, the ideal scenario is almost always to set <strong>Requests equal to Limits</strong>.
-*   <strong>Why?</strong> Memory is a "hard" resource. If you tell K8s a pod <em>requests</em> 256Mi but might use 1Gi (<em>limit</em>), K8s might schedule it on a node that only has 300Mi free. When the pod starts growing toward its 1Gi limit, it will crash or cause the node to start killing other pods.
-*   <strong>Result</strong>: You get the <strong>Guaranteed</strong> QoS class, which makes your pod the last one to be killed in an emergency.</p>
-<h3 id="the-ideal-cpu-scenario-requests-limits">The Ideal CPU Scenario (Requests &lt; Limits)</h3>
-<p>For <strong>CPU</strong>, it is often better to leave some "headroom" (Burstable QoS).
-*   <strong>Ideal Setting</strong>: Set <strong>Request</strong> to your app's <em>average</em> usage and <strong>Limit</strong> to its <em>peak</em> burst usage.
-*   <strong>Why?</strong> Since CPU only throttles (slows down) rather than kills, it's safer to overcommit slightly. This allows your app to "burst" during a startup or a traffic spike without wasting expensive CPU cycles when the app is idle.</p>
-<h3 id="the-goldilocks-rule">The "Goldilocks" Rule</h3>
-<ul>
-<li><strong>Too Low</strong>: Pod crashes (OOM) or is too slow to respond (Throttling).</li>
-<li><strong>Too High</strong>: You are wasting money and "locking" resources that other pods could use, leading to fragmented nodes.</li>
-<li><strong>Just Right</strong>: Set requests to the <strong>90th percentile</strong> of your actual usage.</li>
-</ul>
-<hr />
-<h2 id="5-the-no-cpu-limits-strategy-expert-tip">5. The "No CPU Limits" Strategy (Expert Tip)</h2>
-<p>Many advanced Kubernetes courses (and high-scale companies) recommend setting <strong>Requests but NO Limits</strong> for CPU.</p>
-<h3 id="why-remove-cpu-limits">Why remove CPU Limits?</h3>
-<ol>
-<li><strong>Avoid Artificial Throttling</strong>: Even if a node is 90% idle, a CPU limit can artificially slow down your app. This wastes the "slack" (unused) resources of the cluster.</li>
-<li><strong>Slack Harvesting</strong>: If your app has no limit, it can "harvest" any unused CPU cycles from the node to process tasks significantly faster.</li>
-<li><strong>K8s Fair Share</strong>: Kubernetes is smart! If other pods need their CPU (because they have Requests), it will automatically squeeze your "limit-less" pod back down to its original <strong>Request</strong> amount. It won't let you steal from others.</li>
-</ol>
-<p><strong>In summary:</strong>
-*   <strong>Memory</strong>: ALWAYS set limits (to prevent OOM).
-*   <strong>CPU</strong>: Consider "No Limits" to maximize performance, as long as you have a solid <strong>Request</strong> to guarantee your fair share.</p>
-<hr />
-<h2 id="6-qos-classes-explained">6. QoS Classes Explained</h2>
-<p>Kubernetes automatically assigns a <strong>Quality of Service (QoS)</strong> class to your pod based on how you set your requests and limits.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">QoS Class</th>
-<th style="text-align: left;">How to get it</th>
-<th style="text-align: left;">Priority</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Guaranteed</strong></td>
-<td style="text-align: left;">Requests == Limits (for both CPU &amp; RAM)</td>
-<td style="text-align: left;"><strong>Highest.</strong> The node will fight to keep these alive.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Burstable</strong></td>
-<td style="text-align: left;">Requests &lt; Limits</td>
-<td style="text-align: left;"><strong>Medium.</strong> Pod can use extra resources if the node has them.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>BestEffort</strong></td>
-<td style="text-align: left;">No Requests, No Limits</td>
-<td style="text-align: left;"><strong>Lowest.</strong> First to be killed if the node runs out of memory.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Ideal Behavior:</strong> For critical production databases or core services, always use <strong>Guaranteed</strong> (Requests = Limits). For web apps, use <strong>Burstable</strong>.</p>
-<hr />
-<h2 id="7-real-time-examples-troubleshooting">7. Real-Time Examples &amp; Troubleshooting</h2>
-<h3 id="example-1-the-throttled-web-server">Example 1: The "Throttled" Web Server</h3>
-<ul>
-<li><strong>Setting</strong>: <code>request: 100m</code>, <code>limit: 200m</code>.</li>
-<li><strong>Scenario</strong>: A sudden spike in traffic.</li>
-<li><strong>Result</strong>: The pod stays <code>Running</code>, but page load times slow down from 200ms to 2s.</li>
-<li><strong>Fix</strong>: Check <code>kubectl top pod</code> and increase the CPU limit.</li>
-</ul>
-<h3 id="example-2-the-popping-java-app-oomkilled">Example 2: The "Popping" Java App (OOMKilled)</h3>
-<ul>
-<li><strong>Setting</strong>: <code>request: 512Mi</code>, <code>limit: 512Mi</code>.</li>
-<li><strong>Scenario</strong>: The Java Heap grows beyond 512Mi.</li>
-<li><strong>Result</strong>: Status changes to <code>CrashLoopBackOff</code>. <code>kubectl describe pod</code> shows <code>Reason: OOMKilled</code>.</li>
-<li><strong>Fix</strong>: Increase the memory limit or tune the app's memory usage.</li>
-</ul>
-<hr />
-<h2 id="8-summary-cheat-sheet">8. Summary Cheat Sheet</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Situation</th>
-<th style="text-align: left;">Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>How does Scheduler decide?</strong></td>
-<td style="text-align: left;">It uses <strong>Requests</strong>. If a node has 1Gi free, it can fit a pod requesting 512Mi.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>What if Limits &gt; Node Capacity?</strong></td>
-<td style="text-align: left;">This is called <strong>Overcommitting</strong>. It's fine until everyone tries to use their limits at the same time.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Standard units?</strong></td>
-<td style="text-align: left;">CPU: <code>m</code> (millicores), Memory: <code>Ei, Pi, Ti, Gi, Mi, Ki</code>.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="9-how-to-check-usage">9. How to check usage</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check node resources</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>node
-
-<span class="c1"># Check pod resources</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>pod
-
-<span class="c1"># Check if a pod was OOMKilled</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;Last State&quot;</span>
+<h2 id="2-clusterrole-yaml-example">📄 2. ClusterRole YAML Example</h2>
+<p>Notice that there is <strong>no <code>namespace</code> field</strong> in the metadata.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-node-reader</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;nodes&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
 </code></pre></div>
+<hr />
+<h2 id="3-the-power-of-the-binding">🔗 3. The Power of the Binding</h2>
+<p>The most important thing to remember is that a <code>ClusterRole</code> can be used by <strong>two different types of bindings</strong>, and the result is completely different:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Binding Used</th>
+<th style="text-align: left;">Resulting Scope</th>
+<th style="text-align: left;">Example Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>ClusterRoleBinding</strong></td>
+<td style="text-align: left;"><strong>Global</strong></td>
+<td style="text-align: left;">An Admin who can see everything in the cluster.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>RoleBinding</strong></td>
+<td style="text-align: left;"><strong>Namespaced</strong></td>
+<td style="text-align: left;">A Developer who is given the "view" ClusterRole, but only inside the <code>frontend</code> namespace.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-essential-kubectl-commands">🛠️ 4. Essential kubectl Commands</h2>
+<h3 id="create-a-clusterrole">Create a ClusterRole</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Imperative command</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>clusterrole<span class="w"> </span>storage-admin<span class="w"> </span>--verb<span class="o">=</span>get,list,create<span class="w"> </span>--resource<span class="o">=</span>persistentvolumes
+</code></pre></div>
+<h3 id="view-clusterroles">View ClusterRoles</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Notice you don&#39;t need a -n flag</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>clusterroles
+</code></pre></div>
+<h3 id="check-scope">Check Scope</h3>
+<p>To verify which resources are cluster-level vs namespace-level:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>api-resources<span class="w"> </span>--namespaced<span class="o">=</span><span class="nb">false</span>
+</code></pre></div></p>
+<hr />
+<h2 id="5-cka-exam-strategy-spotting-the-difference">🚩 5. CKA Exam Strategy: Spotting the Difference</h2>
+<p>If a question asks you to grant permissions, look for these keywords to decide if you need a <code>ClusterRole</code>:</p>
+<ol>
+<li><strong>"Across all namespaces"</strong> -&gt; Use <code>ClusterRole</code>.</li>
+<li><strong>"Manage Nodes"</strong> or <strong>"Manage PVs"</strong> -&gt; Use <code>ClusterRole</code> (these aren't in namespaces).</li>
+<li><strong>"Manage Cluster-level resources"</strong> -&gt; Use <code>ClusterRole</code>.</li>
+</ol>
+<hr />
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Built-in ClusterRoles</strong>: Kubernetes comes with several pre-defined ClusterRoles that you should use instead of writing your own whenever possible:
+- <code>cluster-admin</code>: Full power over everything.
+- <code>admin</code>: Full power within a namespace (when bound via RoleBinding).
+- <code>edit</code>: Can create/modify resources in a namespace.
+- <code>view</code>: Read-only access to a namespace.</p>
+</blockquote>
 
 
 
