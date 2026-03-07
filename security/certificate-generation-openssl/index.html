@@ -2674,6 +2674,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../kubeconfig-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubeconfig Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../network-policies/" class="md-nav__link">
         
   
@@ -3680,6 +3708,14 @@ openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> 
 openssl<span class="w"> </span>rsa<span class="w"> </span>-noout<span class="w"> </span>-modulus<span class="w"> </span>-in<span class="w"> </span>server.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>md5
 <span class="c1"># The hashes MUST match exactly!</span>
 </code></pre></div></p>
+<blockquote>
+<p>[!CAUTION]
+<strong>Common Error: "Could not read certificate"</strong>
+If you get an error like <code>Could not read certificate from ...</code>, check your file extension!
+- Use <code>openssl x509</code> for <strong>.crt</strong> files.
+- Use <code>openssl rsa</code> for <strong>.key</strong> files.</p>
+</blockquote>
+<hr />
 <h3 id="troubleshooting-checklist">Troubleshooting Checklist</h3>
 <ol>
 <li><strong>Prefixes</strong>: Ensure <code>system:node:</code> or <code>system:kube-scheduler</code> etc. are correct.</li>

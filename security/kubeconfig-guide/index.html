@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../mutating-admission-controllers/">
+        <link rel="prev" href="../certificate-api-management/">
       
       
-        <link rel="next" href="../etcd-data-model/">
+        <link rel="next" href="../network-policies/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Kube-Proxy Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Kubeconfig Guide - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kube-proxy-deep-dive" class="md-skip">
+        <a href="#kubeconfig-managing-cluster-access" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Kube-Proxy Deep Dive
+              Kubeconfig Guide
             
           </span>
         </div>
@@ -285,12 +285,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -1430,31 +1430,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -1472,7 +1467,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1518,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1546,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1574,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1602,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1627,37 +1622,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Kube-Proxy Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1673,132 +1641,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-how-it-runs-the-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. How it Runs (The Architecture)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. How it Runs (The Architecture)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubeadm-standard-clusters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubeadm / Standard Clusters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-hard-way-legacy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        "The Hard Way" / Legacy
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-configuration-where-is-the-config-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Configuration (Where is the config file?)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Configuration (Where is the config file?)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#finding-the-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Finding the Config
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-operations-what-does-it-actually-do" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Operations: What does it actually do?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Operations: What does it actually do?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-modes-implementing-the-magic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Modes (Implementing the Magic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Cheat Sheet Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1811,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -2212,26 +2054,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2249,7 +2096,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2267,7 +2114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2295,7 +2142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2323,7 +2170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2351,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/tls-certificates/" class="md-nav__link">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2379,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2407,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-api-management/" class="md-nav__link">
+      <a href="../certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2432,10 +2279,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubeconfig Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2451,6 +2325,159 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-three-pillars-of-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. The Three Pillars of Kubeconfig
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. The Three Pillars of Kubeconfig">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Clusters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Contexts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-file-location-precedence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📂 2. File Location &amp; Precedence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-common-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 3. Common kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 3. Common kubectl Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#switch-contexts-the-cka-daily-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Switch Contexts (The CKA Daily Routine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createmodify-configs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create/Modify Configs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-base64-in-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 4. Base64 in Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cka-exam-tip-context-switching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 5. CKA Exam Tip: Context Switching
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2463,7 +2490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -2890,22 +2917,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-how-it-runs-the-architecture" class="md-nav__link">
+  <a href="#1-the-three-pillars-of-kubeconfig" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. How it Runs (The Architecture)
+        🏗️ 1. The Three Pillars of Kubeconfig
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. How it Runs (The Architecture)">
+    <nav class="md-nav" aria-label="🏗️ 1. The Three Pillars of Kubeconfig">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kubeadm-standard-clusters" class="md-nav__link">
+  <a href="#1-clusters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kubeadm / Standard Clusters
+        1. Clusters
       
     </span>
   </a>
@@ -2913,10 +2940,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-hard-way-legacy" class="md-nav__link">
+  <a href="#2-users" class="md-nav__link">
     <span class="md-ellipsis">
       
-        "The Hard Way" / Legacy
+        2. Users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Contexts
       
     </span>
   </a>
@@ -2929,22 +2967,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-configuration-where-is-the-config-file" class="md-nav__link">
+  <a href="#2-file-location-precedence" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Configuration (Where is the config file?)
+        📂 2. File Location &amp; Precedence
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Configuration (Where is the config file?)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-common-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 3. Common kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 3. Common kubectl Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#finding-the-config" class="md-nav__link">
+  <a href="#view-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Finding the Config
+        View Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#switch-contexts-the-cka-daily-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Switch Contexts (The CKA Daily Routine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createmodify-configs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create/Modify Configs
       
     </span>
   </a>
@@ -2957,38 +3028,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-operations-what-does-it-actually-do" class="md-nav__link">
+  <a href="#4-base64-in-kubeconfig" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Operations: What does it actually do?
+        🔐 4. Base64 in Kubeconfig
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="3. Operations: What does it actually do?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-modes-implementing-the-magic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Modes (Implementing the Magic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
+  <a href="#5-cka-exam-tip-context-switching" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Cheat Sheet Summary
+        🧪 5. CKA Exam Tip: Context Switching
       
     </span>
   </a>
@@ -3012,97 +3066,83 @@
 
 
 
-<h1 id="kube-proxy-deep-dive">Kube-Proxy Deep Dive</h1>
-<p><strong>Kube-Proxy</strong> is the network "plumber" of your Kubernetes cluster. It runs on every single node and ensures that "Services" (like ClusterIP) actually work.</p>
-<p>Without Kube-Proxy, <code>Service</code> IPs (e.g., <code>10.96.0.10</code>) would just be dead IP addresses that route nowhere.</p>
+<h1 id="kubeconfig-managing-cluster-access">Kubeconfig: Managing Cluster Access</h1>
+<p>A <strong>kubeconfig</strong> file is a YAML file that stores information about clusters, users, namespaces, and authentication mechanisms. It is how <code>kubectl</code> knows which cluster to talk to and who you are.</p>
 <hr />
-<h2 id="1-how-it-runs-the-architecture">1. How it Runs (The Architecture)</h2>
-<h3 id="kubeadm-standard-clusters">Kubeadm / Standard Clusters</h3>
-<p>In 99% of modern clusters (and the CKA exam), Kube-Proxy runs as a <strong>DaemonSet</strong>.</p>
-<ul>
-<li><strong>Type:</strong> DaemonSet (Ensures exactly one pod runs on every node).</li>
-<li><strong>Namespace:</strong> <code>kube-system</code></li>
-<li><strong>Process:</strong> It talks to the API server to watch for new Services and Endpoints.</li>
-</ul>
-<p>To see it:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>daemonset<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-proxy
-</code></pre></div></p>
-<h3 id="the-hard-way-legacy">"The Hard Way" / Legacy</h3>
-<p>In manual binary installations, <code>kube-proxy</code> is installed as a Systemd Service (binary) directly on the worker node OS, just like the Kubelet.</p>
+<h2 id="1-the-three-pillars-of-kubeconfig">🏗️ 1. The Three Pillars of Kubeconfig</h2>
+<p>Every kubeconfig is built using three main sections:</p>
+<h3 id="1-clusters">1. Clusters</h3>
+<p>Contains the connection details for your clusters.
+*   <strong>Server</strong>: The API Server URL (e.g., <code>https://192.168.1.10:6443</code>).
+*   <strong>Certificate Authority</strong>: The <code>ca.crt</code> (or its base64 data) used to verify the cluster's identity.</p>
+<h3 id="2-users">2. Users</h3>
+<p>Contains your credentials.
+*   <strong>Client Certificate/Key</strong>: Path to your <code>.crt</code> and <code>.key</code> files.
+*   <strong>Token</strong>: A static or dynamic bearer token.
+*   <strong>Password</strong>: Username/Password (rarely used now).</p>
+<h3 id="3-contexts">3. Contexts</h3>
+<p>The "Glue" that binds a <strong>User</strong> to a <strong>Cluster</strong>.
+*   <strong>Context Name</strong>: A nickname (e.g., <code>prod-context</code>).
+*   <strong>Cluster</strong>: Which cluster to use.
+*   <strong>User</strong>: Which credentials to use.
+*   <strong>Namespace</strong>: (Optional) The default namespace for this context.</p>
 <hr />
-<h2 id="2-configuration-where-is-the-config-file">2. Configuration (Where is the config file?)</h2>
-<p>This is where Kube-Proxy differs from Static Pods.</p>
-<ul>
-<li><strong>Static Pods (Scheduler/API):</strong> Config is a <strong>local file</strong> on the node (<code>/etc/kubernetes/...</code>).</li>
-<li><strong>Kube-Proxy:</strong> Config is a <strong>ConfigMap</strong> inside Kubernetes.</li>
-</ul>
-<h3 id="finding-the-config">Finding the Config</h3>
-<p>You cannot just SSH into a node and edit a file to change Kube-Proxy settings. You must edit the ConfigMap object.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># View the config</span>
-kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>kube-proxy<span class="w"> </span>-o<span class="w"> </span>yaml
-
-<span class="c1"># Edit the config (e.g., to change mode from iptables to ipvs)</span>
-kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>edit<span class="w"> </span>cm<span class="w"> </span>kube-proxy
-</code></pre></div>
-<p><strong>CRITICAL STEP:</strong> After editing the ConfigMap, the Pods <strong>will not update automatically</strong>. You must restart the DaemonSet pods to pick up the changes:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>daemonset<span class="w"> </span>kube-proxy
-</code></pre></div>
-<hr />
-<h2 id="3-operations-what-does-it-actually-do">3. Operations: What does it actually do?</h2>
-<p>Kube-Proxy watches the API Server for <strong>Services</strong> and <strong>Endpoints</strong>. When you create a Service, Kube-Proxy wakes up and writes network rules on the Node's kernel.</p>
-<h3 id="the-modes-implementing-the-magic">The Modes (Implementing the Magic)</h3>
+<h2 id="2-file-location-precedence">📂 2. File Location &amp; Precedence</h2>
+<p>Kubernetes looks for configurations in this specific order:</p>
 <ol>
-<li>
-<p><strong>IPTables Mode (Default):</strong></p>
-<ul>
-<li>Kube-Proxy writes standard Linux <code>iptables</code> rules.</li>
-<li>Traffic to the Service IP is intercepted by the kernel and DNAT'ed (Forwarded) to a random Pod IP.</li>
-<li><strong>Pros:</strong> Universal, mature.</li>
-<li><strong>Cons:</strong> Slow at massive scale (5,000+ services).</li>
-</ul>
-</li>
-<li>
-<p><strong>IPVS Mode (High Performance):</strong></p>
-<ul>
-<li>Uses the Linux Kernel's IP Virtual Server (L4 Load Balancer).</li>
-<li>Uses hash tables instead of linear lists.</li>
-<li><strong>Pros:</strong> Much faster for large clusters.</li>
-<li><strong>Cons:</strong> Requires extra kernel modules to be loaded on the OS.</li>
-</ul>
-</li>
+<li><strong><code>--kubeconfig</code> flag</strong>: <code>kubectl get pods --kubeconfig=/path/to/custom-config</code></li>
+<li><strong><code>KUBECONFIG</code> env variable</strong>: <code>export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/dev-config</code> (Merges both!)</li>
+<li><strong>Default Location</strong>: <code>$HOME/.kube/config</code></li>
 </ol>
 <hr />
-<h2 id="4-cheat-sheet-summary">4. Cheat Sheet Summary</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Run As</strong></td>
-<td style="text-align: left;">DaemonSet (Namespace: <code>kube-system</code>)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Managed By</strong></td>
-<td style="text-align: left;">Kubernetes Deployment Controller (DaemonSet controller)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Configuration</strong></td>
-<td style="text-align: left;"><code>ConfigMap: kube-proxy</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Logs</strong></td>
-<td style="text-align: left;"><code>kubectl logs -n kube-system -l k8s-app=kube-proxy</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Core Job</strong></td>
-<td style="text-align: left;">Translates Service VIPs -&gt; Pod IPs using iptables/ipvs</td>
-</tr>
-</tbody>
-</table>
+<h2 id="3-common-kubectl-commands">🛠️ 3. Common kubectl Commands</h2>
+<h3 id="view-configuration">View Configuration</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># View the current configuration (Warning: Shows secrets!)</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>view
+
+<span class="c1"># View only the minified config for the current context</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--minify
+</code></pre></div>
+<h3 id="switch-contexts-the-cka-daily-routine">Switch Contexts (The CKA Daily Routine)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get list of contexts</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>get-contexts
+
+<span class="c1"># Identify current context</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>current-context
+
+<span class="c1"># Switch to a different context</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>use-context<span class="w"> </span>my-cluster-name
+</code></pre></div>
+<h3 id="createmodify-configs">Create/Modify Configs</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set a new cluster entry</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>set-cluster<span class="w"> </span>development<span class="w"> </span>--server<span class="o">=</span>https://1.2.3.4:6443<span class="w"> </span>--certificate-authority<span class="o">=</span>/pki/ca.crt
+
+<span class="c1"># Set a new user with a token</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>set-credentials<span class="w"> </span>developer<span class="w"> </span>--token<span class="o">=</span>qwerty124
+
+<span class="c1"># Create a new context linking them</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>set-context<span class="w"> </span>dev-context<span class="w"> </span>--cluster<span class="o">=</span>development<span class="w"> </span>--user<span class="o">=</span>developer<span class="w"> </span>--namespace<span class="o">=</span>frontend
+</code></pre></div>
+<hr />
+<h2 id="4-base64-in-kubeconfig">🔐 4. Base64 in Kubeconfig</h2>
+<p>In a standard <code>~/.kube/config</code>, you will often see <code>certificate-authority-data</code> or <code>client-key-data</code> instead of file paths. This is just the file content encoded in <strong>Base64</strong>.</p>
+<p><strong>How to convert a file to Kubeconfig data:</strong>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>ca.crt<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span>
+</code></pre></div></p>
+<hr />
+<h2 id="5-cka-exam-tip-context-switching">🧪 5. CKA Exam Tip: Context Switching</h2>
+<p>In the CKA exam, you will be given multiple clusters. <strong>EVERY QUESTION</strong> will start with a command to switch contexts:</p>
+<blockquote>
+<p>"Task: Create a pod in cluster X. First, switch to context X: <code>kubectl config use-context cluster-x</code>"</p>
+</blockquote>
+<p><strong>CRITICAL</strong>: If you forget to run this, you will perform the task in the <strong>wrong cluster</strong> and get zero points for that question. Always check <code>kubectl config current-context</code> before starting a task.</p>
+<hr />
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Merge vs. Overwrite</strong>: If you have two different config files, don't try to manually copy-paste them. Use the environment variable:
+<code>export KUBECONFIG=file1:file2</code>
+<code>kubectl config view --flatten &gt; merged-config</code></p>
+</blockquote>
 
 
 
