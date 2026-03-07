@@ -251,3 +251,10 @@ spec:
 
 > [!TIP]
 > **CKA Strategy**: If you are asked to fix a broken cluster where the API Server is down, check the **Static Pod manifest** at `/etc/kubernetes/manifests/kube-apiserver.yaml`. Often, a certificate path is mistyped!
+
+---
+
+## 📚 External References
+
+- [Mumshad Mannambeth: Kubernetes The Hard Way - Tools](https://github.com/mmumshad/kubernetes-the-hard-way/tree/master/tools)
+

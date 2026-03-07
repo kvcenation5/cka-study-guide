@@ -102,3 +102,10 @@ debug: false
 
 > [!TIP]
 > **Helper for the Exam**: If `crictl` is not configured on the exam server, they might expect you to use `crictl --runtime-endpoint unix:///run/containerd/containerd.sock ps`. Always check the `/etc/crictl.yaml` first!
+
+---
+
+## 📚 External References
+
+- [Mumshad Mannambeth: Kubernetes The Hard Way - Tools](https://github.com/mmumshad/kubernetes-the-hard-way/tree/master/tools)
+
