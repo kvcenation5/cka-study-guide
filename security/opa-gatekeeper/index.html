@@ -2549,6 +2549,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2-understanding-the-webhook-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 2. Understanding the Webhook Integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 2. Understanding the Webhook Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-the-webhook-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. The Webhook Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-the-requestresponse-cycle-admissionreview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. The Request/Response Cycle (AdmissionReview)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#3-the-two-parts-of-a-gatekeeper-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3102,6 +3141,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2-understanding-the-webhook-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 2. Understanding the Webhook Integration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 2. Understanding the Webhook Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-the-webhook-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. The Webhook Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-the-requestresponse-cycle-admissionreview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. The Request/Response Cycle (AdmissionReview)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#3-the-two-parts-of-a-gatekeeper-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3207,6 +3285,26 @@
 <li>The <strong>API Server</strong> sends the request to the <strong>Gatekeeper Webhook</strong>.</li>
 <li>Gatekeeper checks the request against your <strong>Policies</strong> (written in a language called <strong>Rego</strong>).</li>
 <li>Gatekeeper sends an <strong>Allow</strong> or <strong>Deny</strong> response back to the API Server.</li>
+</ol>
+<hr />
+<h2 id="2-understanding-the-webhook-integration">🔌 2. Understanding the Webhook Integration</h2>
+<p>Gatekeeper integrates into Kubernetes using the <strong>Admission Webhook</strong> mechanism. This is a "call-back" system where the API Server pauses a request to ask an external service for permission.</p>
+<h3 id="a-the-webhook-configuration">A. The Webhook Configuration</h3>
+<p>Kubernetes uses a special object called a <code>ValidatingWebhookConfiguration</code> to know where the OPA server is. It contains:
+*   <strong>Service Details</strong>: The namespace and service name of the Gatekeeper pod.
+*   <strong>Rules</strong>: Which operations (CREATE, UPDATE) and resources (Pods, Ingress) should trigger the webhook.
+*   <strong>Failure Policy</strong>: What happens if the OPA pod is down?
+    *   <code>Ignore</code>: (Fail Open) Let the request through anyway.
+    *   <code>Fail</code>: (Fail Closed) Reject the request. <strong>(Standard for security)</strong>.</p>
+<h3 id="b-the-requestresponse-cycle-admissionreview">B. The Request/Response Cycle (<code>AdmissionReview</code>)</h3>
+<ol>
+<li><strong>Request</strong>: The API Server sends a JSON object called an <code>AdmissionReview</code> to the OPA service. It contains the <strong>entire YAML</strong> of the resource being created.</li>
+<li><strong>Processing</strong>: OPA parses the YAML and runs its Rego logic against it.</li>
+<li><strong>Response</strong>: OPA sends back an <code>AdmissionResponse</code> containing:<ul>
+<li><code>allowed</code>: <code>true</code> or <code>false</code>.</li>
+<li><code>status</code>: (Optional) A human-readable message explaining why it was denied (e.g., "Missing owner label").</li>
+</ul>
+</li>
 </ol>
 <hr />
 <h2 id="3-the-two-parts-of-a-gatekeeper-policy">📄 3. The Two Parts of a Gatekeeper Policy</h2>
