@@ -71,5 +71,24 @@ The list of active authorization mechanisms is defined by the `--authorization-m
 
 ---
 
+## 🥊 Comparison: Node vs. RBAC vs. Webhook
+
+Modern clusters usually enable all three (`Node,RBAC,Webhook`). Here is how you decide which one is currently acting:
+
+| Feature | Node Authorizer | RBAC | Webhook |
+| :--- | :--- | :--- | :--- |
+| **Who is the Target?** | **Kubelets only** (`system:nodes` group) | Humans (Users) and Apps (ServiceAccounts) | Anyone |
+| **What is the Scope?** | **Restrictive**: Limits a node to its own data. | **Permissive**: Grants access to general resources. | **Logical**: Enforces custom "business rules." |
+| **Why use it?** | To prevent a hacked node from seeing the whole cluster. | Standard organizational access management. | For complex logic RBAC can't do (e.g., OPA). |
+| **Success Code** | `Allow` (if it's the node's own data) | `Allow` (if a RoleBinding exists) | `Allow` (if the external API says yes) |
+
+### The "Chain of Command" Example:
+If you run `kubectl get pods`, the API server goes through the list:
+1.  **Node Authorizer**: Sees you are a **User**, not a Node. Passes the request.
+2.  **RBAC**: Checks if you have a **Role** giving you `list` on `pods`. If yes, **Approves**.
+3.  **Webhook**: (If installed) OPA checks if you are allowed to list pods in this specific namespace. If yes, **Final Approval**.
+
+---
+
 > [!TIP]
 > **CKA Strategy**: If you are troubleshooting a `403 Forbidden` error and your RBAC looks perfect, check the API Server flags. If someone accidentally removed `RBAC` from the `--authorization-mode` flag, your Roles and Bindings will be completely ignored!
