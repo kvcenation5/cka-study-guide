@@ -4,7 +4,7 @@ This guide provides a comprehensive, step-by-step workflow for setting up all Ku
 
 ---
 
-## 🏛️ 1. The Core Infrastructure: Root CA
+## 🏗️ 1. The Core Infrastructure: Root CA
 The **Root CA** consists of two files: `ca.key` (the private master key) and `ca.crt` (the public trust certificate). **All certificates in this guide are signed by this CA key.**
 
 ### Step-by-Step Generation:
@@ -148,24 +148,33 @@ In Kubernetes, we use **Mutual TLS (mTLS)**. This means both the server and the 
 
 ## 🔍 5. Verification & Troubleshooting
 
-### How to verify a certificate?
-Use `openssl` to see the internal details (CN, Dates, Expiry):
+### How to Decode & Verify a Certificate?
+Use `openssl` to peek inside the `.crt` file. This is the **number one skill** for debugging TLS issues in the CKA exam.
+
 ```bash
 openssl x509 -in <filename>.crt -text -noout
 ```
+
+**What to look for in the output?**
+1.  **Subject**: Check the **CN** (Common Name). 
+    -   Does it have the right prefix? (e.g., `system:node:name`)
+    -   Does it have the right Group? (e.g., `O=system:masters`)
+2.  **Issuer**: This MUST match your **Kubernetes CA**. If it says something else, the certificate was signed by the wrong key.
+3.  **Validity**: Check the `Not Before` and `Not After` dates. If the current date is outside this range, the cluster will fail with "Certificate Expired" errors.
+4.  **X509v3 Subject Alternative Name**: For the API Server, ensure it lists the IP addresses and DNS names you expect.
 
 ### How to check if a cert matches a key?
 If they don't match, the component won't start. Compare the modulus hash:
 ```bash
 openssl x509 -noout -modulus -in server.crt | openssl md5
 openssl rsa -noout -modulus -in server.key | openssl md5
-# The hashes MUST match!
+# The hashes MUST match exactly!
 ```
 
-### Troubleshooting: "Unauthorized" or "Bad Certificate"
-1.  **Check the CN**: Does it start with `system:`? If not, the RBAC rules won't recognize it.
-2.  **Check the Group (O)**: Is the Admin cert in `system:masters`? Are the Nodes in `system:nodes`?
-3.  **Check the CA**: Did you sign the `.crt` using the same `ca.key` that is configured in the API Server's `--client-ca-file` flag?
+### Troubleshooting Checklist
+1.  **Prefixes**: Ensure `system:node:` or `system:kube-scheduler` etc. are correct.
+2.  **Groups (O)**: Ensure `system:masters` for admin and `system:nodes` for kubelets.
+3.  **CA Path**: Ensure the API server's `--client-ca-file` points to the same CA that signed the certificates.
 
 ---
 
@@ -180,7 +189,7 @@ openssl rsa -noout -modulus -in server.key | openssl md5
 When configuring the `kube-apiserver` static pod, you will see multiple CA flags. This is a common source of confusion in the CKA exam.
 
 ### `.pem` vs `.crt`?
-In Kubernetes, these are **the same**. They are both PEM-encoded Base64 files. You can use whichever extension you prefer, as long as the content matches your generated CA.
+In Kubernetes, these are **the same**. They are both PEM-encoded Base64 files.
 
 | Flag | Purpose | Usually points to... |
 | :--- | :--- | :--- |
@@ -195,40 +204,47 @@ In Kubernetes, these are **the same**. They are both PEM-encoded Base64 files. Y
 Once you have generated the certificates, you must tell the Kubernetes services where to find them.
 
 ### A. Kubelet Configuration (`/var/lib/kubelet/config.yaml`)
-The Kubelet needs to know which CA to trust for incoming requests and which certificate to show when the API server calls it.
-
 ```yaml
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
 authentication:
   x509:
-    clientCAFile: "/etc/kubernetes/pki/ca.crt" # Trusts requests signed by this CA
-tlsCertFile: "/var/lib/kubelet/pki/node01.crt" # Its own identity
+    clientCAFile: "/etc/kubernetes/pki/ca.crt"
+tlsCertFile: "/var/lib/kubelet/pki/node01.crt"
 tlsPrivateKeyFile: "/var/lib/kubelet/pki/node01.key"
 ```
 
 ### B. Kube-APIServer Connection to Etcd
-This is the most critical secure connection in the cluster. The API server acts as a **client** to the Etcd server.
-
-**Full Detailed Command:**
 ```bash
 kube-apiserver \
-  # 1. Verification of Clients (Users, Pods, Scheduler)
   --client-ca-file=/etc/kubernetes/pki/ca.crt \
-  
-  # 2. Connection to Etcd (API Server as a Client)
   --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt \
   --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt \
   --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key \
   --etcd-servers=https://127.0.0.1:2379 \
-  
-  # 3. Connection to Kubelets (API Server as a Client)
-  --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt \
-  --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key \
-  
-  # 4. Identity of the API Server itself
   --tls-cert-file=/etc/kubernetes/pki/apiserver.crt \
   --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+```
+
+---
+
+## 🔎 8. Real World Example: Minikube APIServer
+
+Notice how the flags point to specific certificates for each task:
+
+```yaml
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --client-ca-file=/var/lib/minikube/certs/ca.crt # Cluster CA
+    - --etcd-cafile=/var/lib/minikube/certs/etcd/ca.crt # Dedicated Etcd CA
+    - --etcd-certfile=/var/lib/minikube/certs/apiserver-etcd-client.crt
+    - --etcd-keyfile=/var/lib/minikube/certs/apiserver-etcd-client.key
+    - --kubelet-client-certificate=/var/lib/minikube/certs/apiserver-kubelet-client.crt
+    - --kubelet-client-key=/var/lib/minikube/certs/apiserver-kubelet-client.key
+    - --tls-cert-file=/var/lib/minikube/certs/apiserver.crt # APIServer Identity
+    - --tls-private-key-file=/var/lib/minikube/certs/apiserver.key
 ```
 
 ---
