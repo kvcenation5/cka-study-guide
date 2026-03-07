@@ -90,6 +90,7 @@ nav:
       - Security Primitives: security/security-primitives.md
       - AuthN vs AuthZ vs TLS: security/auth-vs-authz-vs-tls.md
       - TLS Certificates: security/tls-certificates.md
+      - Certificate Generation (OpenSSL): security/certificate-generation-openssl.md
       - Network Policies: security/network-policies.md
   - Security Focus: security-focus.md
   - Exam Overview:
