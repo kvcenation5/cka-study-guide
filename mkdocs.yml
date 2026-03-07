@@ -96,6 +96,7 @@ nav:
       - Certificate API (CSR): security/certificate-api-management.md
       - Kubeconfig Guide: security/kubeconfig-guide.md
       - RBAC & Authorization: security/rbac-authorization.md
+      - Practical RBAC Examples: security/rbac-practical-examples.md
       - Authorization Mechanisms: security/authorization-mechanisms.md
       - ABAC Authorization: security/abac-authorization.md
       - OPA Gatekeeper Overview: security/opa-gatekeeper.md
