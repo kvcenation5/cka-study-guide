@@ -28,6 +28,42 @@ The "Glue" that binds a **User** to a **Cluster**.
 
 ---
 
+## 📄 2. Kubeconfig YAML Example
+
+Here is a complete example showing how these sections are structured in a single file:
+
+```yaml
+apiVersion: v1
+kind: Config
+
+# 1. Clusters Section
+clusters:
+- name: production-cluster
+  cluster:
+    server: https://10.0.0.10:6443
+    certificate-authority: /etc/kubernetes/pki/ca.crt
+
+# 2. Users Section
+users:
+- name: admin-user
+  user:
+    client-certificate: /etc/kubernetes/pki/admin.crt
+    client-key: /etc/kubernetes/pki/admin.key
+
+# 3. Contexts Section (The Mapping)
+contexts:
+- name: prod-admin-context
+  context:
+    cluster: production-cluster
+    user: admin-user
+    namespace: finance
+
+# 4. Current Context (Setting the Default)
+current-context: prod-admin-context
+```
+
+---
+
 ## 📂 2. File Location & Precedence
 
 Kubernetes looks for configurations in this specific order:
