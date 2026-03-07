@@ -91,6 +91,7 @@ nav:
       - AuthN vs AuthZ vs TLS: security/auth-vs-authz-vs-tls.md
       - TLS Certificates: security/tls-certificates.md
       - Certificate Generation (OpenSSL): security/certificate-generation-openssl.md
+      - Certificate API (CSR): security/certificate-api-management.md
       - Network Policies: security/network-policies.md
   - Security Focus: security-focus.md
   - Exam Overview:
