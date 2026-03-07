@@ -2575,6 +2575,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#comparison-node-vs-rbac-vs-webhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🥊 Comparison: Node vs. RBAC vs. Webhook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🥊 Comparison: Node vs. RBAC vs. Webhook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-chain-of-command-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Chain of Command" Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3195,6 +3223,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#comparison-node-vs-rbac-vs-webhook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🥊 Comparison: Node vs. RBAC vs. Webhook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🥊 Comparison: Node vs. RBAC vs. Webhook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-chain-of-command-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Chain of Command" Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3294,6 +3350,50 @@
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="comparison-node-vs-rbac-vs-webhook">🥊 Comparison: Node vs. RBAC vs. Webhook</h2>
+<p>Modern clusters usually enable all three (<code>Node,RBAC,Webhook</code>). Here is how you decide which one is currently acting:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Node Authorizer</th>
+<th style="text-align: left;">RBAC</th>
+<th style="text-align: left;">Webhook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Who is the Target?</strong></td>
+<td style="text-align: left;"><strong>Kubelets only</strong> (<code>system:nodes</code> group)</td>
+<td style="text-align: left;">Humans (Users) and Apps (ServiceAccounts)</td>
+<td style="text-align: left;">Anyone</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>What is the Scope?</strong></td>
+<td style="text-align: left;"><strong>Restrictive</strong>: Limits a node to its own data.</td>
+<td style="text-align: left;"><strong>Permissive</strong>: Grants access to general resources.</td>
+<td style="text-align: left;"><strong>Logical</strong>: Enforces custom "business rules."</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Why use it?</strong></td>
+<td style="text-align: left;">To prevent a hacked node from seeing the whole cluster.</td>
+<td style="text-align: left;">Standard organizational access management.</td>
+<td style="text-align: left;">For complex logic RBAC can't do (e.g., OPA).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Success Code</strong></td>
+<td style="text-align: left;"><code>Allow</code> (if it's the node's own data)</td>
+<td style="text-align: left;"><code>Allow</code> (if a RoleBinding exists)</td>
+<td style="text-align: left;"><code>Allow</code> (if the external API says yes)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-chain-of-command-example">The "Chain of Command" Example:</h3>
+<p>If you run <code>kubectl get pods</code>, the API server goes through the list:
+1.  <strong>Node Authorizer</strong>: Sees you are a <strong>User</strong>, not a Node. Passes the request.
+2.  <strong>RBAC</strong>: Checks if you have a <strong>Role</strong> giving you <code>list</code> on <code>pods</code>. If yes, <strong>Approves</strong>.
+3.  <strong>Webhook</strong>: (If installed) OPA checks if you are allowed to list pods in this specific namespace. If yes, <strong>Final Approval</strong>.</p>
 <hr />
 <blockquote>
 <p>[!TIP]
