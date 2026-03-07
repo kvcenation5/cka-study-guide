@@ -2535,6 +2535,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#7-component-configuration-using-the-certs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 7. Component Configuration: Using the Certs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 7. Component Configuration: Using the Certs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-kubelet-configuration-varlibkubeletconfigyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Kubelet Configuration (/var/lib/kubelet/config.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-kube-apiserver-connection-to-etcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Kube-APIServer Connection to Etcd
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3199,6 +3238,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#7-component-configuration-using-the-certs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 7. Component Configuration: Using the Certs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 7. Component Configuration: Using the Certs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-kubelet-configuration-varlibkubeletconfigyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Kubelet Configuration (/var/lib/kubelet/config.yaml)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-kube-apiserver-connection-to-etcd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Kube-APIServer Connection to Etcd
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3465,9 +3543,43 @@ When people talk about the "Admin Key", they usually mean the <strong><code>ca.k
 </tbody>
 </table>
 <hr />
+<h2 id="7-component-configuration-using-the-certs">🛠️ 7. Component Configuration: Using the Certs</h2>
+<p>Once you have generated the certificates, you must tell the Kubernetes services where to find them.</p>
+<h3 id="a-kubelet-configuration-varlibkubeletconfigyaml">A. Kubelet Configuration (<code>/var/lib/kubelet/config.yaml</code>)</h3>
+<p>The Kubelet needs to know which CA to trust for incoming requests and which certificate to show when the API server calls it.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeletConfiguration</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubelet.config.k8s.io/v1beta1</span>
+<span class="nt">authentication</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">x509</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">clientCAFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/kubernetes/pki/ca.crt&quot;</span><span class="w"> </span><span class="c1"># Trusts requests signed by this CA</span>
+<span class="nt">tlsCertFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/var/lib/kubelet/pki/node01.crt&quot;</span><span class="w"> </span><span class="c1"># Its own identity</span>
+<span class="nt">tlsPrivateKeyFile</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/var/lib/kubelet/pki/node01.key&quot;</span>
+</code></pre></div>
+<h3 id="b-kube-apiserver-connection-to-etcd">B. Kube-APIServer Connection to Etcd</h3>
+<p>This is the most critical secure connection in the cluster. The API server acts as a <strong>client</strong> to the Etcd server.</p>
+<p><strong>Full Detailed Command:</strong>
+<div class="highlight"><pre><span></span><code>kube-apiserver<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="c1"># 1. Verification of Clients (Users, Pods, Scheduler)</span>
+<span class="w">  </span>--client-ca-file<span class="o">=</span>/etc/kubernetes/pki/ca.crt<span class="w"> </span><span class="se">\</span>
+
+<span class="w">  </span><span class="c1"># 2. Connection to Etcd (API Server as a Client)</span>
+<span class="w">  </span>--etcd-cafile<span class="o">=</span>/etc/kubernetes/pki/etcd/ca.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--etcd-certfile<span class="o">=</span>/etc/kubernetes/pki/apiserver-etcd-client.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--etcd-keyfile<span class="o">=</span>/etc/kubernetes/pki/apiserver-etcd-client.key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--etcd-servers<span class="o">=</span>https://127.0.0.1:2379<span class="w"> </span><span class="se">\</span>
+
+<span class="w">  </span><span class="c1"># 3. Connection to Kubelets (API Server as a Client)</span>
+<span class="w">  </span>--kubelet-client-certificate<span class="o">=</span>/etc/kubernetes/pki/apiserver-kubelet-client.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--kubelet-client-key<span class="o">=</span>/etc/kubernetes/pki/apiserver-kubelet-client.key<span class="w"> </span><span class="se">\</span>
+
+<span class="w">  </span><span class="c1"># 4. Identity of the API Server itself</span>
+<span class="w">  </span>--tls-cert-file<span class="o">=</span>/etc/kubernetes/pki/apiserver.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tls-private-key-file<span class="o">=</span>/etc/kubernetes/pki/apiserver.key
+</code></pre></div></p>
+<hr />
 <blockquote>
-<p>[!CAUTION]
-<strong>Common Exam Failure</strong>: If you point the <code>--etcd-ca-file</code> to your main Cluster CA, but Etcd was signed by a separate Etcd CA, the API server will crash because it cannot trust the database!</p>
+<p>[!TIP]
+<strong>CKA Strategy</strong>: If you are asked to fix a broken cluster where the API Server is down, check the <strong>Static Pod manifest</strong> at <code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>. Often, a certificate path is mistyped!</p>
 </blockquote>
 
 
