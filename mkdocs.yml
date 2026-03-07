@@ -97,6 +97,7 @@ nav:
       - Kubeconfig Guide: security/kubeconfig-guide.md
       - RBAC & Authorization: security/rbac-authorization.md
       - Practical RBAC Examples: security/rbac-practical-examples.md
+      - RBAC kubectl Cheatsheet: security/rbac-kubectl-cheatsheet.md
       - RoleBinding Deep Dive: security/rolebinding-deep-dive.md
       - Authorization Mechanisms: security/authorization-mechanisms.md
       - ABAC Authorization: security/abac-authorization.md
