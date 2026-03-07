@@ -26,6 +26,27 @@ Gatekeeper is the Kubernetes-native implementation of OPA. It works as an **Admi
 
 ---
 
+## 🔌 2. Understanding the Webhook Integration
+
+Gatekeeper integrates into Kubernetes using the **Admission Webhook** mechanism. This is a "call-back" system where the API Server pauses a request to ask an external service for permission.
+
+### A. The Webhook Configuration
+Kubernetes uses a special object called a `ValidatingWebhookConfiguration` to know where the OPA server is. It contains:
+*   **Service Details**: The namespace and service name of the Gatekeeper pod.
+*   **Rules**: Which operations (CREATE, UPDATE) and resources (Pods, Ingress) should trigger the webhook.
+*   **Failure Policy**: What happens if the OPA pod is down?
+    *   `Ignore`: (Fail Open) Let the request through anyway.
+    *   `Fail`: (Fail Closed) Reject the request. **(Standard for security)**.
+
+### B. The Request/Response Cycle (`AdmissionReview`)
+1.  **Request**: The API Server sends a JSON object called an `AdmissionReview` to the OPA service. It contains the **entire YAML** of the resource being created.
+2.  **Processing**: OPA parses the YAML and runs its Rego logic against it.
+3.  **Response**: OPA sends back an `AdmissionResponse` containing:
+    *   `allowed`: `true` or `false`.
+    *   `status`: (Optional) A human-readable message explaining why it was denied (e.g., "Missing owner label").
+
+---
+
 ## 📄 3. The Two Parts of a Gatekeeper Policy
 
 To enforce a rule in Gatekeeper, you need two custom resources:
