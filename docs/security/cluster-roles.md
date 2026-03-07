@@ -23,17 +23,27 @@ Permissions for administrative URLs that exist outside of the standard API paths
 
 ## 📄 2. ClusterRole YAML Example
 
-Notice that there is **no `namespace` field** in the metadata.
+A `ClusterRole` looks identical to a `Role` but **must NOT** have a `namespace` field.
 
 ```yaml
+# cluster-admin-role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: cluster-node-reader
+  name: storage-auditor # Unique name at the cluster level
 rules:
 - apiGroups: [""]
-  resources: ["nodes"]
-  verbs: ["get", "watch", "list"]
+  # Resources that are NOT namespaced (Global)
+  resources: ["persistentvolumes", "nodes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["storage.k8s.io"]
+  # Resources in a specific API Group
+  resources: ["storageclasses"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  # Namespaced resources (but granting access to ALL of them globally)
+  resources: ["persistentvolumeclaims"]
+  verbs: ["get", "list"]
 ```
 
 ---
