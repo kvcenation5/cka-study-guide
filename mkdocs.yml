@@ -75,6 +75,7 @@ nav:
       - Kube-Proxy Deep Dive: cluster-architecture/kube-proxy-deep-dive.md
       - ETCD Data Model: cluster-architecture/etcd-data-model.md
       - "API Groups: Core vs Named": cluster-architecture/api-groups-overview.md
+      - Namespaced vs Cluster-Scoped: cluster-architecture/namespaced-vs-cluster-scoped.md
       - kube-proxy vs kubectl proxy: cluster-architecture/kube-proxy-vs-kubectl-proxy.md
   - Components: KNOW_YOUR_COMPONENTS.md
   - Deep Dives:
