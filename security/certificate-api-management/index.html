@@ -2436,10 +2436,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-the-controller-managers-role" class="md-nav__link">
+  <a href="#4-the-admin-approval-checklist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚙️ 4. The Controller Manager's Role
+        🛡️ 4. The Admin Approval Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-controller-managers-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 5. The Controller Manager's Role
       
     </span>
   </a>
@@ -3050,10 +3061,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-the-controller-managers-role" class="md-nav__link">
+  <a href="#4-the-admin-approval-checklist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚙️ 4. The Controller Manager's Role
+        🛡️ 4. The Admin Approval Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-controller-managers-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 5. The Controller Manager's Role
       
     </span>
   </a>
@@ -3214,7 +3236,34 @@ openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> <
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>--decode<span class="w"> </span>&gt;<span class="w"> </span>john.crt
 </code></pre></div></p>
 <hr />
-<h2 id="4-the-controller-managers-role">⚙️ 4. The Controller Manager's Role</h2>
+<h2 id="4-the-admin-approval-checklist">🛡️ 4. The Admin Approval Checklist</h2>
+<p>Before approving a CSR, you MUST run <code>kubectl describe csr &lt;name&gt;</code> and verify these fields:</p>
+<ol>
+<li><strong>Common Name (CN)</strong>: Who is the user? Are they who they say they are?</li>
+<li><strong>Organization (O)</strong>: What <strong>Groups</strong> will they be in? Watch out for <code>system:masters</code>!</li>
+<li><strong>Usages</strong>: Does a developer need <code>server auth</code>? (Usually they only need <code>client auth</code>).</li>
+<li><strong>Requestor</strong>: Which Kubernetes account submitted this YAML? If it doesn't match the CN, it might be a spoofing attempt.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Decision</th>
+<th style="text-align: left;">Logic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Approve ✅</strong></td>
+<td style="text-align: left;">Valid user, correct group, minimal usages.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deny ❌</strong></td>
+<td style="text-align: left;">Unauthorized group (<code>system:masters</code>), suspicious CN, or anonymous requestor.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-the-controller-managers-role">⚙️ 5. The Controller Manager's Role</h2>
 <p>The <strong>Kube-Controller-Manager</strong> is the "engine" behind this API. It runs two specific controllers:
 1.  <strong>CSR Approver</strong>: Automatically approves certain system requests (like Kubelet node certificates).
 2.  <strong>CSR Signer</strong>: Watches for approved CSR objects, takes the <code>ca.key</code> from the master disk, signs the request, and updates the object's <code>.status.certificate</code> field.</p>
