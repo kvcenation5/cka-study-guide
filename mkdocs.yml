@@ -90,6 +90,7 @@ nav:
       - StatefulSet Architecture: storage/statefulset-architecture.md
   - Security:
       - Overview: security/overview.md
+      - Container Security Overview: security/container-security-overview.md
       - Security Primitives: security/security-primitives.md
       - AuthN vs AuthZ vs TLS: security/auth-vs-authz-vs-tls.md
       - TLS Certificates: security/tls-certificates.md
