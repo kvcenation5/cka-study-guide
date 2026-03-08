@@ -89,22 +89,35 @@ spec:
 
 ---
 
-## 📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level
+## 🚥 5. The "Override Logic" Cheat Sheet
 
-Security settings can be applied at two levels. Understanding the inheritance is critical for the CKA exam.
+In Kubernetes, security settings behave like CSS: **The more specific setting wins.**
 
-### The Inheritance Rule:
-> **Container-level settings always override Pod-level settings.** If a setting is defined in both places, the container-specific value is what actual process uses.
+### The Hierarchy:
+1.  **Container Level** (`spec.containers[].securityContext`): **WINNER**. These settings are the most specific and will override anything set at the Pod level.
+2.  **Pod Level** (`spec.securityContext`): **DEFAULT**. These settings apply to every container in the Pod unless that container has its own specific settings.
 
-| Setting | Pod Level (`spec.securityContext`) | Container Level (`spec.containers[].securityContext`) | Available? | Notes |
+### Decision Matrix:
+| If a setting is... | Result |
+| :--- | :--- |
+| **Only at Pod Level** | Every container uses the Pod setting. |
+| **Only at Container Level** | Only that specific container uses the setting. |
+| **At Both Levels** | The **Container level** value is used. |
+| **Not set at either** | The **Container Runtime default** is used. |
+
+---
+
+## 📊 6. Comparison Table: What is available where?
+
+| Setting | Pod Level | Container Level | Available? | Notes |
 | :--- | :---: | :---: | :---: | :--- |
-| **runAsUser / runAsGroup** | ✅ | ✅ | **Both** | Pod level acts as the default for all containers. |
+| **runAsUser / runAsGroup** | ✅ | ✅ | **Both** | Pod level acts as the default. |
 | **runAsNonRoot** | ✅ | ✅ | **Both** | Forces the container to fail if UID is 0. |
 | **seccompProfile** | ✅ | ✅ | **Both** | Restricts system calls. |
 | **fsGroup** | ✅ | ❌ | **Pod Only** | Applies to volume permissions. |
 | **Capabilities (add/drop)** | ❌ | ✅ | **Container Only** | Manage Linux-level powers. |
 | **Privileged** | ❌ | ✅ | **Container Only** | Full host access. |
-| **allowPrivilegeEscalation**| ❌ | ✅ | **Container Only** | Prevents gaining more power than parent. |
+| **allowPrivilegeEscalation**| ❌ | ✅ | **Container Only** | Prevents gaining more power. |
 | **readOnlyRootFilesystem** | ❌ | ✅ | **Container Only** | Locks the container's disk. |
 
 ---
