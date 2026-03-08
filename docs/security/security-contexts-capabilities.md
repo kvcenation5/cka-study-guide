@@ -148,5 +148,49 @@ kubectl exec <pod-name> -- capsh --print
 
 ---
 
+## 📄 7. Master YAML Example: Pod vs. Container
+
+This example combines all concepts: Pod-level defaults, Container-level overrides, and specific Container-only privileges.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-master-demo
+spec:
+  # --- POD LEVEL SETTINGS ---
+  # These apply to ALL containers in the pod unless overridden
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000 # Only available at Pod level
+    seccompProfile:
+      type: RuntimeDefault
+
+  containers:
+  - name: web-app
+    image: nginx
+    # Inherits: runAsUser: 1000, runAsGroup: 3000, seccompProfile
+    securityContext:
+      # --- CONTAINER LEVEL ONLY ---
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+          - ALL
+        add:
+          - NET_BIND_SERVICE # Allow port 80
+
+  - name: admin-helper
+    image: busybox
+    command: ["sh", "-c", "sleep 1h"]
+    # OVERRIDES Pod Level settings
+    securityContext:
+      runAsUser: 0      # Overrides Pod default (Runs as Root!)
+      privileged: true  # Full host access (Dangerous!)
+```
+
+---
+
 > [!WARNING]
 > **allowPrivilegeEscalation**: Even if you run as a non-root user, a process can still gain root if there are "setuid" binaries in the image. Always set `allowPrivilegeEscalation: false` to prevent child processes from gaining more privileges than their parent.
