@@ -77,15 +77,33 @@ If you want to see the actual JWT token the Pod is using to authenticate, you ca
 
 ---
 
-## 🛡️ 5. Security: Opting Out
+## 🛡️ 5. Security: Controlling Token Auto-Mounting
 
-If your Pod does **not** need to talk to the API, you should disable the automatic mounting of the token to improve security (Principle of Least Privilege).
+By default, Kubernetes **always** mounts the ServiceAccount token into every Pod. If your application doesn't need to talk to the API, this is a security risk. You can disable this behavior in two places:
 
+### Option A: At the ServiceAccount Level
+Disables auto-mounting for **any Pod** that uses this ServiceAccount.
 ```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: restricted-sa
+automountServiceAccountToken: false
+```
+
+### Option B: At the Pod Level (Overrides SA)
+Disables it for a single specific Pod, even if the ServiceAccount allows it.
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: standalone-app
 spec:
+  # This field tells K8s NOT to mount the token
   automountServiceAccountToken: false
+  serviceAccountName: default
   containers:
-  - name: my-app
+  - name: secure-container
     image: nginx
 ```
 
