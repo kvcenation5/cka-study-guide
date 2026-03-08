@@ -2806,10 +2806,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-comparison-user-vs-pod-level" class="md-nav__link">
+  <a href="#5-hierarchy-and-inheritance-pod-level-vs-container-level" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 5. Comparison: User vs. Pod Level
+        📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-inheritance-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Inheritance Rule:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-practical-scenario-overriding-the-pod-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 6. Practical Scenario: Overriding the Pod Default
       
     </span>
   </a>
@@ -3482,10 +3510,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-comparison-user-vs-pod-level" class="md-nav__link">
+  <a href="#5-hierarchy-and-inheritance-pod-level-vs-container-level" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 5. Comparison: User vs. Pod Level
+        📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-inheritance-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Inheritance Rule:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-practical-scenario-overriding-the-pod-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 6. Practical Scenario: Overriding the Pod Default
       
     </span>
   </a>
@@ -3588,38 +3644,100 @@
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NET_BIND_SERVICE</span><span class="w"> </span><span class="c1"># Allows binding to ports &lt; 1024</span>
 </code></pre></div>
 <hr />
-<h2 id="5-comparison-user-vs-pod-level">📊 5. Comparison: User vs. Pod Level</h2>
+<h2 id="5-hierarchy-and-inheritance-pod-level-vs-container-level">📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level</h2>
+<p>Security settings can be applied at two levels. Understanding the inheritance is critical for the CKA exam.</p>
+<h3 id="the-inheritance-rule">The Inheritance Rule:</h3>
+<blockquote>
+<p><strong>Container-level settings always override Pod-level settings.</strong> If a setting is defined in both places, the container-specific value is what actual process uses.</p>
+</blockquote>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Setting</th>
-<th style="text-align: left;">Pod Level</th>
-<th style="text-align: left;">Container Level</th>
+<th style="text-align: center;">Pod Level (<code>spec.securityContext</code>)</th>
+<th style="text-align: center;">Container Level (<code>spec.containers[].securityContext</code>)</th>
+<th style="text-align: center;">Available?</th>
+<th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>runAsUser</strong></td>
-<td style="text-align: left;">Applied to all containers</td>
-<td style="text-align: left;">Overrides Pod level</td>
+<td style="text-align: left;"><strong>runAsUser / runAsGroup</strong></td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"><strong>Both</strong></td>
+<td style="text-align: left;">Pod level acts as the default for all containers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>runAsNonRoot</strong></td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"><strong>Both</strong></td>
+<td style="text-align: left;">Forces the container to fail if UID is 0.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>seccompProfile</strong></td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"><strong>Both</strong></td>
+<td style="text-align: left;">Restricts system calls.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>fsGroup</strong></td>
-<td style="text-align: left;">Only Pod level</td>
-<td style="text-align: left;">N/A</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;"><strong>Pod Only</strong></td>
+<td style="text-align: left;">Applies to volume permissions.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Capabilities</strong></td>
-<td style="text-align: left;">N/A</td>
-<td style="text-align: left;">Only Container level</td>
+<td style="text-align: left;"><strong>Capabilities (add/drop)</strong></td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"><strong>Container Only</strong></td>
+<td style="text-align: left;">Manage Linux-level powers.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Privileged</strong></td>
-<td style="text-align: left;">N/A</td>
-<td style="text-align: left;">Only Container level</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"><strong>Container Only</strong></td>
+<td style="text-align: left;">Full host access.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>allowPrivilegeEscalation</strong></td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"><strong>Container Only</strong></td>
+<td style="text-align: left;">Prevents gaining more power than parent.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>readOnlyRootFilesystem</strong></td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"><strong>Container Only</strong></td>
+<td style="text-align: left;">Locks the container's disk.</td>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="6-practical-scenario-overriding-the-pod-default">🧪 6. Practical Scenario: Overriding the Pod Default</h2>
+<p>Suppose you want all containers in a pod to run as <code>user 1000</code>, but one specific "helper" container needs to run as <code>user 2000</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">complex-security-demo</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">securityContext</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runAsUser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"> </span><span class="c1"># Default for all containers</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main-app</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="c1"># Inherits runAsUser: 1000</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">helper-tool</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">busybox</span>
+<span class="w">    </span><span class="nt">securityContext</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">runAsUser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span><span class="w"> </span><span class="c1"># OVERRIDES the pod default for this container only</span>
+</code></pre></div>
 <hr />
 <h2 id="6-inspecting-privileges-at-runtime">🧪 6. Inspecting Privileges at Runtime</h2>
 <p>To see what user a pod is actually running as:
