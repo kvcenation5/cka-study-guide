@@ -96,6 +96,7 @@ nav:
       - Certificate Generation (OpenSSL): security/certificate-generation-openssl.md
       - Certificate API (CSR): security/certificate-api-management.md
       - Kubeconfig Guide: security/kubeconfig-guide.md
+      - Service Accounts Guide: security/service-accounts-guide.md
       - RBAC & Authorization: security/rbac-authorization.md
       - ClusterRoles: security/cluster-roles.md
       - Practical RBAC Examples: security/rbac-practical-examples.md
