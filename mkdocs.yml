@@ -104,6 +104,7 @@ nav:
       - RoleBinding Deep Dive: security/rolebinding-deep-dive.md
       - "Case Study: EMR on EKS (OIDC)": security/emr-eks-rbac-oidc.md
       - Image Security: security/image-security.md
+      - Security Contexts & Capabilities: security/security-contexts-capabilities.md
       - Authorization Mechanisms: security/authorization-mechanisms.md
       - ABAC Authorization: security/abac-authorization.md
       - OPA Gatekeeper Overview: security/opa-gatekeeper.md
