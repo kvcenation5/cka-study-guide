@@ -107,6 +107,11 @@ In Kubernetes, security settings behave like CSS: **The more specific setting wi
 
 ---
 
+> [!IMPORTANT]
+> **Level Awareness**: Linux **Capabilities** are strictly a **Container-level** setting. You cannot define them at the Pod level (the YAML will be valid, but the settings will be ignored or the Pod will fail to create). 
+> 
+> Other **Container-only** settings include: `privileged`, `readOnlyRootFilesystem`, and `allowPrivilegeEscalation`.
+
 ## 📊 6. Comparison Table: What is available where?
 
 | Setting | Pod Level | Container Level | Available? | Notes |
