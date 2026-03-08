@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../api-groups-overview/">
+        <link rel="prev" href="../overview/">
       
       
-        <link rel="next" href="../kube-proxy-vs-kubectl-proxy/">
+        <link rel="next" href="../security-primitives/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Namespaced vs Cluster-Scoped - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Container Security Overview - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#namespaced-vs-cluster-scoped-resources" class="md-skip">
+        <a href="#container-security-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Namespaced vs Cluster-Scoped
+              Container Security Overview
             
           </span>
         </div>
@@ -285,12 +285,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -1430,31 +1430,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -1472,7 +1467,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1518,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1546,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1574,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1602,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1630,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1658,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1686,7 +1681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-groups-overview/" class="md-nav__link">
+      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1711,37 +1706,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Namespaced vs Cluster-Scoped
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1757,137 +1725,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-concept-virtual-vs-global" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 1. Concept: Virtual vs. Global
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ 1. Concept: Virtual vs. Global">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#namespaced-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Namespaced Resources
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cluster-scoped-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cluster-Scoped Resources
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-how-to-discover-resource-scope" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 2. How to discover resource scope
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 2. How to discover resource scope">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#list-all-namespaced-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        List all Namespaced Resources
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#list-all-cluster-scoped-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        List all Cluster-Scoped Resources
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-common-resource-comparison" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 3. Common Resource Comparison
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-why-this-matters-for-rbac-role-vs-clusterrole" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛡️ 4. Why this matters for RBAC (Role vs ClusterRole)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-testing-scope-in-the-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 5. Testing Scope in the CLI
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1900,7 +1737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -2301,26 +2138,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2338,7 +2180,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2356,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2381,10 +2223,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../security/container-security-overview/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Security Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2400,6 +2269,148 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-4cs-of-cloud-native-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. The 4C's of Cloud Native Security
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-hardening-the-container-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Hardening the Container Runtime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Hardening the Container Runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-seccomp-secure-computing-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Seccomp (Secure Computing Mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-apparmor-selinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. AppArmor &amp; SELinux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-secure-container-lifecycle-build-ship-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 3. Secure Container Lifecycle (Build, Ship, Run)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 3. Secure Container Lifecycle (Build, Ship, Run)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-build-phase-secure-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Build Phase (Secure Images)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ship-phase-registry-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Ship Phase (Registry Security)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-phase-runtime-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run Phase (Runtime Security)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-comparison-of-isolation-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 4. Comparison of Isolation Levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ckacks-exam-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. CKA/CKS Exam Perspective
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2412,7 +2423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2440,7 +2451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2468,7 +2479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/tls-certificates/" class="md-nav__link">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2496,7 +2507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2524,7 +2535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-api-management/" class="md-nav__link">
+      <a href="../certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2552,7 +2563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2580,7 +2591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/service-accounts-guide/" class="md-nav__link">
+      <a href="../service-accounts-guide/" class="md-nav__link">
         
   
   
@@ -2608,7 +2619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-authorization/" class="md-nav__link">
+      <a href="../rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2636,7 +2647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/cluster-roles/" class="md-nav__link">
+      <a href="../cluster-roles/" class="md-nav__link">
         
   
   
@@ -2664,7 +2675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
+      <a href="../rbac-practical-examples/" class="md-nav__link">
         
   
   
@@ -2692,7 +2703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
+      <a href="../rbac-kubectl-cheatsheet/" class="md-nav__link">
         
   
   
@@ -2720,7 +2731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
+      <a href="../rolebinding-deep-dive/" class="md-nav__link">
         
   
   
@@ -2748,7 +2759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/emr-eks-rbac-oidc/" class="md-nav__link">
+      <a href="../emr-eks-rbac-oidc/" class="md-nav__link">
         
   
   
@@ -2776,7 +2787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/image-security/" class="md-nav__link">
+      <a href="../image-security/" class="md-nav__link">
         
   
   
@@ -2804,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/security-contexts-capabilities/" class="md-nav__link">
+      <a href="../security-contexts-capabilities/" class="md-nav__link">
         
   
   
@@ -2832,7 +2843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2860,7 +2871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/abac-authorization/" class="md-nav__link">
+      <a href="../abac-authorization/" class="md-nav__link">
         
   
   
@@ -2888,7 +2899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -2916,7 +2927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -2944,7 +2955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -3371,22 +3382,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-concept-virtual-vs-global" class="md-nav__link">
+  <a href="#1-the-4cs-of-cloud-native-security" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. Concept: Virtual vs. Global
+        🏗️ 1. The 4C's of Cloud Native Security
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. Concept: Virtual vs. Global">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-hardening-the-container-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Hardening the Container Runtime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Hardening the Container Runtime">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#namespaced-resources" class="md-nav__link">
+  <a href="#a-seccomp-secure-computing-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Namespaced Resources
+        A. Seccomp (Secure Computing Mode)
       
     </span>
   </a>
@@ -3394,10 +3416,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cluster-scoped-resources" class="md-nav__link">
+  <a href="#b-apparmor-selinux" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cluster-Scoped Resources
+        B. AppArmor &amp; SELinux
       
     </span>
   </a>
@@ -3410,22 +3432,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-how-to-discover-resource-scope" class="md-nav__link">
+  <a href="#3-secure-container-lifecycle-build-ship-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 2. How to discover resource scope
+        🔍 3. Secure Container Lifecycle (Build, Ship, Run)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔍 2. How to discover resource scope">
+    <nav class="md-nav" aria-label="🔍 3. Secure Container Lifecycle (Build, Ship, Run)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-all-namespaced-resources" class="md-nav__link">
+  <a href="#1-build-phase-secure-images" class="md-nav__link">
     <span class="md-ellipsis">
       
-        List all Namespaced Resources
+        1. Build Phase (Secure Images)
       
     </span>
   </a>
@@ -3433,10 +3455,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#list-all-cluster-scoped-resources" class="md-nav__link">
+  <a href="#2-ship-phase-registry-security" class="md-nav__link">
     <span class="md-ellipsis">
       
-        List all Cluster-Scoped Resources
+        2. Ship Phase (Registry Security)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-run-phase-runtime-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Run Phase (Runtime Security)
       
     </span>
   </a>
@@ -3449,10 +3482,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-common-resource-comparison" class="md-nav__link">
+  <a href="#4-comparison-of-isolation-levels" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 3. Common Resource Comparison
+        📊 4. Comparison of Isolation Levels
       
     </span>
   </a>
@@ -3460,21 +3493,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-why-this-matters-for-rbac-role-vs-clusterrole" class="md-nav__link">
+  <a href="#5-ckacks-exam-perspective" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛡️ 4. Why this matters for RBAC (Role vs ClusterRole)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-testing-scope-in-the-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 5. Testing Scope in the CLI
+        🚩 5. CKA/CKS Exam Perspective
       
     </span>
   </a>
@@ -3498,86 +3520,91 @@
 
 
 
-<h1 id="namespaced-vs-cluster-scoped-resources">Namespaced vs. Cluster-Scoped Resources</h1>
-<p>In Kubernetes, resources sit at two different levels of the hierarchy: <strong>Namespaced</strong> or <strong>Cluster-Scoped</strong>. Understanding this distinction is the key to mastering RBAC and resource management.</p>
+<h1 id="container-security-overview">Container Security Overview</h1>
+<p>Container security in Kubernetes is not a single setting, but a multi-layered approach often called "Defense in Depth." This guide summarizes the focus areas for securing individual containers and their runtime environment.</p>
 <hr />
-<h2 id="1-concept-virtual-vs-global">🏗️ 1. Concept: Virtual vs. Global</h2>
-<h3 id="namespaced-resources">Namespaced Resources</h3>
-<p>These resources live inside a <strong>Namespace</strong> (a virtual cluster). They are isolated from other namespaces. 
-*   <strong>Isolation</strong>: A pod in namespace <code>A</code> is completely separate from a pod in namespace <code>B</code>.
-*   <strong>Deletion</strong>: If you delete a namespace, all namespaced resources inside it are deleted.
-*   <strong>RBAC</strong>: Managed by <code>Roles</code> and <code>RoleBindings</code>.</p>
-<h3 id="cluster-scoped-resources">Cluster-Scoped Resources</h3>
-<p>These resources are <strong>global</strong> to the entire cluster. They sit "above" namespaces.
-*   <strong>Scope</strong>: They are visible and shared across the whole cluster.
-*   <strong>RBAC</strong>: Managed by <code>ClusterRoles</code> and <code>ClusterRoleBindings</code>.</p>
+<h2 id="1-the-4cs-of-cloud-native-security">🏗️ 1. The 4C's of Cloud Native Security</h2>
+<p>Kubernetes security is often divided into four distinct layers. If one layer is weak, the others are at risk.</p>
+<ol>
+<li><strong>Cloud</strong>: The underlying infrastructure (AWS, GCP, Bare Metal). If the API is exposed or IAM is too broad, the cluster is lost.</li>
+<li><strong>Cluster</strong>: The Kubernetes components (API Server, Etcd). Secured via TLS, RBAC, and Network Policies.</li>
+<li><strong>Container</strong>: The focus of this guide. Secured via Image Scanning and Security Contexts.</li>
+<li><strong>Code</strong>: The application logic itself. Secured via Static Analysis and safe coding practices.</li>
+</ol>
 <hr />
-<h2 id="2-how-to-discover-resource-scope">🔍 2. How to discover resource scope</h2>
-<p>The most important tool for the CKA exam is <code>kubectl api-resources</code>. Use the <code>--namespaced</code> flag to filter the list.</p>
-<h3 id="list-all-namespaced-resources">List all Namespaced Resources</h3>
-<p>Use this when you want to see what can be managed with a regular <strong>Role</strong>.
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>api-resources<span class="w"> </span>--namespaced<span class="o">=</span><span class="nb">true</span>
-</code></pre></div>
-<em>Common results: Pods, Services, Deployments, ConfigMaps, Secrets, PVCs.</em></p>
-<h3 id="list-all-cluster-scoped-resources">List all Cluster-Scoped Resources</h3>
-<p>Use this when you want to see what requires a <strong>ClusterRole</strong>.
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>api-resources<span class="w"> </span>--namespaced<span class="o">=</span><span class="nb">false</span>
-</code></pre></div>
-<em>Common results: Nodes, PersistentVolumes, Namespaces, StorageClasses.</em></p>
+<h2 id="2-hardening-the-container-runtime">🛠️ 2. Hardening the Container Runtime</h2>
+<p>Beyond RBAC and ServiceAccounts, you must secure the actual process running on the host.</p>
+<h3 id="a-seccomp-secure-computing-mode">A. Seccomp (Secure Computing Mode)</h3>
+<p>Seccomp restricts the system calls (syscalls) a container can make to the Linux kernel. 
+*   <strong>Default Profile</strong>: In modern K8s, use the <code>RuntimeDefault</code> profile to block dangerous syscalls (like <code>reboot</code> or <code>mount</code>).
+*   <strong>YAML Configuration</strong>:
+    <div class="highlight"><pre><span></span><code><span class="nt">securityContext</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">seccompProfile</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RuntimeDefault</span>
+</code></pre></div></p>
+<h3 id="b-apparmor-selinux">B. AppArmor &amp; SELinux</h3>
+<p>These are Linux Security Modules (LSM) that provide "Mandatory Access Control." They prevent a container from reading/writing to files it shouldn't access on the host, even if it has root privileges.</p>
 <hr />
-<h2 id="3-common-resource-comparison">📊 3. Common Resource Comparison</h2>
+<h2 id="3-secure-container-lifecycle-build-ship-run">🔍 3. Secure Container Lifecycle (Build, Ship, Run)</h2>
+<h3 id="1-build-phase-secure-images">1. Build Phase (Secure Images)</h3>
+<ul>
+<li><strong>Scan</strong>: Use scanners (Trivy) to find vulnerabilities in dependencies.</li>
+<li><strong>Minimize</strong>: Use "Distroless" or "Small" base images to remove tools that hackers use (like <code>wget</code>, <code>curl</code>, <code>netcat</code>).</li>
+<li><strong>Non-Root</strong>: Never run your application as the <code>root</code> user.</li>
+</ul>
+<h3 id="2-ship-phase-registry-security">2. Ship Phase (Registry Security)</h3>
+<ul>
+<li><strong>Private Registries</strong>: Use <code>imagePullSecrets</code> to restrict who can download your code.</li>
+<li><strong>Image Signing</strong>: Use tools like <code>Cosign</code> to sign images. The cluster can then reject any image that doesn't have a valid signature.</li>
+</ul>
+<h3 id="3-run-phase-runtime-security">3. Run Phase (Runtime Security)</h3>
+<ul>
+<li><strong>Immutability</strong>: Set <code>readOnlyRootFilesystem: true</code>. This prevents a hacker from downloading a script or binary into the container after it's running.</li>
+<li><strong>Capabilities</strong>: Drop all default Linux capabilities and add back only the bare minimum.</li>
+</ul>
+<hr />
+<h2 id="4-comparison-of-isolation-levels">📊 4. Comparison of Isolation Levels</h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Namespaced (The "Inside" Stuff)</th>
-<th style="text-align: left;">Cluster-Scoped (The "Infrastructure")</th>
+<th style="text-align: left;">Level</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Security</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Pods</strong></td>
-<td style="text-align: left;"><strong>Nodes</strong></td>
+<td style="text-align: left;"><strong>Standard Container</strong></td>
+<td style="text-align: left;">Uses Namespaces and Cgroups. Shared Kernel.</td>
+<td style="text-align: left;">Moderate</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Deployments / StatefulSets</strong></td>
-<td style="text-align: left;"><strong>PersistentVolumes (PV)</strong></td>
+<td style="text-align: left;"><strong>GVisor / Katacontainers</strong></td>
+<td style="text-align: left;">Provides a "Sandboxed" kernel for each container.</td>
+<td style="text-align: left;">High</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Services / Ingresses</strong></td>
-<td style="text-align: left;"><strong>StorageClasses</strong></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ConfigMaps / Secrets</strong></td>
-<td style="text-align: left;"><strong>Namespaces</strong> (Yes, namespaces are global!)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>PersistentVolumeClaims (PVC)</strong></td>
-<td style="text-align: left;"><strong>CustomResourceDefinitions (CRD)</strong></td>
+<td style="text-align: left;"><strong>Privileged Container</strong></td>
+<td style="text-align: left;">No isolation. Full access to host hardware.</td>
+<td style="text-align: left;"><strong>Dangerous</strong></td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="4-why-this-matters-for-rbac-role-vs-clusterrole">🛡️ 4. Why this matters for RBAC (Role vs ClusterRole)</h2>
-<p>The scope of the resource dictates which RBAC object you <strong>must</strong> use:</p>
-<ol>
-<li><strong>If the resource is Namespaced</strong>: You can use either a <code>Role</code> (local access) or a <code>ClusterRole</code> (global access).</li>
-<li><strong>If the resource is Cluster-Scoped</strong>: You <strong>MUST</strong> use a <code>ClusterRole</code>. A regular <code>Role</code> cannot grant permissions to Nodes or PVs because those resources don't belong to any namespace.</li>
-</ol>
-<hr />
-<h2 id="5-testing-scope-in-the-cli">🧪 5. Testing Scope in the CLI</h2>
-<p>If you aren't sure if a resource is namespaced, try running <code>get</code> without a namespace and then with one:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Nodes don&#39;t have namespaces (Cluster-scoped)</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-n<span class="w"> </span>default<span class="w"> </span>
-<span class="c1"># Result: Still shows all nodes, as the namespace flag is ignored.</span>
-
-<span class="c1"># Pods are namespaced</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>default
-<span class="c1"># Result: Shows only pods in &#39;default&#39;.</span>
-</code></pre></div>
+<h2 id="5-ckacks-exam-perspective">🚩 5. CKA/CKS Exam Perspective</h2>
+<ul>
+<li><strong>CKA</strong>: Focus on <code>imagePullSecrets</code>, <code>SecurityContext</code> (runAsUser, Privileged), and <code>ServiceAccounts</code>.</li>
+<li><strong>CKS</strong>: Focus on <code>Seccomp</code>, <code>AppArmor</code>, Runtime Security Monitoring (Falco), and Vulnerability Scanning.</li>
+</ul>
 <hr />
 <blockquote>
 <p>[!TIP]
-<strong>CKA Strategy</strong>: If a question asks you to "List all resources that are NOT namespaced," the answer is exactly the output of <code>kubectl api-resources --namespaced=false</code>.</p>
+<strong>Checklist for Production</strong>:
+- [ ] Is it running as non-root?
+- [ ] Is the root filesystem read-only?
+- [ ] Are all capabilities dropped?
+- [ ] Is there a CPU/Memory limit set (to prevent DoS)?
+- [ ] Is the image scanned and signed?</p>
 </blockquote>
 
 
