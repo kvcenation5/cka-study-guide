@@ -50,9 +50,45 @@ Since Kubernetes **v1.22+**, the security model has changed. Instead of creating
 2.  **Ephemeral Tokens**: The token inside this volume is generated specifically for **that Pod instance**.
 3.  **Lifecycle**: The token is **Bound** to the pod. When the Pod is deleted, the token is automatically revoked by the API Server. It does not live on in a Secret on the disk.
 
+## 🎟️ 4. Manually Creating Tokens (kubectl create token)
+
+Sometimes you need a token for an external process (like a laptop or a CI pipeline) to talk to the cluster as a specific ServiceAccount. Instead of searching for secrets, you should use the `create token` command.
+
+### Generate a Short-Lived Token
+By default, these tokens are valid for **1 hour**.
+```bash
+kubectl create token dashboard-sa
+```
+
+### How to Increase the Duration
+You can request a token with a specific lifetime using the `--duration` flag.
+```bash
+# Create a token valid for 24 hours
+kubectl create token dashboard-sa --duration=24h
+
+# Create a token valid for 5 minutes (for temporary debugging)
+kubectl create token dashboard-sa --duration=5m
+```
+*Note: The API Server has a internal maximum limit (usually 24 hours or the cluster's CA validity), so it may return a token shorter than your request if you ask for something very high.*
+
+### 🌍 Where can these tokens be used?
+You can use a manually generated token to authenticate to the cluster from anywhere that has network access to the API Server:
+
+1.  **In Kubeconfig**: You can add it as a user in your local `~/.kube/config`:
+    ```bash
+    kubectl config set-credentials external-dev --token=<PASTE_TOKEN_HERE>
+    ```
+2.  **Direct API Calls (curl)**: You can use it in the Authorization header:
+    ```bash
+    TOKEN=$(kubectl create token dashboard-sa)
+    curl -k -H "Authorization: Bearer $TOKEN" https://<api-server-ip>:6443/api/v1/pods
+    ```
+3.  **Kubernetes Dashboard**: You can paste the token into the login screen of the dashboard to gain the permissions of that ServiceAccount.
+4.  **CI/CD Pipelines**: Store the token as a secret in GitHub Actions or Jenkins to allow your pipelines to deploy apps into the cluster.
+
 ---
 
-## 🧪 4. How to see the Token at Runtime
+## 🧪 5. How to see the Token at Runtime
 
 If you want to see the actual JWT token the Pod is using to authenticate, you can peek inside the container.
 
