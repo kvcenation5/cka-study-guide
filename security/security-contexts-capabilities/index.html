@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../limitrange/">
+        <link rel="prev" href="../image-security/">
       
       
-        <link rel="next" href="../daemonsets/">
+        <link rel="next" href="../authorization-mechanisms/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Resource Quota (The Budget) - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Security Contexts & Capabilities - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#resource-quotas-the-budget" class="md-skip">
+        <a href="#security-contexts-linux-capabilities" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Resource Quota (The Budget)
+              Security Contexts & Capabilities
             
           </span>
         </div>
@@ -245,12 +245,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../yaml-guide/" class="md-tabs__link">
           
   
@@ -366,11 +364,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../security/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
           
   
   
@@ -552,31 +552,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -640,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -668,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -696,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -724,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -752,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -780,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -808,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -833,37 +828,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Resource Quota (The Budget)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -879,154 +847,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-dining-budget-analogy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. The "Dining Budget" Analogy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-why-tech-companies-love-quotas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Why Tech Companies Love Quotas
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Why Tech Companies Love Quotas">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-tech-sayings-of-resource-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The "Tech Sayings" of Resource Management:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-real-life-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Real-Life Scenarios
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Real-Life Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-a-the-free-tier-vs-paid-tier" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario A: The "Free Tier" vs "Paid Tier"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-b-cost-center-billing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario B: Cost Center Billing
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-practical-example-the-hard-limit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Practical Example (The "Hard Limit")
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-the-chicken-and-egg-problem-crucial-tip" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. The "Chicken and Egg" Problem (Crucial Tip)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-commands-to-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Commands to check
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Commands to check">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-describe-looks-like" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What describe looks like:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1039,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -1067,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -1095,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -1123,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1157,20 +977,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1206,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1234,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1262,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1290,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1318,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1346,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1374,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1402,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1438,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -2321,26 +2138,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   
@@ -2358,7 +2180,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2376,7 +2198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -2404,7 +2226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/security-primitives/" class="md-nav__link">
+      <a href="../security-primitives/" class="md-nav__link">
         
   
   
@@ -2432,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2460,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/tls-certificates/" class="md-nav__link">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2488,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2516,7 +2338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/certificate-api-management/" class="md-nav__link">
+      <a href="../certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2544,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2572,7 +2394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/service-accounts-guide/" class="md-nav__link">
+      <a href="../service-accounts-guide/" class="md-nav__link">
         
   
   
@@ -2600,7 +2422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-authorization/" class="md-nav__link">
+      <a href="../rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2628,7 +2450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/cluster-roles/" class="md-nav__link">
+      <a href="../cluster-roles/" class="md-nav__link">
         
   
   
@@ -2656,7 +2478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
+      <a href="../rbac-practical-examples/" class="md-nav__link">
         
   
   
@@ -2684,7 +2506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
+      <a href="../rbac-kubectl-cheatsheet/" class="md-nav__link">
         
   
   
@@ -2712,7 +2534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
+      <a href="../rolebinding-deep-dive/" class="md-nav__link">
         
   
   
@@ -2740,7 +2562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/emr-eks-rbac-oidc/" class="md-nav__link">
+      <a href="../emr-eks-rbac-oidc/" class="md-nav__link">
         
   
   
@@ -2768,7 +2590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/image-security/" class="md-nav__link">
+      <a href="../image-security/" class="md-nav__link">
         
   
   
@@ -2793,10 +2615,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../security/security-contexts-capabilities/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Contexts & Capabilities
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2812,6 +2661,148 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-container-root-vs-host-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. Container Root vs. Host Root
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. Container Root vs. Host Root">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reality:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-deal-with-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to deal with it:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-capabilities-adding-and-dropping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Capabilities: Adding and Dropping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Capabilities: Adding and Dropping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dropping-privileges-the-secure-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⬇️ Dropping Privileges (The Secure Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-specific-privileges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⬆️ Adding Specific Privileges
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-full-privileges-privileged-true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 3. Full Privileges (privileged: true)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-practical-yaml-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 4. Practical YAML Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-comparison-user-vs-pod-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 5. Comparison: User vs. Pod Level
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-inspecting-privileges-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 6. Inspecting Privileges at Runtime
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2824,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2852,7 +2843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/abac-authorization/" class="md-nav__link">
+      <a href="../abac-authorization/" class="md-nav__link">
         
   
   
@@ -2880,7 +2871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -2908,7 +2899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -2936,7 +2927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../security/network-policies/" class="md-nav__link">
+      <a href="../network-policies/" class="md-nav__link">
         
   
   
@@ -3363,33 +3354,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-dining-budget-analogy" class="md-nav__link">
+  <a href="#1-container-root-vs-host-root" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The "Dining Budget" Analogy
+        🏗️ 1. Container Root vs. Host Root
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. Container Root vs. Host Root">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reality:
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#2-why-tech-companies-love-quotas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Why Tech Companies Love Quotas
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Why Tech Companies Love Quotas">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-tech-sayings-of-resource-management" class="md-nav__link">
+  <a href="#how-to-deal-with-it" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The "Tech Sayings" of Resource Management:
+        How to deal with it:
       
     </span>
   </a>
@@ -3402,22 +3393,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-real-life-scenarios" class="md-nav__link">
+  <a href="#2-capabilities-adding-and-dropping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Real-Life Scenarios
+        🛠️ 2. Capabilities: Adding and Dropping
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Real-Life Scenarios">
+    <nav class="md-nav" aria-label="🛠️ 2. Capabilities: Adding and Dropping">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scenario-a-the-free-tier-vs-paid-tier" class="md-nav__link">
+  <a href="#dropping-privileges-the-secure-default" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario A: The "Free Tier" vs "Paid Tier"
+        ⬇️ Dropping Privileges (The Secure Default)
       
     </span>
   </a>
@@ -3425,10 +3416,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#scenario-b-cost-center-billing" class="md-nav__link">
+  <a href="#adding-specific-privileges" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario B: Cost Center Billing
+        ⬆️ Adding Specific Privileges
       
     </span>
   </a>
@@ -3441,10 +3432,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-practical-example-the-hard-limit" class="md-nav__link">
+  <a href="#3-full-privileges-privileged-true" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Practical Example (The "Hard Limit")
+        🚀 3. Full Privileges (privileged: true)
       
     </span>
   </a>
@@ -3452,10 +3443,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-the-chicken-and-egg-problem-crucial-tip" class="md-nav__link">
+  <a href="#4-practical-yaml-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. The "Chicken and Egg" Problem (Crucial Tip)
+        📄 4. Practical YAML Example
       
     </span>
   </a>
@@ -3463,30 +3454,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-commands-to-check" class="md-nav__link">
+  <a href="#5-comparison-user-vs-pod-level" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Commands to check
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Commands to check">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-describe-looks-like" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What describe looks like:
+        📊 5. Comparison: User vs. Pod Level
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#6-inspecting-privileges-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 6. Inspecting Privileges at Runtime
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3507,93 +3492,120 @@
 
 
 
-<h1 id="resource-quotas-the-budget">Resource Quotas (The Budget)</h1>
-<p>A <strong>ResourceQuota</strong> provides constraints that limit the <strong>aggregate</strong> resource consumption per namespace. While LimitRange is about the individual, ResourceQuota is about the <strong>Total</strong>.</p>
+<h1 id="security-contexts-linux-capabilities">Security Contexts &amp; Linux Capabilities</h1>
+<p>In Kubernetes, the <strong>Security Context</strong> defines the privilege and access control settings for a Pod or Container. This is where you control whether a process can run as root, what parts of the host it can see, and what specific powers (Capabilities) it has.</p>
 <hr />
-<h2 id="1-the-dining-budget-analogy">1. The "Dining Budget" Analogy</h2>
+<h2 id="1-container-root-vs-host-root">🏗️ 1. Container Root vs. Host Root</h2>
+<p>A common misconception is that "Root inside a Pod" is safe because it is "namespaced." </p>
+<h3 id="the-reality">The Reality:</h3>
+<p>By default, the <code>root</code> user (UID 0) inside a container is the <strong>same</strong> <code>root</code> user as on the host machine. While Linux Namespaces (Mount, Network, PID) provide isolation, if a container process escapes, it has full root privileges on your worker node.</p>
+<h3 id="how-to-deal-with-it">How to deal with it:</h3>
+<ul>
+<li><strong>User Namespaces (USNS)</strong>: (Available in newer K8s versions) This maps UID 0 (root) inside the container to a non-zero UID (e.g., 10000) on the host. Even if the process escapes, it is just a regular user on the host.</li>
+<li><strong>runAsNonRoot</strong>: A directive that forces the container to fail if it tries to start as the root user.</li>
+</ul>
+<hr />
+<h2 id="2-capabilities-adding-and-dropping">🛠️ 2. Capabilities: Adding and Dropping</h2>
+<p>Linux does not just have "Root" and "User." It has <strong>Capabilities</strong>—fine-grained units of power. Instead of giving a Pod full root access just to change the system time, you can give it exactly one capability.</p>
+<h3 id="dropping-privileges-the-secure-default">⬇️ Dropping Privileges (The Secure Default)</h3>
+<p>The most secure practice is to drop <strong>ALL</strong> default capabilities and then add back only what you need.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secure-app</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">    </span><span class="nt">securityContext</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">capabilities</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">drop</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALL</span><span class="w"> </span><span class="c1"># Removes even basic powers like &#39;CHOWN&#39; or &#39;SETUID&#39;</span>
+</code></pre></div>
+<h3 id="adding-specific-privileges">⬆️ Adding Specific Privileges</h3>
+<p>Use this for networking tools or system utilities.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">securityContext</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">capabilities</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">add</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NET_ADMIN</span><span class="w">  </span><span class="c1"># Can modify network interfaces/iptables</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SYS_TIME</span><span class="w">   </span><span class="c1"># Can change the system clock</span>
+</code></pre></div>
+<hr />
+<h2 id="3-full-privileges-privileged-true">🚀 3. Full Privileges (<code>privileged: true</code>)</h2>
+<p>Setting <code>privileged: true</code> is essentially turning off all security. 
+*   <strong>What it does</strong>: It gives the container access to all devices on the host and grants nearly all capabilities.
+*   <strong>Use Case</strong>: Only for infrastructure pods like <code>kube-proxy</code>, <code>calico</code> (CNI), or storage drivers that must talk directly to hardware.
+*   <strong>Risk</strong>: If a <code>privileged</code> pod is compromised, the <strong>entire worker node</strong> is compromised.</p>
+<hr />
+<h2 id="4-practical-yaml-example">📄 4. Practical YAML Example</h2>
+<p>Here is a hardened Pod definition that follows the "Least Privilege" principle.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hardened-pod</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">securityContext</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Set at the POD level</span>
+<span class="w">    </span><span class="nt">runAsUser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">    </span><span class="nt">runAsGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">    </span><span class="nt">fsGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span><span class="w"> </span><span class="c1"># Files created in volumes will belong to this group</span>
+<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-app:v1</span>
+<span class="w">    </span><span class="nt">securityContext</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Set at the CONTAINER level (overrides pod level)</span>
+<span class="w">      </span><span class="nt">allowPrivilegeEscalation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">readOnlyRootFilesystem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">runAsNonRoot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">capabilities</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">drop</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ALL</span>
+<span class="w">        </span><span class="nt">add</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NET_BIND_SERVICE</span><span class="w"> </span><span class="c1"># Allows binding to ports &lt; 1024</span>
+</code></pre></div>
+<hr />
+<h2 id="5-comparison-user-vs-pod-level">📊 5. Comparison: User vs. Pod Level</h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">LimitRange</th>
-<th style="text-align: left;">ResourceQuota</th>
+<th style="text-align: left;">Setting</th>
+<th style="text-align: left;">Pod Level</th>
+<th style="text-align: left;">Container Level</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Concept</strong></td>
-<td style="text-align: left;">Menu Item Price Limit</td>
-<td style="text-align: left;">The Total Bill</td>
+<td style="text-align: left;"><strong>runAsUser</strong></td>
+<td style="text-align: left;">Applied to all containers</td>
+<td style="text-align: left;">Overrides Pod level</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Logic</strong></td>
-<td style="text-align: left;">"Nobody can order a steak that costs more than $50."</td>
-<td style="text-align: left;">"The whole table cannot spend more than $200 total."</td>
+<td style="text-align: left;"><strong>fsGroup</strong></td>
+<td style="text-align: left;">Only Pod level</td>
+<td style="text-align: left;">N/A</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Enforcement</strong></td>
-<td style="text-align: left;">Individual Containers</td>
-<td style="text-align: left;">Entire Namespace</td>
+<td style="text-align: left;"><strong>Capabilities</strong></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Only Container level</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Privileged</strong></td>
+<td style="text-align: left;">N/A</td>
+<td style="text-align: left;">Only Container level</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="2-why-tech-companies-love-quotas">2. Why Tech Companies Love Quotas</h2>
-<p>In large companies (like Google or Netflix), hundreds of teams share the same physical clusters. This is called <strong>Multi-tenancy</strong>.</p>
-<h3 id="the-tech-sayings-of-resource-management">The "Tech Sayings" of Resource Management:</h3>
-<ul>
-<li><strong>"Good fences make good neighbors"</strong>: Quotas ensure that one "hungry" team doesn't accidentally eat all the CPU in the cluster and crash everyone else's apps.</li>
-<li><strong>"Trust but Verify"</strong>: You trust your developers to set their resources correctly, but you verify with a Quota to ensure they don't bankrupt the cluster.</li>
-<li><strong>"Preventing Cluster Starvation"</strong>: Without quotas, a runaway script could request 1000 pods and leave zero space for critical production services.</li>
-</ul>
+<h2 id="6-inspecting-privileges-at-runtime">🧪 6. Inspecting Privileges at Runtime</h2>
+<p>To see what user a pod is actually running as:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>--<span class="w"> </span>id
+<span class="c1"># Output: uid=1000(user) gid=3000(group) groups=3000(group),2000(fsgroup)</span>
+</code></pre></div></p>
+<p>To see what capabilities a process has (requires <code>libcap</code> to be in the image):
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>--<span class="w"> </span>capsh<span class="w"> </span>--print
+</code></pre></div></p>
 <hr />
-<h2 id="3-real-life-scenarios">3. Real-Life Scenarios</h2>
-<h3 id="scenario-a-the-free-tier-vs-paid-tier">Scenario A: The "Free Tier" vs "Paid Tier"</h3>
-<p>An Ed-tech company gives students free namespaces to practice. 
-*   <strong>Quota</strong>: 1 CPU and 2Gi RAM total per student.
-*   <strong>Outcome</strong>: Even if a student writes a loop that spins up 100 pods, they will all fail after the 1st CPU is used. The student's "mess" is contained.</p>
-<h3 id="scenario-b-cost-center-billing">Scenario B: Cost Center Billing</h3>
-<p>A company wants to charge the "Marketing" team for their cloud usage. 
-*   <strong>Quota</strong>: They are allocated 50 CPU Cores.
-*   <strong>Outcome</strong>: If they want more, they have to "buy" more quota. This makes cloud costs predictable for the finance department.</p>
-<hr />
-<h2 id="4-practical-example-the-hard-limit">4. Practical Example (The "Hard Limit")</h2>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ResourceQuota</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-resources</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">marketing</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">hard</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">requests.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;4&quot;</span><span class="w">         </span><span class="c1"># Total CPU guaranteed to this team</span>
-<span class="w">    </span><span class="nt">requests.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8Gi</span><span class="w">      </span><span class="c1"># Total RAM guaranteed to this team</span>
-<span class="w">    </span><span class="nt">limits.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10&quot;</span><span class="w">          </span><span class="c1"># Total max CPU (burst) allowed</span>
-<span class="w">    </span><span class="nt">limits.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16Gi</span><span class="w">       </span><span class="c1"># Total max RAM allowed</span>
-<span class="w">    </span><span class="nt">pods</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;20&quot;</span><span class="w">                </span><span class="c1"># Max number of pods allowed</span>
-<span class="w">    </span><span class="nt">services</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w">             </span><span class="c1"># Max number of load balancers/services</span>
-</code></pre></div>
-<hr />
-<h2 id="5-the-chicken-and-egg-problem-crucial-tip">5. The "Chicken and Egg" Problem (Crucial Tip)</h2>
-<div class="admonition failure">
-<p class="admonition-title">PRO TIP for CKA &amp; PRODUCTION</p>
-<p>If you have a <strong>ResourceQuota</strong> in a namespace, every single Pod <strong>MUST</strong> have its own <code>requests</code> and <code>limits</code> defined. </p>
-<p>If a developer tries to run a pod without defining them, Kubernetes will <strong>REJECT</strong> the pod because it doesn't know how to "bill" it against the quota. This is why <strong>LimitRange and ResourceQuota are almost always used together.</strong></p>
-</div>
-<hr />
-<h2 id="6-commands-to-check">6. Commands to check</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># See quotas in the namespace</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>quota
-
-<span class="c1"># See current usage vs limits (Very helpful!)</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>quota<span class="w"> </span>compute-resources
-</code></pre></div>
-<h3 id="what-describe-looks-like">What <code>describe</code> looks like:</h3>
-<div class="highlight"><pre><span></span><code>Resource           Used  Hard
---------           ----  ----
-requests.cpu       100m  4
-requests.memory    256Mi 8Gi
-pods               1     20
-</code></pre></div>
+<blockquote>
+<p>[!WARNING]
+<strong>allowPrivilegeEscalation</strong>: Even if you run as a non-root user, a process can still gain root if there are "setuid" binaries in the image. Always set <code>allowPrivilegeEscalation: false</code> to prevent child processes from gaining more privileges than their parent.</p>
+</blockquote>
 
 
 
