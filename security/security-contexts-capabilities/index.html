@@ -2806,22 +2806,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-hierarchy-and-inheritance-pod-level-vs-container-level" class="md-nav__link">
+  <a href="#5-the-override-logic-cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level
+        🚥 5. The "Override Logic" Cheat Sheet
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level">
+    <nav class="md-nav" aria-label="🚥 5. The &#34;Override Logic&#34; Cheat Sheet">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-inheritance-rule" class="md-nav__link">
+  <a href="#the-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Inheritance Rule:
+        The Hierarchy:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Matrix:
       
     </span>
   </a>
@@ -2830,6 +2841,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-comparison-table-what-is-available-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 6. Comparison Table: What is available where?
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3521,22 +3543,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-hierarchy-and-inheritance-pod-level-vs-container-level" class="md-nav__link">
+  <a href="#5-the-override-logic-cheat-sheet" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level
+        🚥 5. The "Override Logic" Cheat Sheet
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level">
+    <nav class="md-nav" aria-label="🚥 5. The &#34;Override Logic&#34; Cheat Sheet">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-inheritance-rule" class="md-nav__link">
+  <a href="#the-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Inheritance Rule:
+        The Hierarchy:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Matrix:
       
     </span>
   </a>
@@ -3545,6 +3578,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-comparison-table-what-is-available-where" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 6. Comparison Table: What is available where?
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3666,18 +3710,48 @@
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NET_BIND_SERVICE</span><span class="w"> </span><span class="c1"># Allows binding to ports &lt; 1024</span>
 </code></pre></div>
 <hr />
-<h2 id="5-hierarchy-and-inheritance-pod-level-vs-container-level">📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level</h2>
-<p>Security settings can be applied at two levels. Understanding the inheritance is critical for the CKA exam.</p>
-<h3 id="the-inheritance-rule">The Inheritance Rule:</h3>
-<blockquote>
-<p><strong>Container-level settings always override Pod-level settings.</strong> If a setting is defined in both places, the container-specific value is what actual process uses.</p>
-</blockquote>
+<h2 id="5-the-override-logic-cheat-sheet">🚥 5. The "Override Logic" Cheat Sheet</h2>
+<p>In Kubernetes, security settings behave like CSS: <strong>The more specific setting wins.</strong></p>
+<h3 id="the-hierarchy">The Hierarchy:</h3>
+<ol>
+<li><strong>Container Level</strong> (<code>spec.containers[].securityContext</code>): <strong>WINNER</strong>. These settings are the most specific and will override anything set at the Pod level.</li>
+<li><strong>Pod Level</strong> (<code>spec.securityContext</code>): <strong>DEFAULT</strong>. These settings apply to every container in the Pod unless that container has its own specific settings.</li>
+</ol>
+<h3 id="decision-matrix">Decision Matrix:</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">If a setting is...</th>
+<th style="text-align: left;">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Only at Pod Level</strong></td>
+<td style="text-align: left;">Every container uses the Pod setting.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Only at Container Level</strong></td>
+<td style="text-align: left;">Only that specific container uses the setting.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>At Both Levels</strong></td>
+<td style="text-align: left;">The <strong>Container level</strong> value is used.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Not set at either</strong></td>
+<td style="text-align: left;">The <strong>Container Runtime default</strong> is used.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-comparison-table-what-is-available-where">📊 6. Comparison Table: What is available where?</h2>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Setting</th>
-<th style="text-align: center;">Pod Level (<code>spec.securityContext</code>)</th>
-<th style="text-align: center;">Container Level (<code>spec.containers[].securityContext</code>)</th>
+<th style="text-align: center;">Pod Level</th>
+<th style="text-align: center;">Container Level</th>
 <th style="text-align: center;">Available?</th>
 <th style="text-align: left;">Notes</th>
 </tr>
@@ -3688,7 +3762,7 @@
 <td style="text-align: center;">✅</td>
 <td style="text-align: center;">✅</td>
 <td style="text-align: center;"><strong>Both</strong></td>
-<td style="text-align: left;">Pod level acts as the default for all containers.</td>
+<td style="text-align: left;">Pod level acts as the default.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>runAsNonRoot</strong></td>
@@ -3730,7 +3804,7 @@
 <td style="text-align: center;">❌</td>
 <td style="text-align: center;">✅</td>
 <td style="text-align: center;"><strong>Container Only</strong></td>
-<td style="text-align: left;">Prevents gaining more power than parent.</td>
+<td style="text-align: left;">Prevents gaining more power.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>readOnlyRootFilesystem</strong></td>
