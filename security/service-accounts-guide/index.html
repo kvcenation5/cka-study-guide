@@ -2560,13 +2560,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-security-opting-out" class="md-nav__link">
+  <a href="#5-security-controlling-token-auto-mounting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛡️ 5. Security: Opting Out
+        🛡️ 5. Security: Controlling Token Auto-Mounting
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="🛡️ 5. Security: Controlling Token Auto-Mounting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-at-the-serviceaccount-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: At the ServiceAccount Level
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-at-the-pod-level-overrides-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: At the Pod Level (Overrides SA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3410,13 +3438,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-security-opting-out" class="md-nav__link">
+  <a href="#5-security-controlling-token-auto-mounting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛡️ 5. Security: Opting Out
+        🛡️ 5. Security: Controlling Token Auto-Mounting
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="🛡️ 5. Security: Controlling Token Auto-Mounting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-at-the-serviceaccount-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: At the ServiceAccount Level
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-at-the-pod-level-overrides-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: At the Pod Level (Overrides SA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3510,14 +3566,30 @@
 </li>
 </ol>
 <hr />
-<h2 id="5-security-opting-out">🛡️ 5. Security: Opting Out</h2>
-<p>If your Pod does <strong>not</strong> need to talk to the API, you should disable the automatic mounting of the token to improve security (Principle of Least Privilege).</p>
-<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<h2 id="5-security-controlling-token-auto-mounting">🛡️ 5. Security: Controlling Token Auto-Mounting</h2>
+<p>By default, Kubernetes <strong>always</strong> mounts the ServiceAccount token into every Pod. If your application doesn't need to talk to the API, this is a security risk. You can disable this behavior in two places:</p>
+<h3 id="option-a-at-the-serviceaccount-level">Option A: At the ServiceAccount Level</h3>
+<p>Disables auto-mounting for <strong>any Pod</strong> that uses this ServiceAccount.
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">restricted-sa</span>
+<span class="nt">automountServiceAccountToken</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div></p>
+<h3 id="option-b-at-the-pod-level-overrides-sa">Option B: At the Pod Level (Overrides SA)</h3>
+<p>Disables it for a single specific Pod, even if the ServiceAccount allows it.
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standalone-app</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># This field tells K8s NOT to mount the token</span>
 <span class="w">  </span><span class="nt">automountServiceAccountToken</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">serviceAccountName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
 <span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-app</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secure-container</span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-</code></pre></div>
+</code></pre></div></p>
 <hr />
 <h2 id="6-cka-exam-strategy">🚩 6. CKA Exam Strategy</h2>
 <ol>
