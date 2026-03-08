@@ -2532,15 +2532,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-how-to-see-the-token-at-runtime" class="md-nav__link">
+  <a href="#4-manually-creating-tokens-kubectl-create-token" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧪 4. How to see the Token at Runtime
+        🎟️ 4. Manually Creating Tokens (kubectl create token)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🧪 4. How to see the Token at Runtime">
+    <nav class="md-nav" aria-label="🎟️ 4. Manually Creating Tokens (kubectl create token)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-short-lived-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate a Short-Lived Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-increase-the-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Increase the Duration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-can-these-tokens-be-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌍 Where can these tokens be used?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-how-to-see-the-token-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 5. How to see the Token at Runtime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 5. How to see the Token at Runtime">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3410,15 +3460,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-how-to-see-the-token-at-runtime" class="md-nav__link">
+  <a href="#4-manually-creating-tokens-kubectl-create-token" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🧪 4. How to see the Token at Runtime
+        🎟️ 4. Manually Creating Tokens (kubectl create token)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🧪 4. How to see the Token at Runtime">
+    <nav class="md-nav" aria-label="🎟️ 4. Manually Creating Tokens (kubectl create token)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-short-lived-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate a Short-Lived Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-increase-the-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Increase the Duration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-can-these-tokens-be-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌍 Where can these tokens be used?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-how-to-see-the-token-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 5. How to see the Token at Runtime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 5. How to see the Token at Runtime">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3541,8 +3641,36 @@
 <li><strong>Ephemeral Tokens</strong>: The token inside this volume is generated specifically for <strong>that Pod instance</strong>.</li>
 <li><strong>Lifecycle</strong>: The token is <strong>Bound</strong> to the pod. When the Pod is deleted, the token is automatically revoked by the API Server. It does not live on in a Secret on the disk.</li>
 </ol>
+<h2 id="4-manually-creating-tokens-kubectl-create-token">🎟️ 4. Manually Creating Tokens (kubectl create token)</h2>
+<p>Sometimes you need a token for an external process (like a laptop or a CI pipeline) to talk to the cluster as a specific ServiceAccount. Instead of searching for secrets, you should use the <code>create token</code> command.</p>
+<h3 id="generate-a-short-lived-token">Generate a Short-Lived Token</h3>
+<p>By default, these tokens are valid for <strong>1 hour</strong>.
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>token<span class="w"> </span>dashboard-sa
+</code></pre></div></p>
+<h3 id="how-to-increase-the-duration">How to Increase the Duration</h3>
+<p>You can request a token with a specific lifetime using the <code>--duration</code> flag.
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a token valid for 24 hours</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>token<span class="w"> </span>dashboard-sa<span class="w"> </span>--duration<span class="o">=</span>24h
+
+<span class="c1"># Create a token valid for 5 minutes (for temporary debugging)</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>token<span class="w"> </span>dashboard-sa<span class="w"> </span>--duration<span class="o">=</span>5m
+</code></pre></div>
+<em>Note: The API Server has a internal maximum limit (usually 24 hours or the cluster's CA validity), so it may return a token shorter than your request if you ask for something very high.</em></p>
+<h3 id="where-can-these-tokens-be-used">🌍 Where can these tokens be used?</h3>
+<p>You can use a manually generated token to authenticate to the cluster from anywhere that has network access to the API Server:</p>
+<ol>
+<li><strong>In Kubeconfig</strong>: You can add it as a user in your local <code>~/.kube/config</code>:
+    <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>config<span class="w"> </span>set-credentials<span class="w"> </span>external-dev<span class="w"> </span>--token<span class="o">=</span>&lt;PASTE_TOKEN_HERE&gt;
+</code></pre></div></li>
+<li><strong>Direct API Calls (curl)</strong>: You can use it in the Authorization header:
+    <div class="highlight"><pre><span></span><code><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>create<span class="w"> </span>token<span class="w"> </span>dashboard-sa<span class="k">)</span>
+curl<span class="w"> </span>-k<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="w"> </span>https://&lt;api-server-ip&gt;:6443/api/v1/pods
+</code></pre></div></li>
+<li><strong>Kubernetes Dashboard</strong>: You can paste the token into the login screen of the dashboard to gain the permissions of that ServiceAccount.</li>
+<li><strong>CI/CD Pipelines</strong>: Store the token as a secret in GitHub Actions or Jenkins to allow your pipelines to deploy apps into the cluster.</li>
+</ol>
 <hr />
-<h2 id="4-how-to-see-the-token-at-runtime">🧪 4. How to see the Token at Runtime</h2>
+<h2 id="5-how-to-see-the-token-at-runtime">🧪 5. How to see the Token at Runtime</h2>
 <p>If you want to see the actual JWT token the Pod is using to authenticate, you can peek inside the container.</p>
 <h3 id="step-by-step-inspection">Step-by-Step Inspection:</h3>
 <ol>
