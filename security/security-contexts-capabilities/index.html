@@ -3745,6 +3745,11 @@
 </tbody>
 </table>
 <hr />
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Level Awareness</strong>: Linux <strong>Capabilities</strong> are strictly a <strong>Container-level</strong> setting. You cannot define them at the Pod level (the YAML will be valid, but the settings will be ignored or the Pod will fail to create). </p>
+<p>Other <strong>Container-only</strong> settings include: <code>privileged</code>, <code>readOnlyRootFilesystem</code>, and <code>allowPrivilegeEscalation</code>.</p>
+</blockquote>
 <h2 id="6-comparison-table-what-is-available-where">📊 6. Comparison Table: What is available where?</h2>
 <table>
 <thead>
