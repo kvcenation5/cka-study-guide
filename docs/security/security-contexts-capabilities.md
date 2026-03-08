@@ -89,14 +89,47 @@ spec:
 
 ---
 
-## 📊 5. Comparison: User vs. Pod Level
+## 📊 5. Hierarchy and Inheritance: Pod Level vs. Container Level
 
-| Setting | Pod Level | Container Level |
-| :--- | :--- | :--- |
-| **runAsUser** | Applied to all containers | Overrides Pod level |
-| **fsGroup** | Only Pod level | N/A |
-| **Capabilities** | N/A | Only Container level |
-| **Privileged** | N/A | Only Container level |
+Security settings can be applied at two levels. Understanding the inheritance is critical for the CKA exam.
+
+### The Inheritance Rule:
+> **Container-level settings always override Pod-level settings.** If a setting is defined in both places, the container-specific value is what actual process uses.
+
+| Setting | Pod Level (`spec.securityContext`) | Container Level (`spec.containers[].securityContext`) | Available? | Notes |
+| :--- | :---: | :---: | :---: | :--- |
+| **runAsUser / runAsGroup** | ✅ | ✅ | **Both** | Pod level acts as the default for all containers. |
+| **runAsNonRoot** | ✅ | ✅ | **Both** | Forces the container to fail if UID is 0. |
+| **seccompProfile** | ✅ | ✅ | **Both** | Restricts system calls. |
+| **fsGroup** | ✅ | ❌ | **Pod Only** | Applies to volume permissions. |
+| **Capabilities (add/drop)** | ❌ | ✅ | **Container Only** | Manage Linux-level powers. |
+| **Privileged** | ❌ | ✅ | **Container Only** | Full host access. |
+| **allowPrivilegeEscalation**| ❌ | ✅ | **Container Only** | Prevents gaining more power than parent. |
+| **readOnlyRootFilesystem** | ❌ | ✅ | **Container Only** | Locks the container's disk. |
+
+---
+
+## 🧪 6. Practical Scenario: Overriding the Pod Default
+
+Suppose you want all containers in a pod to run as `user 1000`, but one specific "helper" container needs to run as `user 2000`.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: complex-security-demo
+spec:
+  securityContext:
+    runAsUser: 1000 # Default for all containers
+  containers:
+  - name: main-app
+    image: nginx
+    # Inherits runAsUser: 1000
+  - name: helper-tool
+    image: busybox
+    securityContext:
+      runAsUser: 2000 # OVERRIDES the pod default for this container only
+```
 
 ---
 
