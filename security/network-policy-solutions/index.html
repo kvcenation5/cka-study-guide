@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../auth-vs-authz-vs-tls/">
+        <link rel="prev" href="../network-policy-examples/">
       
       
-        <link rel="next" href="../certificate-generation-openssl/">
+        <link rel="next" href="../../security-focus/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>TLS Certificates - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Network Policy Solutions - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tls-certificates-in-kubernetes" class="md-skip">
+        <a href="#network-policy-solutions-cni-plugins" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              TLS Certificates
+              Network Policy Solutions
             
           </span>
         </div>
@@ -2307,37 +2307,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    TLS Certificates
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../tls-certificates/" class="md-nav__link">
         
   
   
@@ -2353,237 +2326,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-hierarchy-of-trust" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 1. The Hierarchy of Trust
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-certificate-locations-kubeadm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📂 2. Certificate Locations (Kubeadm)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-server-vs-client-certificates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Server vs. Client Certificates
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ 3. Server vs. Client Certificates">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a-client-certificates-the-id-badge" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A. Client Certificates (The "ID Badge")
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b-server-certificates-the-face" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B. Server Certificates (The "Face")
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-inspecting-certificates-cka-must-know" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 3. Inspecting Certificates (CKA Must-Know)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 3. Inspecting Certificates (CKA Must-Know)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check-expiration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check Expiration:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#check-common-name-cn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check Common Name (CN):
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-kubeadm-easier" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using Kubeadm (Easier):
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-creating-a-new-user-csr-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📝 4. Creating a New User (CSR Workflow)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📝 4. Creating a New User (CSR Workflow)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-generate-private-key-csr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Generate Private Key &amp; CSR
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-a-kubernetes-csr-object" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create a Kubernetes CSR Object
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-approve-the-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Approve the Request
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-extract-the-certificate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Extract the Certificate
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-troubleshooting-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 5. Troubleshooting Scenarios
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔧 5. Troubleshooting Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-unable-to-connect-to-the-server-x509-certificate-has-expired" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario: "Unable to connect to the server: x509: certificate has expired"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-broken-kubelet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario: "Broken Kubelet"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3097,10 +2839,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../network-policy-solutions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Policy Solutions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3116,6 +2885,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-top-cni-solutions-for-network-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 1. Top CNI Solutions for Network Policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deep-dive-popular-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Deep Dive: Popular Choices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Deep Dive: Popular Choices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-calico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐯 Project Calico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cilium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐝 Cilium
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weave-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕸️ Weave Net
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cloud-provider-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 3. Cloud Provider Support
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cka-exam-perspective-why-isnt-it-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 4. CKA Exam Perspective: "Why isn't it working?"
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3527,10 +3399,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-hierarchy-of-trust" class="md-nav__link">
+  <a href="#1-top-cni-solutions-for-network-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Hierarchy of Trust
+        🚀 1. Top CNI Solutions for Network Policy
       
     </span>
   </a>
@@ -3538,33 +3410,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-certificate-locations-kubeadm" class="md-nav__link">
+  <a href="#2-deep-dive-popular-choices" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📂 2. Certificate Locations (Kubeadm)
+        🛠️ 2. Deep Dive: Popular Choices
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-server-vs-client-certificates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Server vs. Client Certificates
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ 3. Server vs. Client Certificates">
+    <nav class="md-nav" aria-label="🛠️ 2. Deep Dive: Popular Choices">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-client-certificates-the-id-badge" class="md-nav__link">
+  <a href="#project-calico" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. Client Certificates (The "ID Badge")
+        🐯 Project Calico
       
     </span>
   </a>
@@ -3572,10 +3433,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-server-certificates-the-face" class="md-nav__link">
+  <a href="#cilium" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. Server Certificates (The "Face")
+        🐝 Cilium
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weave-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕸️ Weave Net
       
     </span>
   </a>
@@ -3588,152 +3460,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-inspecting-certificates-cka-must-know" class="md-nav__link">
+  <a href="#3-cloud-provider-support" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 3. Inspecting Certificates (CKA Must-Know)
+        🏗️ 3. Cloud Provider Support
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="🔍 3. Inspecting Certificates (CKA Must-Know)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check-expiration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check Expiration:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#check-common-name-cn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check Common Name (CN):
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-kubeadm-easier" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using Kubeadm (Easier):
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-creating-a-new-user-csr-workflow" class="md-nav__link">
+  <a href="#4-cka-exam-perspective-why-isnt-it-working" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 4. Creating a New User (CSR Workflow)
+        🚩 4. CKA Exam Perspective: "Why isn't it working?"
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="📝 4. Creating a New User (CSR Workflow)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-generate-private-key-csr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Generate Private Key &amp; CSR
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-a-kubernetes-csr-object" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create a Kubernetes CSR Object
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-approve-the-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Approve the Request
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-extract-the-certificate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Extract the Certificate
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-troubleshooting-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 5. Troubleshooting Scenarios
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔧 5. Troubleshooting Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-unable-to-connect-to-the-server-x509-certificate-has-expired" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario: "Unable to connect to the server: x509: certificate has expired"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-broken-kubelet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario: "Broken Kubelet"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3754,137 +3498,105 @@
 
 
 
-<h1 id="tls-certificates-in-kubernetes">TLS Certificates in Kubernetes</h1>
-<p>TLS (Transport Layer Security) is the foundation of security in Kubernetes. Every component communicates over HTTPS, and most use <strong>Mutual TLS (mTLS)</strong> to verify each other's identity.</p>
+<h1 id="network-policy-solutions-cni-plugins">Network Policy Solutions (CNI Plugins)</h1>
+<p>Kubernetes defines the <strong>NetworkPolicy API</strong>, but it does not include a built-in controller to enforce it. To use Network Policies, you must install a <strong>Network Solution</strong> (CNI Plugin) that supports them.</p>
 <hr />
-<h2 id="1-the-hierarchy-of-trust">🏗️ 1. The Hierarchy of Trust</h2>
-<p>Kubernetes typically uses multiple "Trust Domains" (CAs):
-1.  <strong>Cluster CA:</strong> Signs certs for API Server, Kubelets, and Scheduler.
-2.  <strong>Etcd CA:</strong> Signs certs specifically for Etcd communication.
-3.  <strong>Front Proxy CA:</strong> Signs certs for the Aggregation Layer (API extensions).</p>
-<hr />
-<h2 id="2-certificate-locations-kubeadm">📂 2. Certificate Locations (Kubeadm)</h2>
-<p>On a control plane node installed with <code>kubeadm</code>, all certificates are stored in:
-<code>/etc/kubernetes/pki/</code></p>
+<h2 id="1-top-cni-solutions-for-network-policy">🚀 1. Top CNI Solutions for Network Policy</h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Component</th>
-<th style="text-align: left;">Path</th>
-<th style="text-align: left;">Description</th>
+<th style="text-align: left;">CNI Plugin</th>
+<th style="text-align: center;">Standard NP Support</th>
+<th style="text-align: left;">Extended Features (CRDs)</th>
+<th style="text-align: left;">Technology</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>CA Root</strong></td>
-<td style="text-align: left;"><code>ca.crt</code>, <code>ca.key</code></td>
-<td style="text-align: left;">The primary root certificate for the cluster.</td>
+<td style="text-align: left;"><strong>Calico</strong></td>
+<td style="text-align: center;">✅ Full</td>
+<td style="text-align: left;">Policy Ordering, Deny Rules, Global Policies</td>
+<td style="text-align: left;">iptables / eBPF</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>API Server</strong></td>
-<td style="text-align: left;"><code>apiserver.crt</code>, <code>apiserver.key</code></td>
-<td style="text-align: left;"><strong>Server Cert</strong>: Identifies the API server to clients.</td>
+<td style="text-align: left;"><strong>Cilium</strong></td>
+<td style="text-align: center;">✅ Full</td>
+<td style="text-align: left;">L7 (HTTP/gRPC/Kafka) filtering, Identity-based security</td>
+<td style="text-align: left;">eBPF</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Etcd Server</strong></td>
-<td style="text-align: left;"><code>etcd/server.crt</code>, <code>etcd/server.key</code></td>
-<td style="text-align: left;"><strong>Server Cert</strong>: Identifies Etcd to candidates.</td>
+<td style="text-align: left;"><strong>Antrea</strong></td>
+<td style="text-align: center;">✅ Full</td>
+<td style="text-align: left;">Tiered security, Cluster-wide policies</td>
+<td style="text-align: left;">Open vSwitch</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Kubelet Server</strong></td>
-<td style="text-align: left;">Provided by Kubelet</td>
-<td style="text-align: left;"><strong>Server Cert</strong>: Used for HTTPS access to kubelet logs/exec.</td>
+<td style="text-align: left;"><strong>Weave Net</strong></td>
+<td style="text-align: center;">✅ Full</td>
+<td style="text-align: left;">Transparent Encryption</td>
+<td style="text-align: left;">iptables / Overlay</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Admin Client</strong></td>
-<td style="text-align: left;"><code>admin.conf</code></td>
-<td style="text-align: left;"><strong>Client Cert</strong>: Full cluster access for the administrator.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>API -&gt; Etcd</strong></td>
-<td style="text-align: left;"><code>apiserver-etcd-client.crt</code></td>
-<td style="text-align: left;"><strong>Client Cert</strong>: Used by API server to talk to Etcd.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>API -&gt; Kubelet</strong></td>
-<td style="text-align: left;"><code>apiserver-kubelet-client.crt</code></td>
-<td style="text-align: left;"><strong>Client Cert</strong>: Used by API server to talk to Kubelets.</td>
+<td style="text-align: left;"><strong>Flannel</strong></td>
+<td style="text-align: center;">❌ None</td>
+<td style="text-align: left;">N/A (Needs Calico/Canal)</td>
+<td style="text-align: left;">VXLAN / UDP</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="3-server-vs-client-certificates">🛠️ 3. Server vs. Client Certificates</h2>
-<p>Understanding which certificate is used when is key to debugging "Unauthorized" vs "Handshake" errors.</p>
-<h3 id="a-client-certificates-the-id-badge">A. Client Certificates (The "ID Badge")</h3>
-<p>A component acts as a <strong>Client</strong> when it initiates a request. It proves its identity via a client cert.
-*   <strong>Admin</strong>: For the cluster administrator to authenticate to the API server.
-*   <strong>Kube-APIServer</strong>: Acts as a client for external/internal communication.
-*   <strong>Kube-Scheduler</strong>: Talks to the API server to schedule pods.
-*   <strong>Kube-Controller-Manager</strong>: Talks to the API server to manage controllers.
-*   <strong>API-Server-ETCD</strong>: Client cert specifically for the API server $\rightarrow$ Etcd connection.
-*   <strong>API-Server-Kubelet</strong>: Client cert specifically for the API server $\rightarrow$ Kubelet connection.
-*   <strong>Kube-Proxy</strong>: Watches the API server for networking updates.
-*   <strong>Kubelet (Client)</strong>: Registers the node and reports heartbeats to the API server.</p>
-<h3 id="b-server-certificates-the-face">B. Server Certificates (The "Face")</h3>
-<p>A component acts as a <strong>Server</strong> when it receives requests. It identifies itself via a server cert.
-*   <strong>Etcd Server</strong>: Responds to queries from the API server.
-*   <strong>Kubelet (Server)</strong>: Responds to the API server for logs and exec commands.
-*   <strong>Kube-APIServer</strong>: Responds to you (kubectl) and all cluster components.</p>
+<h2 id="2-deep-dive-popular-choices">🛠️ 2. Deep Dive: Popular Choices</h2>
+<h3 id="project-calico">🐯 Project Calico</h3>
+<p>The most widely used CNI for Network Policy.
+*   <strong>Performance</strong>: High throughput with minimal overhead.
+*   <strong>Standard + More</strong>: Implements standard K8s NetworkPolicies PLUS its own <code>GlobalNetworkPolicy</code> which can apply across the whole cluster, not just one namespace.
+*   <strong>Host Protection</strong>: Can protect the worker node's host interfaces, not just pod-to-pod traffic.</p>
+<h3 id="cilium">🐝 Cilium</h3>
+<p>The high-performance choice leveraging <strong>eBPF</strong>.
+*   <strong>L7 Visibility</strong>: Can filter traffic based on application data (e.g., "Allow GET requests to /public but deny POST to /admin").
+*   <strong>Efficiency</strong>: Bypasses the complex Linux <code>iptables</code> rules, making it much faster for clusters with thousands of pods.
+*   <strong>FQDN Policies</strong>: Allows you to define egress rules using domain names (e.g., <code>api.google.com</code>) instead of hardcoded IP addresses.</p>
+<h3 id="weave-net">🕸️ Weave Net</h3>
+<p>Focuses on simplicity and internal security.
+*   <strong>Encryption</strong>: Automatically encrypts all traffic between nodes.
+*   <strong>Simple Setup</strong>: Very easy to install with a single manifest.
+*   <strong>Note</strong>: Less flexible for complex L7 rules compared to Cilium.</p>
 <hr />
-<h2 id="3-inspecting-certificates-cka-must-know">🔍 3. Inspecting Certificates (CKA Must-Know)</h2>
-<p>Use <code>openssl</code> to check if a certificate is valid and see its "Subject" or "Expiry".</p>
-<h3 id="check-expiration">Check Expiration:</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/kubernetes/pki/apiserver.crt<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Not
-</code></pre></div>
-<h3 id="check-common-name-cn">Check Common Name (CN):</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/kubernetes/pki/apiserver.crt<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Subject:
-</code></pre></div>
-<h3 id="using-kubeadm-easier">Using Kubeadm (Easier):</h3>
-<div class="highlight"><pre><span></span><code>kubeadm<span class="w"> </span>certs<span class="w"> </span>check-expiration
-</code></pre></div>
+<h2 id="3-cloud-provider-support">🏗️ 3. Cloud Provider Support</h2>
+<p>If you are using a managed service (EKS, GKE, AKS), the default CNI might support Network Policies natively or require an addon.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Cloud Service</th>
+<th style="text-align: left;">Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Amazon EKS</strong></td>
+<td style="text-align: left;">Uses <strong>AWS VPC CNI</strong>. Supports Network Policy natively (in Newer versions) or via <strong>Calico</strong> addon.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Google GKE</strong></td>
+<td style="text-align: left;">Supports Network Policy via <strong>Calico</strong> or <strong>GKE Dataplane V2</strong> (Cilium-powered).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Azure AKS</strong></td>
+<td style="text-align: left;">Supports <strong>Azure Network Policy</strong> or <strong>Calico</strong>.</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="4-creating-a-new-user-csr-workflow">📝 4. Creating a New User (CSR Workflow)</h2>
-<p>In the CKA exam, you might be asked to grant a new user access.</p>
-<h3 id="step-1-generate-private-key-csr">Step 1: Generate Private Key &amp; CSR</h3>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>john.key<span class="w"> </span><span class="m">2048</span>
-openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>john.key<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=john/O=developers&quot;</span><span class="w"> </span>-out<span class="w"> </span>john.csr
-</code></pre></div>
-<h3 id="step-2-create-a-kubernetes-csr-object">Step 2: Create a Kubernetes CSR Object</h3>
-<p><div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certificates.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CertificateSigningRequest</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">john-developer</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">request</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;BASE64_ENCODED_CSR_HERE&gt;</span>
-<span class="w">  </span><span class="nt">signerName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/kube-apiserver-client</span>
-<span class="w">  </span><span class="nt">usages</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client auth</span>
-</code></pre></div>
-<em>(Use <code>cat john.csr | base64 | tr -d '\n'</code> to get the request data)</em></p>
-<h3 id="step-3-approve-the-request">Step 3: Approve the Request</h3>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr
-kubectl<span class="w"> </span>certificate<span class="w"> </span>approve<span class="w"> </span>john-developer
-</code></pre></div>
-<h3 id="step-4-extract-the-certificate">Step 4: Extract the Certificate</h3>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span>john.crt
-</code></pre></div>
-<hr />
-<h2 id="5-troubleshooting-scenarios">🔧 5. Troubleshooting Scenarios</h2>
-<h3 id="scenario-unable-to-connect-to-the-server-x509-certificate-has-expired">Scenario: "Unable to connect to the server: x509: certificate has expired"</h3>
-<ol>
-<li>Run <code>kubeadm certs check-expiration</code>.</li>
-<li>If expired, run <code>kubeadm certs renew all</code>.</li>
-<li>Restart control plane components (API server, Scheduler, Controller Manager).</li>
-</ol>
-<h3 id="scenario-broken-kubelet">Scenario: "Broken Kubelet"</h3>
-<p>Kubelets often use <strong>Client Certificate Rotation</strong>. If a kubelet can't join, check if there's a pending CSR:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr
-<span class="c1"># Look for &#39;node-csr-...&#39; and approve if necessary</span>
-</code></pre></div></p>
+<h2 id="4-cka-exam-perspective-why-isnt-it-working">🚩 4. CKA Exam Perspective: "Why isn't it working?"</h2>
+<p>In the CKA exam or real world, if you apply a Network Policy and it doesn't block anything:
+1.  <strong>Check the CNI</strong>: Run <code>kubectl get pods -n kube-system</code> and look for the network plugin (e.g., <code>calico-node</code>, <code>cilium</code>, <code>weave-net</code>).
+2.  <strong>Flannel Trap</strong>: If you only see <code>kube-flannel</code>, Network Policies will <strong>never</strong> work unless you also see <code>canal</code> or <code>calico</code> running alongside it.
+3.  <strong>Labels</strong>: Ensure the Pods have the exact labels your policy is searching for.
+4.  <strong>Namespace</strong>: Remember that <code>NetworkPolicy</code> is a <strong>namespaced resource</strong>. It must be in the same namespace as the pods it is trying to protect.</p>
 <hr />
 <blockquote>
-<p>[!TIP]
-<strong>Exam Strategy</strong>: Don't memorize the CSR YAML perfectly. Use <code>kubectl explain csr.spec</code> or search for "CSR" in the official K8s documentation during the exam!</p>
+<p>[!IMPORTANT]
+<strong>Canal</strong>: If you see a cluster running "Canal", it is actually a hybrid of <strong>Flannel</strong> (for basic networking) and <strong>Calico</strong> (for enforcing Network Policies). This is a very common production setup.</p>
 </blockquote>
 
 
