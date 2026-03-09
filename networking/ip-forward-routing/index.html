@@ -3099,10 +3099,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-topology" class="md-nav__link">
+  <a href="#the-network-topology" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Topology
+        The Network Topology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-packet-flow-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Packet Flow (Logic)
       
     </span>
   </a>
@@ -3848,10 +3859,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-topology" class="md-nav__link">
+  <a href="#the-network-topology" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Topology
+        The Network Topology
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-packet-flow-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Packet Flow (Logic)
       
     </span>
   </a>
@@ -3956,29 +3978,61 @@
 <div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
 </code></pre></div>
 <h3 id="enabling-it-permanently">Enabling it (Permanently):</h3>
-<p>Edit <code>/etc/sysctl.conf</code> and add:
-<div class="highlight"><pre><span></span><code>net.ipv4.ip_forward = 1
+<p>To make the change survive a reboot, you must edit <code>/etc/sysctl.conf</code>. Typical Kubernetes prerequisites include these three lines:</p>
+<div class="highlight"><pre><span></span><code># Enable IPv4 Forwarding
+net.ipv4.ip_forward = 1
+
+# Required if using a bridge-based CNI (like Flannel or Weave)
+# Ensures bridge traffic is processed by iptables
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
 </code></pre></div>
-Then apply with: <code>sysctl -p</code></p>
+<p><strong>Apply the changes immediately:</strong>
+<div class="highlight"><pre><span></span><code>sysctl<span class="w"> </span>-p
+</code></pre></div></p>
 <hr />
 <h2 id="2-scenario-routing-among-three-hosts">🗺️ 2. Scenario: Routing Among Three Hosts</h2>
 <p>Imagine we have three Linux hosts. <strong>Host B</strong> acts as a bridge/router between <strong>Host A</strong> and <strong>Host C</strong>.</p>
-<h3 id="the-topology">The Topology</h3>
+<h3 id="the-network-topology">The Network Topology</h3>
 <div class="highlight"><pre><span></span><code>graph LR
     subgraph &quot;Network 1 (10.0.1.0/24)&quot;
-    A[Host A&lt;br/&gt;10.0.1.10]
+    A[&quot;Host A&lt;br/&gt;IP: 10.0.1.10&lt;br/&gt;GW: 10.0.1.1&quot;]
     end
 
-    subgraph &quot;Router Node&quot;
-    B[Host B&lt;br/&gt;NIC 1: 10.0.1.1&lt;br/&gt;NIC 2: 10.0.2.1]
+    subgraph &quot;The Router Node&quot;
+    B[&quot;Host B&lt;br/&gt;eth0: 10.0.1.1&lt;br/&gt;eth1: 10.0.2.1&quot;]
     end
 
     subgraph &quot;Network 2 (10.0.2.0/24)&quot;
-    C[Host C&lt;br/&gt;10.0.2.10]
+    C[&quot;Host C&lt;br/&gt;IP: 10.0.2.10&lt;br/&gt;GW: 10.0.2.1&quot;]
     end
 
-    A &lt;--&gt; B
-    B &lt;--&gt; C
+    A -- &quot;Wire&quot; --- B
+    B -- &quot;Wire&quot; --- C
+</code></pre></div>
+<h3 id="the-packet-flow-logic">The Packet Flow (Logic)</h3>
+<div class="highlight"><pre><span></span><code>sequenceDiagram
+    participant A as Host A (10.0.1.10)
+    participant B as Host B (Router)
+    participant C as Host C (10.0.2.10)
+
+    Note over A: Goal: Ping 10.0.2.10
+    A-&gt;&gt;A: Is 10.0.2.10 local? No.
+    A-&gt;&gt;A: Check Route: via 10.0.1.1
+    A-&gt;&gt;B: Packet (Src: 10.0.1.10, Dst: 10.0.2.10)
+
+    Note over B: Receives on eth0
+    B-&gt;&gt;B: Is ip_forward == 1? Yes.
+    B-&gt;&gt;B: Check Route: 10.0.2.0/24 is on eth1
+    B-&gt;&gt;C: Forward Packet (Src: 10.0.1.10, Dst: 10.0.2.10)
+
+    Note over C: Receives, generates Reply
+    C-&gt;&gt;C: Is 10.0.1.10 local? No.
+    C-&gt;&gt;C: Check Route: via 10.0.2.1
+    C-&gt;&gt;B: Reply (Src: 10.0.2.10, Dst: 10.0.1.10)
+
+    Note over B: Receives on eth1, forwards to eth0
+    B-&gt;&gt;A: Reply (Src: 10.0.2.10, Dst: 10.0.1.10)
 </code></pre></div>
 <hr />
 <h2 id="3-step-by-step-configuration">🛠️ 3. Step-by-Step Configuration</h2>
