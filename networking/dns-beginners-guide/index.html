@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../exam-tips/deployment-components/">
+        <link rel="prev" href="../../security/opa-kubernetes-deep-dive/">
       
       
-        <link rel="next" href="../troubleshooting/crictl-guide/">
+        <link rel="next" href="../foundations-switching-routing/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Quick Flowchart - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>DNS Beginners Guide - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kubernetes-troubleshooting-flowchart" class="md-skip">
+        <a href="#dns-for-beginners-the-global-phonebook" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Quick Flowchart
+              DNS Beginners Guide
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -249,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../yaml-guide/" class="md-tabs__link">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -269,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -289,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -307,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -328,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -348,7 +348,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../storage/storage-deep-dive/" class="md-tabs__link">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -368,7 +368,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../security/overview/" class="md-tabs__link">
+        <a href="../../security/overview/" class="md-tabs__link">
           
   
   
@@ -384,11 +384,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../networking/dns-beginners-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   
@@ -406,7 +408,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../security-focus/" class="md-tabs__link">
+      <a href="../../security-focus/" class="md-tabs__link">
         
   
   
@@ -427,7 +429,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -447,7 +449,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -463,13 +465,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -503,7 +503,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -521,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -627,7 +627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -655,7 +655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -683,7 +683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -711,7 +711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -739,7 +739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -767,7 +767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -795,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -823,7 +823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -851,7 +851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -879,7 +879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -907,7 +907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -935,7 +935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -963,7 +963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1043,7 +1043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1071,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1099,7 +1099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1127,7 +1127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1155,7 +1155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1183,7 +1183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1211,7 +1211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1239,7 +1239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1275,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1362,7 +1362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1390,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1418,7 +1418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1505,7 +1505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1533,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1561,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1589,7 +1589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1617,7 +1617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1645,7 +1645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1673,7 +1673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1701,7 +1701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1729,7 +1729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1757,7 +1757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1785,7 +1785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
         
   
   
@@ -1813,7 +1813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/crd-examples/" class="md-nav__link">
+      <a href="../../cluster-architecture/crd-examples/" class="md-nav__link">
         
   
   
@@ -1841,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/custom-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-controllers/" class="md-nav__link">
         
   
   
@@ -1869,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/operator-framework/" class="md-nav__link">
+      <a href="../../cluster-architecture/operator-framework/" class="md-nav__link">
         
   
   
@@ -1904,7 +1904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1983,7 +1983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -2070,7 +2070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2098,7 +2098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2126,7 +2126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2154,7 +2154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2182,7 +2182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2210,7 +2210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2297,7 +2297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/overview/" class="md-nav__link">
+      <a href="../../security/overview/" class="md-nav__link">
         
   
   
@@ -2325,7 +2325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/container-security-overview/" class="md-nav__link">
+      <a href="../../security/container-security-overview/" class="md-nav__link">
         
   
   
@@ -2353,7 +2353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/security-primitives/" class="md-nav__link">
+      <a href="../../security/security-primitives/" class="md-nav__link">
         
   
   
@@ -2381,7 +2381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2409,7 +2409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/tls-certificates/" class="md-nav__link">
+      <a href="../../security/tls-certificates/" class="md-nav__link">
         
   
   
@@ -2437,7 +2437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2465,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/certificate-api-management/" class="md-nav__link">
+      <a href="../../security/certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2493,7 +2493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2521,7 +2521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/service-accounts-guide/" class="md-nav__link">
+      <a href="../../security/service-accounts-guide/" class="md-nav__link">
         
   
   
@@ -2549,7 +2549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rbac-authorization/" class="md-nav__link">
+      <a href="../../security/rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2577,7 +2577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/cluster-roles/" class="md-nav__link">
+      <a href="../../security/cluster-roles/" class="md-nav__link">
         
   
   
@@ -2605,7 +2605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rbac-practical-examples/" class="md-nav__link">
+      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
         
   
   
@@ -2633,7 +2633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
+      <a href="../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
         
   
   
@@ -2661,7 +2661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rolebinding-deep-dive/" class="md-nav__link">
+      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
         
   
   
@@ -2689,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/emr-eks-rbac-oidc/" class="md-nav__link">
+      <a href="../../security/emr-eks-rbac-oidc/" class="md-nav__link">
         
   
   
@@ -2717,7 +2717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/image-security/" class="md-nav__link">
+      <a href="../../security/image-security/" class="md-nav__link">
         
   
   
@@ -2745,7 +2745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/security-contexts-capabilities/" class="md-nav__link">
+      <a href="../../security/security-contexts-capabilities/" class="md-nav__link">
         
   
   
@@ -2773,7 +2773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2801,7 +2801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/abac-authorization/" class="md-nav__link">
+      <a href="../../security/abac-authorization/" class="md-nav__link">
         
   
   
@@ -2829,7 +2829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -2857,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -2889,26 +2889,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   
@@ -2926,7 +2931,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2941,10 +2946,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../networking/dns-beginners-guide/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Beginners Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2960,6 +2992,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-phonebook-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📞 1. The Phonebook Analogy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-common-dns-record-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📑 2. Common DNS Record Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-a-dns-query-works-the-journey" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 3. How a DNS Query Works (The Journey)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-is-ttl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕰️ 4. What is TTL?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-why-do-beginners-need-this-for-cka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. Why do Beginners need this for CKA?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2972,7 +3079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/foundations-switching-routing/" class="md-nav__link">
+      <a href="../foundations-switching-routing/" class="md-nav__link">
         
   
   
@@ -3000,7 +3107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/linux-networking-commands/" class="md-nav__link">
+      <a href="../linux-networking-commands/" class="md-nav__link">
         
   
   
@@ -3028,7 +3135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/ip-forward-routing/" class="md-nav__link">
+      <a href="../ip-forward-routing/" class="md-nav__link">
         
   
   
@@ -3056,7 +3163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/dns-linux-coredns/" class="md-nav__link">
+      <a href="../dns-linux-coredns/" class="md-nav__link">
         
   
   
@@ -3084,7 +3191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/network-namespaces/" class="md-nav__link">
+      <a href="../network-namespaces/" class="md-nav__link">
         
   
   
@@ -3112,7 +3219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/docker-networking/" class="md-nav__link">
+      <a href="../docker-networking/" class="md-nav__link">
         
   
   
@@ -3140,7 +3247,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -3168,7 +3275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/network-policies/" class="md-nav__link">
+      <a href="../../security/network-policies/" class="md-nav__link">
         
   
   
@@ -3196,7 +3303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/network-policy-examples/" class="md-nav__link">
+      <a href="../../security/network-policy-examples/" class="md-nav__link">
         
   
   
@@ -3224,7 +3331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/network-policy-solutions/" class="md-nav__link">
+      <a href="../../security/network-policy-solutions/" class="md-nav__link">
         
   
   
@@ -3259,7 +3366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-focus/" class="md-nav__link">
+      <a href="../../security-focus/" class="md-nav__link">
         
   
   
@@ -3338,7 +3445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -3425,7 +3532,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -3453,7 +3560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -3481,7 +3588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -3513,31 +3620,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
         
           
-          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
             
   
   
@@ -3555,7 +3657,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_14">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3570,37 +3672,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Quick Flowchart
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -3616,48 +3691,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-use-this-flowchart" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to Use This Flowchart
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Reference
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3670,7 +3703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/crictl-guide/" class="md-nav__link">
+      <a href="../../troubleshooting/crictl-guide/" class="md-nav__link">
         
   
   
@@ -3725,10 +3758,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-use-this-flowchart" class="md-nav__link">
+  <a href="#1-the-phonebook-analogy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to Use This Flowchart
+        📞 1. The Phonebook Analogy
       
     </span>
   </a>
@@ -3736,10 +3769,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
+  <a href="#2-common-dns-record-types" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Reference
+        📑 2. Common DNS Record Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-a-dns-query-works-the-journey" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 3. How a DNS Query Works (The Journey)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-is-ttl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕰️ 4. What is TTL?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-why-do-beginners-need-this-for-cka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. Why do Beginners need this for CKA?
       
     </span>
   </a>
@@ -3763,23 +3829,100 @@
 
 
 
-<h1 id="kubernetes-troubleshooting-flowchart">Kubernetes Troubleshooting Flowchart</h1>
-<p>This flowchart provides a systematic approach to troubleshooting common Kubernetes issues.</p>
-<p><img alt="Troubleshooting Flowchart" src="../troubleshooting-flowchart-detailed.png" /></p>
-<h2 id="how-to-use-this-flowchart">How to Use This Flowchart</h2>
-<ol>
-<li>Start with identifying the pod status</li>
-<li>Follow the decision tree based on the error symptoms</li>
-<li>Apply the recommended fixes for each scenario</li>
-<li>Verify the resolution with kubectl commands</li>
-</ol>
-<h2 id="quick-reference">Quick Reference</h2>
+<h1 id="dns-for-beginners-the-global-phonebook">DNS for Beginners: The Global Phonebook</h1>
+<p>Domain Name System (DNS) is the system that translates human-readable domain names (like <code>google.com</code>) into machine-readable IP addresses (like <code>142.250.190.46</code>).</p>
+<hr />
+<h2 id="1-the-phonebook-analogy">📞 1. The Phonebook Analogy</h2>
+<p>Imagine you want to call your friend "Alice." You don't remember her 10-digit phone number, so you look up "Alice" in your phone's contact list.</p>
 <ul>
-<li><strong>ImagePullBackOff</strong>: Check image name, registry credentials</li>
-<li><strong>CrashLoopBackOff</strong>: Check logs, liveness probes, resource limits</li>
-<li><strong>Pending</strong>: Check node resources, taints, affinity rules</li>
-<li><strong>ContainerCreating</strong>: Check PVC status, network plugins</li>
+<li><strong>Human Name</strong>: <code>google.com</code></li>
+<li><strong>Phone Number</strong>: <code>142.250.190.46</code></li>
+<li><strong>The Contact List</strong>: <strong>DNS</strong></li>
 </ul>
+<p>Without DNS, you would have to remember the IP address of every website you visit!</p>
+<hr />
+<h2 id="2-common-dns-record-types">📑 2. Common DNS Record Types</h2>
+<p>When you "own" a domain, you create different types of records to tell the world where your services are.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Record Type</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>A</strong></td>
+<td style="text-align: left;">Address</td>
+<td style="text-align: left;">Maps a name to an <strong>IPv4 address</strong>.</td>
+<td style="text-align: left;"><code>web -&gt; 1.2.3.4</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>AAAA</strong></td>
+<td style="text-align: left;">IPv6 Address</td>
+<td style="text-align: left;">Maps a name to an <strong>IPv6 address</strong>.</td>
+<td style="text-align: left;"><code>web -&gt; 2001:db8::1</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CNAME</strong></td>
+<td style="text-align: left;">Canonical Name</td>
+<td style="text-align: left;">An <strong>alias</strong>. Maps one name to another name.</td>
+<td style="text-align: left;"><code>blog -&gt; my-site.com</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>MX</strong></td>
+<td style="text-align: left;">Mail Exchange</td>
+<td style="text-align: left;">Tells the world where to send <strong>emails</strong>.</td>
+<td style="text-align: left;"><code>mail -&gt; mx.google.com</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>NS</strong></td>
+<td style="text-align: left;">Name Server</td>
+<td style="text-align: left;">Tells the world which server is the <strong>Boss</strong> of this domain.</td>
+<td style="text-align: left;"><code>ns1.provider.com</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>TXT</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Stores general information (often used for security/verification).</td>
+<td style="text-align: left;"><code>v=spf1 ...</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-how-a-dns-query-works-the-journey">🔍 3. How a DNS Query Works (The Journey)</h2>
+<p>When you type <code>www.example.com</code> into your browser, several steps happen in milliseconds:</p>
+<ol>
+<li><strong>Browser Cache</strong>: Your browser checks if it already knows the IP from a previous visit.</li>
+<li><strong>OS Cache</strong>: If not, it asks your computer's Operating System (Linux/Windows).</li>
+<li><strong>Recursive Resolver</strong>: If the OS doesn't know, it asks your ISP (e.g., Comcast or Google's <code>8.8.8.8</code>).</li>
+<li><strong>The Root Servers</strong>: The ISP asks the global Root Servers "." who knows about <code>.com</code>.</li>
+<li><strong>TLD Servers</strong>: The Root says "Go ask the <code>.com</code> servers."</li>
+<li><strong>Authoritative Server</strong>: The <code>.com</code> server says "Go ask the owner's server (<code>ns1.example.com</code>)."</li>
+<li><strong>Success</strong>: Your ISP gets the IP from the owner's server and brings it back to you.</li>
+</ol>
+<hr />
+<h2 id="4-what-is-ttl">🕰️ 4. What is TTL?</h2>
+<p><strong>TTL (Time To Live)</strong> is a timer attached to every DNS record. It tells the world how long they are allowed to "cache" (remember) the answer.</p>
+<ul>
+<li><strong>Short TTL (e.g., 60s)</strong>: Good for moving servers quickly.</li>
+<li><strong>Long TTL (e.g., 1 hour)</strong>: Reduces traffic to your DNS server but makes changes take longer to propagate.</li>
+</ul>
+<hr />
+<h2 id="5-why-do-beginners-need-this-for-cka">🚩 5. Why do Beginners need this for CKA?</h2>
+<p>In Kubernetes, we use these same concepts:
+*   <strong>Service Name</strong> = The Domain Name.
+*   <strong>ClusterIP</strong> = The A Record.
+*   <strong>CoreDNS</strong> = The Authoritative Name Server for your cluster.</p>
+<p>If you don't understand that a <strong>CNAME</strong> is just an alias, you will struggle to understand how Kubernetes uses <code>ExternalName</code> services!</p>
+<hr />
+<blockquote>
+<p>[!TIP]
+<strong>Pro Tool</strong>: Use the command <code>dig</code> or <code>nslookup</code> on your terminal to see DNS in action.
+<code>dig google.com</code></p>
+</blockquote>
 
 
 
@@ -3830,10 +3973,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
