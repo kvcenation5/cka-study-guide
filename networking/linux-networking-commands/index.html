@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../etcd-data-model/">
+        <link rel="prev" href="../foundations-switching-routing/">
       
       
-        <link rel="next" href="../namespaced-vs-cluster-scoped/">
+        <link rel="next" href="../ip-forward-routing/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>API Groups: Core vs Named - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Linux Networking Commands - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kubernetes-api-groups-core-vs-named-apis" class="md-skip">
+        <a href="#linux-networking-command-guide-ip-tool" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              API Groups: Core vs Named
+              Linux Networking Commands
             
           </span>
         </div>
@@ -285,12 +285,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -386,11 +384,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../networking/foundations-switching-routing/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../foundations-switching-routing/" class="md-tabs__link">
           
   
   
@@ -1450,31 +1450,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -1492,7 +1487,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1538,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1566,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1594,7 +1589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1622,7 +1617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1650,7 +1645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1678,7 +1673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1703,37 +1698,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    API Groups: Core vs Named
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1749,120 +1717,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-api-structure-hierachy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 1. API Structure Hierachy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-the-core-api-group-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🍎 2. The Core API Group (/api)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-the-named-api-groups-apis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📂 3. The Named API Groups (/apis)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-how-to-explore-the-api-groups" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 4. How to explore the API Groups
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ 4. How to explore the API Groups">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a-the-kubectl-discovery-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A. The kubectl Discovery Commands
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b-the-proxy-method-peek-inside-the-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B. The Proxy Method (Peek inside the API)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-component-breakdown" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🌍 5. Component Breakdown
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📚 References
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1875,7 +1729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1903,7 +1757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1931,7 +1785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-resource-definitions/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
         
   
   
@@ -1959,7 +1813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../crd-examples/" class="md-nav__link">
+      <a href="../../cluster-architecture/crd-examples/" class="md-nav__link">
         
   
   
@@ -1987,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-controllers/" class="md-nav__link">
         
   
   
@@ -2015,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operator-framework/" class="md-nav__link">
+      <a href="../../cluster-architecture/operator-framework/" class="md-nav__link">
         
   
   
@@ -3035,26 +2889,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   
@@ -3072,7 +2931,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3090,7 +2949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/foundations-switching-routing/" class="md-nav__link">
+      <a href="../foundations-switching-routing/" class="md-nav__link">
         
   
   
@@ -3115,10 +2974,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../networking/linux-networking-commands/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Networking Commands
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3134,6 +3020,165 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-ip-link-the-physical-layer-l2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 1. ip link: The Physical Layer (L2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ip-addr-the-protocol-layer-l3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🖼️ 2. ip addr: The Protocol Layer (L3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🖼️ 2. ip addr: The Protocol Layer (L3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewing-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing Addresses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-differences-ip-link-vs-ip-addr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Differences: ip link vs ip addr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ip-addr-add-changing-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ➕ 3. ip addr add: Changing State
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="➕ 3. ip addr add: Changing State">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ip-route-the-traffic-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗺️ 4. ip route: The Traffic Map
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗺️ 4. ip route: The Traffic Map">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-ip-route-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading ip route Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-route-add-adding-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ip route add: Adding Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cka-exam-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. CKA Exam Relevance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3146,7 +3191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/ip-forward-routing/" class="md-nav__link">
+      <a href="../ip-forward-routing/" class="md-nav__link">
         
   
   
@@ -3174,7 +3219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/dns-linux-coredns/" class="md-nav__link">
+      <a href="../dns-linux-coredns/" class="md-nav__link">
         
   
   
@@ -3202,7 +3247,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/network-namespaces/" class="md-nav__link">
+      <a href="../network-namespaces/" class="md-nav__link">
         
   
   
@@ -3230,7 +3275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/docker-networking/" class="md-nav__link">
+      <a href="../docker-networking/" class="md-nav__link">
         
   
   
@@ -3769,10 +3814,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-api-structure-hierachy" class="md-nav__link">
+  <a href="#1-ip-link-the-physical-layer-l2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. API Structure Hierachy
+        🛠️ 1. ip link: The Physical Layer (L2)
       
     </span>
   </a>
@@ -3780,44 +3825,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-the-core-api-group-api" class="md-nav__link">
+  <a href="#2-ip-addr-the-protocol-layer-l3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🍎 2. The Core API Group (/api)
+        🖼️ 2. ip addr: The Protocol Layer (L3)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-the-named-api-groups-apis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📂 3. The Named API Groups (/apis)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-how-to-explore-the-api-groups" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 4. How to explore the API Groups
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ 4. How to explore the API Groups">
+    <nav class="md-nav" aria-label="🖼️ 2. ip addr: The Protocol Layer (L3)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-the-kubectl-discovery-commands" class="md-nav__link">
+  <a href="#viewing-addresses" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. The kubectl Discovery Commands
+        Viewing Addresses
       
     </span>
   </a>
@@ -3825,10 +3848,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-the-proxy-method-peek-inside-the-api" class="md-nav__link">
+  <a href="#key-differences-ip-link-vs-ip-addr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. The Proxy Method (Peek inside the API)
+        Key Differences: ip link vs ip addr
       
     </span>
   </a>
@@ -3841,21 +3864,88 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-component-breakdown" class="md-nav__link">
+  <a href="#3-ip-addr-add-changing-state" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🌍 5. Component Breakdown
+        ➕ 3. ip addr add: Changing State
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="➕ 3. ip addr add: Changing State">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax:
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📚 References
+        Examples:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ip-route-the-traffic-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗺️ 4. ip route: The Traffic Map
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗺️ 4. ip route: The Traffic Map">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-ip-route-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading ip route Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-route-add-adding-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ip route add: Adding Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cka-exam-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. CKA Exam Relevance
       
     </span>
   </a>
@@ -3879,99 +3969,116 @@
 
 
 
-<h1 id="kubernetes-api-groups-core-vs-named-apis">Kubernetes API Groups: Core vs. Named APIs</h1>
-<p>The Kubernetes API is not a single flat list. It is organized into <strong>API Groups</strong> to make it easier to extend and version different parts of the system independently.</p>
+<h1 id="linux-networking-command-guide-ip-tool">Linux Networking Command Guide (<code>ip</code> tool)</h1>
+<p>The <code>ip</code> command (part of the <code>iproute2</code> suite) is the standard tool for managing network interfaces, addresses, and routing in modern Linux. It replaces the older <code>ifconfig</code> and <code>route</code> commands.</p>
 <hr />
-<h2 id="1-api-structure-hierachy">🏗️ 1. API Structure Hierachy</h2>
-<p>When you talk to the API Server, the URL path tells you exactly where that resource lives in the hierarchy:</p>
-<ol>
-<li><strong><code>/api/v1</code></strong>: The <strong>Core</strong> group (Legacy).</li>
-<li><strong><code>/apis/GROUP_NAME/VERSION</code></strong>: The <strong>Named</strong> groups (Modern).</li>
-</ol>
-<hr />
-<h2 id="2-the-core-api-group-api">🍎 2. The Core API Group (<code>/api</code>)</h2>
-<p>The Core group contains the fundamental, "original" ingredients of Kubernetes. It does not have a group name in the URL, just <code>/api/v1</code>.</p>
-<ul>
-<li><strong>Path</strong>: <code>/api/v1</code></li>
-<li><strong>Examples</strong>: Pods, Services, Nodes, Namespaces, ConfigMaps, Secrets.</li>
-<li><strong>YAML Syntax</strong>: <code>apiVersion: v1</code></li>
-</ul>
-<hr />
-<h2 id="3-the-named-api-groups-apis">📂 3. The Named API Groups (<code>/apis</code>)</h2>
-<p>Everything added after the initial release is organized into "Named" groups. This allowed teams to work on <code>apps</code> separately from <code>networking</code>, for example.</p>
-<ul>
-<li><strong>Path</strong>: <code>/apis/&lt;group&gt;/&lt;version&gt;</code></li>
-<li><strong>Examples</strong>:<ul>
-<li><strong>Apps</strong>: <code>apiVersion: apps/v1</code> (Deployments, StatefulSets)</li>
-<li><strong>Networking</strong>: <code>apiVersion: networking.k8s.io/v1</code> (Ingress, NetworkPolicies)</li>
-<li><strong>Storage</strong>: <code>apiVersion: storage.k8s.io/v1</code> (StorageClasses)</li>
-<li><strong>RBAC</strong>: <code>apiVersion: rbac.authorization.k8s.io/v1</code> (Roles, RoleBindings)</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h2 id="4-how-to-explore-the-api-groups">🛠️ 4. How to explore the API Groups</h2>
-<h3 id="a-the-kubectl-discovery-commands">A. The kubectl Discovery Commands</h3>
-<p>These are the two most important commands for understanding what your cluster supports:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># List all API VERSIONS supported by the cluster</span>
-kubectl<span class="w"> </span>api-versions
-
-<span class="c1"># List all RESOURCE TYPES, their shortnames, and their API Group</span>
-kubectl<span class="w"> </span>api-resources
-</code></pre></div>
-<h3 id="b-the-proxy-method-peek-inside-the-api">B. The Proxy Method (Peek inside the API)</h3>
-<p>If you want to see the raw JSON structure:
-1.  Start a proxy: <code>kubectl proxy</code>
-2.  Open another terminal and curl:
-    <div class="highlight"><pre><span></span><code><span class="c1"># See the Core group</span>
-curl<span class="w"> </span>http://localhost:8001/api/v1
-
-<span class="c1"># See the Apps group</span>
-curl<span class="w"> </span>http://localhost:8001/apis/apps/v1
-</code></pre></div></p>
-<hr />
-<h2 id="5-component-breakdown">🌍 5. Component Breakdown</h2>
+<h2 id="1-ip-link-the-physical-layer-l2">🛠️ 1. <code>ip link</code>: The Physical Layer (L2)</h2>
+<p><code>ip link</code> is used to manage the network <strong>interfaces</strong> themselves. It doesn't care about IP addresses; it only cares if the "cable" is plugged in and what the hardware address is.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Core Group</th>
-<th style="text-align: left;">Named Groups</th>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>URL Root</strong></td>
-<td style="text-align: left;"><code>/api</code></td>
-<td style="text-align: left;"><code>/apis</code></td>
+<td style="text-align: left;"><strong><code>ip link show</code></strong></td>
+<td style="text-align: left;">List all interfaces and their status (UP/DOWN, MAC, MTU).</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Versions</strong></td>
-<td style="text-align: left;"><code>v1</code></td>
-<td style="text-align: left;"><code>v1</code>, <code>v1beta1</code>, <code>v1alpha1</code></td>
+<td style="text-align: left;"><strong><code>ip link set eth0 up</code></strong></td>
+<td style="text-align: left;">Enable (bring up) an interface.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>YAML Example</strong></td>
-<td style="text-align: left;"><code>apiVersion: v1</code></td>
-<td style="text-align: left;"><code>apiVersion: apps/v1</code></td>
+<td style="text-align: left;"><strong><code>ip link set eth0 down</code></strong></td>
+<td style="text-align: left;">Disable (bring down) an interface.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Resources</strong></td>
-<td style="text-align: left;">Pods, Nodes, Services</td>
-<td style="text-align: left;">Deployments, Ingresses, Jobs</td>
+<td style="text-align: left;"><strong><code>ip link set eth0 mtu 1400</code></strong></td>
+<td style="text-align: left;">Change the Maximum Transmission Unit (useful for VPNs/Overlays).</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="references">📚 References</h2>
+<h2 id="2-ip-addr-the-protocol-layer-l3">🖼️ 2. <code>ip addr</code>: The Protocol Layer (L3)</h2>
+<p><code>ip addr</code> (or <code>ip a</code>) manages the <strong>IP addresses</strong> assigned to those interfaces. An interface can have multiple IP addresses simultaneously.</p>
+<h3 id="viewing-addresses">Viewing Addresses</h3>
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w">     </span><span class="c1"># Show all addresses for all interfaces</span>
+ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eth0<span class="w"> </span><span class="c1"># Show addresses for a specific interface</span>
+</code></pre></div>
+<h3 id="key-differences-ip-link-vs-ip-addr">Key Differences: <code>ip link</code> vs <code>ip addr</code></h3>
 <ul>
-<li><a href="https://kubernetes.io/docs/concepts/overview/kubernetes-api/">Official Kubernetes API Overview</a></li>
-<li><a href="https://kubernetes.io/docs/concepts/overview/kubernetes-api/#api-groups">API Group Discovery Guide</a></li>
+<li><strong><code>ip link</code></strong>: Focuses on the <strong>device</strong> (Is it active? What is its hardware name?).</li>
+<li><strong><code>ip addr</code></strong>: Focuses on the <strong>identity</strong> (What is its IP? What is its subnet?).</li>
 </ul>
+<hr />
+<h2 id="3-ip-addr-add-changing-state">➕ 3. <code>ip addr add</code>: Changing State</h2>
+<p>This is the command used to manually assign a new IP address to an interface.</p>
+<h3 id="syntax">Syntax:</h3>
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>addr<span class="w"> </span>add<span class="w"> </span>&lt;IP&gt;/&lt;Subnet&gt;<span class="w"> </span>dev<span class="w"> </span>&lt;Interface&gt;
+</code></pre></div>
+<h3 id="examples">Examples:</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Assign IP 192.168.1.50 with a 24-bit mask to eth0</span>
+ip<span class="w"> </span>addr<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.168.1.50/24<span class="w"> </span>dev<span class="w"> </span>eth0
+
+<span class="c1"># Remove an IP address</span>
+ip<span class="w"> </span>addr<span class="w"> </span>del<span class="w"> </span><span class="m">192</span>.168.1.50/24<span class="w"> </span>dev<span class="w"> </span>eth0
+</code></pre></div>
+<hr />
+<h2 id="4-ip-route-the-traffic-map">🗺️ 4. <code>ip route</code>: The Traffic Map</h2>
+<p>Once you have an interface and an IP, you need to know where to send data. <code>ip route</code> manages the <strong>Routing Table</strong>.</p>
+<h3 id="reading-ip-route-output">Reading <code>ip route</code> Output</h3>
+<p>When you run <code>ip route</code>, each line tells a story:
+<code>default via 192.168.1.1 dev eth0 proto dhcp metric 100</code></p>
+<ul>
+<li><strong><code>default</code></strong>: This is the "Gateway of Last Resort."</li>
+<li><strong><code>via 192.168.1.1</code></strong>: Send the packet to this router.</li>
+<li><strong><code>dev eth0</code></strong>: Send it out through the <code>eth0</code> physical interface.</li>
+<li><strong><code>proto dhcp</code></strong>: This route was learned automatically via DHCP.</li>
+</ul>
+<h3 id="ip-route-add-adding-paths"><code>ip route add</code>: Adding Paths</h3>
+<p>Use this to tell Linux how to find subnets that aren't directly connected.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Goal</th>
+<th style="text-align: left;">Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Add Subnet Route</strong></td>
+<td style="text-align: left;"><code>ip route add 10.244.1.0/24 via 192.168.1.11</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Add Static Host</strong></td>
+<td style="text-align: left;"><code>ip route add 8.8.8.8 via 192.168.1.1</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Delete a Route</strong></td>
+<td style="text-align: left;"><code>ip route del 10.244.1.0/24</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Replace Default</strong></td>
+<td style="text-align: left;"><code>ip route replace default via 192.168.1.254</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-cka-exam-relevance">🚩 5. CKA Exam Relevance</h2>
+<ol>
+<li><strong>Troubleshooting Nodes</strong>: If a node is <code>NotReady</code>, check <code>ip link</code> to see if the interface is <code>DOWN</code>.</li>
+<li><strong>CNI Verification</strong>: CNIs like Flannel or Calico create virtual interfaces (e.g., <code>flannel.1</code>, <code>caliXXX</code>). Use <code>ip addr</code> to see if they received an IP.</li>
+<li><strong>Pod Connectivity</strong>: If a pod can't talk to another node, check <code>ip route</code> to see if the CNI added the necessary routes for the Pod CIDR.</li>
+</ol>
 <hr />
 <blockquote>
 <p>[!TIP]
-<strong>CKA Strategy</strong>: If you are unsure which <code>apiVersion</code> to use in a YAML file during the exam, run <code>kubectl api-resources</code>. It will show you exactly which group each resource belongs to in the <code>APIVERSION</code> column.</p>
+<strong>Shortcuts</strong>: You don't have to type the full commands!
+- <code>ip a</code> = <code>ip addr</code>
+- <code>ip l</code> = <code>ip link</code>
+- <code>ip r</code> = <code>ip route</code></p>
 </blockquote>
 
 
