@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../statefulsets-deep-dive/">
+        <link rel="prev" href="../custom-resource-definitions/">
       
       
-        <link rel="next" href="../../security/overview/">
+        <link rel="next" href="../../KNOW_YOUR_COMPONENTS/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>StatefulSet Architecture - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>CRD & Custom Resource Examples - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#statefulset-persistentvolume-architecture" class="md-skip">
+        <a href="#crd-custom-resource-hands-on-yaml-examples" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              StatefulSet Architecture
+              CRD & Custom Resource Examples
             
           </span>
         </div>
@@ -285,10 +285,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -344,13 +346,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../storage-deep-dive/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -1430,26 +1430,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -1467,7 +1472,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1513,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../component-management/" class="md-nav__link">
         
   
   
@@ -1541,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../admission-controllers/" class="md-nav__link">
         
   
   
@@ -1569,7 +1574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1597,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1625,7 +1630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1653,7 +1658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1681,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1709,7 +1714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1737,7 +1742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1765,7 +1770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
+      <a href="../custom-resource-definitions/" class="md-nav__link">
         
   
   
@@ -1790,10 +1795,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../cluster-architecture/crd-examples/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CRD & Custom Resource Examples
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1809,6 +1841,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-blueprint-customresourcedefinition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. The Blueprint (CustomResourceDefinition)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-instance-custom-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💾 2. The Instance (Custom Resource)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verification-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 3. Verification Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 3. Verification Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#see-the-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See the Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#see-your-custom-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See your Custom Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-the-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect the Instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1967,31 +2091,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -2009,7 +2128,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2027,7 +2146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2055,7 +2174,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2083,7 +2202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2111,7 +2230,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2139,7 +2258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2164,37 +2283,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    StatefulSet Architecture
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2210,87 +2302,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#key-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Components
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Key Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#statefulset" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        StatefulSet
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#volumeclaimtemplates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        VolumeClaimTemplates
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#persistentvolume-pv" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PersistentVolume (PV)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#access-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access Modes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3433,22 +3444,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#key-components" class="md-nav__link">
+  <a href="#1-the-blueprint-customresourcedefinition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Components
+        🏗️ 1. The Blueprint (CustomResourceDefinition)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Key Components">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-instance-custom-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💾 2. The Instance (Custom Resource)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verification-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 3. Verification Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 3. Verification Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#statefulset" class="md-nav__link">
+  <a href="#see-the-definition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        StatefulSet
+        See the Definition
       
     </span>
   </a>
@@ -3456,10 +3489,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#volumeclaimtemplates" class="md-nav__link">
+  <a href="#see-your-custom-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        VolumeClaimTemplates
+        See your Custom Resources
       
     </span>
   </a>
@@ -3467,21 +3500,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#persistentvolume-pv" class="md-nav__link">
+  <a href="#inspect-the-instance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PersistentVolume (PV)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#access-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access Modes
+        Inspect the Instance
       
     </span>
   </a>
@@ -3510,34 +3532,78 @@
 
 
 
-<h1 id="statefulset-persistentvolume-architecture">StatefulSet &amp; PersistentVolume Architecture</h1>
-<p>This diagram shows how StatefulSets work with PersistentVolumes in Kubernetes.</p>
-<p><img alt="StatefulSet PV Architecture" src="../statefulset-pv-architecture-detailed.png" /></p>
-<h2 id="key-components">Key Components</h2>
-<h3 id="statefulset">StatefulSet</h3>
-<ul>
-<li>Manages stateful applications with stable pod identities</li>
-<li>Each pod gets a unique, persistent identifier (e.g., web-0, web-1, web-2)</li>
-<li>Pods are created and deleted in order</li>
-</ul>
-<h3 id="volumeclaimtemplates">VolumeClaimTemplates</h3>
-<ul>
-<li>Automatically creates a PVC for each pod replica</li>
-<li>Each pod gets its own unique PVC</li>
-<li>PVCs persist even when pods are deleted</li>
-</ul>
-<h3 id="persistentvolume-pv">PersistentVolume (PV)</h3>
-<ul>
-<li>Actual storage resource in the cluster</li>
-<li>Can be provisioned statically or dynamically via StorageClass</li>
-<li>Independent lifecycle from pods</li>
-</ul>
-<h3 id="access-modes">Access Modes</h3>
-<ul>
-<li><strong>ReadWriteOnce (RWO)</strong>: Volume mounted by single node</li>
-<li><strong>ReadWriteMany (RWX)</strong>: Volume mounted by multiple nodes (requires NFS/EFS)</li>
-<li><strong>ReadOnlyMany (ROX)</strong>: Read-only by multiple nodes</li>
-</ul>
+<h1 id="crd-custom-resource-hands-on-yaml-examples">CRD &amp; Custom Resource: Hands-on YAML Examples</h1>
+<p>To use a Custom Resource, you must follow a two-step process: First, apply the <strong>Definition (The Blueprint)</strong>, and then create the <strong>Resource (The Instance)</strong>.</p>
+<hr />
+<h2 id="1-the-blueprint-customresourcedefinition">🏗️ 1. The Blueprint (CustomResourceDefinition)</h2>
+<p>This YAML defines a new resource type called <code>Database</code> in the <code>infra.mycompany.io</code> API group.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CustomResourceDefinition</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># name must match: &lt;plural&gt;.&lt;group&gt;</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">databases.infra.mycompany.io</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infra.mycompany.io</span>
+<span class="w">  </span><span class="nt">versions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">      </span><span class="nt">served</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">openAPIV3Schema</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">          </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">              </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">engine</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                </span><span class="nt">version</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                </span><span class="nt">storageGB</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">  </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespaced</span><span class="w"> </span><span class="c1"># This resource will live inside a namespace</span>
+<span class="w">  </span><span class="nt">names</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">databases</span>
+<span class="w">    </span><span class="nt">singular</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Database</span>
+<span class="w">    </span><span class="nt">shortNames</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db</span>
+</code></pre></div>
+<hr />
+<h2 id="2-the-instance-custom-resource">💾 2. The Instance (Custom Resource)</h2>
+<p>After applying the CRD above (<code>kubectl apply -f crd.yaml</code>), you can now create a "Database" object just like you would a Pod or Deployment.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infra.mycompany.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Database</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production-mysql</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">engine</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;mysql&quot;</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8.0&quot;</span>
+<span class="w">  </span><span class="nt">storageGB</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+</code></pre></div>
+<hr />
+<h2 id="3-verification-commands">🧪 3. Verification Commands</h2>
+<p>Once both are applied, use these standard Kubernetes commands to interact with your custom object:</p>
+<h3 id="see-the-definition">See the Definition</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>crd<span class="w"> </span>databases.infra.mycompany.io
+</code></pre></div>
+<h3 id="see-your-custom-resources">See your Custom Resources</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using the plural name</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>databases
+
+<span class="c1"># Using the short name (db) defined in the CRD</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>db
+</code></pre></div>
+<h3 id="inspect-the-instance">Inspect the Instance</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>db<span class="w"> </span>production-mysql
+</code></pre></div>
+<hr />
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Why doesn't it run?</strong> 
+If you apply these YAMLs, you will see the <code>Database</code> object in <code>kubectl get db</code>, but nothing will actually happen in your cloud (No real MySQL will be created). This is because you still need an <strong>Operator (Controller)</strong> pod running in your cluster that is programmed to watch for these objects and fulfill their requests.</p>
+</blockquote>
 
 
 
