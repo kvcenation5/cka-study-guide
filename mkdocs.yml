@@ -112,6 +112,7 @@ nav:
       - OPA Kubernetes Deep Dive: security/opa-kubernetes-deep-dive.md
       - Network Policies: security/network-policies.md
       - Network Policy Examples: security/network-policy-examples.md
+      - Network Policy Solutions: security/network-policy-solutions.md
   - Security Focus: security-focus.md
   - Exam Overview:
       - Curriculum & Weightage: exam-overview/curriculum.md
