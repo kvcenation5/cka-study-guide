@@ -67,37 +67,80 @@ The `podSelector` field appears in two places, and it means something different 
 
 ---
 
-## 📄 3. Anatomy of a Network Policy
+## 🚥 3. Unified Ingress & Egress (The "Full Firewall")
 
-To write a policy, you must define **Who** is the target and **Who** is allowed to talk to them.
+A single `NetworkPolicy` can manage both incoming and outgoing traffic for a Pod. This is common when a Pod acts as an intermediate service (e.g., an API that receives requests and talks to a DB).
+
+### Key Rules for "Both":
+1.  **policyTypes**: You must list both `- Ingress` and `- Egress`.
+2.  **isolation**: Once you add a field (like `ingress:`), that direction becomes "Denied by default" except for what you list.
+
+#### Example: API Gateway Policy
+*   **Ingress**: Allow traffic from the `internet` on port 80.
+*   **Egress**: Allow traffic only to the `internal-db` on port 5432.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: api-allow-db
-  namespace: prod
+  name: api-full-firewall
 spec:
-  # 1. THE TARGET: Which pods does this rule apply to?
+  podSelector:
+    matchLabels:
+      app: api-gateway
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock: { cidr: 0.0.0.0/0 }
+    ports:
+    - port: 80
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: internal-db
+    ports:
+    - port: 5432
+```
+
+---
+
+## 📄 4. Anatomy of a Network Policy
+
+A `NetworkPolicy` can define **Ingress** (incoming), **Egress** (outgoing), OR **Both** at the same time. The structure follows a standard pattern:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: example-policy
+spec:
+  # 1. THE TARGET: Which pod(s) are we securing?
   podSelector:
     matchLabels:
       role: db
+  
+  # 2. THE DIRECTION: Are we firewalling Ingress, Egress, or Both?
   policyTypes:
   - Ingress
-  # 2. THE RULE: Who can talk to the database?
+  - Egress
+  
+  # 3. THE RULES: Selective access
   ingress:
   - from:
     - podSelector:
         matchLabels:
           role: api
-    ports:
-    - protocol: TCP
-      port: 5432
+  egress:
+  - to:
+    - ipBlock: { cidr: 10.0.0.0/24 }
 ```
 
 ---
 
-## 🔗 4. Selectors: The "AND" vs "OR" Logic
+## 🚥 5. Selectors: The "AND" vs "OR" Logic
 This is the **#1 reason** CKA students fail Network Policy questions.
 
 ### Pattern A: "AND" Logic (Combining Selectors)
@@ -126,7 +169,7 @@ Use this if traffic can come from **either** a pod with a label **OR** any pod i
 
 ---
 
-## 🛠️ 5. Common CKA Scenarios
+## 🛠️ 6. Common CKA Scenarios
 
 ### Scenario 1: Allow traffic from a specific Namespace
 ```yaml
@@ -153,7 +196,7 @@ spec:
 
 ---
 
-## 🚩 6. CKA Exam Strategy
+## 🚩 7. CKA Exam Strategy
 
 1.  **Check Labels First**: Before writing a policy, verify the labels on your pods and namespaces.
     `kubectl get pods --show-labels`
