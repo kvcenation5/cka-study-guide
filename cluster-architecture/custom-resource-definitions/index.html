@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../storage-deep-dive/">
+        <link rel="prev" href="../kube-proxy-vs-kubectl-proxy/">
       
       
-        <link rel="next" href="../csi-architecture-workflow/">
+        <link rel="next" href="../../KNOW_YOUR_COMPONENTS/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Volumes vs PV vs PVC - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Custom Resource Definitions - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#volumes-vs-pv-vs-pvc" class="md-skip">
+        <a href="#custom-resource-definitions-crds" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Volumes vs PV vs PVC
+              Custom Resource Definitions
             
           </span>
         </div>
@@ -285,10 +285,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -344,13 +346,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../storage-deep-dive/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -1430,26 +1430,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -1467,7 +1472,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1513,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../component-management/" class="md-nav__link">
         
   
   
@@ -1541,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../admission-controllers/" class="md-nav__link">
         
   
   
@@ -1569,7 +1574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1597,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1625,7 +1630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1653,7 +1658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1681,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1709,7 +1714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1737,7 +1742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1762,10 +1767,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Resource Definitions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1781,6 +1813,120 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-crd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. What is a CRD?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-creating-a-crd-the-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 2. Creating a CRD (The Blueprint)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-a-custom-resource-the-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🍎 3. Creating a Custom Resource (The Instance)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential kubectl Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discovering-crds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovering CRDs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-custom-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Custom Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-operator-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 5. The Operator Pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cka-exam-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 6. CKA Exam Perspective
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1939,31 +2085,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -1981,7 +2122,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1999,7 +2140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2024,37 +2165,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Volumes vs PV vs PVC
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2070,165 +2184,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-storage-hierarchy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 1. The Storage Hierarchy
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ 1. The Storage Hierarchy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a-basic-volumes-pod-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A. Basic Volumes (Pod-level)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b-persistentvolumes-pv-cluster-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B. PersistentVolumes (PV) (Cluster-level)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-persistentvolumeclaims-pvc-user-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C. PersistentVolumeClaims (PVC) (User-level)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-how-they-work-together-the-binding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔄 2. How they work together (The Binding)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔄 2. How they work together (The Binding)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-binding-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Binding Process:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-comparison-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 3. Comparison Table
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-yaml-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📝 4. YAML Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📝 4. YAML Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pod-with-a-simple-emptydir-volume" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod with a simple emptyDir Volume
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-pv-pvc-pod-chain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The PV -&gt; PVC -&gt; Pod Chain
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-troubleshooting-the-binding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Troubleshooting the Binding
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2241,7 +2196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2269,7 +2224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2297,7 +2252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2325,7 +2280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -3483,22 +3438,55 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-storage-hierarchy" class="md-nav__link">
+  <a href="#1-what-is-a-crd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Storage Hierarchy
+        🏗️ 1. What is a CRD?
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. The Storage Hierarchy">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-creating-a-crd-the-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 2. Creating a CRD (The Blueprint)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-a-custom-resource-the-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🍎 3. Creating a Custom Resource (The Instance)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-essential-kubectl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 4. Essential kubectl Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 4. Essential kubectl Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-basic-volumes-pod-level" class="md-nav__link">
+  <a href="#discovering-crds" class="md-nav__link">
     <span class="md-ellipsis">
       
-        A. Basic Volumes (Pod-level)
+        Discovering CRDs
       
     </span>
   </a>
@@ -3506,21 +3494,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-persistentvolumes-pv-cluster-level" class="md-nav__link">
+  <a href="#managing-custom-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        B. PersistentVolumes (PV) (Cluster-level)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-persistentvolumeclaims-pvc-user-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C. PersistentVolumeClaims (PVC) (User-level)
+        Managing Custom Resources
       
     </span>
   </a>
@@ -3533,38 +3510,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-how-they-work-together-the-binding" class="md-nav__link">
+  <a href="#5-the-operator-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔄 2. How they work together (The Binding)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔄 2. How they work together (The Binding)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-binding-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Binding Process:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-comparison-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📊 3. Comparison Table
+        🚀 5. The Operator Pattern
       
     </span>
   </a>
@@ -3572,49 +3521,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-yaml-examples" class="md-nav__link">
+  <a href="#6-cka-exam-perspective" class="md-nav__link">
     <span class="md-ellipsis">
       
-        📝 4. YAML Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📝 4. YAML Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pod-with-a-simple-emptydir-volume" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod with a simple emptyDir Volume
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-pv-pvc-pod-chain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The PV -&gt; PVC -&gt; Pod Chain
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-troubleshooting-the-binding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Troubleshooting the Binding
+        🚩 6. CKA Exam Perspective
       
     </span>
   </a>
@@ -3638,146 +3548,95 @@
 
 
 
-<h1 id="volumes-vs-pv-vs-pvc">Volumes vs. PV vs. PVC</h1>
-<p>In Kubernetes, storage is decoupled from the compute (Pods). Understanding the difference between a simple <strong>Volume</strong> and the <strong>PV/PVC</strong> system is crucial for the CKA exam.</p>
+<h1 id="custom-resource-definitions-crds">Custom Resource Definitions (CRDs)</h1>
+<p>In Kubernetes, <strong>Custom Resource Definitions (CRDs)</strong> allow you to extend the Kubernetes API by creating your own resource types. This turns Kubernetes into a platform that can manage anything, not just Pods and Services.</p>
 <hr />
-<h2 id="1-the-storage-hierarchy">🏗️ 1. The Storage Hierarchy</h2>
-<h3 id="a-basic-volumes-pod-level">A. Basic Volumes (Pod-level)</h3>
-<p>A Volume is just a directory accessible to the containers in a Pod. 
-*   <strong>Lifecycle</strong>: Tied to the Pod. If the Pod is deleted, the data in an <code>emptyDir</code> is lost.
-*   <strong>Definition</strong>: Defined directly in the <code>Pod</code> spec.
-*   <strong>Common Types</strong>:
-    *   <code>emptyDir</code>: Temporary storage (scratch space).
-    *   <code>hostPath</code>: Mounts a file/directory from the host node's filesystem.
-    *   <code>configMap</code> / <code>secret</code>: Injects configuration data as files.</p>
-<h3 id="b-persistentvolumes-pv-cluster-level">B. PersistentVolumes (PV) (Cluster-level)</h3>
-<p>A PV is a piece of storage in the cluster that has been provisioned by an administrator.
-*   <strong>Lifecycle</strong>: Independent of any Pod. It exists even if no Pod is using it.
-*   <strong>Definition</strong>: A cluster-wide resource (like a Node).</p>
-<h3 id="c-persistentvolumeclaims-pvc-user-level">C. PersistentVolumeClaims (PVC) (User-level)</h3>
-<p>A PVC is a request for storage. It’s the "ticket" a developer uses to get a PV.
-*   <strong>Lifecycle</strong>: Bound to a PV. 
-*   <strong>Definition</strong>: A namespaced resource.</p>
-<hr />
-<h2 id="2-how-they-work-together-the-binding">🔄 2. How they work together (The Binding)</h2>
-<p>Think of it like a <strong>Library</strong>:
-1.  <strong>PV</strong> is a <strong>Book</strong> on the shelf (Storage is available).
-2.  <strong>PVC</strong> is a <strong>Library Card</strong> request (I want a book with 500 pages).
-3.  <strong>Pod</strong> is the <strong>Reader</strong> who takes the book home (The container uses the storage).</p>
-<h3 id="the-binding-process">The Binding Process:</h3>
+<h2 id="1-what-is-a-crd">🏗️ 1. What is a CRD?</h2>
 <ul>
-<li>A PVC looks for a PV that meets its requirements (Capacity, Access Mode).</li>
-<li>Once matched, they are <strong>Bound</strong>. A PV can only be bound to one PVC at a time.</li>
-<li>The Pod then references the PVC to mount the volume.</li>
+<li><strong>Custom Resource (CR)</strong>: An object that stores your custom data (e.g., a <code>Database</code> or a <code>Backup</code>).</li>
+<li><strong>Custom Resource Definition (CRD)</strong>: The blueprint or "schema" that tells Kubernetes what your Custom Resource looks like.</li>
+<li><strong>Custom Controller (Operator)</strong>: A piece of code that watches your Custom Resources and takes action (e.g., actually creating the database).</li>
 </ul>
 <hr />
-<h2 id="3-comparison-table">📊 3. Comparison Table</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Volume (Basic)</th>
-<th style="text-align: left;">PersistentVolume (PV)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Scope</strong></td>
-<td style="text-align: left;">Pod Spec</td>
-<td style="text-align: left;">Cluster-wide</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Lifecycle</strong></td>
-<td style="text-align: left;">Tied to Pod</td>
-<td style="text-align: left;">Independent of Pod</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Storage Type</strong></td>
-<td style="text-align: left;">Manual/Local</td>
-<td style="text-align: left;">Can be Cloud (EBS/Azure), NFS, etc.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Persistence</strong></td>
-<td style="text-align: left;">Volatile (usually)</td>
-<td style="text-align: left;">Durable</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Use Case</strong></td>
-<td style="text-align: left;">Temporary data, Configs</td>
-<td style="text-align: left;">Databases, Log storage, Backups</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="4-yaml-examples">📝 4. YAML Examples</h2>
-<h3 id="pod-with-a-simple-emptydir-volume">Pod with a simple <code>emptyDir</code> Volume</h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
+<h2 id="2-creating-a-crd-the-blueprint">📄 2. Creating a CRD (The Blueprint)</h2>
+<p>This defines a new resource type called <code>Fruit</code> in the <code>my-domain.com</code> API group.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CustomResourceDefinition</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-pod</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fruits.my-domain.com</span>
 <span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/cache</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-volume</span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cache-volume</span>
-<span class="w">    </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
-</code></pre></div>
-<h3 id="the-pv-pvc-pod-chain">The PV -&gt; PVC -&gt; Pod Chain</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. The PersistentVolume (Admin creates)</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PersistentVolume</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pv-disk</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">capacity</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
-<span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
-<span class="w">  </span><span class="nt">hostPath</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/mnt/data&quot;</span>
-
-<span class="nn">---</span>
-<span class="c1"># 2. The PersistentVolumeClaim (User creates)</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PersistentVolumeClaim</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvc-request</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
-<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
-
-<span class="nn">---</span>
-<span class="c1"># 3. The Pod (Consumes the PVC)</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-vol</span>
-<span class="w">      </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvc-request</span>
-<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">      </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/share/nginx/html&quot;</span>
-<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-vol</span>
+<span class="w">  </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-domain.com</span>
+<span class="w">  </span><span class="nt">versions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">      </span><span class="nt">served</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">openAPIV3Schema</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">          </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">              </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">color</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                </span><span class="nt">sweetness</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">  </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespaced</span>
+<span class="w">  </span><span class="nt">names</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fruits</span>
+<span class="w">    </span><span class="nt">singular</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fruit</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fruit</span>
+<span class="w">    </span><span class="nt">shortNames</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fr</span>
 </code></pre></div>
 <hr />
-<h2 id="5-troubleshooting-the-binding">🎯 5. Troubleshooting the Binding</h2>
-<p>If your Pod is <strong>Pending</strong> and the PVC is <strong>Pending</strong>:
-1.  <strong>Check Access Modes</strong>: PV and PVC must have at least one mode in common (e.g., both <code>ReadWriteOnce</code>).
-2.  <strong>Check Capacity</strong>: The PV must have <em>enough</em> space. A 500Mi PVC cannot bind to a 400Mi PV.
-3.  <strong>Check StorageClass</strong>: If the PVC asks for a specific <code>storageClassName</code>, the PV must have the same one. If the PVC asks for "", it will only bind to a PV that also has an empty class name.</p>
+<h2 id="3-creating-a-custom-resource-the-instance">🍎 3. Creating a Custom Resource (The Instance)</h2>
+<p>Once the CRD is applied, you can create instances of it just like a Pod.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-domain.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fruit</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apple</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red</span>
+<span class="w">  </span><span class="nt">sweetness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+</code></pre></div>
+<hr />
+<h2 id="4-essential-kubectl-commands">🛠️ 4. Essential kubectl Commands</h2>
+<h3 id="discovering-crds">Discovering CRDs</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all CRDs installed in the cluster</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>crd
+
+<span class="c1"># Describe a specific CRD to see its schema</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>crd<span class="w"> </span>fruits.my-domain.com
+</code></pre></div>
+<h3 id="managing-custom-resources">Managing Custom Resources</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List instances of your custom resource (using short name)</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>fr
+
+<span class="c1"># Get detailed info as YAML</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>fruit<span class="w"> </span>apple<span class="w"> </span>-o<span class="w"> </span>yaml
+</code></pre></div>
+<hr />
+<h2 id="5-the-operator-pattern">🚀 5. The Operator Pattern</h2>
+<p>A CRD by itself is just a "database entry" in Etcd. To make it <strong>do</strong> something, you need an <strong>Operator</strong>.</p>
+<ol>
+<li><strong>User</strong> creates a <code>Database</code> Custom Resource.</li>
+<li><strong>Operator</strong> (running as a Pod) sees the new resource.</li>
+<li><strong>Operator</strong> talks to AWS/GCP to provision a real database.</li>
+<li><strong>Operator</strong> updates the <code>status</code> of the Custom Resource to "Running".</li>
+</ol>
+<hr />
+<h2 id="6-cka-exam-perspective">🚩 6. CKA Exam Perspective</h2>
+<ol>
+<li><strong>API Discovery</strong>: Use <code>kubectl api-resources</code> to see if a resource is a standard one or a Custom Resource. CRDs will have an API Group that isn't <code>v1</code> or <code>apps/v1</code> (e.g., <code>projectcalico.org</code>).</li>
+<li><strong>Short Names</strong>: If you see a resource type you don't recognize (like <code>bc</code> or <code>prom</code>), it's likely a short name for a Custom Resource. Find it with: 
+    <code>kubectl api-resources | grep &lt;shortname&gt;</code></li>
+<li><strong>Scope</strong>: Remember that CRDs themselves are <strong>Cluster-Scoped</strong>, but the resources they define can be either <strong>Namespaced</strong> or <strong>Cluster-Scoped</strong>.</li>
+</ol>
 <hr />
 <blockquote>
-<p>[!IMPORTANT]
-<strong>Static vs Dynamic</strong>: 
-*   <strong>Static</strong>: Admin manually creates PVs. 
-*   <strong>Dynamic</strong>: Admin creates a <strong>StorageClass</strong>, and PVs are created automatically when a PVC is submitted.</p>
+<p>[!TIP]
+<strong>API Groups</strong>: Standard Kubernetes resources are in the <code>core</code> group (empty string) or named groups like <code>apps</code>. Custom Resources ALWAYS have a domain-style group like <code>stable.example.com</code>.</p>
 </blockquote>
 
 
