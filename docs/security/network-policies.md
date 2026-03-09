@@ -28,7 +28,46 @@ spec:
 
 ---
 
-## 📄 2. Anatomy of a Network Policy
+## 🏷️ 2. Mastering Selectors & Labels
+
+Network Policies don't use IP addresses or Pod names. They use **Labels**. If your labels are wrong, your policy will fail silently.
+
+### A. Knowing your Labels
+Before writing any policy, use these commands to see exactly what you are targeting:
+```bash
+# See pod labels
+kubectl get pods --show-labels
+
+# See namespace labels (CRITICAL for namespaceSelectors)
+kubectl get ns --show-labels
+```
+
+### B. Adding Labels at Runtime
+If a pod or namespace is missing a label you need for your policy:
+```bash
+# Add label to a Pod
+kubectl label pod my-pod role=db
+
+# Add label to a Namespace
+kubectl label ns my-namespace project=production
+```
+
+### C. The `podSelector` Field
+The `podSelector` field appears in two places, and it means something different in each:
+
+1.  **Top-Level Target** (`spec.podSelector`):
+    *   This defines **which Pods this firewall applies to**.
+    *   `podSelector: {}` $\rightarrow$ Target **ALL** pods in this namespace.
+    *   `podSelector: { matchLabels: { role: db } }` $\rightarrow$ Target only the DB pods.
+
+2.  **Rule-Level Source/Dest** (`from` or `to`):
+    *   This defines **who is allowed** to talk to the target.
+    *   `podSelector: {}` $\rightarrow$ Allow traffic from **ANY** pod in the **same namespace** as the target.
+    *   *Note: If you want to allow traffic from another namespace, you MUST also use a `namespaceSelector`.*
+
+---
+
+## 📄 3. Anatomy of a Network Policy
 
 To write a policy, you must define **Who** is the target and **Who** is allowed to talk to them.
 
@@ -58,7 +97,7 @@ spec:
 
 ---
 
-## 🔗 3. Selectors: The "AND" vs "OR" Logic
+## 🔗 4. Selectors: The "AND" vs "OR" Logic
 This is the **#1 reason** CKA students fail Network Policy questions.
 
 ### Pattern A: "AND" Logic (Combining Selectors)
@@ -87,7 +126,7 @@ Use this if traffic can come from **either** a pod with a label **OR** any pod i
 
 ---
 
-## 🛠️ 4. Common CKA Scenarios
+## 🛠️ 5. Common CKA Scenarios
 
 ### Scenario 1: Allow traffic from a specific Namespace
 ```yaml
@@ -114,7 +153,7 @@ spec:
 
 ---
 
-## 🚩 5. CKA Exam Strategy
+## 🚩 6. CKA Exam Strategy
 
 1.  **Check Labels First**: Before writing a policy, verify the labels on your pods and namespaces.
     `kubectl get pods --show-labels`
