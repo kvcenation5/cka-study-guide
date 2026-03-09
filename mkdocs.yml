@@ -114,6 +114,7 @@ nav:
       - OPA Gatekeeper Overview: security/opa-gatekeeper.md
       - OPA Kubernetes Deep Dive: security/opa-kubernetes-deep-dive.md
   - Networking:
+      - DNS Beginners Guide: networking/dns-beginners-guide.md
       - Foundations (Switching/Routing): networking/foundations-switching-routing.md
       - Linux Networking Commands: networking/linux-networking-commands.md
       - IP Forwarding & Routing: networking/ip-forward-routing.md
