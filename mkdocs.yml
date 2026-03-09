@@ -79,6 +79,7 @@ nav:
       - kube-proxy vs kubectl proxy: cluster-architecture/kube-proxy-vs-kubectl-proxy.md
       - Custom Resource Definitions: cluster-architecture/custom-resource-definitions.md
       - CRD & Custom Resource Examples: cluster-architecture/crd-examples.md
+      - Developing Custom Controllers: cluster-architecture/custom-controllers.md
   - Components: KNOW_YOUR_COMPONENTS.md
   - Deep Dives:
       - ETCD & Backup: etcd-deep-dive.md
