@@ -84,7 +84,6 @@ nav:
   - Components: KNOW_YOUR_COMPONENTS.md
   - Deep Dives:
       - ETCD & Backup: etcd-deep-dive.md
-      - CoreDNS Guide: coredns-guide.md
   - Storage:
       - Deep Dive: storage/storage-deep-dive.md
       - Volumes vs PV vs PVC: storage/volumes-pv-pvc.md
@@ -114,6 +113,12 @@ nav:
       - ABAC Authorization: security/abac-authorization.md
       - OPA Gatekeeper Overview: security/opa-gatekeeper.md
       - OPA Kubernetes Deep Dive: security/opa-kubernetes-deep-dive.md
+  - Networking:
+      - Foundations (Switching/Routing): networking/foundations-switching-routing.md
+      - DNS (Linux & CoreDNS): networking/dns-linux-coredns.md
+      - Network Namespaces: networking/network-namespaces.md
+      - Docker Networking: networking/docker-networking.md
+      - CoreDNS Deep Dive: coredns-guide.md
       - Network Policies: security/network-policies.md
       - Network Policy Examples: security/network-policy-examples.md
       - Network Policy Solutions: security/network-policy-solutions.md
