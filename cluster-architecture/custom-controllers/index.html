@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../cluster-roles/">
+        <link rel="prev" href="../crd-examples/">
       
       
-        <link rel="next" href="../rbac-kubectl-cheatsheet/">
+        <link rel="next" href="../../KNOW_YOUR_COMPONENTS/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Practical RBAC Examples - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Developing Custom Controllers - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#practical-rbac-lab-examples-yamls" class="md-skip">
+        <a href="#developing-custom-controllers" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Practical RBAC Examples
+              Developing Custom Controllers
             
           </span>
         </div>
@@ -285,10 +285,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -364,13 +366,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../overview/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../security/overview/" class="md-tabs__link">
           
   
   
@@ -1430,26 +1430,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -1467,7 +1472,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1513,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../component-management/" class="md-nav__link">
         
   
   
@@ -1541,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../admission-controllers/" class="md-nav__link">
         
   
   
@@ -1569,7 +1574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1597,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1625,7 +1630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1653,7 +1658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1681,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1709,7 +1714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1737,7 +1742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1765,7 +1770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
+      <a href="../custom-resource-definitions/" class="md-nav__link">
         
   
   
@@ -1793,7 +1798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/crd-examples/" class="md-nav__link">
+      <a href="../crd-examples/" class="md-nav__link">
         
   
   
@@ -1818,10 +1823,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../cluster-architecture/custom-controllers/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developing Custom Controllers
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1837,6 +1869,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-control-loop-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. The Control Loop Pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-key-internal-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Key Internal Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-popular-frameworks-the-standard-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 3. Popular Frameworks (The Standard Way)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 3. Popular Frameworks (The Standard Way)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-kubebuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Kubebuilder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-operator-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Operator SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-example-a-database-reconcile-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 4. Example: A "Database" Reconcile Loop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cka-exam-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. CKA Exam Perspective
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2222,31 +2357,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
             
   
   
@@ -2264,7 +2394,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2282,7 +2412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../security/overview/" class="md-nav__link">
         
   
   
@@ -2310,7 +2440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../container-security-overview/" class="md-nav__link">
+      <a href="../../security/container-security-overview/" class="md-nav__link">
         
   
   
@@ -2338,7 +2468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-primitives/" class="md-nav__link">
+      <a href="../../security/security-primitives/" class="md-nav__link">
         
   
   
@@ -2366,7 +2496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2394,7 +2524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tls-certificates/" class="md-nav__link">
+      <a href="../../security/tls-certificates/" class="md-nav__link">
         
   
   
@@ -2422,7 +2552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../certificate-generation-openssl/" class="md-nav__link">
+      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2450,7 +2580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../certificate-api-management/" class="md-nav__link">
+      <a href="../../security/certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2478,7 +2608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../kubeconfig-guide/" class="md-nav__link">
+      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2506,7 +2636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../service-accounts-guide/" class="md-nav__link">
+      <a href="../../security/service-accounts-guide/" class="md-nav__link">
         
   
   
@@ -2534,7 +2664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rbac-authorization/" class="md-nav__link">
+      <a href="../../security/rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2562,7 +2692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-roles/" class="md-nav__link">
+      <a href="../../security/cluster-roles/" class="md-nav__link">
         
   
   
@@ -2587,37 +2717,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Practical RBAC Examples
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
         
   
   
@@ -2633,154 +2736,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#scenario-1-developing-in-a-namespace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Scenario 1: Developing in a Namespace
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ Scenario 1: Developing in a Namespace">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1a-create-the-role" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1a. Create the Role
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#1b-create-the-rolebinding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1b. Create the RoleBinding
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scenario-2-cluster-wide-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ Scenario 2: Cluster-Wide Monitoring
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ Scenario 2: Cluster-Wide Monitoring">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#2a-create-the-clusterrole" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2a. Create the ClusterRole
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2b-create-the-clusterrolebinding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2b. Create the ClusterRoleBinding
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scenario-3-secret-security" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📂 Scenario 3: Secret Security
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📂 Scenario 3: Secret Security">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#3a-the-support-role" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3a. The Support Role
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-the-cka-check-your-work-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 4. The CKA "Check-Your-Work" Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#imperative-shortcut-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚡ Imperative Shortcut Table
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2793,7 +2748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rbac-kubectl-cheatsheet/" class="md-nav__link">
+      <a href="../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
         
   
   
@@ -2821,7 +2776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rolebinding-deep-dive/" class="md-nav__link">
+      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
         
   
   
@@ -2849,7 +2804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../emr-eks-rbac-oidc/" class="md-nav__link">
+      <a href="../../security/emr-eks-rbac-oidc/" class="md-nav__link">
         
   
   
@@ -2877,7 +2832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../image-security/" class="md-nav__link">
+      <a href="../../security/image-security/" class="md-nav__link">
         
   
   
@@ -2905,7 +2860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-contexts-capabilities/" class="md-nav__link">
+      <a href="../../security/security-contexts-capabilities/" class="md-nav__link">
         
   
   
@@ -2933,7 +2888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../authorization-mechanisms/" class="md-nav__link">
+      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2961,7 +2916,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../abac-authorization/" class="md-nav__link">
+      <a href="../../security/abac-authorization/" class="md-nav__link">
         
   
   
@@ -2989,7 +2944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../opa-gatekeeper/" class="md-nav__link">
+      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -3017,7 +2972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -3045,7 +3000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network-policies/" class="md-nav__link">
+      <a href="../../security/network-policies/" class="md-nav__link">
         
   
   
@@ -3073,7 +3028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network-policy-examples/" class="md-nav__link">
+      <a href="../../security/network-policy-examples/" class="md-nav__link">
         
   
   
@@ -3101,7 +3056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network-policy-solutions/" class="md-nav__link">
+      <a href="../../security/network-policy-solutions/" class="md-nav__link">
         
   
   
@@ -3528,22 +3483,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#scenario-1-developing-in-a-namespace" class="md-nav__link">
+  <a href="#1-the-control-loop-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛠️ Scenario 1: Developing in a Namespace
+        🏗️ 1. The Control Loop Pattern
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🛠️ Scenario 1: Developing in a Namespace">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-key-internal-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Key Internal Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-popular-frameworks-the-standard-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 3. Popular Frameworks (The Standard Way)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 3. Popular Frameworks (The Standard Way)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1a-create-the-role" class="md-nav__link">
+  <a href="#a-kubebuilder" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1a. Create the Role
+        A. Kubebuilder
       
     </span>
   </a>
@@ -3551,10 +3528,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#1b-create-the-rolebinding" class="md-nav__link">
+  <a href="#b-operator-sdk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1b. Create the RoleBinding
+        B. Operator SDK
       
     </span>
   </a>
@@ -3567,77 +3544,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scenario-2-cluster-wide-monitoring" class="md-nav__link">
+  <a href="#4-example-a-database-reconcile-loop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ Scenario 2: Cluster-Wide Monitoring
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ Scenario 2: Cluster-Wide Monitoring">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#2a-create-the-clusterrole" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2a. Create the ClusterRole
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2b-create-the-clusterrolebinding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2b. Create the ClusterRoleBinding
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scenario-3-secret-security" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        📂 Scenario 3: Secret Security
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📂 Scenario 3: Secret Security">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#3a-the-support-role" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3a. The Support Role
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-the-cka-check-your-work-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🧪 4. The CKA "Check-Your-Work" Workflow
+        🧪 4. Example: A "Database" Reconcile Loop
       
     </span>
   </a>
@@ -3645,10 +3555,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#imperative-shortcut-table" class="md-nav__link">
+  <a href="#5-cka-exam-perspective" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚡ Imperative Shortcut Table
+        🚩 5. CKA Exam Perspective
       
     </span>
   </a>
@@ -3672,134 +3582,97 @@
 
 
 
-<h1 id="practical-rbac-lab-examples-yamls">Practical RBAC: Lab Examples &amp; YAMLs</h1>
-<p>This guide provides hands-on, CKA-style examples for <strong>Role-Based Access Control</strong>. We will cover practical scenarios you are likely to encounter in the exam and real-world administration.</p>
+<h1 id="developing-custom-controllers">Developing Custom Controllers</h1>
+<p>A <strong>Custom Controller</strong> is the engine that makes Custom Resources (CRDs) actually <em>do</em> something. It follows the core Kubernetes <strong>Control Loop</strong> pattern to bring the current state of the cluster closer to the desired state.</p>
 <hr />
-<h2 id="scenario-1-developing-in-a-namespace">🛠️ Scenario 1: Developing in a Namespace</h2>
-<p><strong>Goal</strong>: Allow a developer named <code>martin</code> to manage Pods and Deployments in the <code>development</code> namespace, but nothing else.</p>
-<h3 id="1a-create-the-role">1a. Create the Role</h3>
-<p>Notice the <code>apiGroups</code>. <code>pods</code> are in <code>""</code> (core), while <code>deployments</code> are in <code>"apps"</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">development</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-manager</span>
-<span class="nt">rules</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;services&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">]</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;apps&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;deployments&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-<h3 id="1b-create-the-rolebinding">1b. Create the RoleBinding</h3>
-<p>This links the user <code>martin</code> to the <code>dev-manager</code> role inside the <code>development</code> namespace.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">martin-dev-binding</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">development</span>
-<span class="nt">subjects</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">martin</span>
-<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
-<span class="nt">roleRef</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-manager</span>
-<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
-</code></pre></div>
+<h2 id="1-the-control-loop-pattern">🏗️ 1. The Control Loop Pattern</h2>
+<p>All controllers in Kubernetes (like the Deployment or ReplicaSet controllers) follow a simple, infinite loop:</p>
+<ol>
+<li><strong>Observe</strong>: Watch for changes to specific resources (e.g., a new <code>Database</code> CR).</li>
+<li><strong>Diff</strong>: Compare the <strong>Desired State</strong> (what's in the YAML) with the <strong>Current State</strong> (what's actually running).</li>
+<li><strong>Act</strong>: Perform the necessary steps to fix the difference (e.g., create an RDS instance in AWS).</li>
+</ol>
 <hr />
-<h2 id="scenario-2-cluster-wide-monitoring">🏗️ Scenario 2: Cluster-Wide Monitoring</h2>
-<p><strong>Goal</strong>: Create a service account for a Prometheus-like tool that needs to "list" every Pod in <strong>every namespace</strong>.</p>
-<h3 id="2a-create-the-clusterrole">2a. Create the ClusterRole</h3>
-<p>Since we want this to apply to all namespaces, we use a <code>ClusterRole</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">global-viewer</span>
-<span class="nt">rules</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;nodes&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;namespaces&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-<h3 id="2b-create-the-clusterrolebinding">2b. Create the ClusterRoleBinding</h3>
-<p>We bind this to a <strong>ServiceAccount</strong> instead of a human user.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitor-global-binding</span>
-<span class="nt">subjects</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring-sa</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span><span class="w"> </span><span class="c1"># The namespace where the SA lives</span>
-<span class="nt">roleRef</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">global-viewer</span>
-<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
-</code></pre></div>
-<hr />
-<h2 id="scenario-3-secret-security">📂 Scenario 3: Secret Security</h2>
-<p><strong>Goal</strong>: Allow a specific support user to read <code>logs</code> of pods but <strong>strictly prohibit</strong> them from reading <code>secrets</code>.</p>
-<h3 id="3a-the-support-role">3a. The Support Role</h3>
-<p><div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">support-logs</span>
-<span class="nt">rules</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;pods/log&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-<em>Note: In Kubernetes RBAC, everything is </em><em>denied by default</em><em>. Since we didn't include <code>secrets</code> in the list, the user is automatically prohibited from reading them.</em></p>
-<hr />
-<h2 id="4-the-cka-check-your-work-workflow">🧪 4. The CKA "Check-Your-Work" Workflow</h2>
-<p>In the exam, after creating these files, use the <code>auth can-i</code> tool to verify. This is the difference between a pass and a fail.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. Check if Martin can create a deployment in development</span>
-kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>deployments<span class="w"> </span>--as<span class="w"> </span>martin<span class="w"> </span>-n<span class="w"> </span>development
-<span class="c1"># Expected: yes</span>
-
-<span class="c1"># 2. Check if Martin can create a pod in the &#39;default&#39; namespace</span>
-kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>pods<span class="w"> </span>--as<span class="w"> </span>martin<span class="w"> </span>-n<span class="w"> </span>default
-<span class="c1"># Expected: no (RoleBindings are namespace-scoped)</span>
-
-<span class="c1"># 3. Check if the monitoring SA can see nodes</span>
-kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>list<span class="w"> </span>nodes<span class="w"> </span>--as<span class="w"> </span>system:serviceaccount:monitoring:monitoring-sa
-<span class="c1"># Expected: yes</span>
-</code></pre></div>
-<hr />
-<h2 id="imperative-shortcut-table">⚡ Imperative Shortcut Table</h2>
-<p>If you are short on time (under 5 minutes left), use these commands instead of writing YAML:</p>
+<h2 id="2-key-internal-components">🛠️ 2. Key Internal Components</h2>
+<p>When developing a controller (usually in Go), you use several core concepts from <code>client-go</code>:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Task</th>
-<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Responsibility</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Role</strong></td>
-<td style="text-align: left;"><code>kubectl create role &lt;name&gt; --verb=get,list --resource=pods -n &lt;ns&gt;</code></td>
+<td style="text-align: left;"><strong>Informer</strong></td>
+<td style="text-align: left;">Watches the API server and maintains a local cache of resources. This prevents overloading the API.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>ClusterRole</strong></td>
-<td style="text-align: left;"><code>kubectl create clusterrole &lt;name&gt; --verb=get --resource=nodes</code></td>
+<td style="text-align: left;"><strong>SharedInformer</strong></td>
+<td style="text-align: left;">A central cache shared by multiple controllers to save memory.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>RoleBinding</strong></td>
-<td style="text-align: left;"><code>kubectl create rolebinding &lt;name&gt; --role=&lt;role&gt; --user=&lt;user&gt; -n &lt;ns&gt;</code></td>
+<td style="text-align: left;"><strong>Workqueue</strong></td>
+<td style="text-align: left;">A queue that stores keys (e.g., <code>namespace/name</code>) of resources that need reconciliation. Supports retries and rate limiting.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Binding to SA</strong></td>
-<td style="text-align: left;"><code>kubectl create rolebinding &lt;name&gt; --role=&lt;role&gt; --serviceaccount=&lt;ns&gt;:&lt;sa&gt;</code></td>
+<td style="text-align: left;"><strong>Lister</strong></td>
+<td style="text-align: left;">Provides a simple API to retrieve resources directly from the Informer's cache.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Reconciler</strong></td>
+<td style="text-align: left;">The function where your logic lives. It gets a "key," fetches the resource, and decides what to do.</td>
 </tr>
 </tbody>
 </table>
 <hr />
+<h2 id="3-popular-frameworks-the-standard-way">🚀 3. Popular Frameworks (The Standard Way)</h2>
+<p>Writing a controller from scratch with <code>client-go</code> is complex. Most developers use one of these high-level frameworks:</p>
+<h3 id="a-kubebuilder">A. Kubebuilder</h3>
+<p>The "SDK for Kubernetes APIs." It uses a tool called <code>controller-runtime</code> and provides scaffolding for your project.
+*   <strong>Workflow</strong>: <code>kubebuilder init</code> -&gt; <code>kubebuilder create api</code> -&gt; Edit <code>Reconcile()</code> function.</p>
+<h3 id="b-operator-sdk">B. Operator SDK</h3>
+<p>Formerly separate, now built on top of Kubebuilder. It adds extra tools for metadata, lifecycle management (OLM), and supports writing operators in <strong>Ansible</strong> or <strong>Helm</strong> (not just Go).</p>
+<hr />
+<h2 id="4-example-a-database-reconcile-loop">🧪 4. Example: A "Database" Reconcile Loop</h2>
+<p>Imagine your "Database" controller's <code>Reconcile</code> function:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">DatabaseReconciler</span><span class="p">)</span><span class="w"> </span><span class="nx">Reconcile</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 1. Fetch the Database instance from the cache</span>
+<span class="w">    </span><span class="nx">db</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">infrav1</span><span class="p">.</span><span class="nx">Database</span><span class="p">{}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">NamespacedName</span><span class="p">,</span><span class="w"> </span><span class="nx">db</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">IgnoreNotFound</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 2. Diff: Check if a real database exists in the cloud</span>
+<span class="w">    </span><span class="nx">exists</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cloudProvider</span><span class="p">.</span><span class="nx">CheckDatabase</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// 3. Act: If it doesn&#39;t exist, create it!</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">exists</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Creating real database&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;engine&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Spec</span><span class="p">.</span><span class="nx">Engine</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cloudProvider</span><span class="p">.</span><span class="nx">CreateDatabase</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Spec</span><span class="p">.</span><span class="nx">Engine</span><span class="p">,</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Spec</span><span class="p">.</span><span class="nx">StorageGB</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{</span><span class="nx">Requeue</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="c1">// Retry if it fails</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ctrl</span><span class="p">.</span><span class="nx">Result</span><span class="p">{},</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="c1">// Success!</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="5-cka-exam-perspective">🚩 5. CKA Exam Perspective</h2>
+<ul>
+<li><strong>Recognition</strong>: You don't need to write Go code in the CKA, but you MUST know that a CRD is useless without a controller/operator.</li>
+<li><strong>Troubleshooting</strong>: If a Custom Resource is "stuck" or not doing anything, check the <strong>Logs of the Controller Pod</strong>.<ul>
+<li>Example: <code>kubectl logs -n operator-system deployment/database-controller</code></li>
+</ul>
+</li>
+<li><strong>Finalizers</strong>: If you can't delete a Custom Resource, it's usually because the controller has added a <strong>Finalizer</strong> to the metadata and is waiting to finish cleanup.</li>
+</ul>
+<hr />
 <blockquote>
 <p>[!TIP]
-<strong>Exam Strategy</strong>: Always double-check the <code>apiGroups</code>. If you use <code>apiVersion: rbac.authorization.k8s.io/v1</code>, the <code>apiGroups</code> field in the rule is almost always <code>[""]</code> for core objects or <code>["apps"]</code> for workloads. Avoid leaving it blank (<code>[]</code>) as that often results in a "no permissions" error.</p>
+<strong>Events</strong>: Always make your controller emit "Events" when it takes action. This allows users to see what's happening via <code>kubectl describe</code>.
+<code>kubectl get events --field-selector involvedObject.kind=Database</code></p>
 </blockquote>
 
 
