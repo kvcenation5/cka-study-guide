@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../../yaml-guide/">
+        <link rel="prev" href="../custom-controllers/">
       
       
-        <link rel="next" href="../api-versions/">
+        <link rel="next" href="../../KNOW_YOUR_COMPONENTS/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Editing Pods & Deployments - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Operator Framework - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#a-quick-note-on-editing-resources" class="md-skip">
+        <a href="#operator-framework" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Editing Pods & Deployments
+              Operator Framework
             
           </span>
         </div>
@@ -245,12 +245,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../yaml-guide/" class="md-tabs__link">
           
   
@@ -287,10 +285,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -552,31 +552,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -594,7 +589,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -637,37 +632,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Editing Pods & Deployments
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -683,143 +651,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-editing-a-pod" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Editing a POD
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Editing a POD">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-you-can-edit-on-a-running-pod" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What you CAN edit on a running Pod:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#what-you-cannot-edit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What you CANNOT edit:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-to-edit-a-pod-anyway-exam-tricks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to "Edit" a Pod anyway (Exam Tricks):
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How to &#34;Edit&#34; a Pod anyway (Exam Tricks):">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#option-1-the-edit-failure-shortcut" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option 1: The edit failure shortcut
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-2-the-yaml-export-safer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option 2: The YAML export (Safer)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-editing-deployments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Editing DEPLOYMENTS
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Editing DEPLOYMENTS">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How it works:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Command:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -832,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -860,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -888,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -916,7 +747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -944,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -972,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -1000,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -1028,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -1056,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -1084,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -1112,7 +943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1146,20 +977,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1195,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1223,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1251,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1279,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1307,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1335,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1363,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1391,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1427,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1602,26 +1430,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -1639,7 +1472,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1685,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../component-management/" class="md-nav__link">
         
   
   
@@ -1713,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../admission-controllers/" class="md-nav__link">
         
   
   
@@ -1741,7 +1574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1769,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1797,7 +1630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1825,7 +1658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1853,7 +1686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1881,7 +1714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1909,7 +1742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1937,7 +1770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
+      <a href="../custom-resource-definitions/" class="md-nav__link">
         
   
   
@@ -1965,7 +1798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/crd-examples/" class="md-nav__link">
+      <a href="../crd-examples/" class="md-nav__link">
         
   
   
@@ -1993,7 +1826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cluster-architecture/custom-controllers/" class="md-nav__link">
+      <a href="../custom-controllers/" class="md-nav__link">
         
   
   
@@ -2018,10 +1851,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../cluster-architecture/operator-framework/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operator Framework
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2037,6 +1897,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. Core Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 1. Core Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-operator-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ A. Operator SDK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-operator-lifecycle-manager-olm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 B. Operator Lifecycle Manager (OLM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-operatorhubio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏪 C. OperatorHub.io
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-operator-capability-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 2. Operator Capability Levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-quickstart-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 3. Quickstart Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cka-exam-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 4. CKA Exam Perspective
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3548,22 +3511,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-editing-a-pod" class="md-nav__link">
+  <a href="#1-core-components" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Editing a POD
+        🏗️ 1. Core Components
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Editing a POD">
+    <nav class="md-nav" aria-label="🏗️ 1. Core Components">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#what-you-can-edit-on-a-running-pod" class="md-nav__link">
+  <a href="#a-operator-sdk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you CAN edit on a running Pod:
+        🛠️ A. Operator SDK
       
     </span>
   </a>
@@ -3571,10 +3534,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-you-cannot-edit" class="md-nav__link">
+  <a href="#b-operator-lifecycle-manager-olm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you CANNOT edit:
+        🔄 B. Operator Lifecycle Manager (OLM)
       
     </span>
   </a>
@@ -3582,41 +3545,13 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#how-to-edit-a-pod-anyway-exam-tricks" class="md-nav__link">
+  <a href="#c-operatorhubio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to "Edit" a Pod anyway (Exam Tricks):
+        🏪 C. OperatorHub.io
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="How to &#34;Edit&#34; a Pod anyway (Exam Tricks):">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#option-1-the-edit-failure-shortcut" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option 1: The edit failure shortcut
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-2-the-yaml-export-safer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option 2: The YAML export (Safer)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -3626,41 +3561,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-editing-deployments" class="md-nav__link">
+  <a href="#2-operator-capability-levels" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Editing DEPLOYMENTS
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Editing DEPLOYMENTS">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How it works:
+        📊 2. Operator Capability Levels
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#the-command" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#3-quickstart-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Command:
+        🛠️ 3. Quickstart Workflow
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#4-cka-exam-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 4. CKA Exam Perspective
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3681,54 +3610,98 @@
 
 
 
-<h1 id="a-quick-note-on-editing-resources">A Quick Note on Editing Resources</h1>
-<p>In Kubernetes, the rules for editing a resource depend heavily on whether you are touching a <strong>Pod</strong> directly or a <strong>Controller</strong> (like a Deployment).</p>
+<h1 id="operator-framework">Operator Framework</h1>
+<p>The <strong>Operator Framework</strong> is a set of open-source tools designed to simplify the development, management, and discovery of Kubernetes Operators. It helps turn human operational knowledge (backups, updates, scaling) into automated code.</p>
 <hr />
-<h2 id="1-editing-a-pod">1. Editing a POD</h2>
-<p>Pods are considered <strong>immutable</strong> (unchangeable). Once a Pod is born, most of its DNA is locked.</p>
-<h3 id="what-you-can-edit-on-a-running-pod">What you CAN edit on a running Pod:</h3>
+<h2 id="1-core-components">🏗️ 1. Core Components</h2>
+<p>The framework is built on three pillars that handle the complete lifecycle of an operator.</p>
+<h3 id="a-operator-sdk">🛠️ A. Operator SDK</h3>
+<p>The developer toolkit for building operators.
+*   <strong>Multiple Languages</strong>: Build operators using <strong>Go</strong>, <strong>Ansible</strong>, or <strong>Helm</strong>.
+*   <strong>Scaffold</strong>: Generates the project structure, Dockerfiles, and Kubernetes manifests automatically.
+*   <strong>Testing</strong>: Includes a testing framework to validate your operator before deployment.</p>
+<h3 id="b-operator-lifecycle-manager-olm">🔄 B. Operator Lifecycle Manager (OLM)</h3>
+<p>The control plane for managing operators in your cluster.
+*   <strong>Updates</strong>: Automatically upgrades operators when a new version is published.
+*   <strong>Dependency Management</strong>: Ensures that if your operator needs another operator (e.g., a Prometheus operator for monitoring), it is installed first.
+*   <strong>RBAC Control</strong>: Manages the permissions of the operators to ensure they only have access to what they need.</p>
+<h3 id="c-operatorhubio">🏪 C. OperatorHub.io</h3>
+<p>A community registry for discovering operators.
+*   <strong>Selection</strong>: A web-based portal (and integrated into OpenShift) where you can find certified and community-contributed operators for databases, monitoring, security, etc.
+*   <strong>Standard Approval</strong>: Operators on Hub.io go through a basic "Capability Level" check.</p>
+<hr />
+<h2 id="2-operator-capability-levels">📊 2. Operator Capability Levels</h2>
+<p>The framework defines five levels of automation maturity for operators. Understanding these helps you choose the right operator for your needs.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Level</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>I</strong></td>
+<td style="text-align: left;">Basic Install</td>
+<td style="text-align: left;">Automates application provisioning and configuration.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>II</strong></td>
+<td style="text-align: left;">Seamless Upgrades</td>
+<td style="text-align: left;">Automates patches and minor version upgrades.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>III</strong></td>
+<td style="text-align: left;">Full Lifecycle</td>
+<td style="text-align: left;">Handles backup/restore, storage management, and disaster recovery.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>IV</strong></td>
+<td style="text-align: left;">Deep Insights</td>
+<td style="text-align: left;">Provides metrics, alerts, and performance analysis.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>V</strong></td>
+<td style="text-align: left;">Auto Pilot</td>
+<td style="text-align: left;">Fully autonomous: Scaling, auto-healing, and tuning based on metrics.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-quickstart-workflow">🛠️ 3. Quickstart Workflow</h2>
+<p>Using the Operator SDK to create a Go-based operator:</p>
+<ol>
+<li><strong>Initialize</strong>:
+    <div class="highlight"><pre><span></span><code>operator-sdk<span class="w"> </span>init<span class="w"> </span>--domain<span class="w"> </span>mycompany.io<span class="w"> </span>--repo<span class="w"> </span>github.com/my-org/my-op
+</code></pre></div></li>
+<li><strong>Create API</strong>:
+    <div class="highlight"><pre><span></span><code>operator-sdk<span class="w"> </span>create<span class="w"> </span>api<span class="w"> </span>--group<span class="w"> </span>web<span class="w"> </span>--version<span class="w"> </span>v1<span class="w"> </span>--kind<span class="w"> </span>Website<span class="w"> </span>--resource<span class="w"> </span>--controller
+</code></pre></div></li>
+<li><strong>Implement Logic</strong>: Edit <code>internal/controller/website_controller.go</code> to define what happens when a <code>Website</code> resource is created.</li>
+<li><strong>Deploy</strong>:
+    <div class="highlight"><pre><span></span><code>make<span class="w"> </span>docker-build<span class="w"> </span>docker-push<span class="w"> </span><span class="nv">IMG</span><span class="o">=</span>my-org/my-op:v1
+make<span class="w"> </span>deploy<span class="w"> </span><span class="nv">IMG</span><span class="o">=</span>my-org/my-op:v1
+</code></pre></div></li>
+</ol>
+<hr />
+<h2 id="4-cka-exam-perspective">🚩 4. CKA Exam Perspective</h2>
 <ul>
-<li><code>spec.containers[*].image</code> (Changing the image)</li>
-<li><code>spec.initContainers[*].image</code></li>
-<li><code>spec.activeDeadlineSeconds</code></li>
-<li><code>spec.tolerations</code></li>
+<li><strong>Recognition</strong>: You should know that the <strong>Operator Framework</strong> is the standard way to build professional operators.</li>
+<li><strong>OLM Identification</strong>: If you see resources in your cluster like <code>Subscription</code>, <code>InstallPlan</code>, or <code>ClusterServiceVersion (CSV)</code>, these belong to the <strong>OLM</strong>.<ul>
+<li><code>kubectl get csv -A</code></li>
 </ul>
-<h3 id="what-you-cannot-edit">What you CANNOT edit:</h3>
-<p>You cannot change environment variables, labels (on the spec), service accounts, or resource limits on a <strong>running</strong> pod.</p>
-<h3 id="how-to-edit-a-pod-anyway-exam-tricks">How to "Edit" a Pod anyway (Exam Tricks):</h3>
-<h4 id="option-1-the-edit-failure-shortcut">Option 1: The <code>edit</code> failure shortcut</h4>
-<ol>
-<li>Run <code>kubectl edit pod &lt;pod-name&gt;</code>.</li>
-<li>Make your changes.</li>
-<li>When you save, Kubernetes will <strong>deny</strong> the change and tell you it's not editable.</li>
-<li><strong>Crucially</strong>: It will tell you it saved your changes to a <strong>temporary file</strong> (e.g., <code>/tmp/kubectl-edit-ccvrq.yaml</code>).</li>
-<li><strong>Action</strong>: 
-    <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;
-kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>/tmp/kubectl-edit-xxxx.yaml
-</code></pre></div></li>
-</ol>
-<h4 id="option-2-the-yaml-export-safer">Option 2: The YAML export (Safer)</h4>
-<ol>
-<li>Extract the YAML:
-    <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span>my-new-pod.yaml
-</code></pre></div></li>
-<li>Edit the file manually using <code>vi</code> or <code>nano</code>.</li>
-<li>Delete the old pod:
-    <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;
-</code></pre></div></li>
-<li>Create the new pod:
-    <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>my-new-pod.yaml
-</code></pre></div></li>
-</ol>
+</li>
+<li><strong>Tool Choice</strong>: If an exam question asks "What tool would you use to build an operator from a Helm chart?", the answer is the <strong>Operator SDK</strong>.</li>
+</ul>
 <hr />
-<h2 id="2-editing-deployments">2. Editing DEPLOYMENTS</h2>
-<p>Deployments are much smarter. You can edit <strong>any</strong> field in the Pod template because the Deployment controller handles the lifecycle for you.</p>
-<h3 id="how-it-works">How it works:</h3>
-<p>When you edit a Deployment, it notices the change, triggers a <strong>Rolling Update</strong>, kills the old pods, and spawns new ones with your updated settings.</p>
-<h3 id="the-command">The Command:</h3>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>edit<span class="w"> </span>deployment<span class="w"> </span>my-deployment
-</code></pre></div>
-<p><strong>CKA Tip</strong>: If you are asked to change environment variables or resource limits for a Pod that belongs to a Deployment, <strong>ALWAYS</strong> edit the Deployment, not the individual Pod.</p>
+<blockquote>
+<p>[!TIP]
+<strong>Helm vs Ansible vs Go</strong>:
+- Use <strong>Helm</strong> for simple application packaging.
+- Use <strong>Ansible</strong> if you already have Ansible playbooks for your apps.
+- Use <strong>Go</strong> for complex logic, high performance, and deep integration with the Kubernetes API.</p>
+</blockquote>
 
 
 
