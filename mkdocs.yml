@@ -78,6 +78,7 @@ nav:
       - Namespaced vs Cluster-Scoped: cluster-architecture/namespaced-vs-cluster-scoped.md
       - kube-proxy vs kubectl proxy: cluster-architecture/kube-proxy-vs-kubectl-proxy.md
       - Custom Resource Definitions: cluster-architecture/custom-resource-definitions.md
+      - CRD & Custom Resource Examples: cluster-architecture/crd-examples.md
   - Components: KNOW_YOUR_COMPONENTS.md
   - Deep Dives:
       - ETCD & Backup: etcd-deep-dive.md
