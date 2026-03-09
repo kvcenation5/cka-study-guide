@@ -23,11 +23,22 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
 ### Enabling it (Permanently):
-Edit `/etc/sysctl.conf` and add:
+To make the change survive a reboot, you must edit `/etc/sysctl.conf`. Typical Kubernetes prerequisites include these three lines:
+
 ```text
+# Enable IPv4 Forwarding
 net.ipv4.ip_forward = 1
+
+# Required if using a bridge-based CNI (like Flannel or Weave)
+# Ensures bridge traffic is processed by iptables
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
 ```
-Then apply with: `sysctl -p`
+
+**Apply the changes immediately:**
+```bash
+sysctl -p
+```
 
 ---
 
@@ -35,24 +46,49 @@ Then apply with: `sysctl -p`
 
 Imagine we have three Linux hosts. **Host B** acts as a bridge/router between **Host A** and **Host C**.
 
-### The Topology
-
+### The Network Topology
 ```mermaid
 graph LR
     subgraph "Network 1 (10.0.1.0/24)"
-    A[Host A<br/>10.0.1.10]
+    A["Host A<br/>IP: 10.0.1.10<br/>GW: 10.0.1.1"]
     end
     
-    subgraph "Router Node"
-    B[Host B<br/>NIC 1: 10.0.1.1<br/>NIC 2: 10.0.2.1]
+    subgraph "The Router Node"
+    B["Host B<br/>eth0: 10.0.1.1<br/>eth1: 10.0.2.1"]
     end
     
     subgraph "Network 2 (10.0.2.0/24)"
-    C[Host C<br/>10.0.2.10]
+    C["Host C<br/>IP: 10.0.2.10<br/>GW: 10.0.2.1"]
     end
 
-    A <--> B
-    B <--> C
+    A -- "Wire" --- B
+    B -- "Wire" --- C
+```
+
+### The Packet Flow (Logic)
+```mermaid
+sequenceDiagram
+    participant A as Host A (10.0.1.10)
+    participant B as Host B (Router)
+    participant C as Host C (10.0.2.10)
+
+    Note over A: Goal: Ping 10.0.2.10
+    A->>A: Is 10.0.2.10 local? No.
+    A->>A: Check Route: via 10.0.1.1
+    A->>B: Packet (Src: 10.0.1.10, Dst: 10.0.2.10)
+    
+    Note over B: Receives on eth0
+    B->>B: Is ip_forward == 1? Yes.
+    B->>B: Check Route: 10.0.2.0/24 is on eth1
+    B->>C: Forward Packet (Src: 10.0.1.10, Dst: 10.0.2.10)
+    
+    Note over C: Receives, generates Reply
+    C->>C: Is 10.0.1.10 local? No.
+    C->>C: Check Route: via 10.0.2.1
+    C->>B: Reply (Src: 10.0.2.10, Dst: 10.0.1.10)
+    
+    Note over B: Receives on eth1, forwards to eth0
+    B->>A: Reply (Src: 10.0.2.10, Dst: 10.0.1.10)
 ```
 
 ---
