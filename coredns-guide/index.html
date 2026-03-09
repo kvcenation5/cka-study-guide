@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../etcd-deep-dive/">
+        <link rel="prev" href="../networking/docker-networking/">
       
       
-        <link rel="next" href="../storage/storage-deep-dive/">
+        <link rel="next" href="../security/network-policies/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>CoreDNS Guide - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>CoreDNS Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CoreDNS Guide
+              CoreDNS Deep Dive
             
           </span>
         </div>
@@ -324,12 +324,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../etcd-deep-dive/" class="md-tabs__link">
           
   
@@ -375,6 +373,28 @@
   
   
   Security
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networking/foundations-switching-routing/" class="md-tabs__link">
+          
+  
+  
+  Networking
 
         </a>
       </li>
@@ -1908,31 +1928,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -1950,7 +1965,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1984,785 +1999,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CoreDNS Guide
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CoreDNS Guide
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-coredns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What is CoreDNS?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-coredns-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How CoreDNS Works
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How CoreDNS Works">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#architecture-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Architecture Overview
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#key-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Components
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#coredns-configuration-corefile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CoreDNS Configuration (Corefile)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-coredns-errors-real-world-scenarios" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common CoreDNS Errors &amp; Real-World Scenarios
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common CoreDNS Errors &amp; Real-World Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#error-1-dns-loop-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error 1: DNS Loop Detection
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Error 1: DNS Loop Detection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-you-see" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You See:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-scenario" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Real-World Scenario:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#root-cause" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Root Cause:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-fix" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Fix:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#alternative-quick-fix-for-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternative Quick Fix (for testing):
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#error-2-cannot-reach-kubernetes-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error 2: Cannot Reach Kubernetes API
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Error 2: Cannot Reach Kubernetes API">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-you-see_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You See:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-scenario_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Real-World Scenario:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#root-cause_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Root Cause:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-fix_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Fix:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#error-3-crashloopbackoff-selinux" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error 3: CrashLoopBackOff (SELinux)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Error 3: CrashLoopBackOff (SELinux)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-you-see_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You See:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-scenario_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Real-World Scenario:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#root-cause_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Root Cause:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-fix_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Fix:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#error-4-no-endpoints-for-kube-dns-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error 4: No Endpoints for kube-dns Service
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Error 4: No Endpoints for kube-dns Service">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-you-see_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You See:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-scenario_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Real-World Scenario:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#root-cause_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Root Cause:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-fix_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Fix:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#error-5-transient-startup-timeouts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error 5: Transient Startup Timeouts
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Error 5: Transient Startup Timeouts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-you-see_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You See:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#real-world-scenario_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Real-World Scenario:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#root-cause_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Root Cause:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verification:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-worry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Worry:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-not-to-worry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When NOT to Worry:
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting Workflow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-check-coredns-pod-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Check CoreDNS Pod Status
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-check-recent-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Check Recent Logs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-test-dns-resolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Test DNS Resolution
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-check-service-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Check Service &amp; Endpoints
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-verify-network-plugin" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Verify Network Plugin
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-check-kube-proxy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Check kube-proxy
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prevention-best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prevention Best Practices
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Prevention Best Practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-always-install-cni-first" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Always Install CNI First
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-configure-kubelet-before-deploying" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Configure kubelet Before Deploying
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-monitor-coredns-health" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Monitor CoreDNS Health
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-set-resource-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Set Resource Limits
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-use-multiple-replicas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Use Multiple Replicas
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-reference-error-solution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Reference: Error → Solution
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#real-world-lesson-always-check-timestamps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Real-World Lesson: Always Check Timestamps!
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kube-proxy-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        kube-proxy Overview
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="kube-proxy Overview">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-is-kube-proxy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What is kube-proxy?
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How it Works
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#key-components_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Components
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-kube-proxy-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common kube-proxy Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common kube-proxy Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#problem-1-services-not-accessible" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Problem 1: Services Not Accessible
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#problem-2-wrong-configmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Problem 2: Wrong ConfigMap
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#problem-3-iptables-rules-missing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Problem 3: iptables Rules Missing
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3642,6 +2878,961 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/foundations-switching-routing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations (Switching/Routing)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/dns-linux-coredns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS (Linux & CoreDNS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/network-namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Namespaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/docker-networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Networking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoreDNS Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CoreDNS Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-coredns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is CoreDNS?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-coredns-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How CoreDNS Works
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How CoreDNS Works">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coredns-configuration-corefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CoreDNS Configuration (Corefile)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-coredns-errors-real-world-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common CoreDNS Errors &amp; Real-World Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common CoreDNS Errors &amp; Real-World Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-1-dns-loop-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 1: DNS Loop Detection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 1: DNS Loop Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-quick-fix-for-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Quick Fix (for testing):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-2-cannot-reach-kubernetes-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 2: Cannot Reach Kubernetes API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 2: Cannot Reach Kubernetes API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-3-crashloopbackoff-selinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 3: CrashLoopBackOff (SELinux)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 3: CrashLoopBackOff (SELinux)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-4-no-endpoints-for-kube-dns-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 4: No Endpoints for kube-dns Service
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 4: No Endpoints for kube-dns Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-fix_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fix:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-5-transient-startup-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 5: Transient Startup Timeouts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error 5: Transient Startup Timeouts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-you-see_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You See:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-scenario_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Scenario:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-cause_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Cause:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-worry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Worry:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-not-to-worry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When NOT to Worry:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-check-coredns-pod-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Check CoreDNS Pod Status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-check-recent-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Check Recent Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-test-dns-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Test DNS Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-check-service-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Check Service &amp; Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-verify-network-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Verify Network Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-check-kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Check kube-proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prevention Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevention Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-always-install-cni-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Always Install CNI First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-configure-kubelet-before-deploying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configure kubelet Before Deploying
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-monitor-coredns-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Monitor CoreDNS Health
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-set-resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Set Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-use-multiple-replicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Use Multiple Replicas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-error-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: Error → Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-lesson-always-check-timestamps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Lesson: Always Check Timestamps!
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kube-proxy-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kube-proxy Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="kube-proxy Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-kube-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is kube-proxy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-components_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-kube-proxy-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common kube-proxy Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common kube-proxy Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-services-not-accessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1: Services Not Accessible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-wrong-configmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2: Wrong ConfigMap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-iptables-rules-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3: iptables Rules Missing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
               
                 
   
@@ -3780,10 +3971,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
   
   
@@ -3801,8 +3992,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3867,10 +4058,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
         
           
-          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
             
   
   
@@ -3888,8 +4079,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_12">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4010,10 +4201,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
         
           
-          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
             
   
   
@@ -4031,8 +4222,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_13">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
             <span class="md-nav__icon md-icon"></span>
             
   

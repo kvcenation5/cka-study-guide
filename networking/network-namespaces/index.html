@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../mutating-admission-controllers/">
+        <link rel="prev" href="../dns-linux-coredns/">
       
       
-        <link rel="next" href="../etcd-data-model/">
+        <link rel="next" href="../docker-networking/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Kube-Proxy Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Network Namespaces - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kube-proxy-deep-dive" class="md-skip">
+        <a href="#network-namespaces-the-magic-of-isolation" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Kube-Proxy Deep Dive
+              Network Namespaces
             
           </span>
         </div>
@@ -285,12 +285,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
@@ -386,11 +384,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../networking/foundations-switching-routing/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../foundations-switching-routing/" class="md-tabs__link">
           
   
   
@@ -1450,31 +1450,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -1492,7 +1487,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1538,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1566,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1594,7 +1589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1622,7 +1617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1647,37 +1642,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Kube-Proxy Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1693,132 +1661,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-how-it-runs-the-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. How it Runs (The Architecture)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. How it Runs (The Architecture)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubeadm-standard-clusters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubeadm / Standard Clusters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-hard-way-legacy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        "The Hard Way" / Legacy
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-configuration-where-is-the-config-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Configuration (Where is the config file?)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Configuration (Where is the config file?)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#finding-the-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Finding the Config
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-operations-what-does-it-actually-do" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Operations: What does it actually do?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Operations: What does it actually do?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-modes-implementing-the-magic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Modes (Implementing the Magic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Cheat Sheet Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1831,7 +1673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1859,7 +1701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-groups-overview/" class="md-nav__link">
+      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1887,7 +1729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1915,7 +1757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1943,7 +1785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-resource-definitions/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
         
   
   
@@ -1971,7 +1813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../crd-examples/" class="md-nav__link">
+      <a href="../../cluster-architecture/crd-examples/" class="md-nav__link">
         
   
   
@@ -1999,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../custom-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-controllers/" class="md-nav__link">
         
   
   
@@ -2027,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operator-framework/" class="md-nav__link">
+      <a href="../../cluster-architecture/operator-framework/" class="md-nav__link">
         
   
   
@@ -3047,26 +2889,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   
@@ -3084,7 +2931,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3102,7 +2949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/foundations-switching-routing/" class="md-nav__link">
+      <a href="../foundations-switching-routing/" class="md-nav__link">
         
   
   
@@ -3130,7 +2977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/dns-linux-coredns/" class="md-nav__link">
+      <a href="../dns-linux-coredns/" class="md-nav__link">
         
   
   
@@ -3155,10 +3002,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../networking/network-namespaces/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Namespaces
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3174,6 +3048,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 1. Why Namespaces?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-working-with-namespaces-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Working with Namespaces (Manual)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Working with Namespaces (Manual)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-namespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Namespace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-a-command-inside-a-namespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run a command inside a Namespace
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-connecting-namespaces-veth-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 3. Connecting Namespaces: Veth Pairs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-routing-and-bridges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚦 4. Routing and Bridges
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-relevance-to-cka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. Relevance to CKA
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3186,7 +3163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/docker-networking/" class="md-nav__link">
+      <a href="../docker-networking/" class="md-nav__link">
         
   
   
@@ -3725,22 +3702,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-how-it-runs-the-architecture" class="md-nav__link">
+  <a href="#1-why-namespaces" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. How it Runs (The Architecture)
+        🏗️ 1. Why Namespaces?
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. How it Runs (The Architecture)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-working-with-namespaces-manual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Working with Namespaces (Manual)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Working with Namespaces (Manual)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kubeadm-standard-clusters" class="md-nav__link">
+  <a href="#create-a-namespace" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kubeadm / Standard Clusters
+        Create a Namespace
       
     </span>
   </a>
@@ -3748,10 +3736,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-hard-way-legacy" class="md-nav__link">
+  <a href="#run-a-command-inside-a-namespace" class="md-nav__link">
     <span class="md-ellipsis">
       
-        "The Hard Way" / Legacy
+        Run a command inside a Namespace
       
     </span>
   </a>
@@ -3764,66 +3752,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-configuration-where-is-the-config-file" class="md-nav__link">
+  <a href="#3-connecting-namespaces-veth-pairs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Configuration (Where is the config file?)
+        🔗 3. Connecting Namespaces: Veth Pairs
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2. Configuration (Where is the config file?)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#finding-the-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Finding the Config
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-operations-what-does-it-actually-do" class="md-nav__link">
+  <a href="#4-routing-and-bridges" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Operations: What does it actually do?
+        🚦 4. Routing and Bridges
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="3. Operations: What does it actually do?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-modes-implementing-the-magic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Modes (Implementing the Magic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
+  <a href="#5-relevance-to-cka" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Cheat Sheet Summary
+        🚩 5. Relevance to CKA
       
     </span>
   </a>
@@ -3847,97 +3801,53 @@
 
 
 
-<h1 id="kube-proxy-deep-dive">Kube-Proxy Deep Dive</h1>
-<p><strong>Kube-Proxy</strong> is the network "plumber" of your Kubernetes cluster. It runs on every single node and ensures that "Services" (like ClusterIP) actually work.</p>
-<p>Without Kube-Proxy, <code>Service</code> IPs (e.g., <code>10.96.0.10</code>) would just be dead IP addresses that route nowhere.</p>
+<h1 id="network-namespaces-the-magic-of-isolation">Network Namespaces: The Magic of Isolation</h1>
+<p>In Linux, a <strong>Network Namespace (netns)</strong> is like a private copy of the entire network stack—interfaces, routing tables, and firewall rules. This is exactly how Kubernetes keeps one Pod's network completely separate from another.</p>
 <hr />
-<h2 id="1-how-it-runs-the-architecture">1. How it Runs (The Architecture)</h2>
-<h3 id="kubeadm-standard-clusters">Kubeadm / Standard Clusters</h3>
-<p>In 99% of modern clusters (and the CKA exam), Kube-Proxy runs as a <strong>DaemonSet</strong>.</p>
-<ul>
-<li><strong>Type:</strong> DaemonSet (Ensures exactly one pod runs on every node).</li>
-<li><strong>Namespace:</strong> <code>kube-system</code></li>
-<li><strong>Process:</strong> It talks to the API server to watch for new Services and Endpoints.</li>
-</ul>
-<p>To see it:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>daemonset<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>kube-proxy
-</code></pre></div></p>
-<h3 id="the-hard-way-legacy">"The Hard Way" / Legacy</h3>
-<p>In manual binary installations, <code>kube-proxy</code> is installed as a Systemd Service (binary) directly on the worker node OS, just like the Kubelet.</p>
+<h2 id="1-why-namespaces">🏗️ 1. Why Namespaces?</h2>
+<p>Without namespaces, every process on a server would share the same <code>eth0</code> interface and port list. If two apps wanted to listen on port 80, only one would win. </p>
+<p>With namespaces, each Pod thinks it has its own private <code>localhost</code> and its own private IP address, completely isolated from the host.</p>
 <hr />
-<h2 id="2-configuration-where-is-the-config-file">2. Configuration (Where is the config file?)</h2>
-<p>This is where Kube-Proxy differs from Static Pods.</p>
-<ul>
-<li><strong>Static Pods (Scheduler/API):</strong> Config is a <strong>local file</strong> on the node (<code>/etc/kubernetes/...</code>).</li>
-<li><strong>Kube-Proxy:</strong> Config is a <strong>ConfigMap</strong> inside Kubernetes.</li>
-</ul>
-<h3 id="finding-the-config">Finding the Config</h3>
-<p>You cannot just SSH into a node and edit a file to change Kube-Proxy settings. You must edit the ConfigMap object.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># View the config</span>
-kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>kube-proxy<span class="w"> </span>-o<span class="w"> </span>yaml
-
-<span class="c1"># Edit the config (e.g., to change mode from iptables to ipvs)</span>
-kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>edit<span class="w"> </span>cm<span class="w"> </span>kube-proxy
+<h2 id="2-working-with-namespaces-manual">🛠️ 2. Working with Namespaces (Manual)</h2>
+<p>You can experiment with this on any Linux server using the <code>ip netns</code> command.</p>
+<h3 id="create-a-namespace">Create a Namespace</h3>
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>netns<span class="w"> </span>add<span class="w"> </span>red
+ip<span class="w"> </span>netns<span class="w"> </span>add<span class="w"> </span>blue
 </code></pre></div>
-<p><strong>CRITICAL STEP:</strong> After editing the ConfigMap, the Pods <strong>will not update automatically</strong>. You must restart the DaemonSet pods to pick up the changes:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>daemonset<span class="w"> </span>kube-proxy
+<h3 id="run-a-command-inside-a-namespace">Run a command inside a Namespace</h3>
+<p><div class="highlight"><pre><span></span><code>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>red<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>show
 </code></pre></div>
+<em>Notice: Inside 'red', you won't see the host's physical interfaces (like eth0).</em></p>
 <hr />
-<h2 id="3-operations-what-does-it-actually-do">3. Operations: What does it actually do?</h2>
-<p>Kube-Proxy watches the API Server for <strong>Services</strong> and <strong>Endpoints</strong>. When you create a Service, Kube-Proxy wakes up and writes network rules on the Node's kernel.</p>
-<h3 id="the-modes-implementing-the-magic">The Modes (Implementing the Magic)</h3>
+<h2 id="3-connecting-namespaces-veth-pairs">🔗 3. Connecting Namespaces: Veth Pairs</h2>
+<p>Isolation is great, but Pods need to talk to each other. We bridge this gap using a <strong>Veth (Virtual Ethernet) Pair</strong>.</p>
+<p>Think of a Veth pair as a <strong>virtual patch cable</strong>. One end goes into the Pod's namespace, and the other end stays in the host's root namespace (often connected to a bridge like <code>cni0</code> or <code>docker0</code>).</p>
 <ol>
-<li>
-<p><strong>IPTables Mode (Default):</strong></p>
-<ul>
-<li>Kube-Proxy writes standard Linux <code>iptables</code> rules.</li>
-<li>Traffic to the Service IP is intercepted by the kernel and DNAT'ed (Forwarded) to a random Pod IP.</li>
-<li><strong>Pros:</strong> Universal, mature.</li>
-<li><strong>Cons:</strong> Slow at massive scale (5,000+ services).</li>
-</ul>
-</li>
-<li>
-<p><strong>IPVS Mode (High Performance):</strong></p>
-<ul>
-<li>Uses the Linux Kernel's IP Virtual Server (L4 Load Balancer).</li>
-<li>Uses hash tables instead of linear lists.</li>
-<li><strong>Pros:</strong> Much faster for large clusters.</li>
-<li><strong>Cons:</strong> Requires extra kernel modules to be loaded on the OS.</li>
-</ul>
-</li>
+<li><strong>Create the pair</strong>:
+    <code>ip link add veth-red type veth peer name veth-host</code></li>
+<li><strong>Move one end to the namespace</strong>:
+    <code>ip link set veth-red netns red</code></li>
+<li><strong>Bring them up</strong>:
+    <code>ip -n red link set veth-red up</code>
+    <code>ip link set veth-host up</code></li>
 </ol>
 <hr />
-<h2 id="4-cheat-sheet-summary">4. Cheat Sheet Summary</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Run As</strong></td>
-<td style="text-align: left;">DaemonSet (Namespace: <code>kube-system</code>)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Managed By</strong></td>
-<td style="text-align: left;">Kubernetes Deployment Controller (DaemonSet controller)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Configuration</strong></td>
-<td style="text-align: left;"><code>ConfigMap: kube-proxy</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Logs</strong></td>
-<td style="text-align: left;"><code>kubectl logs -n kube-system -l k8s-app=kube-proxy</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Core Job</strong></td>
-<td style="text-align: left;">Translates Service VIPs -&gt; Pod IPs using iptables/ipvs</td>
-</tr>
-</tbody>
-</table>
+<h2 id="4-routing-and-bridges">🚦 4. Routing and Bridges</h2>
+<p>When a Pod sends a packet:
+1.  Packet travels out of the Pod through the <strong>Veth Pair</strong>.
+2.  It arrives in the host namespace at a <strong>Bridge</strong> (e.g., <code>cni0</code>).
+3.  The Bridge acts like a virtual <strong>Switch</strong>, looking at the destination IP and forwarding the packet to the correct Veth pair (the other Pod).</p>
+<hr />
+<h2 id="5-relevance-to-cka">🚩 5. Relevance to CKA</h2>
+<ul>
+<li><strong>CNI Debugging</strong>: When you use a CNI (like Calico or Flannel), it is doing this work behind the scenes automatically whenever a Pod is created.</li>
+<li><strong>Inspecting Pod Network</strong>: You can find the host-side Veth pair of a running pod to sniff traffic if you have root access to the node.</li>
+</ul>
+<hr />
+<blockquote>
+<p>[!TIP]
+<strong>Container Networking</strong>: When you run <code>kubectl exec</code>, you are essentially running a command inside that Pod's specific network namespace. This is why <code>localhost</code> inside a pod only shows that pod's processes!</p>
+</blockquote>
 
 
 
