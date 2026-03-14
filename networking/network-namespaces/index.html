@@ -3211,10 +3211,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-a-command-inside-a-namespace" class="md-nav__link">
+  <a href="#how-to-hide-eth0-and-only-see-loopback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Run a command inside a Namespace
+        How to "Hide" eth0 and Only See Loopback
       
     </span>
   </a>
@@ -3898,10 +3898,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-a-command-inside-a-namespace" class="md-nav__link">
+  <a href="#how-to-hide-eth0-and-only-see-loopback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Run a command inside a Namespace
+        How to "Hide" eth0 and Only See Loopback
       
     </span>
   </a>
@@ -4029,15 +4029,17 @@ ip<span class="w"> </span>netns<span class="w"> </span>add<span class="w"> </spa
 <span class="c1"># List the existing network namespaces</span>
 ip<span class="w"> </span>netns
 </code></pre></div>
-<h3 id="run-a-command-inside-a-namespace">Run a command inside a Namespace</h3>
+<h3 id="how-to-hide-eth0-and-only-see-loopback">How to "Hide" <code>eth0</code> and Only See Loopback</h3>
+<p>The very act of creating a network namespace achieves this. Physical interfaces (like <code>eth0</code> and <code>wlan0</code>) belong to the "Root" (host) namespace. </p>
+<p>When you create a new namespace, it is born completely empty, except for a virtual loopback interface (<code>lo</code>). So, to hide <code>eth0</code>, simply switch into your new namespace!</p>
 <p>To prove that the namespace is isolated, compare the interfaces on the host vs inside the namespace:</p>
-<p><div class="highlight"><pre><span></span><code><span class="c1"># On the Host (shows eth0, wlan0, docker0, etc.)</span>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># 1. On the Host (shows eth0, wlan0, docker0, etc.)</span>
 ip<span class="w"> </span>link
 
-<span class="c1"># Inside the &#39;red&#39; namespace (only shows a down &#39;lo&#39; loopback interface)</span>
+<span class="c1"># 2. Inside the &#39;red&#39; namespace</span>
 ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>red<span class="w"> </span>ip<span class="w"> </span>link
 </code></pre></div>
-<em>Notice: Inside 'red', you won't see the host's physical interfaces!</em></p>
+<em>Notice: Inside 'red', you ONLY see the loopback interface (<code>lo</code>). The <code>eth0</code> interface is completely hidden!</em></p>
 <hr />
 <h2 id="3-connecting-namespaces-veth-pairs">🔗 3. Connecting Namespaces: Veth Pairs</h2>
 <p>Isolation is great, but Pods need to talk to each other. We bridge this gap using a <strong>Veth (Virtual Ethernet) Pair</strong>.</p>
