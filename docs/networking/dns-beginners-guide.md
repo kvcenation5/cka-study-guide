@@ -65,6 +65,40 @@ If you don't understand that a **CNAME** is just an alias, you will struggle to 
 
 ---
 
+## 🛠️ 6. DNS vs Network Diagnostic Tools
+
+These are three common diagnostic tools, each with a different focus:
+
+### `ping` — Tests reachability and latency
+*   **What it does**: Sends ICMP echo requests to a host and measures round-trip time.
+*   **Best for**: "Is this host alive? How fast is the connection?"
+*   **Note**: Does not give you detailed DNS info.
+*   **Example**: `ping google.com`
+
+### `nslookup` — Basic DNS lookup
+*   **What it does**: Queries DNS to resolve hostnames to IPs (and vice versa).
+*   **Best for**: Quick IP lookups, or if you're in a Windows environment (where `dig` often isn't available by default).
+*   **Note**: Simpler but older, and somewhat deprecated in Linux in favor of `dig`.
+*   **Example**: `nslookup google.com`
+
+### `dig` — Detailed DNS interrogation
+*   **What it does**: The power tool for DNS. Shows full query/response, TTLs, record types, which server answered, and query time.
+*   **Best for**: Debugging DNS records, checking TTLs/propagation, and querying specific record types (A, MX, TXT, CNAME, NS...) or specific DNS servers (e.g., `@8.8.8.8`).
+*   **Note**: Output is verbose and structured—perfect for getting to the root of a DNS issue.
+*   **Example**: `dig google.com MX @8.8.8.8`
+
+### When to use which:
+
+| Goal | Tool |
+| :--- | :--- |
+| Is this host up? How fast? | `ping` |
+| Quick IP lookup | `nslookup` |
+| Windows environment (no `dig`) | `nslookup` |
+| Debug DNS records, TTLs, propagation | `dig` |
+| Check mail records, SPF/DKIM | `dig` |
+
+---
+
 > [!TIP]
-> **Pro Tool**: Use the command `dig` or `nslookup` on your terminal to see DNS in action.
-> `dig google.com`
+> **In short**: `ping` is a connectivity check, `nslookup` is a simple DNS resolver, and `dig` is a full DNS debugger.
+
