@@ -62,5 +62,31 @@ When a Pod sends a packet:
 
 ---
 
+## ☸️ 6. Network Namespaces in Kubernetes
+
+Understanding how namespaces work is the key to understanding the **Pod**.
+
+### The "Pause" Container
+
+When Kubernetes creates a Pod, it doesn't just create your application containers. It actually creates a tiny, invisible container first, known as the **Pause container** (or `sandbox` container).
+
+1.  Kubernetes creates the Pause container and asks Linux for a **new Network Namespace** (like `ip netns add pod-x`).
+2.  The CNI assigns an **IP address** to this namespace.
+3.  Kubernetes then starts your actual application containers (e.g., Nginx, Redis) but **does not** give them their own namespaces.
+4.  Instead, Kubernetes tells Docker/containerd to "join" the newly created Nginx and Redis containers into the **existing Network Namespace** owned by the Pause container.
+
+### The Result: The Pod Network Model
+
+Because all containers in a single Pod share the exact same Network Namespace:
+
+*   **Shared IP Address**: Every container in the Pod has the same IP address from the outside perspective.
+*   **Shared Localhost**: Container A can talk to Container B simply by calling `localhost:port`.
+*   **Port Collisions**: If Container A listens on port `8080`, Container B **cannot** listen on `8080`. They share the same port space.
+
+### Troubleshooting Intra-Pod Comms
+If the user asks "Why can't my sidecar talk to my main app?", the answer is almost never "network policies." Usually, they are trying to use the Pod's public IP or a Kubernetes Service instead of simply using `127.0.0.1`.
+
+---
+
 > [!TIP]
 > **Container Networking**: When you run `kubectl exec`, you are essentially running a command inside that Pod's specific network namespace. This is why `localhost` inside a pod only shows that pod's processes!
