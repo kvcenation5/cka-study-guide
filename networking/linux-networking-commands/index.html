@@ -3221,10 +3221,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-cka-exam-relevance" class="md-nav__link">
+  <a href="#5-arp-address-resolution-protocol" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚩 5. CKA Exam Relevance
+        📡 5. ARP (Address Resolution Protocol)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📡 5. ARP (Address Resolution Protocol)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Commands:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-legacy-route-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 6. The Legacy route Command
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cka-exam-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 7. CKA Exam Relevance
       
     </span>
   </a>
@@ -3998,10 +4048,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-cka-exam-relevance" class="md-nav__link">
+  <a href="#5-arp-address-resolution-protocol" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚩 5. CKA Exam Relevance
+        📡 5. ARP (Address Resolution Protocol)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📡 5. ARP (Address Resolution Protocol)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Commands:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-legacy-route-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 6. The Legacy route Command
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cka-exam-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 7. CKA Exam Relevance
       
     </span>
   </a>
@@ -4122,7 +4222,53 @@ ip<span class="w"> </span>addr<span class="w"> </span>del<span class="w"> </span
 </tbody>
 </table>
 <hr />
-<h2 id="5-cka-exam-relevance">🚩 5. CKA Exam Relevance</h2>
+<h2 id="5-arp-address-resolution-protocol">📡 5. ARP (Address Resolution Protocol)</h2>
+<p>While <code>ip route</code> maps IP networks to other IP addresses, your network card ultimately needs a Physical Hardware Address (MAC) to send data over a local cable. This is what <strong>ARP</strong> does: it maps an IP address to a MAC address.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command / Tool</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>arp</code></strong></td>
+<td style="text-align: left;">The legacy command to view the ARP cache/table.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>ip neighbor</code></strong> (or <strong><code>ip n</code></strong>)</td>
+<td style="text-align: left;">The modern <code>ip</code> equivalent to manage the ARP table.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-it-works">How it works:</h3>
+<ol>
+<li>You say: "Ping 192.168.1.50".</li>
+<li>Linux checks the routing table: "192.168.1.50 is on my local subnet!"</li>
+<li>Linux checks the ARP table: "Do I know the MAC address for 192.168.1.50?"</li>
+<li>If not, it broadcasts an ARP request.</li>
+<li>The target responds: "I do! My MAC is DE:AD:BE:EF:00:00".</li>
+<li>Linux saves this in the ARP table (<code>ip neighbor</code>) and sends the packet.</li>
+</ol>
+<h3 id="useful-commands">Useful Commands:</h3>
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>neighbor<span class="w"> </span>show<span class="w">   </span><span class="c1"># Show all known IP to MAC mappings</span>
+arp<span class="w"> </span>-a<span class="w">             </span><span class="c1"># The older way to show the same thing</span>
+</code></pre></div>
+<hr />
+<h2 id="6-the-legacy-route-command">🧭 6. The Legacy <code>route</code> Command</h2>
+<p>Before the modern <code>ip</code> tool existed, <code>route</code> was the standard Linux command used to configure routing tables. You may still see it in older tutorials or environments.</p>
+<ul>
+<li><strong><code>route</code></strong>: Shows the routing table.</li>
+<li><strong><code>route -n</code></strong>: Shows the routing table in <strong>numerical</strong> format (doesn't try to translate IPs to hostnames via DNS, which is much faster). This is equivalent to <code>ip route show</code>.</li>
+<li><strong><code>route add default gw 192.168.1.1</code></strong>: The old way of setting a default gateway (Modern: <code>ip route add default via 192.168.1.1</code>).</li>
+</ul>
+<blockquote>
+<p>[!CAUTION]
+<strong>Modern Practice</strong>: The <code>route</code> command is considered deprecated. You should always use <code>ip route</code> when available, especially on the CKA exam!</p>
+</blockquote>
+<hr />
+<h2 id="7-cka-exam-relevance">🚩 7. CKA Exam Relevance</h2>
 <ol>
 <li><strong>Troubleshooting Nodes</strong>: If a node is <code>NotReady</code>, check <code>ip link</code> to see if the interface is <code>DOWN</code>.</li>
 <li><strong>CNI Verification</strong>: CNIs like Flannel or Calico create virtual interfaces (e.g., <code>flannel.1</code>, <code>caliXXX</code>). Use <code>ip addr</code> to see if they received an IP.</li>
