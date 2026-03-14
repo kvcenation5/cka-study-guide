@@ -3259,6 +3259,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-network-namespaces-in-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☸️ 6. Network Namespaces in Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="☸️ 6. Network Namespaces in Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-pause-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Pause" Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-result-the-pod-network-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Result: The Pod Network Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-intra-pod-comms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Intra-Pod Comms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3896,6 +3946,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-network-namespaces-in-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☸️ 6. Network Namespaces in Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="☸️ 6. Network Namespaces in Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-pause-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Pause" Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-result-the-pod-network-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Result: The Pod Network Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-intra-pod-comms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Intra-Pod Comms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3955,6 +4055,26 @@ ip<span class="w"> </span>netns<span class="w"> </span>add<span class="w"> </spa
 <li><strong>CNI Debugging</strong>: When you use a CNI (like Calico or Flannel), it is doing this work behind the scenes automatically whenever a Pod is created.</li>
 <li><strong>Inspecting Pod Network</strong>: You can find the host-side Veth pair of a running pod to sniff traffic if you have root access to the node.</li>
 </ul>
+<hr />
+<h2 id="6-network-namespaces-in-kubernetes">☸️ 6. Network Namespaces in Kubernetes</h2>
+<p>Understanding how namespaces work is the key to understanding the <strong>Pod</strong>.</p>
+<h3 id="the-pause-container">The "Pause" Container</h3>
+<p>When Kubernetes creates a Pod, it doesn't just create your application containers. It actually creates a tiny, invisible container first, known as the <strong>Pause container</strong> (or <code>sandbox</code> container).</p>
+<ol>
+<li>Kubernetes creates the Pause container and asks Linux for a <strong>new Network Namespace</strong> (like <code>ip netns add pod-x</code>).</li>
+<li>The CNI assigns an <strong>IP address</strong> to this namespace.</li>
+<li>Kubernetes then starts your actual application containers (e.g., Nginx, Redis) but <strong>does not</strong> give them their own namespaces.</li>
+<li>Instead, Kubernetes tells Docker/containerd to "join" the newly created Nginx and Redis containers into the <strong>existing Network Namespace</strong> owned by the Pause container.</li>
+</ol>
+<h3 id="the-result-the-pod-network-model">The Result: The Pod Network Model</h3>
+<p>Because all containers in a single Pod share the exact same Network Namespace:</p>
+<ul>
+<li><strong>Shared IP Address</strong>: Every container in the Pod has the same IP address from the outside perspective.</li>
+<li><strong>Shared Localhost</strong>: Container A can talk to Container B simply by calling <code>localhost:port</code>.</li>
+<li><strong>Port Collisions</strong>: If Container A listens on port <code>8080</code>, Container B <strong>cannot</strong> listen on <code>8080</code>. They share the same port space.</li>
+</ul>
+<h3 id="troubleshooting-intra-pod-comms">Troubleshooting Intra-Pod Comms</h3>
+<p>If the user asks "Why can't my sidecar talk to my main app?", the answer is almost never "network policies." Usually, they are trying to use the Pod's public IP or a Kubernetes Service instead of simply using <code>127.0.0.1</code>.</p>
 <hr />
 <blockquote>
 <p>[!TIP]
