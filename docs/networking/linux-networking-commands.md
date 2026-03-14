@@ -78,7 +78,45 @@ Use this to tell Linux how to find subnets that aren't directly connected.
 
 ---
 
-## 🚩 5. CKA Exam Relevance
+## 📡 5. ARP (Address Resolution Protocol)
+
+While `ip route` maps IP networks to other IP addresses, your network card ultimately needs a Physical Hardware Address (MAC) to send data over a local cable. This is what **ARP** does: it maps an IP address to a MAC address.
+
+| Command / Tool | Description |
+| :--- | :--- |
+| **`arp`** | The legacy command to view the ARP cache/table. |
+| **`ip neighbor`** (or **`ip n`**) | The modern `ip` equivalent to manage the ARP table. |
+
+### How it works:
+1. You say: "Ping 192.168.1.50".
+2. Linux checks the routing table: "192.168.1.50 is on my local subnet!"
+3. Linux checks the ARP table: "Do I know the MAC address for 192.168.1.50?"
+4. If not, it broadcasts an ARP request.
+5. The target responds: "I do! My MAC is DE:AD:BE:EF:00:00".
+6. Linux saves this in the ARP table (`ip neighbor`) and sends the packet.
+
+### Useful Commands:
+```bash
+ip neighbor show   # Show all known IP to MAC mappings
+arp -a             # The older way to show the same thing
+```
+
+---
+
+## 🧭 6. The Legacy `route` Command
+
+Before the modern `ip` tool existed, `route` was the standard Linux command used to configure routing tables. You may still see it in older tutorials or environments.
+
+*   **`route`**: Shows the routing table.
+*   **`route -n`**: Shows the routing table in **numerical** format (doesn't try to translate IPs to hostnames via DNS, which is much faster). This is equivalent to `ip route show`.
+*   **`route add default gw 192.168.1.1`**: The old way of setting a default gateway (Modern: `ip route add default via 192.168.1.1`).
+
+> [!CAUTION]
+> **Modern Practice**: The `route` command is considered deprecated. You should always use `ip route` when available, especially on the CKA exam!
+
+---
+
+## 🚩 7. CKA Exam Relevance
 
 1.  **Troubleshooting Nodes**: If a node is `NotReady`, check `ip link` to see if the interface is `DOWN`.
 2.  **CNI Verification**: CNIs like Flannel or Calico create virtual interfaces (e.g., `flannel.1`, `caliXXX`). Use `ip addr` to see if they received an IP.
