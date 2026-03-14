@@ -4030,9 +4030,14 @@ ip<span class="w"> </span>netns<span class="w"> </span>add<span class="w"> </spa
 ip<span class="w"> </span>netns
 </code></pre></div>
 <h3 id="run-a-command-inside-a-namespace">Run a command inside a Namespace</h3>
-<p><div class="highlight"><pre><span></span><code>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>red<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>show
+<p>To prove that the namespace is isolated, compare the interfaces on the host vs inside the namespace:</p>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># On the Host (shows eth0, wlan0, docker0, etc.)</span>
+ip<span class="w"> </span>link
+
+<span class="c1"># Inside the &#39;red&#39; namespace (only shows a down &#39;lo&#39; loopback interface)</span>
+ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>red<span class="w"> </span>ip<span class="w"> </span>link
 </code></pre></div>
-<em>Notice: Inside 'red', you won't see the host's physical interfaces (like eth0).</em></p>
+<em>Notice: Inside 'red', you won't see the host's physical interfaces!</em></p>
 <hr />
 <h2 id="3-connecting-namespaces-veth-pairs">🔗 3. Connecting Namespaces: Veth Pairs</h2>
 <p>Isolation is great, but Pods need to talk to each other. We bridge this gap using a <strong>Veth (Virtual Ethernet) Pair</strong>.</p>
