@@ -25,17 +25,21 @@ ip netns add blue
 ip netns
 ```
 
-### Run a command inside a Namespace
+### How to "Hide" `eth0` and Only See Loopback
+The very act of creating a network namespace achieves this. Physical interfaces (like `eth0` and `wlan0`) belong to the "Root" (host) namespace. 
+
+When you create a new namespace, it is born completely empty, except for a virtual loopback interface (`lo`). So, to hide `eth0`, simply switch into your new namespace!
+
 To prove that the namespace is isolated, compare the interfaces on the host vs inside the namespace:
 
 ```bash
-# On the Host (shows eth0, wlan0, docker0, etc.)
+# 1. On the Host (shows eth0, wlan0, docker0, etc.)
 ip link
 
-# Inside the 'red' namespace (only shows a down 'lo' loopback interface)
+# 2. Inside the 'red' namespace
 ip netns exec red ip link
 ```
-*Notice: Inside 'red', you won't see the host's physical interfaces!*
+*Notice: Inside 'red', you ONLY see the loopback interface (`lo`). The `eth0` interface is completely hidden!*
 
 ---
 
