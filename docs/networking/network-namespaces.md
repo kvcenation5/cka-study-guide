@@ -26,10 +26,16 @@ ip netns
 ```
 
 ### Run a command inside a Namespace
+To prove that the namespace is isolated, compare the interfaces on the host vs inside the namespace:
+
 ```bash
-ip netns exec red ip addr show
+# On the Host (shows eth0, wlan0, docker0, etc.)
+ip link
+
+# Inside the 'red' namespace (only shows a down 'lo' loopback interface)
+ip netns exec red ip link
 ```
-*Notice: Inside 'red', you won't see the host's physical interfaces (like eth0).*
+*Notice: Inside 'red', you won't see the host's physical interfaces!*
 
 ---
 
