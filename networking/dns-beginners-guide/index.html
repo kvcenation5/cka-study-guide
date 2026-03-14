@@ -3063,6 +3063,67 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-dns-vs-network-diagnostic-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 6. DNS vs Network Diagnostic Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 6. DNS vs Network Diagnostic Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ping-tests-reachability-and-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ping — Tests reachability and latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nslookup-basic-dns-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nslookup — Basic DNS lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dig-detailed-dns-interrogation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dig — Detailed DNS interrogation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use which:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3812,6 +3873,67 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-dns-vs-network-diagnostic-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 6. DNS vs Network Diagnostic Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 6. DNS vs Network Diagnostic Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ping-tests-reachability-and-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ping — Tests reachability and latency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nslookup-basic-dns-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nslookup — Basic DNS lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dig-detailed-dns-interrogation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dig — Detailed DNS interrogation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use which:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3918,10 +4040,64 @@
 *   <strong>CoreDNS</strong> = The Authoritative Name Server for your cluster.</p>
 <p>If you don't understand that a <strong>CNAME</strong> is just an alias, you will struggle to understand how Kubernetes uses <code>ExternalName</code> services!</p>
 <hr />
+<h2 id="6-dns-vs-network-diagnostic-tools">🛠️ 6. DNS vs Network Diagnostic Tools</h2>
+<p>These are three common diagnostic tools, each with a different focus:</p>
+<h3 id="ping-tests-reachability-and-latency"><code>ping</code> — Tests reachability and latency</h3>
+<ul>
+<li><strong>What it does</strong>: Sends ICMP echo requests to a host and measures round-trip time.</li>
+<li><strong>Best for</strong>: "Is this host alive? How fast is the connection?"</li>
+<li><strong>Note</strong>: Does not give you detailed DNS info.</li>
+<li><strong>Example</strong>: <code>ping google.com</code></li>
+</ul>
+<h3 id="nslookup-basic-dns-lookup"><code>nslookup</code> — Basic DNS lookup</h3>
+<ul>
+<li><strong>What it does</strong>: Queries DNS to resolve hostnames to IPs (and vice versa).</li>
+<li><strong>Best for</strong>: Quick IP lookups, or if you're in a Windows environment (where <code>dig</code> often isn't available by default).</li>
+<li><strong>Note</strong>: Simpler but older, and somewhat deprecated in Linux in favor of <code>dig</code>.</li>
+<li><strong>Example</strong>: <code>nslookup google.com</code></li>
+</ul>
+<h3 id="dig-detailed-dns-interrogation"><code>dig</code> — Detailed DNS interrogation</h3>
+<ul>
+<li><strong>What it does</strong>: The power tool for DNS. Shows full query/response, TTLs, record types, which server answered, and query time.</li>
+<li><strong>Best for</strong>: Debugging DNS records, checking TTLs/propagation, and querying specific record types (A, MX, TXT, CNAME, NS...) or specific DNS servers (e.g., <code>@8.8.8.8</code>).</li>
+<li><strong>Note</strong>: Output is verbose and structured—perfect for getting to the root of a DNS issue.</li>
+<li><strong>Example</strong>: <code>dig google.com MX @8.8.8.8</code></li>
+</ul>
+<h3 id="when-to-use-which">When to use which:</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Goal</th>
+<th style="text-align: left;">Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Is this host up? How fast?</td>
+<td style="text-align: left;"><code>ping</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Quick IP lookup</td>
+<td style="text-align: left;"><code>nslookup</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Windows environment (no <code>dig</code>)</td>
+<td style="text-align: left;"><code>nslookup</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Debug DNS records, TTLs, propagation</td>
+<td style="text-align: left;"><code>dig</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Check mail records, SPF/DKIM</td>
+<td style="text-align: left;"><code>dig</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
 <blockquote>
 <p>[!TIP]
-<strong>Pro Tool</strong>: Use the command <code>dig</code> or <code>nslookup</code> on your terminal to see DNS in action.
-<code>dig google.com</code></p>
+<strong>In short</strong>: <code>ping</code> is a connectivity check, <code>nslookup</code> is a simple DNS resolver, and <code>dig</code> is a full DNS debugger.</p>
 </blockquote>
 
 
