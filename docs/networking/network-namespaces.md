@@ -20,6 +20,9 @@ You can experiment with this on any Linux server using the `ip netns` command.
 ```bash
 ip netns add red
 ip netns add blue
+
+# List the existing network namespaces
+ip netns
 ```
 
 ### Run a command inside a Namespace
