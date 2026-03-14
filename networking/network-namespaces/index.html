@@ -4025,6 +4025,9 @@
 <h3 id="create-a-namespace">Create a Namespace</h3>
 <div class="highlight"><pre><span></span><code>ip<span class="w"> </span>netns<span class="w"> </span>add<span class="w"> </span>red
 ip<span class="w"> </span>netns<span class="w"> </span>add<span class="w"> </span>blue
+
+<span class="c1"># List the existing network namespaces</span>
+ip<span class="w"> </span>netns
 </code></pre></div>
 <h3 id="run-a-command-inside-a-namespace">Run a command inside a Namespace</h3>
 <p><div class="highlight"><pre><span></span><code>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>red<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>show
