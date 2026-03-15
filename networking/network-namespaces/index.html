@@ -3311,10 +3311,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-create-the-bridge" class="md-nav__link">
+  <a href="#what-is-a-linux-bridge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Create the Bridge
+        What is a Linux Bridge?
       
     </span>
   </a>
@@ -3322,10 +3322,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-connect-namespaces-to-the-bridge" class="md-nav__link">
+  <a href="#step-1-create-the-bridge-the-virtual-switch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Connect Namespaces to the Bridge
+        Step 1: Create the Bridge (The Virtual Switch)
       
     </span>
   </a>
@@ -3333,10 +3333,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-turn-everything-up" class="md-nav__link">
+  <a href="#step-2-create-the-cables-veth-pairs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Turn everything UP
+        Step 2: Create the Cables (Veth Pairs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-plug-the-ends-into-the-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Plug the Ends into the Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-plug-the-host-ends-into-the-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Plug the Host Ends into the Bridge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-turn-the-interfaces-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Turn the Interfaces UP
       
     </span>
   </a>
@@ -4098,10 +4131,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-create-the-bridge" class="md-nav__link">
+  <a href="#what-is-a-linux-bridge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Create the Bridge
+        What is a Linux Bridge?
       
     </span>
   </a>
@@ -4109,10 +4142,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-connect-namespaces-to-the-bridge" class="md-nav__link">
+  <a href="#step-1-create-the-bridge-the-virtual-switch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Connect Namespaces to the Bridge
+        Step 1: Create the Bridge (The Virtual Switch)
       
     </span>
   </a>
@@ -4120,10 +4153,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-turn-everything-up" class="md-nav__link">
+  <a href="#step-2-create-the-cables-veth-pairs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Turn everything UP
+        Step 2: Create the Cables (Veth Pairs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-plug-the-ends-into-the-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Plug the Ends into the Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-plug-the-host-ends-into-the-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Plug the Host Ends into the Bridge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-turn-the-interfaces-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Turn the Interfaces UP
       
     </span>
   </a>
@@ -4273,33 +4339,39 @@ ip<span class="w"> </span>-n<span class="w"> </span>blue<span class="w"> </span>
 <hr />
 <h2 id="4-connecting-multiple-namespaces-the-linux-bridge">🚦 4. Connecting Multiple Namespaces: The Linux Bridge</h2>
 <p>The direct Veth Pair approach (Section 3) works great for <em>two</em> namespaces. But what if you have 50 Pods? You can't draw a direct wire between every single one. You need a <strong>Switch</strong>.</p>
-<p>In Linux, a virtual switch is called a <strong>Bridge</strong>. A bridge lives in the host's root namespace and connects multiple veth endpoints together.</p>
-<h3 id="step-1-create-the-bridge">Step 1: Create the Bridge</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create a virtual switch named &#39;v-net-0&#39;</span>
-ip<span class="w"> </span>link<span class="w"> </span>add<span class="w"> </span>v-net-0<span class="w"> </span><span class="nb">type</span><span class="w"> </span>bridge
-
-<span class="c1"># Turn the switch on</span>
+<h3 id="what-is-a-linux-bridge">What is a Linux Bridge?</h3>
+<p>In Linux, a virtual switch is called a <strong>Bridge</strong>. A bridge is a software construct that lives in the host's root namespace. It acts exactly like a physical network switch: it has "ports" that you can plug virtual cables (Veth pairs) into, and it learns MAC addresses so it knows out which port to forward packets.</p>
+<p>In Kubernetes, this is exactly what the <code>cni0</code> or <code>docker0</code> interfaces are—they are Linux Bridges that connect all the local Pod namespaces together on a single node!</p>
+<h3 id="step-1-create-the-bridge-the-virtual-switch">Step 1: Create the Bridge (The Virtual Switch)</h3>
+<p><div class="highlight"><pre><span></span><code>ip<span class="w"> </span>link<span class="w"> </span>add<span class="w"> </span>v-net-0<span class="w"> </span><span class="nb">type</span><span class="w"> </span>bridge
 ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>dev<span class="w"> </span>v-net-0<span class="w"> </span>up
 </code></pre></div>
-<h3 id="step-2-connect-namespaces-to-the-bridge">Step 2: Connect Namespaces to the Bridge</h3>
-<p>Instead of connecting <code>red</code> directly to <code>blue</code>, you connect <code>red</code> to the <code>bridge</code>, and <code>blue</code> to the <code>bridge</code>!</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create a cable for RED</span>
-ip<span class="w"> </span>link<span class="w"> </span>add<span class="w"> </span>veth-red<span class="w"> </span><span class="nb">type</span><span class="w"> </span>veth<span class="w"> </span>peer<span class="w"> </span>name<span class="w"> </span>veth-red-br
-ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-red<span class="w"> </span>netns<span class="w"> </span>red
-ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-red-br<span class="w"> </span>master<span class="w"> </span>v-net-0<span class="w">  </span><span class="c1"># Plug the host end into the Bridge!</span>
-
-<span class="c1"># Create a cable for BLUE</span>
+*   <strong><code>ip link add v-net-0</code></strong>: Crates a new network interface named <code>v-net-0</code>.
+*   <strong><code>type bridge</code></strong>: Tells Linux this isn't a normal interface, it's a virtual switch.
+*   <strong><code>ip link set dev v-net-0 up</code></strong>: Turns the switch "on" so it can start processing packets.</p>
+<h3 id="step-2-create-the-cables-veth-pairs">Step 2: Create the Cables (Veth Pairs)</h3>
+<p>Before we can plug anything in, we need the virtual patch cables.
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>link<span class="w"> </span>add<span class="w"> </span>veth-red<span class="w"> </span><span class="nb">type</span><span class="w"> </span>veth<span class="w"> </span>peer<span class="w"> </span>name<span class="w"> </span>veth-red-br
 ip<span class="w"> </span>link<span class="w"> </span>add<span class="w"> </span>veth-blue<span class="w"> </span><span class="nb">type</span><span class="w"> </span>veth<span class="w"> </span>peer<span class="w"> </span>name<span class="w"> </span>veth-blue-br
+</code></pre></div>
+*   <strong><code>ip link add ... type veth peer name ...</code></strong>: Creates a Veth pair. One end is meant for the namespace (<code>veth-red</code>), and the other end is meant for the bridge on the host (<code>veth-red-br</code>).</p>
+<h3 id="step-3-plug-the-ends-into-the-namespaces">Step 3: Plug the Ends into the Namespaces</h3>
+<p><div class="highlight"><pre><span></span><code>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-red<span class="w"> </span>netns<span class="w"> </span>red
 ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-blue<span class="w"> </span>netns<span class="w"> </span>blue
-ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-blue-br<span class="w"> </span>master<span class="w"> </span>v-net-0<span class="w"> </span><span class="c1"># Plug the host end into the Bridge!</span>
 </code></pre></div>
-<h3 id="step-3-turn-everything-up">Step 3: Turn everything UP</h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Don&#39;t forget to turn up the cables plugged into the bridge</span>
-ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-red-br<span class="w"> </span>up
+*   <strong><code>netns red</code></strong>: Moves the <code>veth-red</code> interface out of the host namespace and permanently drops it into the <code>red</code> namespace. (The host can no longer see it!).</p>
+<h3 id="step-4-plug-the-host-ends-into-the-bridge">Step 4: Plug the Host Ends into the Bridge</h3>
+<p>Here is where the magic happens. We take the host-side end of our Veth pairs and "plug them into" the bridge.
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-red-br<span class="w"> </span>master<span class="w"> </span>v-net-0
+ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-blue-br<span class="w"> </span>master<span class="w"> </span>v-net-0
+</code></pre></div>
+*   <strong><code>master v-net-0</code></strong>: This tells Linux, "Make <code>v-net-0</code> the master/controller for this interface." In bridging terms, this means "plug this interface into the <code>v-net-0</code> switch."</p>
+<h3 id="step-5-turn-the-interfaces-up">Step 5: Turn the Interfaces UP</h3>
+<p>We must turn on the "host" side of the cables (the ones plugged into the bridge).
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-red-br<span class="w"> </span>up
 ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>veth-blue-br<span class="w"> </span>up
-</code></pre></div>
-<p>Now, <code>red</code> and <code>blue</code> can ping each other through the virtual switch, and you can plug in <code>green</code>, <code>yellow</code>, and <code>magenta</code> the exact same way!</p>
-<p><em>(Note: In Kubernetes, this is exactly what the <code>cni0</code> or <code>docker0</code> interfaces are—they are Linux Bridges!)</em></p>
+</code></pre></div></p>
+<p><em>(Note: You must also assign IP addresses and turn UP the interfaces inside the <code>red</code> and <code>blue</code> namespaces, just like we did in Section 3 Step 3 &amp; 4. Once that is done, they can ping each other through the bridge!)</em></p>
 <hr />
 <h2 id="5-relevance-to-cka">🚩 5. Relevance to CKA</h2>
 <ul>
