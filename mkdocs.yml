@@ -123,6 +123,7 @@ nav:
       - Network Namespaces: networking/network-namespaces.md
       - Docker Networking: networking/docker-networking.md
       - Container Network Interface (CNI): networking/cni-intro.md
+      - Cluster Node Networking Prerequisites: networking/cluster-node-networking.md
       - CoreDNS Deep Dive: coredns-guide.md
       - Network Policies: security/network-policies.md
       - Network Policy Examples: security/network-policy-examples.md
