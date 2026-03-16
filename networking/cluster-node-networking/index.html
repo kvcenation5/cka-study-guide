@@ -3311,13 +3311,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-troubleshooting-tip-for-cka" class="md-nav__link">
+  <a href="#3-node-verification-troubleshooting-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚩 3. Troubleshooting Tip for CKA
+        🚩 3. Node Verification &amp; Troubleshooting Commands
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="🚩 3. Node Verification &amp; Troubleshooting Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-network-interfaces-ip-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📡 Verify Network Interfaces &amp; IP Addresses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-unique-mac-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏷️ Verify Unique MAC Addresses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-unique-hostnames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📛 Verify Unique Hostnames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-listening-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚪 Verify Listening Ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3898,13 +3948,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-troubleshooting-tip-for-cka" class="md-nav__link">
+  <a href="#3-node-verification-troubleshooting-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚩 3. Troubleshooting Tip for CKA
+        🚩 3. Node Verification &amp; Troubleshooting Commands
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="🚩 3. Node Verification &amp; Troubleshooting Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-network-interfaces-ip-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📡 Verify Network Interfaces &amp; IP Addresses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-unique-mac-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏷️ Verify Unique MAC Addresses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-unique-hostnames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📛 Verify Unique Hostnames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-listening-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚪 Verify Listening Ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4034,13 +4134,38 @@
 </tbody>
 </table>
 <hr />
-<h2 id="3-troubleshooting-tip-for-cka">🚩 3. Troubleshooting Tip for CKA</h2>
-<p>If your cluster nodes cannot join, <code>kubectl</code> commands time out, or pods cannot communicate, <strong>always check the firewalls and ports first!</strong></p>
-<p>In a cloud environment (GCP, AWS, Azure), verify the Security Groups or Firewall Rules. On a local Linux machine, check <code>iptables</code> or <code>ufw</code>/<code>firewalld</code>.</p>
-<p>When investigating an existing environment (like in a CKA exam question):
-*   Use <code>ip addr</code> or <code>ip link</code> to verify interfaces and IPs.
-*   Use <code>hostname</code> or <code>cat /etc/hostname</code> to verify unique names.
-*   Use <code>cat /sys/class/net/eth0/address</code> or <code>ip link</code> to verify MAC addresses.</p>
+<h2 id="3-node-verification-troubleshooting-commands">🚩 3. Node Verification &amp; Troubleshooting Commands</h2>
+<p>In the CKA exam or in the real world, you will frequently be asked to verify a node's configuration or troubleshoot why it isn't communicating. <strong>Keep these commands handy:</strong></p>
+<h3 id="verify-network-interfaces-ip-addresses">📡 Verify Network Interfaces &amp; IP Addresses</h3>
+<p>Ensure the node is attached to the network and has a valid IP configured:
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>addr<span class="w"> </span>show
+<span class="c1"># Or the common shorthand:</span>
+ip<span class="w"> </span>a
+</code></pre></div></p>
+<h3 id="verify-unique-mac-addresses">🏷️ Verify Unique MAC Addresses</h3>
+<p>Especially important if your nodes are VMs that were cloned from a template:
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>link<span class="w"> </span>show
+<span class="c1"># Or check the eth0 hardware address directly:</span>
+cat<span class="w"> </span>/sys/class/net/eth0/address
+</code></pre></div></p>
+<h3 id="verify-unique-hostnames">📛 Verify Unique Hostnames</h3>
+<p>Check the current identity of the node:
+<div class="highlight"><pre><span></span><code>hostname
+<span class="c1"># Or view the underlying configuration file:</span>
+cat<span class="w"> </span>/etc/hostname
+</code></pre></div></p>
+<h3 id="verify-listening-ports">🚪 Verify Listening Ports</h3>
+<p>If your nodes are failing to communicate, verify that the required ports from Section 2 are actually actively listening on the host. This command will also show you <em>which</em> process (like <code>kube-apiserver</code> or <code>kubelet</code>) is holding that port:
+<div class="highlight"><pre><span></span><code><span class="c1"># Using netstat</span>
+netstat<span class="w"> </span>-nltp
+
+<span class="c1"># Or the modern equivalent, ss (socket statistics)</span>
+ss<span class="w"> </span>-nltp
+</code></pre></div></p>
+<blockquote>
+<p>[!TIP]
+<strong>Firewalls vs Crashes</strong>: If a port is <em>not</em> listening when you run <code>netstat</code>, the underlying service has probably crashed (check <code>systemctl status kubelet</code>, for example). If the port <em>is</em> listening locally but another node can't reach it, a firewall is likely blocking the traffic (check <code>iptables -L</code>).</p>
+</blockquote>
 
 
 
