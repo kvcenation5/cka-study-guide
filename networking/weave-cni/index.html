@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../../etcd-deep-dive/">
+        <link rel="prev" href="../cni-in-kubernetes/">
       
       
-        <link rel="next" href="../volumes-pv-pvc/">
+        <link rel="next" href="../../coredns-guide/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Deep Dive - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Weaveworks CNI Plugin - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#storage-deep-dive" class="md-skip">
+        <a href="#weaveworks-cni-plugin" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deep Dive
+              Weaveworks CNI Plugin
             
           </span>
         </div>
@@ -344,13 +344,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -386,11 +384,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../networking/dns-beginners-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../dns-beginners-guide/" class="md-tabs__link">
           
   
   
@@ -2015,31 +2015,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -2057,7 +2052,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2072,37 +2067,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2118,176 +2086,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-core-storage-components" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 1. Core Storage Components
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ 1. Core Storage Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#persistentvolume-pv" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PersistentVolume (PV)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#persistentvolumeclaim-pvc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PersistentVolumeClaim (PVC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#storageclass-sc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        StorageClass (SC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-access-modes-reclaim-policies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔍 2. Access Modes &amp; Reclaim Policies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔍 2. Access Modes &amp; Reclaim Policies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#access-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access Modes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reclaim-policies-what-happens-to-pv-when-pvc-is-deleted" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reclaim Policies (What happens to PV when PVC is deleted)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-dynamic-provisioning-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Dynamic Provisioning Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-troubleshooting-storage-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 4. Troubleshooting Storage Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔧 4. Troubleshooting Storage Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pvc-stuck-in-pending" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PVC stuck in "Pending"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pod-stuck-in-containercreating" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod stuck in "ContainerCreating"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-exam-tips-cka" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Exam Tips (CKA)
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2300,7 +2098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2328,7 +2126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2356,7 +2154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2384,7 +2182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2412,7 +2210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -3091,26 +2889,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   
@@ -3128,7 +2931,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3146,7 +2949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/dns-beginners-guide/" class="md-nav__link">
+      <a href="../dns-beginners-guide/" class="md-nav__link">
         
   
   
@@ -3174,7 +2977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/configuring-host-as-dns/" class="md-nav__link">
+      <a href="../configuring-host-as-dns/" class="md-nav__link">
         
   
   
@@ -3202,7 +3005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/foundations-switching-routing/" class="md-nav__link">
+      <a href="../foundations-switching-routing/" class="md-nav__link">
         
   
   
@@ -3230,7 +3033,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/linux-networking-commands/" class="md-nav__link">
+      <a href="../linux-networking-commands/" class="md-nav__link">
         
   
   
@@ -3258,7 +3061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/ip-forward-routing/" class="md-nav__link">
+      <a href="../ip-forward-routing/" class="md-nav__link">
         
   
   
@@ -3286,7 +3089,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/dns-linux-coredns/" class="md-nav__link">
+      <a href="../dns-linux-coredns/" class="md-nav__link">
         
   
   
@@ -3314,7 +3117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/network-namespaces/" class="md-nav__link">
+      <a href="../network-namespaces/" class="md-nav__link">
         
   
   
@@ -3342,7 +3145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/docker-networking/" class="md-nav__link">
+      <a href="../docker-networking/" class="md-nav__link">
         
   
   
@@ -3370,7 +3173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/cni-intro/" class="md-nav__link">
+      <a href="../cni-intro/" class="md-nav__link">
         
   
   
@@ -3398,7 +3201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/cluster-node-networking/" class="md-nav__link">
+      <a href="../cluster-node-networking/" class="md-nav__link">
         
   
   
@@ -3426,7 +3229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/pod-networking/" class="md-nav__link">
+      <a href="../pod-networking/" class="md-nav__link">
         
   
   
@@ -3454,7 +3257,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/cni-in-kubernetes/" class="md-nav__link">
+      <a href="../cni-in-kubernetes/" class="md-nav__link">
         
   
   
@@ -3479,10 +3282,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../networking/weave-cni/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weaveworks CNI Plugin
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3498,6 +3328,104 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-shipping-agent-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 1. The "Shipping Agent" Analogy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-weave-works-technically-encapsulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕸️ 2. How Weave Works Technically (Encapsulation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🕸️ 2. How Weave Works Technically (Encapsulation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#weave-encapsulation-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weave Encapsulation Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-deploying-weave-in-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 3. Deploying Weave in Kubernetes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 3. Deploying Weave in Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deployment-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-and-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification and Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4021,44 +3949,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-core-storage-components" class="md-nav__link">
+  <a href="#1-the-shipping-agent-analogy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. Core Storage Components
+        📦 1. The "Shipping Agent" Analogy
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. Core Storage Components">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-weave-works-technically-encapsulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕸️ 2. How Weave Works Technically (Encapsulation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🕸️ 2. How Weave Works Technically (Encapsulation)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#persistentvolume-pv" class="md-nav__link">
+  <a href="#weave-encapsulation-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PersistentVolume (PV)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#persistentvolumeclaim-pvc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PersistentVolumeClaim (PVC)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#storageclass-sc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        StorageClass (SC)
+        Weave Encapsulation Architecture
       
     </span>
   </a>
@@ -4071,22 +3988,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-access-modes-reclaim-policies" class="md-nav__link">
+  <a href="#3-deploying-weave-in-kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🔍 2. Access Modes &amp; Reclaim Policies
+        🚀 3. Deploying Weave in Kubernetes
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🔍 2. Access Modes &amp; Reclaim Policies">
+    <nav class="md-nav" aria-label="🚀 3. Deploying Weave in Kubernetes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#access-modes" class="md-nav__link">
+  <a href="#deployment-method" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Access Modes
+        Deployment Method
       
     </span>
   </a>
@@ -4094,10 +4011,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#reclaim-policies-what-happens-to-pv-when-pvc-is-deleted" class="md-nav__link">
+  <a href="#verification-and-troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reclaim Policies (What happens to PV when PVC is deleted)
+        Verification and Troubleshooting
       
     </span>
   </a>
@@ -4106,67 +4023,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-dynamic-provisioning-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Dynamic Provisioning Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-troubleshooting-storage-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔧 4. Troubleshooting Storage Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔧 4. Troubleshooting Storage Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pvc-stuck-in-pending" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PVC stuck in "Pending"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pod-stuck-in-containercreating" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pod stuck in "ContainerCreating"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-exam-tips-cka" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🎯 5. Exam Tips (CKA)
-      
-    </span>
-  </a>
   
 </li>
       
@@ -4187,107 +4043,77 @@
 
 
 
-<h1 id="storage-deep-dive">Storage Deep Dive</h1>
-<p>Storage in Kubernetes allows stateful applications to persist data beyond the lifecycle of a Pod. For the CKA exam, you must understand the relationship between PersistentVolumes (PV), PersistentVolumeClaims (PVC), and StorageClasses (SC).</p>
+<h1 id="weaveworks-cni-plugin">Weaveworks CNI Plugin</h1>
+<p>In the previous sections, we looked at how to manually build a Pod network using bridges, <code>veth</code> pairs, and static routing tables. However, in a cluster with hundreds of nodes and thousands of Pods, managing a manual routing table across physical routers becomes practically impossible.</p>
+<p>To solve this, we rely on advanced CNI plugins like <strong>Weaveworks (Weave Net)</strong> to handle the complexity for us.</p>
 <hr />
-<h2 id="1-core-storage-components">🏗️ 1. Core Storage Components</h2>
-<h3 id="persistentvolume-pv">PersistentVolume (PV)</h3>
-<p>A piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using a StorageClass.
-*   <strong>Scope</strong>: Cluster-wide (not namespaced).
-*   <strong>Resources</strong>: Physical disks, NFS, cloud storage (EBS/GCP PD), or local storage.</p>
-<h3 id="persistentvolumeclaim-pvc">PersistentVolumeClaim (PVC)</h3>
-<p>A request for storage by a user. It is similar to a Pod; Pods consume Node resources, and PVCs consume PV resources.
-*   <strong>Scope</strong>: Namespaced.
-*   <strong>Match</strong>: K8s matches a PVC to a PV based on size, access modes, and StorageClass.</p>
-<h3 id="storageclass-sc">StorageClass (SC)</h3>
-<p>Defines "classes" of storage (e.g., "fast-ssd", "slow-hdd"). It enables <strong>Dynamic Provisioning</strong>, so you don't have to manually create PVs.</p>
-<hr />
-<h2 id="2-access-modes-reclaim-policies">🔍 2. Access Modes &amp; Reclaim Policies</h2>
-<h3 id="access-modes">Access Modes</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Mode</th>
-<th style="text-align: left;">Short</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteOnce</strong></td>
-<td style="text-align: left;"><code>RWO</code></td>
-<td style="text-align: left;">Mounted as read-write by a single Node.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadOnlyMany</strong></td>
-<td style="text-align: left;"><code>ROX</code></td>
-<td style="text-align: left;">Mounted as read-only by many Nodes.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteMany</strong></td>
-<td style="text-align: left;"><code>RWX</code></td>
-<td style="text-align: left;">Mounted as read-write by many Nodes (requires NFS/EFS/AzureFiles).</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ReadWriteOncePod</strong></td>
-<td style="text-align: left;"><code>RWOP</code></td>
-<td style="text-align: left;">Mounted as read-write by a single Pod (K8s v1.22+).</td>
-</tr>
-</tbody>
-</table>
-<h3 id="reclaim-policies-what-happens-to-pv-when-pvc-is-deleted">Reclaim Policies (What happens to PV when PVC is deleted)</h3>
+<h2 id="1-the-shipping-agent-analogy">📦 1. The "Shipping Agent" Analogy</h2>
+<p>To understand how Weave works, think of the Kubernetes cluster as a large international company, the nodes as different office sites, and the Pods as individual employees.</p>
 <ol>
-<li><strong>Retain</strong>: PV is kept. Administrator must manually clean up/reclaim data.</li>
-<li><strong>Delete</strong>: Physical storage (e.g., AWS EBS) is deleted immediately.</li>
-<li><strong>Recycle</strong>: (Deprecated) Performs a basic <code>rm -rf /</code> on the volume.</li>
+<li><strong>The Old Way (Manual Routing)</strong>: An employee (Pod A) gives a package to the office boy (the Node's routing table) and says, "Take this to Employee B at Site 3." The office boy has to get in a car, figure out the GPS coordinates, and drive across the country. This doesn't scale.</li>
+<li><strong>The Weave Way (Outsourcing to a Shipping Company)</strong>: You hire a shipping company (Weave). They place a dedicated <strong>Shipping Agent (Weave Peer)</strong> at every single office site. <ul>
+<li>The agents all talk to each other constantly. They know exactly who works at which site.</li>
+<li>Employee A gives the package to their local agent. </li>
+<li>The agent looks at the destination, packs the small envelope into a giant, secure shipping crate (with the address of the remote agent on the outside), and puts it on an airplane. </li>
+<li>The remote agent receives the crate, opens it up, pulls out the small envelope, and hands it locally to Employee B.</li>
+</ul>
+</li>
 </ol>
 <hr />
-<h2 id="3-dynamic-provisioning-workflow">🛠️ 3. Dynamic Provisioning Workflow</h2>
+<h2 id="2-how-weave-works-technically-encapsulation">🕸️ 2. How Weave Works Technically (Encapsulation)</h2>
+<p>In computer networking, the "shipping crate" concept is called <strong>Encapsulation</strong>.</p>
 <ol>
-<li><strong>Create StorageClass</strong>: Define the provisioner (e.g., <code>kubernetes.io/aws-ebs</code>).</li>
-<li><strong>Create PVC</strong>: Reference the <code>storageClassName</code>.</li>
-<li><strong>Automatic PV Creation</strong>: Kubernetes automatically creates a PV that matches the PVC.</li>
-<li><strong>Pod Usage</strong>: Reference the PVC in the Pod spec under <code>volumes</code>.</li>
+<li><strong>Weave Peers</strong>: When Weave is deployed, it places an agent (a peer) on every single node. These peers constantly communicate to share an entire topology map of the cluster. Every agent knows exactly where every Pod IP lives.</li>
+<li><strong>The Weave Bridge</strong>: Weave creates its own bridge on the node (typically named <code>weave</code>) and connects Pods to it. </li>
+<li><strong>Encapsulation</strong>: <ul>
+<li>When Pod A (on Node 1) pings Pod B (on Node 2), the packet hits the local Weave agent.</li>
+<li>The agent sees the destination is on another node. </li>
+<li>It takes the entire original packet (Source: Pod A IP, Dest: Pod B IP) and wraps it inside a <strong>brand new packet</strong>. </li>
+<li>This outer packet has the source IP of <em>Node 1</em> and the destination IP of <em>Node 2</em>.</li>
+</ul>
+</li>
+<li><strong>Decapsulation</strong>: <ul>
+<li>The packet travels across the physical network cleanly (because switches just see standard Node-to-Node traffic).</li>
+<li>The Weave agent on Node 2 intercepts the packet, rips off the outer wrapper, and delivers the original internal packet to Pod B.</li>
+</ul>
+</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="c1"># Pod using a PVC</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage-vol</span>
-<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data</span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage-vol</span>
-<span class="w">    </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-pvc</span>
+<h3 id="weave-encapsulation-architecture">Weave Encapsulation Architecture</h3>
+<div class="highlight"><pre><span></span><code>sequenceDiagram
+    participant P1 as Pod A (10.32.0.2)&lt;br&gt;on Node 1
+    participant W1 as Weave Agent 1 (192.168.1.11)
+    participant W2 as Weave Agent 2 (192.168.1.12)
+    participant P2 as Pod B (10.45.0.3)&lt;br&gt;on Node 2
+
+    P1-&gt;&gt;W1: Sends original packet&lt;br&gt;[Src: 10.32.0.2, Dst: 10.45.0.3]
+
+    activate W1
+    W1-&gt;&gt;W1: Encapsulate Packet&lt;br&gt;Wrap inside Node IPs
+    W1-&gt;&gt;W2: Sends wrapped packet over physical network&lt;br&gt;[Src: 192.168.1.11, Dst: 192.168.1.12]
+    deactivate W1
+
+    activate W2
+    W2-&gt;&gt;W2: Decapsulate Packet&lt;br&gt;Remove outer Node IP wrapper
+    W2-&gt;&gt;P2: Delivers original packet&lt;br&gt;[Src: 10.32.0.2, Dst: 10.45.0.3]
+    deactivate W2
 </code></pre></div>
 <hr />
-<h2 id="4-troubleshooting-storage-issues">🔧 4. Troubleshooting Storage Issues</h2>
-<h3 id="pvc-stuck-in-pending">PVC stuck in "Pending"</h3>
-<ul>
-<li><strong>No matching PV</strong>: If using static provisioning, check if a PV exists with enough capacity and matching AccessModes.</li>
-<li><strong>StorageClass Issues</strong>: Check if the provisioner is running or if the <code>storageClassName</code> is misspelled.</li>
-<li><strong>WaitForFirstConsumer</strong>: If the SC uses <code>volumeBindingMode: WaitForFirstConsumer</code>, the PVC will stay Pending until a <strong>Pod</strong> is created that uses it.</li>
-</ul>
-<h3 id="pod-stuck-in-containercreating">Pod stuck in "ContainerCreating"</h3>
-<ul>
-<li><strong>Multi-Attach Error</strong>: A <code>ReadWriteOnce</code> volume is already attached to another Node.</li>
-<li><strong>Mount Failures</strong>: Check <code>kubectl describe pod</code> for specific mount errors (permissions, network path etc).</li>
-</ul>
-<hr />
-<h2 id="5-exam-tips-cka">🎯 5. Exam Tips (CKA)</h2>
-<ol>
-<li><strong>Check Capacity</strong>: PV capacity must be $\ge$ PVC request.</li>
-<li><strong>Matching Labels</strong>: PVs and PVCs can use labels/selectors to bind to specific volumes.</li>
-<li><strong>Resizing</strong>: Some StorageClasses allow <code>allowVolumeExpansion: true</code>. You can edit the PVC size, but the volume usually won't shrink.</li>
-<li><strong>HostPath</strong>: For local lab environments, <code>hostPath</code> is often used. Remember it only works on the specific node where the pod is scheduled!</li>
-</ol>
-<hr />
-<blockquote>
-<p>[!IMPORTANT]
-<strong>Check your spelling</strong>: Kubernetes is strict. <code>ReadWriteOnce</code> is NOT the same as <code>Readwriteonce</code>. Always use the official Case-Sensitive strings.</p>
-</blockquote>
+<h2 id="3-deploying-weave-in-kubernetes">🚀 3. Deploying Weave in Kubernetes</h2>
+<p>Because Weave requires an agent to exist on every single node in the cluster, the perfect Kubernetes resource for deploying it is a <strong>DaemonSet</strong>. A DaemonSet ensures that exactly one replica of a Pod runs on every single node.</p>
+<h3 id="deployment-method">Deployment Method</h3>
+<p>Usually, deploying Weave (or any CNI) is as simple as running a single <code>kubectl apply</code> command against the vendor's manifest URL:</p>
+<p><div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;https://cloud.weave.works/k8s/net?k8s-version=</span><span class="k">$(</span>kubectl<span class="w"> </span>version<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div>
+<em>(Note: As discussed in the CNI Introduction, you do not need to memorize this URL for the exam. Ensure you follow whatever link the exam question provides).</em></p>
+<h3 id="verification-and-troubleshooting">Verification and Troubleshooting</h3>
+<p>Once deployed, particularly if you bootstrapped your cluster with <code>kubeadm</code>, you will see the Weave peers running as Pods in the <code>kube-system</code> namespace.</p>
+<p>If there is a networking issue between pods, viewing the logs of the Weave DaemonSet pods on the affected nodes is the best place to start:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Find the Weave pods</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span><span class="nv">name</span><span class="o">=</span>weave-net<span class="w"> </span>-o<span class="w"> </span>wide
+
+<span class="c1"># View the logs of a specific Weave peer to check for topology/encapsulation errors</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>&lt;weave-pod-name&gt;<span class="w"> </span>-c<span class="w"> </span>weave
+</code></pre></div>
 
 
 
