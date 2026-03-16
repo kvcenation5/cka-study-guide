@@ -52,13 +52,43 @@ Worker nodes have fewer components but are responsible for exposing your applica
 
 ---
 
-## 🚩 3. Troubleshooting Tip for CKA
+## 🚩 3. Node Verification & Troubleshooting Commands
 
-If your cluster nodes cannot join, `kubectl` commands time out, or pods cannot communicate, **always check the firewalls and ports first!**
+In the CKA exam or in the real world, you will frequently be asked to verify a node's configuration or troubleshoot why it isn't communicating. **Keep these commands handy:**
 
-In a cloud environment (GCP, AWS, Azure), verify the Security Groups or Firewall Rules. On a local Linux machine, check `iptables` or `ufw`/`firewalld`.
+### 📡 Verify Network Interfaces & IP Addresses
+Ensure the node is attached to the network and has a valid IP configured:
+```bash
+ip addr show
+# Or the common shorthand:
+ip a
+```
 
-When investigating an existing environment (like in a CKA exam question):
-*   Use `ip addr` or `ip link` to verify interfaces and IPs.
-*   Use `hostname` or `cat /etc/hostname` to verify unique names.
-*   Use `cat /sys/class/net/eth0/address` or `ip link` to verify MAC addresses.
+### 🏷️ Verify Unique MAC Addresses
+Especially important if your nodes are VMs that were cloned from a template:
+```bash
+ip link show
+# Or check the eth0 hardware address directly:
+cat /sys/class/net/eth0/address
+```
+
+### 📛 Verify Unique Hostnames
+Check the current identity of the node:
+```bash
+hostname
+# Or view the underlying configuration file:
+cat /etc/hostname
+```
+
+### 🚪 Verify Listening Ports
+If your nodes are failing to communicate, verify that the required ports from Section 2 are actually actively listening on the host. This command will also show you *which* process (like `kube-apiserver` or `kubelet`) is holding that port:
+```bash
+# Using netstat
+netstat -nltp
+
+# Or the modern equivalent, ss (socket statistics)
+ss -nltp
+```
+
+> [!TIP]
+> **Firewalls vs Crashes**: If a port is *not* listening when you run `netstat`, the underlying service has probably crashed (check `systemctl status kubelet`, for example). If the port *is* listening locally but another node can't reach it, a firewall is likely blocking the traffic (check `iptables -L`).
