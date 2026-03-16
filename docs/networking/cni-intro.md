@@ -67,3 +67,14 @@ Because of this, you cannot simply tell Docker to use Calico or Flannel natively
 2.  Kubernetes then completely bypasses Docker's networking engine.
 3.  Kubernetes manually invokes the configured **CNI Plugin**, passing it the namespace Docker just created.
 4.  The CNI Plugin handles the bridges, IP assignments, and routes.
+
+---
+
+> [!IMPORTANT]
+> **Important Note about CNI and the CKA Exam**
+>
+> In upcoming labs, you will work with Network Addons (like installing a weave-net, calico, or flannel plugin into a cluster). 
+> 
+> In the real CKA exam, **the documentation currently does not contain a direct reference to the exact command to be used to deploy a third-party network addon.** This has been intentionally done to keep the content in the Kubernetes documentation vendor-neutral (the official docs only link to third-party vendor sites or GitHub repositories, which you cannot access during the exam).
+>
+> **The Golden Rule for the Exam**: For any question that requires you to deploy a network addon, unless specifically directed to use a certain one, you may use any of the solutions. **All essential CNI deployment details (like the exact `kubectl apply -f <url>` command) will be explicitly provided to you within the exam question itself.**
