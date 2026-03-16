@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../network-namespaces/">
+        <link rel="prev" href="../cluster-node-networking/">
       
       
-        <link rel="next" href="../cni-intro/">
+        <link rel="next" href="../../coredns-guide/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Docker Networking - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Pod Networking Concepts - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#docker-networking-the-predecessor-to-cni" class="md-skip">
+        <a href="#pod-networking-concepts" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docker Networking
+              Pod Networking Concepts
             
           </span>
         </div>
@@ -3142,37 +3142,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Docker Networking
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../docker-networking/" class="md-nav__link">
         
   
   
@@ -3188,126 +3161,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-isolated-option-none-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛡️ 1. The Isolated Option: none Network
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-the-direct-option-host-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚡ 2. The Direct Option: host Network
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-the-default-bridge-network-docker0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 3. The Default: bridge Network (docker0)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ 3. The Default: bridge Network (docker0)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-docker0-works-under-the-hood" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How docker0 Works (Under the Hood):
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-port-mapping-port-publishing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🚪 4. Port Mapping (Port Publishing)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🚪 4. Port Mapping (Port Publishing)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-docker-forwards-traffic-iptables-nat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How Docker Forwards Traffic (iptables NAT):
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-how-docker-differs-from-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 5. How Docker differs from Kubernetes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-cka-context-crictl-and-cni0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🚩 6. CKA Context: crictl and cni0
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3373,10 +3226,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../pod-networking/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pod Networking Concepts
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3392,6 +3272,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-kubernetes-pod-networking-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 1. The Kubernetes Pod Networking Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-building-a-custom-pod-network-a-thought-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ 2. Building a Custom Pod Network (A Thought Experiment)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ 2. Building a Custom Pod Network (A Thought Experiment)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-subnets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Define the Subnets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-bridge-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: The Bridge Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-the-cni-script-pod-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: The CNI Script (Pod Creation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-routing-between-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Routing Between Nodes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-kubernetes-automates-this-the-cni-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤖 3. How Kubernetes Automates This (The CNI Standard)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3915,10 +3898,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-isolated-option-none-network" class="md-nav__link">
+  <a href="#1-the-kubernetes-pod-networking-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛡️ 1. The Isolated Option: none Network
+        📋 1. The Kubernetes Pod Networking Requirements
       
     </span>
   </a>
@@ -3926,33 +3909,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-the-direct-option-host-network" class="md-nav__link">
+  <a href="#2-building-a-custom-pod-network-a-thought-experiment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚡ 2. The Direct Option: host Network
+        🛠️ 2. Building a Custom Pod Network (A Thought Experiment)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-the-default-bridge-network-docker0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 3. The Default: bridge Network (docker0)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ 3. The Default: bridge Network (docker0)">
+    <nav class="md-nav" aria-label="🛠️ 2. Building a Custom Pod Network (A Thought Experiment)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-docker0-works-under-the-hood" class="md-nav__link">
+  <a href="#step-1-define-the-subnets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How docker0 Works (Under the Hood):
+        Step 1: Define the Subnets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-bridge-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: The Bridge Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-the-cni-script-pod-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: The CNI Script (Pod Creation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-routing-between-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Routing Between Nodes
       
     </span>
   </a>
@@ -3965,49 +3970,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-port-mapping-port-publishing" class="md-nav__link">
+  <a href="#3-how-kubernetes-automates-this-the-cni-standard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚪 4. Port Mapping (Port Publishing)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🚪 4. Port Mapping (Port Publishing)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-docker-forwards-traffic-iptables-nat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How Docker Forwards Traffic (iptables NAT):
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-how-docker-differs-from-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔗 5. How Docker differs from Kubernetes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-cka-context-crictl-and-cni0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🚩 6. CKA Context: crictl and cni0
+        🤖 3. How Kubernetes Automates This (The CNI Standard)
       
     </span>
   </a>
@@ -4031,92 +3997,55 @@
 
 
 
-<h1 id="docker-networking-the-predecessor-to-cni">Docker Networking: The Predecessor to CNI</h1>
-<p>Kubernetes networking evolved from patterns popularized by Docker. Understanding Docker's networking modes helps clarify why Kubernetes chose its specific Networking Model, and how things work under the hood.</p>
-<p>Let's start by looking at a single Docker host (a server with Docker installed), which has a physical ethernet interface (<code>eth0</code>) connecting to the local network (e.g., <code>192.168.1.1</code>). When you run a container, you have different networking options to choose from.</p>
+<h1 id="pod-networking-concepts">Pod Networking Concepts</h1>
+<p>Before deploying applications, you must ensure that your Kubernetes cluster has a working <strong>Pod Networking</strong> solution. Kubernetes does not come with a built-in solution for this; instead, it expects you to implement a third-party networking plugin (a CNI plugin) that meets its strict requirements.</p>
 <hr />
-<h2 id="1-the-isolated-option-none-network">🛡️ 1. The Isolated Option: <code>none</code> Network</h2>
-<p>The container is fully isolated and is <strong>not attached to any network</strong>.</p>
-<ul>
-<li><strong>Behavior</strong>: It only has a loopback interface (<code>localhost</code>). The container cannot reach the outside world, and no one from the outside world can reach the container.</li>
-<li><strong>Use-case</strong>: Batch processing jobs that don't need network access.</li>
-<li><strong>Multiple Containers</strong>: If you run multiple containers on the <code>none</code> network, they are completely isolated from each other.</li>
-</ul>
-<hr />
-<h2 id="2-the-direct-option-host-network">⚡ 2. The Direct Option: <code>host</code> Network</h2>
-<p>In Host Mode, there is <strong>no network isolation</strong> between the host and the container. The container shares the host's networking namespace.</p>
-<ul>
-<li><strong>Command</strong>: <code>docker run --network host nginx</code></li>
-<li><strong>Pros</strong>: High performance (no NAT overhead).</li>
-<li><strong>Cons</strong>: Port collisions. If you deploy a web application listening on port <code>80</code> in the container, it immediately binds to port <code>80</code> on the host. If you try to run a second container on port <code>80</code>, it will fail because two processes cannot listen on the same port at the same time.</li>
-</ul>
-<hr />
-<h2 id="3-the-default-bridge-network-docker0">🏗️ 3. The Default: <code>bridge</code> Network (<code>docker0</code>)</h2>
-<p>When Docker is installed, it automatically creates an internal private network called <code>bridge</code>. This is the network that containers attach to by default.</p>
-<h3 id="how-docker0-works-under-the-hood">How <code>docker0</code> Works (Under the Hood):</h3>
+<h2 id="1-the-kubernetes-pod-networking-requirements">📋 1. The Kubernetes Pod Networking Requirements</h2>
+<p>Kubernetes has a very clear set of rules for how Pod networking must behave. Any CNI solution you choose must satisfy these conditions:</p>
 <ol>
-<li><strong>The Virtual Switch</strong>: Docker creates a Linux Bridge interface on the host named <code>docker0</code>. (You can see this by running <code>ip link</code>). Internally, Docker uses a technique similar to <code>ip link add type bridge</code>.</li>
-<li><strong>The IP Subnet</strong>: The <code>docker0</code> bridge is assigned an IP address, typically <code>172.17.0.1</code> (the gateway for the network <code>172.17.0.0/16</code>).</li>
-<li><strong>The Network Namespace</strong>: Whenever a container is created, Docker creates a brand new <strong>network namespace</strong> for it. (You can view the namespace via <code>docker inspect &lt;container&gt;</code>).</li>
-<li><strong>The Virtual Cable (Veth Pair)</strong>: Docker creates a virtual cable with two interfaces (a <code>veth</code> pair). <ul>
-<li>One end goes inside the container's namespace and gets an IP (e.g., <code>172.17.0.3</code>).</li>
-<li>The other end attaches to the <code>docker0</code> bridge on the host.</li>
-</ul>
-</li>
-<li><strong>Interface Pair Numbers</strong>: If you run <code>ip link</code>, you can identify these pairs by their numbers. They are created in odd/even pairs (e.g., link <code>9</code> on the host goes to link <code>10</code> in the container; <code>11</code> goes to <code>12</code>, etc.).</li>
+<li><strong>Every Pod gets its own unique IP address</strong>.</li>
+<li><strong>Every Pod must be able to communicate with every other Pod on the same node</strong> using that IP address.</li>
+<li><strong>Every Pod must be able to communicate with every other Pod on <em>other</em> nodes</strong> using that IP address, <strong>without NAT</strong> (Network Address Translation).</li>
 </ol>
-<p>Now, all containers on the <code>docker0</code> bridge can communicate with each other inside the host!</p>
+<p>Kubernetes doesn't care exactly <em>how</em> you implement this (which IP range you use, what kind of bridging you employ), as long as those rules are obeyed.</p>
 <hr />
-<h2 id="4-port-mapping-port-publishing">🚪 4. Port Mapping (Port Publishing)</h2>
-<p>Since containers on the <code>bridge</code> network live in a private subnet (<code>172.17.0.x</code>), they are invisible to the outside world. External users (outside the Docker host) cannot ping or <code>curl</code> the container's private IP.</p>
-<p>To allow external access, Docker uses <strong>Port Mapping</strong>.
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>nginx
-</code></pre></div>
-This tells Docker to map port <code>8080</code> on the Docker host to port <code>80</code> inside the container. External users can now hit <code>&lt;Host-IP&gt;:8080</code> to see the webpage.</p>
-<h3 id="how-docker-forwards-traffic-iptables-nat">How Docker Forwards Traffic (iptables NAT):</h3>
-<p>We don't need to guess how Docker does this. Just like how we would manually forward traffic using the Linux firewall, Docker uses <strong>iptables</strong>.</p>
+<h2 id="2-building-a-custom-pod-network-a-thought-experiment">🛠️ 2. Building a Custom Pod Network (A Thought Experiment)</h2>
+<p>To understand how popular CNI plugins (like Flannel, Calico, or Weave) work, let's look at how we would build a solution manually across a 3-node cluster.</p>
+<h3 id="step-1-define-the-subnets">Step 1: Define the Subnets</h3>
+<p>Imagine we have three nodes on an external network (<code>192.168.1.11</code>, <code>.12</code>, and <code>.13</code>). </p>
+<p>First, we assign a unique, non-overlapping subnet to each node for its internal Pods. For example:
+*   <strong>Node 1</strong>: <code>10.244.1.0/24</code>
+*   <strong>Node 2</strong>: <code>10.244.2.0/24</code>
+*   <strong>Node 3</strong>: <code>10.244.3.0/24</code></p>
+<p><em>(Together, they form a single large cluster network of <code>10.244.0.0/16</code>)</em>.</p>
+<h3 id="step-2-the-bridge-configuration">Step 2: The Bridge Configuration</h3>
+<p>On each node, we create a Linux Bridge (e.g., <code>cni0</code>). We assign the bridge an IP address from that node's assigned subnet (e.g., <code>10.244.1.1</code> for Node 1). </p>
+<h3 id="step-3-the-cni-script-pod-creation">Step 3: The CNI Script (Pod Creation)</h3>
+<p>When a container is created, Kubernetes needs to attach it to this bridge. We would write a script that performs the following steps:
+1.  Use <code>ip link add</code> to create a <code>veth</code> pair.
+2.  Attach one end to the container's network namespace and the other end to the bridge.
+3.  Assign a free IP address from the node's subnet to the container.
+4.  Add a default route in the container pointing to the bridge IP (<code>10.244.x.1</code>).
+5.  Bring the interfaces <code>up</code>.</p>
+<p>This satisfies Requirements 1 &amp; 2 (Pods on the same node can talk).</p>
+<h3 id="step-4-routing-between-nodes">Step 4: Routing Between Nodes</h3>
+<p>Right now, a Pod on Node 1 (<code>10.244.1.2</code>) cannot ping a Pod on Node 2 (<code>10.244.2.2</code>). Node 1 doesn't know where the <code>10.244.2.0/24</code> network is.</p>
+<p>To solve this, we must configure <strong>routing</strong>. 
+*   On Node 1, we add a route: "To reach <code>10.244.2.0/24</code>, send traffic via <code>192.168.1.12</code> (Node 2's IP)".
+*   In larger environments, instead of configuring routes on every single node, a better solution is to configure these routes on your physical network Router, pointing traffic for specific <code>10.244.x.x</code> ranges to the correct Kubernetes node.</p>
+<p>This satisfies Requirement 3 (Pods on different nodes can talk).</p>
+<hr />
+<h2 id="3-how-kubernetes-automates-this-the-cni-standard">🤖 3. How Kubernetes Automates This (The CNI Standard)</h2>
+<p>We don't want to run our custom script manually every time a Pod spins up. We need Kubernetes to do it automatically. </p>
+<p>This is where the <strong>CNI (Container Network Interface)</strong> comes in as the middleman.</p>
 <ol>
-<li>Docker creates an entry in the <strong>NAT table</strong> of <code>iptables</code>.</li>
-<li>It appends a rule to the <code>PREROUTING</code> chain (specifically within a chain called <code>DOCKER</code>).</li>
-<li>The rule says: <em>"Any traffic hitting the Host's IP on port <code>8080</code>, change the destination IP to <code>172.17.0.3</code> (container IP) and the destination port to <code>80</code>."</em></li>
-<li>You can actually see these rules by running <code>iptables -t nat -L DOCKER</code>.</li>
+<li>We modify our script to accept standard CNI commands (<code>ADD</code>, <code>DEL</code>).</li>
+<li>We place our script in the CNI binary directory (usually <code>/opt/cni/bin/</code>).</li>
+<li>We provide a configuration file telling Kubernetes to use our script.</li>
+<li>When the container runtime (e.g., containerd) spins up the "Pause" container for a new Pod, it automatically invokes our CNI script with the <code>ADD</code> command, passing the namespace ID.</li>
+<li>Our script executes the <code>veth</code> and IP assignment logic instantly.</li>
 </ol>
-<hr />
-<h2 id="5-how-docker-differs-from-kubernetes">🔗 5. How Docker differs from Kubernetes</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Docker (Default)</th>
-<th style="text-align: left;">Kubernetes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Connectivity</strong></td>
-<td style="text-align: left;">Containers on different hosts cannot talk to each other without NAT/VPN.</td>
-<td style="text-align: left;"><strong>All Pods</strong> can talk to all other Pods without NAT (Fundamental Rule).</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>IP Per Pod</strong></td>
-<td style="text-align: left;">Containers share IPs if in the same Compose file; otherwise, individual.</td>
-<td style="text-align: left;">Every Pod gets its own <strong>Cluster-Unique IP</strong>.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Discovery</strong></td>
-<td style="text-align: left;">Uses internal DNS or file-based <code>links</code>.</td>
-<td style="text-align: left;">Uses <strong>CoreDNS</strong> and <strong>Services</strong>.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="6-cka-context-crictl-and-cni0">🚩 6. CKA Context: <code>crictl</code> and <code>cni0</code></h2>
-<p>In a modern Kubernetes cluster, you might not even use Docker (using <code>containerd</code> instead via the CRI - Container Runtime Interface).</p>
-<ul>
-<li><strong>cni0</strong>: In K8s, the bridge is usually named <code>cni0</code> (instead of <code>docker0</code>), managed by your Container Network Interface (CNI) plugin (like Flannel or Calico).</li>
-<li><strong>Inspection</strong>: You can use <code>crictl inspect</code> to see the network settings of a container in a pod, similar to <code>docker inspect</code>.</li>
-<li><strong>The Next Layer</strong>: Kubernetes replaces Docker's complex NAT-based port forwarding with something much cleaner—<strong>Services</strong> and <code>kube-proxy</code>!</li>
-</ul>
+<p><em>Note: In the real world, instead of writing this script yourself, you simply install a daemonset (like Flannel) that handles all the bridging, IP allocation, and routing updates automatically across all nodes!</em></p>
 
 
 
