@@ -90,6 +90,40 @@ ip netns exec red ping 192.168.15.2
 
 The direct Veth Pair approach (Section 3) works great for *two* namespaces. But what if you have 50 Pods? You can't draw a direct wire between every single one. You need a **Switch**.
 
+### Network Namespace Bridge Architecture
+
+```mermaid
+graph TD
+    subgraph "Host (Root) Network Namespace"
+        eth0[eth0 Interface<br>192.168.1.50]
+        vnet0[v-net-0 Bridge<br>192.168.15.254/24]
+        veth_red_br[veth-red-br]
+        veth_blue_br[veth-blue-br]
+        
+        vnet0 <--> veth_red_br
+        vnet0 <--> veth_blue_br
+        eth0 -.-|NAT / Routing| vnet0
+    end
+
+    subgraph "Red Namespace"
+        veth_red[veth-red<br>192.168.15.1/24]
+    end
+
+    subgraph "Blue Namespace"
+        veth_blue[veth-blue<br>192.168.15.2/24]
+    end
+    
+    veth_red_br <-->|Veth Pair Cable| veth_red
+    veth_blue_br <-->|Veth Pair Cable| veth_blue
+
+    classDef host fill:#fffde7,stroke:#fbc02d;
+    classDef bridge fill:#e1f5fe,stroke:#0288d1;
+    classDef ns fill:#f3e5f5,stroke:#8e24aa;
+    
+    class vnet0 bridge;
+    class veth_red,veth_blue ns;
+```
+
 ### What is a Linux Bridge?
 In Linux, a virtual switch is called a **Bridge**. A bridge is a software construct that lives in the host's root namespace. It acts exactly like a physical network switch: it has "ports" that you can plug virtual cables (Veth pairs) into, and it learns MAC addresses so it knows out which port to forward packets.
 

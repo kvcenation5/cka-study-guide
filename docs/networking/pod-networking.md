@@ -20,6 +20,42 @@ Kubernetes doesn't care exactly *how* you implement this (which IP range you use
 
 To understand how popular CNI plugins (like Flannel, Calico, or Weave) work, let's look at how we would build a solution manually across a 3-node cluster.
 
+### Pod Networking Architecture
+
+```mermaid
+graph TD
+    subgraph "External Network (192.168.1.0/24)"
+        Router[Physical Router / Gateway]
+    end
+
+    subgraph "Node 1 (IP: 192.168.1.11)"
+        eth0_1[eth0<br>192.168.1.11]
+        cni0_1[cni0 Bridge<br>10.244.1.1]
+        Pod_A[Pod<br>10.244.1.2]
+        
+        eth0_1 <--> cni0_1
+        cni0_1 <-->|veth| Pod_A
+    end
+
+    subgraph "Node 2 (IP: 192.168.1.12)"
+        eth0_2[eth0<br>192.168.1.12]
+        cni0_2[cni0 Bridge<br>10.244.2.1]
+        Pod_B[Pod<br>10.244.2.2]
+        
+        eth0_2 <--> cni0_2
+        cni0_2 <-->|veth| Pod_B
+    end
+
+    Router <-->|Routing Table Updates| eth0_1
+    Router <-->|Routing Table Updates| eth0_2
+
+    classDef bridge fill:#e1f5fe,stroke:#0288d1;
+    classDef pod fill:#e8f5e9,stroke:#388e3c;
+    
+    class cni0_1,cni0_2 bridge;
+    class Pod_A,Pod_B pod;
+```
+
 ### Step 1: Define the Subnets
 Imagine we have three nodes on an external network (`192.168.1.11`, `.12`, and `.13`). 
 

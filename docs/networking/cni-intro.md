@@ -18,7 +18,33 @@ As long as a container runtime and a network plugin both adhere to the CNI stand
 
 ## 🤝 2. The Division of Responsibilities
 
-The CNI specification clearly draws the line between what the runtime does and what the plugin does.
+The CNI specification clearly draws the line between what the runtime does and what the plugin does. Here is the workflow when a new container spins up:
+
+### CNI Workflow Architecture
+
+```mermaid
+sequenceDiagram
+    participant K as Container Runtime (e.g., CRI-O / Kubelet)
+    participant C as CNI Plugin (e.g., Bridge / Flannel)
+    participant I as IPAM Plugin (e.g., host-local)
+    
+    K->>K: 1. Create Network Namespace
+    K->>K: 2. Read CNI Network Config (.json)
+    K->>C: 3. Invoke Plugin (Cmd: ADD, ContainerID, NetNS path)
+    
+    activate C
+    C->>I: 4. Request IP Address
+    activate I
+    I-->>C: 5. Returns IP (e.g. 10.244.1.2)
+    deactivate I
+    
+    C->>C: 6. Create Veth Pair
+    C->>C: 7. Attach to Bridge & Namespace
+    C->>C: 8. Assign IP & Add Default Route
+    
+    C-->>K: 9. Return Standardized Result (Success + IP Details)
+    deactivate C
+```
 
 ### The Container Runtime (e.g., Kubernetes) Must:
 1.  **Create the Namespace**: Create a network namespace for the new container.

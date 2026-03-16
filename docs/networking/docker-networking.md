@@ -30,6 +30,42 @@ In Host Mode, there is **no network isolation** between the host and the contain
 
 When Docker is installed, it automatically creates an internal private network called `bridge`. This is the network that containers attach to by default.
 
+### Docker Bridge Architecture
+
+```mermaid
+graph TD
+    subgraph "Docker Host (e.g. 192.168.1.50)"
+        eth0[eth0 Physical Interface<br>192.168.1.50]
+        iptables[iptables (NAT/Port Forwarding)<br>Ex: Port 8080 -> 80]
+        docker0[docker0 Bridge<br>172.17.0.1/16]
+        
+        eth0 <--> iptables
+        iptables <--> docker0
+        
+        subgraph "Container 1 Namespace"
+            veth1[veth inside container<br>172.17.0.2:80]
+        end
+        
+        subgraph "Container 2 Namespace"
+            veth2[veth inside container<br>172.17.0.3]
+        end
+        
+        docker0 <-->|veth link| veth1
+        docker0 <-->|veth link| veth2
+    end
+    
+    Internet((External User)) -->|Hits 192.168.1.50:8080| eth0
+
+    classDef host fill:#fffde7,stroke:#fbc02d;
+    classDef bridge fill:#e1f5fe,stroke:#0288d1;
+    classDef container fill:#e8f5e9,stroke:#388e3c;
+    classDef firewall fill:#ffebee,stroke:#d32f2f;
+    
+    class docker0 bridge;
+    class veth1,veth2 container;
+    class iptables firewall;
+```
+
 ### How `docker0` Works (Under the Hood):
 1.  **The Virtual Switch**: Docker creates a Linux Bridge interface on the host named `docker0`. (You can see this by running `ip link`). Internally, Docker uses a technique similar to `ip link add type bridge`.
 2.  **The IP Subnet**: The `docker0` bridge is assigned an IP address, typically `172.17.0.1` (the gateway for the network `172.17.0.0/16`).

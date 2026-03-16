@@ -22,6 +22,41 @@ Every node in your cluster (Master and Worker) must meet these conditions:
 
 Kubernetes components communicate heavily over the network. If these ports are blocked by a firewall (like `iptables`, `firewalld`, or cloud Network Security Groups in AWS/Azure/GCP), your cluster will fail.
 
+### Cluster Ports Architecture
+
+```mermaid
+graph TD
+    subgraph "Control Plane Node"
+        API[kube-apiserver<br>:6443]
+        ETCD[etcd<br>:2379, :2380]
+        KCM[kube-controller-manager<br>:10257]
+        SCHED[kube-scheduler<br>:10259]
+        KUBE1[kubelet<br>:10250]
+        
+        API <--> ETCD
+        KCM -.-> API
+        SCHED -.-> API
+        KUBE1 -.-> API
+    end
+
+    subgraph "Worker Node"
+        KUBE2[kubelet<br>:10250]
+        PROXY[kube-proxy]
+        NODEPORT[NodePort Services<br>:30000-32767]
+        
+        KUBE2 -.-> API
+        PROXY -.-> API
+    end
+    
+    API -.->|Logs & Exec| KUBE2
+
+    User((Admin / kubectl)) -->|HTTPS| API
+    Ext((External Users)) -->|HTTP/HTTPS| NODEPORT
+
+    classDef component fill:#fff,stroke:#333;
+    class API,ETCD,KCM,SCHED,KUBE1,KUBE2,PROXY,NODEPORT component;
+```
+
 ### Control Plane (Master) Nodes
 The Control Plane composes several specific components, each listening on a precise port:
 
