@@ -4114,6 +4114,14 @@
 <li>Kubernetes manually invokes the configured <strong>CNI Plugin</strong>, passing it the namespace Docker just created.</li>
 <li>The CNI Plugin handles the bridges, IP assignments, and routes.</li>
 </ol>
+<hr />
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Important Note about CNI and the CKA Exam</strong></p>
+<p>In upcoming labs, you will work with Network Addons (like installing a weave-net, calico, or flannel plugin into a cluster). </p>
+<p>In the real CKA exam, <strong>the documentation currently does not contain a direct reference to the exact command to be used to deploy a third-party network addon.</strong> This has been intentionally done to keep the content in the Kubernetes documentation vendor-neutral (the official docs only link to third-party vendor sites or GitHub repositories, which you cannot access during the exam).</p>
+<p><strong>The Golden Rule for the Exam</strong>: For any question that requires you to deploy a network addon, unless specifically directed to use a certain one, you may use any of the solutions. <strong>All essential CNI deployment details (like the exact <code>kubectl apply -f &lt;url&gt;</code> command) will be explicitly provided to you within the exam question itself.</strong></p>
+</blockquote>
 
 
 
