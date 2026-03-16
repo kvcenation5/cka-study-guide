@@ -126,6 +126,7 @@ nav:
       - Cluster Node Networking Prerequisites: networking/cluster-node-networking.md
       - Pod Networking Concepts: networking/pod-networking.md
       - CNI in Kubernetes: networking/cni-in-kubernetes.md
+      - Weaveworks CNI Plugin: networking/weave-cni.md
       - CoreDNS Deep Dive: coredns-guide.md
       - Network Policies: security/network-policies.md
       - Network Policy Examples: security/network-policy-examples.md
