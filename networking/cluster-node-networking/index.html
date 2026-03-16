@@ -3944,6 +3944,14 @@
 <h2 id="2-required-open-ports">🔓 2. Required Open Ports</h2>
 <p>Kubernetes components communicate heavily over the network. If these ports are blocked by a firewall (like <code>iptables</code>, <code>firewalld</code>, or cloud Network Security Groups in AWS/Azure/GCP), your cluster will fail.</p>
 <h3 id="control-plane-master-nodes">Control Plane (Master) Nodes</h3>
+<p>The Control Plane composes several specific components, each listening on a precise port:</p>
+<ul>
+<li><strong><code>kube-apiserver</code></strong>: Listens on <strong><code>6443</code></strong>. Used by worker nodes, external users (<code>kubectl</code>), and all other control plane components to access the cluster.</li>
+<li><strong><code>etcd</code> server</strong>: Listens on <strong><code>2379</code></strong> for client API requests. If you have multiple master nodes, it also uses <strong><code>2380</code></strong> to sync data between the etcd peers.</li>
+<li><strong><code>kubelet</code></strong>: Listens on <strong><code>10250</code></strong>. (Remember, the kubelet runs on master nodes too!).</li>
+<li><strong><code>kube-scheduler</code></strong>: Requires <strong><code>10259</code></strong> to be open.</li>
+<li><strong><code>kube-controller-manager</code></strong>: Requires <strong><code>10257</code></strong> to be open.</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -3992,8 +4000,12 @@
 </tr>
 </tbody>
 </table>
-<p><em>Note: The Kubelet runs on Master nodes as well, so port <code>10250</code> is required. The etcd peer port (<code>2380</code>) is crucial if you have a highly available, multi-master setup so the etcd instances can sync with each other.</em></p>
 <h3 id="worker-nodes">Worker Nodes</h3>
+<p>Worker nodes have fewer components but are responsible for exposing your applications:</p>
+<ul>
+<li><strong><code>kubelet</code></strong>: Listens on <strong><code>10250</code></strong>. The API server communicates with the worker node's kubelet via this port.</li>
+<li><strong>NodePort Services</strong>: Requires the massive <strong><code>30000 - 32767</code></strong> port range. This is how the worker nodes expose applications to the outside world.</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -4021,7 +4033,6 @@
 </tr>
 </tbody>
 </table>
-<p><em>Note: The NodePort range (<code>30000-32767</code>) is how worker nodes expose applications to the outside world. This entire range must be open to your external load balancer or client network.</em></p>
 <hr />
 <h2 id="3-troubleshooting-tip-for-cka">🚩 3. Troubleshooting Tip for CKA</h2>
 <p>If your cluster nodes cannot join, <code>kubectl</code> commands time out, or pods cannot communicate, <strong>always check the firewalls and ports first!</strong></p>
