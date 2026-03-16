@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../taints-tolerations/">
+        <link rel="prev" href="../pod-networking/">
       
       
-        <link rel="next" href="../node-affinity/">
+        <link rel="next" href="../../coredns-guide/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Node Selector - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>CNI in Kubernetes - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#node-selector" class="md-skip">
+        <a href="#cni-in-kubernetes-configuration-execution" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Node Selector
+              CNI in Kubernetes
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -245,13 +245,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../yaml-guide/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -271,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -291,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -309,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -330,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../etcd-deep-dive/" class="md-tabs__link">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -350,7 +348,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../storage/storage-deep-dive/" class="md-tabs__link">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -370,7 +368,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../security/overview/" class="md-tabs__link">
+        <a href="../../security/overview/" class="md-tabs__link">
           
   
   
@@ -386,11 +384,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../networking/dns-beginners-guide/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../dns-beginners-guide/" class="md-tabs__link">
           
   
   
@@ -408,7 +408,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../security-focus/" class="md-tabs__link">
+      <a href="../../security-focus/" class="md-tabs__link">
         
   
   
@@ -429,7 +429,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -449,7 +449,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../exam-tips/kubectl-commands/" class="md-tabs__link">
+        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -469,7 +469,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -503,7 +503,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -521,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -572,31 +572,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -614,7 +609,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -632,7 +627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -660,7 +655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -688,7 +683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -716,7 +711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -744,7 +739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -772,7 +767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -800,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -828,7 +823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -856,7 +851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -884,7 +879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -912,7 +907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -940,7 +935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -968,7 +963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -993,31 +988,26 @@
                 
   
   
-    
   
   
-  
     
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
             
   
   
@@ -1035,7 +1025,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_14">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1053,7 +1043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1081,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1106,37 +1096,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Node Selector
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1152,98 +1115,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. How it works
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-practical-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Practical Example
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Practical Example">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-label-your-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Label your node
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-a-pod-with-the-selector" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create a Pod with the selector
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Limitations
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary Cheat Sheet
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1256,7 +1127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1284,7 +1155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1312,7 +1183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1340,7 +1211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1368,7 +1239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1404,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1491,7 +1362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1519,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1547,7 +1418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1634,7 +1505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1662,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1690,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1718,7 +1589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1746,7 +1617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1774,7 +1645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1802,7 +1673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1830,7 +1701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1858,7 +1729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1886,7 +1757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1914,7 +1785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
         
   
   
@@ -1942,7 +1813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/crd-examples/" class="md-nav__link">
+      <a href="../../cluster-architecture/crd-examples/" class="md-nav__link">
         
   
   
@@ -1970,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/custom-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-controllers/" class="md-nav__link">
         
   
   
@@ -1998,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cluster-architecture/operator-framework/" class="md-nav__link">
+      <a href="../../cluster-architecture/operator-framework/" class="md-nav__link">
         
   
   
@@ -2033,7 +1904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -2112,7 +1983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../etcd-deep-dive/" class="md-nav__link">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -2199,7 +2070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2227,7 +2098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2255,7 +2126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2283,7 +2154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2311,7 +2182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2339,7 +2210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../storage/statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2426,7 +2297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/overview/" class="md-nav__link">
+      <a href="../../security/overview/" class="md-nav__link">
         
   
   
@@ -2454,7 +2325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/container-security-overview/" class="md-nav__link">
+      <a href="../../security/container-security-overview/" class="md-nav__link">
         
   
   
@@ -2482,7 +2353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/security-primitives/" class="md-nav__link">
+      <a href="../../security/security-primitives/" class="md-nav__link">
         
   
   
@@ -2510,7 +2381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2538,7 +2409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/tls-certificates/" class="md-nav__link">
+      <a href="../../security/tls-certificates/" class="md-nav__link">
         
   
   
@@ -2566,7 +2437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2594,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/certificate-api-management/" class="md-nav__link">
+      <a href="../../security/certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2622,7 +2493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2650,7 +2521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/service-accounts-guide/" class="md-nav__link">
+      <a href="../../security/service-accounts-guide/" class="md-nav__link">
         
   
   
@@ -2678,7 +2549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/rbac-authorization/" class="md-nav__link">
+      <a href="../../security/rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2706,7 +2577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/cluster-roles/" class="md-nav__link">
+      <a href="../../security/cluster-roles/" class="md-nav__link">
         
   
   
@@ -2734,7 +2605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/rbac-practical-examples/" class="md-nav__link">
+      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
         
   
   
@@ -2762,7 +2633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
+      <a href="../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
         
   
   
@@ -2790,7 +2661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/rolebinding-deep-dive/" class="md-nav__link">
+      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
         
   
   
@@ -2818,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/emr-eks-rbac-oidc/" class="md-nav__link">
+      <a href="../../security/emr-eks-rbac-oidc/" class="md-nav__link">
         
   
   
@@ -2846,7 +2717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/image-security/" class="md-nav__link">
+      <a href="../../security/image-security/" class="md-nav__link">
         
   
   
@@ -2874,7 +2745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/security-contexts-capabilities/" class="md-nav__link">
+      <a href="../../security/security-contexts-capabilities/" class="md-nav__link">
         
   
   
@@ -2902,7 +2773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -2930,7 +2801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/abac-authorization/" class="md-nav__link">
+      <a href="../../security/abac-authorization/" class="md-nav__link">
         
   
   
@@ -2958,7 +2829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -2986,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -3018,26 +2889,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   
@@ -3055,7 +2931,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3073,7 +2949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/dns-beginners-guide/" class="md-nav__link">
+      <a href="../dns-beginners-guide/" class="md-nav__link">
         
   
   
@@ -3101,7 +2977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/configuring-host-as-dns/" class="md-nav__link">
+      <a href="../configuring-host-as-dns/" class="md-nav__link">
         
   
   
@@ -3129,7 +3005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/foundations-switching-routing/" class="md-nav__link">
+      <a href="../foundations-switching-routing/" class="md-nav__link">
         
   
   
@@ -3157,7 +3033,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/linux-networking-commands/" class="md-nav__link">
+      <a href="../linux-networking-commands/" class="md-nav__link">
         
   
   
@@ -3185,7 +3061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/ip-forward-routing/" class="md-nav__link">
+      <a href="../ip-forward-routing/" class="md-nav__link">
         
   
   
@@ -3213,7 +3089,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/dns-linux-coredns/" class="md-nav__link">
+      <a href="../dns-linux-coredns/" class="md-nav__link">
         
   
   
@@ -3241,7 +3117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/network-namespaces/" class="md-nav__link">
+      <a href="../network-namespaces/" class="md-nav__link">
         
   
   
@@ -3269,7 +3145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/docker-networking/" class="md-nav__link">
+      <a href="../docker-networking/" class="md-nav__link">
         
   
   
@@ -3297,7 +3173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/cni-intro/" class="md-nav__link">
+      <a href="../cni-intro/" class="md-nav__link">
         
   
   
@@ -3325,7 +3201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/cluster-node-networking/" class="md-nav__link">
+      <a href="../cluster-node-networking/" class="md-nav__link">
         
   
   
@@ -3353,7 +3229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../networking/pod-networking/" class="md-nav__link">
+      <a href="../pod-networking/" class="md-nav__link">
         
   
   
@@ -3378,10 +3254,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../networking/cni-in-kubernetes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CNI in Kubernetes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3397,6 +3300,126 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-who-calls-the-cni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 1. Who Calls the CNI?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-two-critical-cni-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📁 2. The Two Critical CNI Directories
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📁 2. The Two Critical CNI Directories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-plugin-binaries-optcnibin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Plugin Binaries: /opt/cni/bin/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-configuration-files-etccninetd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Configuration Files: /etc/cni/net.d/
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-anatomy-of-a-cni-configuration-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 3. Anatomy of a CNI Configuration File
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 3. Anatomy of a CNI Configuration File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-down-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking Down the Configuration:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-architecture-diagram-cni-execution-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ 4. Architecture Diagram: CNI Execution Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cka-exam-tip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚩 5. CKA Exam Tip
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3409,7 +3432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -3437,7 +3460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/network-policies/" class="md-nav__link">
+      <a href="../../security/network-policies/" class="md-nav__link">
         
   
   
@@ -3465,7 +3488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/network-policy-examples/" class="md-nav__link">
+      <a href="../../security/network-policy-examples/" class="md-nav__link">
         
   
   
@@ -3493,7 +3516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security/network-policy-solutions/" class="md-nav__link">
+      <a href="../../security/network-policy-solutions/" class="md-nav__link">
         
   
   
@@ -3528,7 +3551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../security-focus/" class="md-nav__link">
+      <a href="../../security-focus/" class="md-nav__link">
         
   
   
@@ -3607,7 +3630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -3694,7 +3717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
         
   
   
@@ -3722,7 +3745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -3750,7 +3773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
         
   
   
@@ -3837,7 +3860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -3865,7 +3888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting/crictl-guide/" class="md-nav__link">
+      <a href="../../troubleshooting/crictl-guide/" class="md-nav__link">
         
   
   
@@ -3920,10 +3943,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-how-it-works" class="md-nav__link">
+  <a href="#1-who-calls-the-cni" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. How it works
+        ⚙️ 1. Who Calls the CNI?
       
     </span>
   </a>
@@ -3931,22 +3954,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-practical-example" class="md-nav__link">
+  <a href="#2-the-two-critical-cni-directories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Practical Example
+        📁 2. The Two Critical CNI Directories
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Practical Example">
+    <nav class="md-nav" aria-label="📁 2. The Two Critical CNI Directories">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-label-your-node" class="md-nav__link">
+  <a href="#1-the-plugin-binaries-optcnibin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Label your node
+        1. The Plugin Binaries: /opt/cni/bin/
       
     </span>
   </a>
@@ -3954,10 +3977,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-create-a-pod-with-the-selector" class="md-nav__link">
+  <a href="#2-the-configuration-files-etccninetd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Create a Pod with the selector
+        2. The Configuration Files: /etc/cni/net.d/
       
     </span>
   </a>
@@ -3970,10 +3993,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-limitations" class="md-nav__link">
+  <a href="#3-anatomy-of-a-cni-configuration-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Limitations
+        📝 3. Anatomy of a CNI Configuration File
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 3. Anatomy of a CNI Configuration File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-down-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking Down the Configuration:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-architecture-diagram-cni-execution-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ 4. Architecture Diagram: CNI Execution Flow
       
     </span>
   </a>
@@ -3981,10 +4032,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-cheat-sheet" class="md-nav__link">
+  <a href="#5-cka-exam-tip" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary Cheat Sheet
+        🚩 5. CKA Exam Tip
       
     </span>
   </a>
@@ -4008,69 +4059,91 @@
 
 
 
-<h1 id="node-selector">Node Selector</h1>
-<p>Node Selector is the simplest form of node selection constraint in Kubernetes. It allows you to restrict a Pod to run only on nodes with specific labels.</p>
-<h2 id="1-how-it-works">1. How it works</h2>
-<p>For Node Selector to work, you must:
-1.  <strong>Label the Node</strong>: Give your node a key-value pair.
-2.  <strong>Add nodeSelector to Pod</strong>: Update the Pod spec to look for that exact label.</p>
-<h2 id="2-practical-example">2. Practical Example</h2>
-<h3 id="step-1-label-your-node">Step 1: Label your node</h3>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>label<span class="w"> </span>nodes<span class="w"> </span>node01<span class="w"> </span><span class="nv">disktype</span><span class="o">=</span>ssd
-</code></pre></div>
-<h3 id="step-2-create-a-pod-with-the-selector">Step 2: Create a Pod with the selector</h3>
-<p><strong>Exam Tip:</strong> Since there is no <code>--node-selector</code> flag in <code>kubectl run</code>, you must generate the YAML first and then edit it.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. Generate the base YAML</span>
-kubectl<span class="w"> </span>run<span class="w"> </span>nginx-ssd<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span>--dry-run<span class="o">=</span>client<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span>pod.yaml
-
-<span class="c1"># 2. Add the nodeSelector block to pod.yaml</span>
-<span class="c1"># (See YAML structure below)</span>
-
-<span class="c1"># 3. Apply the file</span>
-kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>pod.yaml
-</code></pre></div>
-<p><strong>YAML Structure:</strong>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pod</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx-ssd</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w">      </span><span class="c1"># &lt;--- Added section</span>
-<span class="w">    </span><span class="nt">disktype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssd</span>
-<span class="w">  </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-</code></pre></div></p>
-<h2 id="3-limitations">3. Limitations</h2>
-<p>Node Selector is very simple but has significant drawbacks:
-*   <strong>Exact Match Only</strong>: You cannot say "SSD OR HDD" or "NOT GPU".
-*   <strong>Hard Requirement</strong>: If no node matches the label, the Pod will stay in <strong>Pending</strong> forever. It has no "best effort" mode.
-*   <strong>Simple Logic</strong>: You can only use one or more exact matches (AND logic).</p>
+<h1 id="cni-in-kubernetes-configuration-execution">CNI in Kubernetes: Configuration &amp; Execution</h1>
+<p>In previous lectures, we learned that Kubernetes relies on the <strong>Container Network Interface (CNI)</strong> to build the bridge networks, create virtual cables (<code>veth</code> pairs), assign IPs, and set up routing between nodes. But <em>how</em> exactly does Kubernetes know which CNI plugin to use, and where are these plugins located?</p>
 <hr />
-<h2 id="summary-cheat-sheet">Summary Cheat Sheet</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Command</th>
-<th style="text-align: left;">Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><code>kubectl label node &lt;node&gt; key=value</code></td>
-<td style="text-align: left;">Add a label to a node</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>kubectl label node &lt;node&gt; key-</code></td>
-<td style="text-align: left;">Remove a label from a node</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>kubectl get nodes --show-labels</code></td>
-<td style="text-align: left;">See all labels on your nodes</td>
-</tr>
-</tbody>
-</table>
-<p>Since Node Selector is so limited, for more complex logic (Like "Try to put it on a high-cpu node, but if none are free, anywhere is fine"), you should use <strong>Node Affinity</strong>.</p>
+<h2 id="1-who-calls-the-cni">⚙️ 1. Who Calls the CNI?</h2>
+<p>The CNI specification dictates that the <strong>Container Runtime</strong> is responsible for creating the network namespaces and then invoking the appropriate CNI plugin.</p>
+<p>In a modern Kubernetes cluster, the container runtime is usually <strong>containerd</strong> or <strong>CRI-O</strong> (which replaced Docker). When the <code>kubelet</code> asks the runtime to spin up a new Pod (starting with the "Pause" container), the runtime is the component that actually executes the CNI plugin.</p>
+<hr />
+<h2 id="2-the-two-critical-cni-directories">📁 2. The Two Critical CNI Directories</h2>
+<p>To configure and run CNI plugins, the container runtime looks in two very specific directories on the host node. You must memorize these paths for the CKA exam!</p>
+<h3 id="1-the-plugin-binaries-optcnibin">1. The Plugin Binaries: <code>/opt/cni/bin/</code></h3>
+<p>This directory holds the actual executable files for the plugins. If you list the contents of this directory (<code>ls /opt/cni/bin/</code>), you will see the compiled binaries for:
+*   Core plugins: <code>bridge</code>, <code>macvlan</code>, <code>ipvlan</code>, <code>loopback</code>
+*   IPAM plugins: <code>host-local</code>, <code>dhcp</code>
+*   Third-party plugins: <code>flannel</code>, <code>calico</code>, <code>weave-net</code>, etc.</p>
+<h3 id="2-the-configuration-files-etccninetd">2. The Configuration Files: <code>/etc/cni/net.d/</code></h3>
+<p>This is where the container runtime looks to figure out <em>which</em> plugin to use. </p>
+<p>When you install a network addon like Flannel or Weave, it drops a configuration file into this directory (e.g., <code>10-bridge.conf</code> or <code>10-calico.conflist</code>). </p>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Alphabetical Priority</strong>: If there are multiple configuration files in <code>/etc/cni/net.d/</code>, the container runtime will read them in <strong>alphabetical order</strong> and use the first one it finds.</p>
+</blockquote>
+<hr />
+<h2 id="3-anatomy-of-a-cni-configuration-file">📝 3. Anatomy of a CNI Configuration File</h2>
+<p>Let's look at the structure of a basic CNI configuration file (like <code>10-bridge.conf</code>). It is written in JSON format:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;cniVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mynet&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bridge&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;bridge&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cni0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;isGateway&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ipMasq&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ipam&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;host-local&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;subnet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.244.0.0/16&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;routes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;dst&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="breaking-down-the-configuration">Breaking Down the Configuration:</h3>
+<ul>
+<li><strong><code>type": "bridge"</code></strong>: Tells the runtime to execute the bridge binary located in <code>/opt/cni/bin/bridge</code>.</li>
+<li><strong><code>isGateway": true</code></strong>: Instructs the plugin to assign an IP address to the bridge interface itself so it can act as the default gateway for the Pods attached to it.</li>
+<li><strong><code>ipMasq": true</code></strong>: Tells the plugin to configure NAT (IP Masquerading) via iptables so Pods can reach external networks (like the internet).</li>
+<li><strong><code>ipam</code> (IP Address Management)</strong>:<ul>
+<li><strong><code>type": "host-local"</code></strong>: Uses the <code>host-local</code> IPAM binary (also in <code>/opt/cni/bin/</code>) to manage IPs from a local file on this specific host, rather than an external <code>dhcp</code> server.</li>
+<li><strong><code>subnet</code></strong>: The range of IP addresses to assign to containers on this node.</li>
+<li><strong><code>routes</code></strong>: Any routes that need to be injected into the container's routing table.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="4-architecture-diagram-cni-execution-flow">🏛️ 4. Architecture Diagram: CNI Execution Flow</h2>
+<div class="highlight"><pre><span></span><code>graph TD
+    subgraph &quot;Kubernetes Worker Node&quot;
+        KUBELET[kubelet]
+        RUNTIME[Container Runtime&lt;br&gt;containerd / CRI-O]
+
+        subgraph &quot;CNI Directories&quot;
+            CONF[&quot;/etc/cni/net.d/&lt;br&gt;(e.g. 10-bridge.conf)&quot;]
+            BIN[&quot;/opt/cni/bin/&lt;br&gt;(bridge, host-local, flannel)&quot;]
+        end
+
+        POD[Pause Container / Pod Namespace]
+
+        KUBELET -- &quot;1. Create Pod&quot; --&gt; RUNTIME
+        RUNTIME -- &quot;2. Read Alphabetical Config&quot; --&gt; CONF
+        RUNTIME -- &quot;3. Execute Plugin Base on &#39;type&#39;&quot; --&gt; BIN
+        BIN -- &quot;4. Connect &amp; Assign IP&quot; --&gt; POD
+    end
+
+    classDef k8s fill:#326ce5,stroke:#fff,color:#fff;
+    classDef dir fill:#e1f5fe,stroke:#0288d1;
+    classDef pod fill:#e8f5e9,stroke:#388e3c;
+
+    class KUBELET,RUNTIME k8s;
+    class CONF,BIN dir;
+    class POD pod;
+</code></pre></div>
+<hr />
+<h2 id="5-cka-exam-tip">🚩 5. CKA Exam Tip</h2>
+<p>If you are asked to troubleshoot why Pods are not getting IP addresses or why a node shows as <code>NotReady</code> with a <code>NetworkPluginNotReady</code> error:
+1. Check if the binaries exist in <code>/opt/cni/bin/</code>.
+2. Check if a valid configuration file exists in <code>/etc/cni/net.d/</code>. If this folder is empty, the CNI plugin hasn't been installed yet!</p>
 
 
 
@@ -4121,10 +4194,10 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
