@@ -23,6 +23,13 @@ Every node in your cluster (Master and Worker) must meet these conditions:
 Kubernetes components communicate heavily over the network. If these ports are blocked by a firewall (like `iptables`, `firewalld`, or cloud Network Security Groups in AWS/Azure/GCP), your cluster will fail.
 
 ### Control Plane (Master) Nodes
+The Control Plane composes several specific components, each listening on a precise port:
+
+*   **`kube-apiserver`**: Listens on **`6443`**. Used by worker nodes, external users (`kubectl`), and all other control plane components to access the cluster.
+*   **`etcd` server**: Listens on **`2379`** for client API requests. If you have multiple master nodes, it also uses **`2380`** to sync data between the etcd peers.
+*   **`kubelet`**: Listens on **`10250`**. (Remember, the kubelet runs on master nodes too!).
+*   **`kube-scheduler`**: Requires **`10259`** to be open.
+*   **`kube-controller-manager`**: Requires **`10257`** to be open.
 
 | Protocol | Direction | Port Range | Purpose | Used By |
 | :--- | :--- | :--- | :--- | :--- |
@@ -32,16 +39,16 @@ Kubernetes components communicate heavily over the network. If these ports are b
 | TCP | Inbound | **10259** | kube-scheduler | Self |
 | TCP | Inbound | **10257** | kube-controller-manager | Self |
 
-*Note: The Kubelet runs on Master nodes as well, so port `10250` is required. The etcd peer port (`2380`) is crucial if you have a highly available, multi-master setup so the etcd instances can sync with each other.*
-
 ### Worker Nodes
+Worker nodes have fewer components but are responsible for exposing your applications:
+
+*   **`kubelet`**: Listens on **`10250`**. The API server communicates with the worker node's kubelet via this port.
+*   **NodePort Services**: Requires the massive **`30000 - 32767`** port range. This is how the worker nodes expose applications to the outside world.
 
 | Protocol | Direction | Port Range | Purpose | Used By |
 | :--- | :--- | :--- | :--- | :--- |
 | TCP | Inbound | **10250** | Kubelet API | Self, Control Plane |
 | TCP | Inbound | **30000 - 32767** | NodePort Services | External load balancers, clients |
-
-*Note: The NodePort range (`30000-32767`) is how worker nodes expose applications to the outside world. This entire range must be open to your external load balancer or client network.*
 
 ---
 
