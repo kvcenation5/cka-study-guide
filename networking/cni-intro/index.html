@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../linux-networking-commands/">
+        <link rel="prev" href="../docker-networking/">
       
       
-        <link rel="next" href="../dns-linux-coredns/">
+        <link rel="next" href="../../coredns-guide/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>IP Forwarding & Routing - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Container Network Interface (CNI) - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ip-forwarding-multi-host-routing" class="md-skip">
+        <a href="#container-network-interface-cni" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              IP Forwarding & Routing
+              Container Network Interface (CNI)
             
           </span>
         </div>
@@ -3058,37 +3058,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    IP Forwarding & Routing
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../ip-forward-routing/" class="md-nav__link">
         
   
   
@@ -3104,176 +3077,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-what-is-ip_forward" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🚦 1. What is ip_forward?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🚦 1. What is ip_forward?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#checking-the-current-state" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checking the current state:
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enabling-it-temporarily" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enabling it (Temporarily):
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enabling-it-permanently" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enabling it (Permanently):
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-scenario-routing-among-three-hosts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🗺️ 2. Scenario: Routing Among Three Hosts
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🗺️ 2. Scenario: Routing Among Three Hosts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-network-topology" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Network Topology
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-packet-flow-logic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Packet Flow (Logic)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-step-by-step-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ 3. Step-by-Step Configuration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🛠️ 3. Step-by-Step Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-enable-forwarding-on-host-b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Enable Forwarding on Host B
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-add-route-on-host-a" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Add Route on Host A
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-add-route-on-host-c-for-the-return-trip" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Add Route on Host C (For the Return Trip!)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-relevance-to-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🚩 4. Relevance to Kubernetes
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3367,10 +3170,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../cni-intro/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Network Interface (CNI)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3386,6 +3216,154 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-cni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📜 1. What is CNI?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-division-of-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤝 2. The Division of Responsibilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🤝 2. The Division of Responsibilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-container-runtime-eg-kubernetes-must" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Container Runtime (e.g., Kubernetes) Must:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-cni-plugin-must" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The CNI Plugin Must:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-types-of-cni-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 3. Types of CNI Plugins
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 3. Types of CNI Plugins">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-reference-plugins-maintained-by-cni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core / Reference Plugins (Maintained by CNI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ipam-plugins-ip-address-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IPAM Plugins (IP Address Management)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#third-party-plugins-the-ones-you-use-in-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Third-Party Plugins (The ones you use in Kubernetes!)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-docker-exception-cnm-vs-cni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐳 4. The Docker Exception (CNM vs CNI)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐳 4. The Docker Exception (CNM vs CNI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-kubernetes-workaround" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Kubernetes Workaround:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3909,22 +3887,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-what-is-ip_forward" class="md-nav__link">
+  <a href="#1-what-is-cni" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🚦 1. What is ip_forward?
+        📜 1. What is CNI?
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🚦 1. What is ip_forward?">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-division-of-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤝 2. The Division of Responsibilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🤝 2. The Division of Responsibilities">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#checking-the-current-state" class="md-nav__link">
+  <a href="#the-container-runtime-eg-kubernetes-must" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Checking the current state:
+        The Container Runtime (e.g., Kubernetes) Must:
       
     </span>
   </a>
@@ -3932,21 +3921,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#enabling-it-temporarily" class="md-nav__link">
+  <a href="#the-cni-plugin-must" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Enabling it (Temporarily):
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enabling-it-permanently" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Enabling it (Permanently):
+        The CNI Plugin Must:
       
     </span>
   </a>
@@ -3959,22 +3937,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-scenario-routing-among-three-hosts" class="md-nav__link">
+  <a href="#3-types-of-cni-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🗺️ 2. Scenario: Routing Among Three Hosts
+        🧩 3. Types of CNI Plugins
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🗺️ 2. Scenario: Routing Among Three Hosts">
+    <nav class="md-nav" aria-label="🧩 3. Types of CNI Plugins">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-network-topology" class="md-nav__link">
+  <a href="#core-reference-plugins-maintained-by-cni" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Network Topology
+        Core / Reference Plugins (Maintained by CNI)
       
     </span>
   </a>
@@ -3982,10 +3960,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-packet-flow-logic" class="md-nav__link">
+  <a href="#ipam-plugins-ip-address-management" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Packet Flow (Logic)
+        IPAM Plugins (IP Address Management)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#third-party-plugins-the-ones-you-use-in-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Third-Party Plugins (The ones you use in Kubernetes!)
       
     </span>
   </a>
@@ -3998,44 +3987,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-step-by-step-configuration" class="md-nav__link">
+  <a href="#4-the-docker-exception-cnm-vs-cni" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛠️ 3. Step-by-Step Configuration
+        🐳 4. The Docker Exception (CNM vs CNI)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🛠️ 3. Step-by-Step Configuration">
+    <nav class="md-nav" aria-label="🐳 4. The Docker Exception (CNM vs CNI)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-enable-forwarding-on-host-b" class="md-nav__link">
+  <a href="#the-kubernetes-workaround" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Enable Forwarding on Host B
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-add-route-on-host-a" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Add Route on Host A
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-add-route-on-host-c-for-the-return-trip" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Add Route on Host C (For the Return Trip!)
+        The Kubernetes Workaround:
       
     </span>
   </a>
@@ -4044,17 +4011,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-relevance-to-kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🚩 4. Relevance to Kubernetes
-      
-    </span>
-  </a>
   
 </li>
       
@@ -4075,106 +4031,61 @@
 
 
 
-<h1 id="ip-forwarding-multi-host-routing">IP Forwarding &amp; Multi-Host Routing</h1>
-<p>In a multi-node Kubernetes cluster, nodes must act as routers to move traffic between Pods on different hosts. This requires enabling <strong>IP Forwarding</strong> at the Linux kernel level.</p>
+<h1 id="container-network-interface-cni">Container Network Interface (CNI)</h1>
+<p>Throughout exploring Network Namespaces and Docker Networking, you've seen the same pattern repeated: creating namespaces, building virtual cables (veth pairs), attaching them to bridges, assigning IPs, and setting up NAT. </p>
+<p>Different container runtimes (like Kubernetes, rkt, Mesos) all need to solve these identical networking challenges. Instead of every platform writing their own custom code to do this, the industry agreed on a single, standardized approach.</p>
+<p>This standard is the <strong>Container Network Interface (CNI)</strong>.</p>
 <hr />
-<h2 id="1-what-is-ip_forward">🚦 1. What is <code>ip_forward</code>?</h2>
-<p>By default, a Linux host act as an "endpoint." If it receives a packet that isn't addressed to one of its own IP addresses, it drops it. </p>
-<p>To make a Linux host act as a <strong>Router</strong>, you must enable the <code>ip_forward</code> setting.</p>
-<h3 id="checking-the-current-state">Checking the current state:</h3>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
-<span class="c1"># 0 = Disabled (Default)</span>
-<span class="c1"># 1 = Enabled</span>
-</code></pre></div>
-<h3 id="enabling-it-temporarily">Enabling it (Temporarily):</h3>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
-</code></pre></div>
-<h3 id="enabling-it-permanently">Enabling it (Permanently):</h3>
-<p>To make the change survive a reboot, you must edit <code>/etc/sysctl.conf</code>. Typical Kubernetes prerequisites include these three lines:</p>
-<div class="highlight"><pre><span></span><code># Enable IPv4 Forwarding
-net.ipv4.ip_forward = 1
-
-# Required if using a bridge-based CNI (like Flannel or Weave)
-# Ensures bridge traffic is processed by iptables
-net.bridge.bridge-nf-call-iptables = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-</code></pre></div>
-<p><strong>Apply the changes immediately:</strong>
-<div class="highlight"><pre><span></span><code>sysctl<span class="w"> </span>-p
-</code></pre></div></p>
+<h2 id="1-what-is-cni">📜 1. What is CNI?</h2>
+<p>The CNI is a <strong>set of standards and specifications</strong>. It defines exactly how programs (plugins) should be written to configure container networking, and exactly how container runtimes should invoke those programs.</p>
+<p>As long as a container runtime and a network plugin both adhere to the CNI standard, they can work together perfectly. You can swap out your network backend without changing your container runtime!</p>
 <hr />
-<h2 id="2-scenario-routing-among-three-hosts">🗺️ 2. Scenario: Routing Among Three Hosts</h2>
-<p>Imagine we have three Linux hosts. <strong>Host B</strong> acts as a bridge/router between <strong>Host A</strong> and <strong>Host C</strong>.</p>
-<h3 id="the-network-topology">The Network Topology</h3>
-<div class="highlight"><pre><span></span><code>graph LR
-    subgraph &quot;Network 1 (10.0.1.0/24)&quot;
-    A[&quot;Host A&lt;br/&gt;IP: 10.0.1.10&lt;br/&gt;GW: 10.0.1.1&quot;]
-    end
-
-    subgraph &quot;The Router Node&quot;
-    B[&quot;Host B&lt;br/&gt;eth0: 10.0.1.1&lt;br/&gt;eth1: 10.0.2.1&quot;]
-    end
-
-    subgraph &quot;Network 2 (10.0.2.0/24)&quot;
-    C[&quot;Host C&lt;br/&gt;IP: 10.0.2.10&lt;br/&gt;GW: 10.0.2.1&quot;]
-    end
-
-    A -- &quot;Wire&quot; --- B
-    B -- &quot;Wire&quot; --- C
-</code></pre></div>
-<h3 id="the-packet-flow-logic">The Packet Flow (Logic)</h3>
-<div class="highlight"><pre><span></span><code>sequenceDiagram
-    participant A as Host A (10.0.1.10)
-    participant B as Host B (Router)
-    participant C as Host C (10.0.2.10)
-
-    Note over A: Goal: Ping 10.0.2.10
-    A-&gt;&gt;A: Is 10.0.2.10 local? No.
-    A-&gt;&gt;A: Check Route: via 10.0.1.1
-    A-&gt;&gt;B: Packet (Src: 10.0.1.10, Dst: 10.0.2.10)
-
-    Note over B: Receives on eth0
-    B-&gt;&gt;B: Is ip_forward == 1? Yes.
-    B-&gt;&gt;B: Check Route: 10.0.2.0/24 is on eth1
-    B-&gt;&gt;C: Forward Packet (Src: 10.0.1.10, Dst: 10.0.2.10)
-
-    Note over C: Receives, generates Reply
-    C-&gt;&gt;C: Is 10.0.1.10 local? No.
-    C-&gt;&gt;C: Check Route: via 10.0.2.1
-    C-&gt;&gt;B: Reply (Src: 10.0.2.10, Dst: 10.0.1.10)
-
-    Note over B: Receives on eth1, forwards to eth0
-    B-&gt;&gt;A: Reply (Src: 10.0.2.10, Dst: 10.0.1.10)
-</code></pre></div>
+<h2 id="2-the-division-of-responsibilities">🤝 2. The Division of Responsibilities</h2>
+<p>The CNI specification clearly draws the line between what the runtime does and what the plugin does.</p>
+<h3 id="the-container-runtime-eg-kubernetes-must">The Container Runtime (e.g., Kubernetes) Must:</h3>
+<ol>
+<li><strong>Create the Namespace</strong>: Create a network namespace for the new container.</li>
+<li><strong>Define Networks</strong>: Identify which networks the container must attach to using a JSON configuration file.</li>
+<li><strong>Invoke Plugins (ADD/DEL)</strong>: Call the configured CNI plugin with the <code>ADD</code> command when a container is created, passing the Container ID and Namespace path. When the container stops, it must call the plugin with the <code>DEL</code> command to clean up.</li>
+</ol>
+<h3 id="the-cni-plugin-must">The CNI Plugin Must:</h3>
+<ol>
+<li><strong>Support Commands</strong>: Native support for the <code>ADD</code>, <code>DEL</code>, and <code>CHECK</code> command-line arguments.</li>
+<li><strong>Assign IP Addresses</strong>: Typically handled by handing off to an IPAM (IP Address Management) plugin.</li>
+<li><strong>Create Interfaces &amp; Routes</strong>: Actually plumb the veth pairs into the namespace and set up the routing table so the container can reach others.</li>
+<li><strong>Return Standardized Results</strong>: Output the success details (like the assigned IP and routes) in the format defined by the specification.</li>
+</ol>
 <hr />
-<h2 id="3-step-by-step-configuration">🛠️ 3. Step-by-Step Configuration</h2>
-<p>If <strong>Host A</strong> wants to ping <strong>Host C</strong>, here is what must happen:</p>
-<h3 id="step-1-enable-forwarding-on-host-b">Step 1: Enable Forwarding on Host B</h3>
-<p>Without this, Host B will receive the packet from A but refuse to pass it to C.
-<div class="highlight"><pre><span></span><code><span class="c1"># On Host B</span>
-<span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
-</code></pre></div></p>
-<h3 id="step-2-add-route-on-host-a">Step 2: Add Route on Host A</h3>
-<p>Host A needs to know that to reach the <code>10.0.2.0/24</code> network, it must go through <strong>Host B</strong>.
-<div class="highlight"><pre><span></span><code><span class="c1"># On Host A</span>
-ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">10</span>.0.2.0/24<span class="w"> </span>via<span class="w"> </span><span class="m">10</span>.0.1.1
-</code></pre></div></p>
-<h3 id="step-3-add-route-on-host-c-for-the-return-trip">Step 3: Add Route on Host C (For the Return Trip!)</h3>
-<p>Routing must be bi-directional. Host C needs to know how to get back to <strong>Host A</strong>.
-<div class="highlight"><pre><span></span><code><span class="c1"># On Host C</span>
-ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">10</span>.0.1.0/24<span class="w"> </span>via<span class="w"> </span><span class="m">10</span>.0.2.1
-</code></pre></div></p>
+<h2 id="3-types-of-cni-plugins">🧩 3. Types of CNI Plugins</h2>
+<p>There are dozens of CNI plugins. They generally fall into these categories:</p>
+<h3 id="core-reference-plugins-maintained-by-cni">Core / Reference Plugins (Maintained by CNI)</h3>
+<ul>
+<li><code>bridge</code>: Creates a bridge and adds the host and container to it.</li>
+<li><code>vlan</code>, <code>ipvlan</code>, <code>macvlan</code>: Advanced interface configurations.</li>
+</ul>
+<h3 id="ipam-plugins-ip-address-management">IPAM Plugins (IP Address Management)</h3>
+<ul>
+<li><code>host-local</code>: Manages a local database of allocated IPs on that specific host.</li>
+<li><code>dhcp</code>: Runs a daemon to make DHCP requests on behalf of containers.</li>
+</ul>
+<h3 id="third-party-plugins-the-ones-you-use-in-kubernetes">Third-Party Plugins (The ones you use in Kubernetes!)</h3>
+<p>Organizations build powerful network fabrics that comply with CNI standards:
+*   <strong>Calico</strong>
+*   <strong>Flannel</strong>
+*   <strong>Weave Net</strong>
+*   <strong>Cilium</strong></p>
 <hr />
-<h2 id="4-relevance-to-kubernetes">🚩 4. Relevance to Kubernetes</h2>
-<p>In a Kubernetes cluster (e.g., using <strong>Kubenet</strong> or <strong>Calico</strong>):
-1.  <strong>IP Forwarding</strong>: Must be enabled on every worker node so the node can forward traffic into the Pods (which live in a different network namespace).
-2.  <strong>Routing Table</strong>: The CNI plugin automatically manages these <code>ip route</code> entries so that every node knows which "Gateway" (other node) to use to reach a specific Pod's IP.</p>
-<hr />
-<blockquote>
-<p>[!CAUTION]
-<strong>Firewall Trap</strong>: Even if <code>ip_forward</code> is enabled and routes are correct, Linux <strong>iptables</strong> or <strong>nftables</strong> might still block the traffic. In Kubernetes, the CNI often adds <code>FORWARD</code> chain rules to allow this traffic.
-<code>iptables -P FORWARD ACCEPT</code> (Global allow - use with caution!)</p>
-</blockquote>
+<h2 id="4-the-docker-exception-cnm-vs-cni">🐳 4. The Docker Exception (CNM vs CNI)</h2>
+<p>If you look closely at the list of CNI-compliant runtimes, <strong>Docker is missing</strong>. </p>
+<p>Docker does <strong>not</strong> implement CNI. Instead, Docker created its own competing standard called <strong>CNM (Container Network Model)</strong>.</p>
+<p>Because of this, you cannot simply tell Docker to use Calico or Flannel natively. So, how does Kubernetes use Docker alongside CNI plugins?</p>
+<h3 id="the-kubernetes-workaround">The Kubernetes Workaround:</h3>
+<ol>
+<li>Kubernetes tells Docker to create the container with <strong>no network configuration</strong> (equivalent to <code>--network none</code>). Docker spins up the container in a completely isolated network namespace.</li>
+<li>Kubernetes then completely bypasses Docker's networking engine.</li>
+<li>Kubernetes manually invokes the configured <strong>CNI Plugin</strong>, passing it the namespace Docker just created.</li>
+<li>The CNI Plugin handles the bridges, IP assignments, and routes.</li>
+</ol>
 
 
 
