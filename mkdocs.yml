@@ -122,6 +122,7 @@ nav:
       - DNS (Linux & CoreDNS): networking/dns-linux-coredns.md
       - Network Namespaces: networking/network-namespaces.md
       - Docker Networking: networking/docker-networking.md
+      - Container Network Interface (CNI): networking/cni-intro.md
       - CoreDNS Deep Dive: coredns-guide.md
       - Network Policies: security/network-policies.md
       - Network Policy Examples: security/network-policy-examples.md
