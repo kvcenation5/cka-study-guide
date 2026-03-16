@@ -3312,6 +3312,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#pod-networking-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pod Networking Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#step-1-define-the-subnets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3921,6 +3932,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#pod-networking-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pod Networking Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#step-1-define-the-subnets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4011,6 +4033,39 @@
 <hr />
 <h2 id="2-building-a-custom-pod-network-a-thought-experiment">🛠️ 2. Building a Custom Pod Network (A Thought Experiment)</h2>
 <p>To understand how popular CNI plugins (like Flannel, Calico, or Weave) work, let's look at how we would build a solution manually across a 3-node cluster.</p>
+<h3 id="pod-networking-architecture">Pod Networking Architecture</h3>
+<div class="highlight"><pre><span></span><code>graph TD
+    subgraph &quot;External Network (192.168.1.0/24)&quot;
+        Router[Physical Router / Gateway]
+    end
+
+    subgraph &quot;Node 1 (IP: 192.168.1.11)&quot;
+        eth0_1[eth0&lt;br&gt;192.168.1.11]
+        cni0_1[cni0 Bridge&lt;br&gt;10.244.1.1]
+        Pod_A[Pod&lt;br&gt;10.244.1.2]
+
+        eth0_1 &lt;--&gt; cni0_1
+        cni0_1 &lt;--&gt;|veth| Pod_A
+    end
+
+    subgraph &quot;Node 2 (IP: 192.168.1.12)&quot;
+        eth0_2[eth0&lt;br&gt;192.168.1.12]
+        cni0_2[cni0 Bridge&lt;br&gt;10.244.2.1]
+        Pod_B[Pod&lt;br&gt;10.244.2.2]
+
+        eth0_2 &lt;--&gt; cni0_2
+        cni0_2 &lt;--&gt;|veth| Pod_B
+    end
+
+    Router &lt;--&gt;|Routing Table Updates| eth0_1
+    Router &lt;--&gt;|Routing Table Updates| eth0_2
+
+    classDef bridge fill:#e1f5fe,stroke:#0288d1;
+    classDef pod fill:#e8f5e9,stroke:#388e3c;
+
+    class cni0_1,cni0_2 bridge;
+    class Pod_A,Pod_B pod;
+</code></pre></div>
 <h3 id="step-1-define-the-subnets">Step 1: Define the Subnets</h3>
 <p>Imagine we have three nodes on an external network (<code>192.168.1.11</code>, <code>.12</code>, and <code>.13</code>). </p>
 <p>First, we assign a unique, non-overlapping subnet to each node for its internal Pods. For example:

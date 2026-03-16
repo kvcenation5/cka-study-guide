@@ -3239,6 +3239,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#docker-bridge-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Bridge Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#how-docker0-works-under-the-hood" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3949,6 +3960,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#docker-bridge-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Bridge Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#how-docker0-works-under-the-hood" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4053,6 +4075,39 @@
 <hr />
 <h2 id="3-the-default-bridge-network-docker0">🏗️ 3. The Default: <code>bridge</code> Network (<code>docker0</code>)</h2>
 <p>When Docker is installed, it automatically creates an internal private network called <code>bridge</code>. This is the network that containers attach to by default.</p>
+<h3 id="docker-bridge-architecture">Docker Bridge Architecture</h3>
+<div class="highlight"><pre><span></span><code>graph TD
+    subgraph &quot;Docker Host (e.g. 192.168.1.50)&quot;
+        eth0[eth0 Physical Interface&lt;br&gt;192.168.1.50]
+        iptables[iptables (NAT/Port Forwarding)&lt;br&gt;Ex: Port 8080 -&gt; 80]
+        docker0[docker0 Bridge&lt;br&gt;172.17.0.1/16]
+
+        eth0 &lt;--&gt; iptables
+        iptables &lt;--&gt; docker0
+
+        subgraph &quot;Container 1 Namespace&quot;
+            veth1[veth inside container&lt;br&gt;172.17.0.2:80]
+        end
+
+        subgraph &quot;Container 2 Namespace&quot;
+            veth2[veth inside container&lt;br&gt;172.17.0.3]
+        end
+
+        docker0 &lt;--&gt;|veth link| veth1
+        docker0 &lt;--&gt;|veth link| veth2
+    end
+
+    Internet((External User)) --&gt;|Hits 192.168.1.50:8080| eth0
+
+    classDef host fill:#fffde7,stroke:#fbc02d;
+    classDef bridge fill:#e1f5fe,stroke:#0288d1;
+    classDef container fill:#e8f5e9,stroke:#388e3c;
+    classDef firewall fill:#ffebee,stroke:#d32f2f;
+
+    class docker0 bridge;
+    class veth1,veth2 container;
+    class iptables firewall;
+</code></pre></div>
 <h3 id="how-docker0-works-under-the-hood">How <code>docker0</code> Works (Under the Hood):</h3>
 <ol>
 <li><strong>The Virtual Switch</strong>: Docker creates a Linux Bridge interface on the host named <code>docker0</code>. (You can see this by running <code>ip link</code>). Internally, Docker uses a technique similar to <code>ip link add type bridge</code>.</li>

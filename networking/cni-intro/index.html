@@ -3256,6 +3256,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cni-workflow-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CNI Workflow Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-container-runtime-eg-kubernetes-must" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3966,6 +3977,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cni-workflow-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CNI Workflow Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-container-runtime-eg-kubernetes-must" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4097,7 +4119,30 @@
 <p>As long as a container runtime and a network plugin both adhere to the CNI standard, they can work together perfectly. You can swap out your network backend without changing your container runtime!</p>
 <hr />
 <h2 id="2-the-division-of-responsibilities">🤝 2. The Division of Responsibilities</h2>
-<p>The CNI specification clearly draws the line between what the runtime does and what the plugin does.</p>
+<p>The CNI specification clearly draws the line between what the runtime does and what the plugin does. Here is the workflow when a new container spins up:</p>
+<h3 id="cni-workflow-architecture">CNI Workflow Architecture</h3>
+<div class="highlight"><pre><span></span><code>sequenceDiagram
+    participant K as Container Runtime (e.g., CRI-O / Kubelet)
+    participant C as CNI Plugin (e.g., Bridge / Flannel)
+    participant I as IPAM Plugin (e.g., host-local)
+
+    K-&gt;&gt;K: 1. Create Network Namespace
+    K-&gt;&gt;K: 2. Read CNI Network Config (.json)
+    K-&gt;&gt;C: 3. Invoke Plugin (Cmd: ADD, ContainerID, NetNS path)
+
+    activate C
+    C-&gt;&gt;I: 4. Request IP Address
+    activate I
+    I--&gt;&gt;C: 5. Returns IP (e.g. 10.244.1.2)
+    deactivate I
+
+    C-&gt;&gt;C: 6. Create Veth Pair
+    C-&gt;&gt;C: 7. Attach to Bridge &amp; Namespace
+    C-&gt;&gt;C: 8. Assign IP &amp; Add Default Route
+
+    C--&gt;&gt;K: 9. Return Standardized Result (Success + IP Details)
+    deactivate C
+</code></pre></div>
 <h3 id="the-container-runtime-eg-kubernetes-must">The Container Runtime (e.g., Kubernetes) Must:</h3>
 <ol>
 <li><strong>Create the Namespace</strong>: Create a network namespace for the new container.</li>

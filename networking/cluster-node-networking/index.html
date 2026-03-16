@@ -3284,6 +3284,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cluster-ports-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster Ports Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#control-plane-master-nodes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3949,6 +3960,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cluster-ports-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster Ports Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#control-plane-master-nodes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4071,6 +4093,38 @@
 <hr />
 <h2 id="2-required-open-ports">🔓 2. Required Open Ports</h2>
 <p>Kubernetes components communicate heavily over the network. If these ports are blocked by a firewall (like <code>iptables</code>, <code>firewalld</code>, or cloud Network Security Groups in AWS/Azure/GCP), your cluster will fail.</p>
+<h3 id="cluster-ports-architecture">Cluster Ports Architecture</h3>
+<div class="highlight"><pre><span></span><code>graph TD
+    subgraph &quot;Control Plane Node&quot;
+        API[kube-apiserver&lt;br&gt;:6443]
+        ETCD[etcd&lt;br&gt;:2379, :2380]
+        KCM[kube-controller-manager&lt;br&gt;:10257]
+        SCHED[kube-scheduler&lt;br&gt;:10259]
+        KUBE1[kubelet&lt;br&gt;:10250]
+
+        API &lt;--&gt; ETCD
+        KCM -.-&gt; API
+        SCHED -.-&gt; API
+        KUBE1 -.-&gt; API
+    end
+
+    subgraph &quot;Worker Node&quot;
+        KUBE2[kubelet&lt;br&gt;:10250]
+        PROXY[kube-proxy]
+        NODEPORT[NodePort Services&lt;br&gt;:30000-32767]
+
+        KUBE2 -.-&gt; API
+        PROXY -.-&gt; API
+    end
+
+    API -.-&gt;|Logs &amp; Exec| KUBE2
+
+    User((Admin / kubectl)) --&gt;|HTTPS| API
+    Ext((External Users)) --&gt;|HTTP/HTTPS| NODEPORT
+
+    classDef component fill:#fff,stroke:#333;
+    class API,ETCD,KCM,SCHED,KUBE1,KUBE2,PROXY,NODEPORT component;
+</code></pre></div>
 <h3 id="control-plane-master-nodes">Control Plane (Master) Nodes</h3>
 <p>The Control Plane composes several specific components, each listening on a precise port:</p>
 <ul>
