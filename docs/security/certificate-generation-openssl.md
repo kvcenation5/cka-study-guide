@@ -177,6 +177,13 @@ openssl rsa -noout -modulus -in server.key | openssl md5
 # The hashes MUST match exactly!
 ```
 
+> [!CAUTION]
+> **Common Error: "Could not read certificate"**
+> If you get an error like `Could not read certificate from ...`, check your file extension!
+> - Use `openssl x509` for **.crt** files.
+> - Use `openssl rsa` for **.key** files.
+
+---
 ### Troubleshooting Checklist
 1.  **Prefixes**: Ensure `system:node:` or `system:kube-scheduler` etc. are correct.
 2.  **Groups (O)**: Ensure `system:masters` for admin and `system:nodes` for kubelets.
