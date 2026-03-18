@@ -11,28 +11,28 @@
       
       
       
-        <link rel="prev" href="../KNOW_YOUR_COMPONENTS/">
+        <link rel="prev" href="../deployment-components/">
       
       
-        <link rel="next" href="../storage/storage-deep-dive/">
+        <link rel="next" href="../../troubleshooting-flowchart/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>ETCD & Backup - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>VDI & Mac Setup - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#etcd-deep-dive-backup-guide" class="md-skip">
+        <a href="#cka-exam-tips-vdi-mac-mini-performance-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-header__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ETCD & Backup
+              VDI & Mac Setup
             
           </span>
         </div>
@@ -209,7 +209,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../SUMMARY/" class="md-tabs__link">
+      <a href="../../SUMMARY/" class="md-tabs__link">
         
   
   
@@ -249,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../yaml-guide/" class="md-tabs__link">
+        <a href="../../yaml-guide/" class="md-tabs__link">
           
   
   
@@ -269,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
+        <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-tabs__link">
           
   
   
@@ -289,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../BETTER_ARCHITECTURE/" class="md-tabs__link">
+        <a href="../../BETTER_ARCHITECTURE/" class="md-tabs__link">
           
   
   
@@ -307,7 +307,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-tabs__link">
         
   
   
@@ -324,13 +324,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../etcd-deep-dive/" class="md-tabs__link">
           
   
   
@@ -350,7 +348,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../storage/storage-deep-dive/" class="md-tabs__link">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -370,7 +368,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../security/overview/" class="md-tabs__link">
+        <a href="../../security/overview/" class="md-tabs__link">
           
   
   
@@ -390,7 +388,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../networking/dns-beginners-guide/" class="md-tabs__link">
+        <a href="../../networking/dns-beginners-guide/" class="md-tabs__link">
           
   
   
@@ -408,7 +406,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../security-focus/" class="md-tabs__link">
+      <a href="../../security-focus/" class="md-tabs__link">
         
   
   
@@ -429,7 +427,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../exam-overview/curriculum/" class="md-tabs__link">
+        <a href="../../exam-overview/curriculum/" class="md-tabs__link">
           
   
   
@@ -445,11 +443,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../exam-tips/kubectl-commands/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -469,7 +469,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../troubleshooting-flowchart/" class="md-tabs__link">
+        <a href="../../troubleshooting-flowchart/" class="md-tabs__link">
           
   
   
@@ -503,7 +503,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
+    <a href="../.." title="CKA Exam Notes - Kubernetes Troubleshooting" class="md-nav__button md-logo" aria-label="CKA Exam Notes - Kubernetes Troubleshooting" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -521,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SUMMARY/" class="md-nav__link">
+      <a href="../../SUMMARY/" class="md-nav__link">
         
   
   
@@ -627,7 +627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yaml-guide/" class="md-nav__link">
+      <a href="../../yaml-guide/" class="md-nav__link">
         
   
   
@@ -655,7 +655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/editing-resources/" class="md-nav__link">
+      <a href="../../fundamentals/editing-resources/" class="md-nav__link">
         
   
   
@@ -683,7 +683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/api-versions/" class="md-nav__link">
+      <a href="../../fundamentals/api-versions/" class="md-nav__link">
         
   
   
@@ -711,7 +711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/service-types/" class="md-nav__link">
+      <a href="../../fundamentals/service-types/" class="md-nav__link">
         
   
   
@@ -739,7 +739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/labels-selectors/" class="md-nav__link">
+      <a href="../../fundamentals/labels-selectors/" class="md-nav__link">
         
   
   
@@ -767,7 +767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/annotations/" class="md-nav__link">
+      <a href="../../fundamentals/annotations/" class="md-nav__link">
         
   
   
@@ -795,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-management/" class="md-nav__link">
+      <a href="../../fundamentals/resource-management/" class="md-nav__link">
         
   
   
@@ -823,7 +823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/limitrange/" class="md-nav__link">
+      <a href="../../fundamentals/limitrange/" class="md-nav__link">
         
   
   
@@ -851,7 +851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/resource-quota/" class="md-nav__link">
+      <a href="../../fundamentals/resource-quota/" class="md-nav__link">
         
   
   
@@ -879,7 +879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/daemonsets/" class="md-nav__link">
+      <a href="../../fundamentals/daemonsets/" class="md-nav__link">
         
   
   
@@ -907,7 +907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/static-pods/" class="md-nav__link">
+      <a href="../../fundamentals/static-pods/" class="md-nav__link">
         
   
   
@@ -935,7 +935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/configmaps/" class="md-nav__link">
+      <a href="../../fundamentals/configmaps/" class="md-nav__link">
         
   
   
@@ -963,7 +963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
+      <a href="../../fundamentals/replicasets-vs-deployments/" class="md-nav__link">
         
   
   
@@ -1043,7 +1043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/" class="md-nav__link">
         
   
   
@@ -1071,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-tolerations/" class="md-nav__link">
         
   
   
@@ -1099,7 +1099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-selector/" class="md-nav__link">
         
   
   
@@ -1127,7 +1127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/node-affinity/" class="md-nav__link">
         
   
   
@@ -1155,7 +1155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/taints-vs-affinity/" class="md-nav__link">
         
   
   
@@ -1183,7 +1183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/priority-classes/" class="md-nav__link">
         
   
   
@@ -1211,7 +1211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/multiple-schedulers/" class="md-nav__link">
         
   
   
@@ -1239,7 +1239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
+      <a href="../../fundamentals/pod-scheduling/scheduler-profiles/" class="md-nav__link">
         
   
   
@@ -1275,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fundamentals/custom-key-values/" class="md-nav__link">
+      <a href="../../fundamentals/custom-key-values/" class="md-nav__link">
         
   
   
@@ -1362,7 +1362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-mac-multipass/" class="md-nav__link">
         
   
   
@@ -1390,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kops-aws/" class="md-nav__link">
+      <a href="../../setup-guides/kops-aws/" class="md-nav__link">
         
   
   
@@ -1418,7 +1418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
+      <a href="../../setup-guides/kubeadm-operations/join-command/" class="md-nav__link">
         
   
   
@@ -1505,7 +1505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../BETTER_ARCHITECTURE/" class="md-nav__link">
+      <a href="../../BETTER_ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -1533,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/component-management/" class="md-nav__link">
+      <a href="../../cluster-architecture/component-management/" class="md-nav__link">
         
   
   
@@ -1561,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controllers/" class="md-nav__link">
         
   
   
@@ -1589,7 +1589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/admission-controller-types/" class="md-nav__link">
+      <a href="../../cluster-architecture/admission-controller-types/" class="md-nav__link">
         
   
   
@@ -1617,7 +1617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/mutating-admission-controllers/" class="md-nav__link">
         
   
   
@@ -1645,7 +1645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-deep-dive/" class="md-nav__link">
         
   
   
@@ -1673,7 +1673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/etcd-data-model/" class="md-nav__link">
+      <a href="../../cluster-architecture/etcd-data-model/" class="md-nav__link">
         
   
   
@@ -1701,7 +1701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/api-groups-overview/" class="md-nav__link">
+      <a href="../../cluster-architecture/api-groups-overview/" class="md-nav__link">
         
   
   
@@ -1729,7 +1729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
+      <a href="../../cluster-architecture/namespaced-vs-cluster-scoped/" class="md-nav__link">
         
   
   
@@ -1757,7 +1757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
+      <a href="../../cluster-architecture/kube-proxy-vs-kubectl-proxy/" class="md-nav__link">
         
   
   
@@ -1785,7 +1785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-resource-definitions/" class="md-nav__link">
         
   
   
@@ -1813,7 +1813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/crd-examples/" class="md-nav__link">
+      <a href="../../cluster-architecture/crd-examples/" class="md-nav__link">
         
   
   
@@ -1841,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/custom-controllers/" class="md-nav__link">
+      <a href="../../cluster-architecture/custom-controllers/" class="md-nav__link">
         
   
   
@@ -1869,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-architecture/operator-framework/" class="md-nav__link">
+      <a href="../../cluster-architecture/operator-framework/" class="md-nav__link">
         
   
   
@@ -1904,7 +1904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
+      <a href="../../KNOW_YOUR_COMPONENTS/" class="md-nav__link">
         
   
   
@@ -1928,31 +1928,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -1970,7 +1965,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1985,37 +1980,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ETCD & Backup
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../etcd-deep-dive/" class="md-nav__link">
         
   
   
@@ -2031,220 +1999,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-exploring-etcd-the-hidden-database" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Exploring ETCD (The "Hidden" Database)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Exploring ETCD (The &#34;Hidden&#34; Database)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#accessing-etcd" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Accessing ETCD
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#etcdctl-utility-versions-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ETCDCTL Utility Versions &amp; Usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#specifying-certificates-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Specifying Certificates (Authentication)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#master-command-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Master Command Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-magic-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The "Magic" Command
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-etcd-backup-cka-must-know" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. ETCD Backup (CKA Must-Know)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. ETCD Backup (CKA Must-Know)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-log-in-to-the-control-plane-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Log in to the Control Plane Node
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-run-the-snapshot-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Run the Snapshot Command
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-verify-the-snapshot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Verify the Snapshot
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-etcd-restore-disaster-recovery" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. ETCD Restore (Disaster Recovery)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. ETCD Restore (Disaster Recovery)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#criticial-concept-the-restore-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Criticial Concept: The Restore Process
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-1-restore-the-snapshot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Restore the Snapshot
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-update-the-etcd-static-pod-manifest" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Update the ETCD Static Pod Manifest
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-wait-for-restart" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Wait for Restart
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Cheat Sheet Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2316,7 +2070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2344,7 +2098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2372,7 +2126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/csi-architecture-workflow/" class="md-nav__link">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2400,7 +2154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2428,7 +2182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2456,7 +2210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage/statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -2543,7 +2297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/overview/" class="md-nav__link">
+      <a href="../../security/overview/" class="md-nav__link">
         
   
   
@@ -2571,7 +2325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/container-security-overview/" class="md-nav__link">
+      <a href="../../security/container-security-overview/" class="md-nav__link">
         
   
   
@@ -2599,7 +2353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/security-primitives/" class="md-nav__link">
+      <a href="../../security/security-primitives/" class="md-nav__link">
         
   
   
@@ -2627,7 +2381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/auth-vs-authz-vs-tls/" class="md-nav__link">
+      <a href="../../security/auth-vs-authz-vs-tls/" class="md-nav__link">
         
   
   
@@ -2655,7 +2409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/tls-certificates/" class="md-nav__link">
+      <a href="../../security/tls-certificates/" class="md-nav__link">
         
   
   
@@ -2683,7 +2437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/certificate-generation-openssl/" class="md-nav__link">
+      <a href="../../security/certificate-generation-openssl/" class="md-nav__link">
         
   
   
@@ -2711,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/certificate-api-management/" class="md-nav__link">
+      <a href="../../security/certificate-api-management/" class="md-nav__link">
         
   
   
@@ -2739,7 +2493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/kubeconfig-guide/" class="md-nav__link">
+      <a href="../../security/kubeconfig-guide/" class="md-nav__link">
         
   
   
@@ -2767,7 +2521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/service-accounts-guide/" class="md-nav__link">
+      <a href="../../security/service-accounts-guide/" class="md-nav__link">
         
   
   
@@ -2795,7 +2549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rbac-authorization/" class="md-nav__link">
+      <a href="../../security/rbac-authorization/" class="md-nav__link">
         
   
   
@@ -2823,7 +2577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/cluster-roles/" class="md-nav__link">
+      <a href="../../security/cluster-roles/" class="md-nav__link">
         
   
   
@@ -2851,7 +2605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rbac-practical-examples/" class="md-nav__link">
+      <a href="../../security/rbac-practical-examples/" class="md-nav__link">
         
   
   
@@ -2879,7 +2633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
+      <a href="../../security/rbac-kubectl-cheatsheet/" class="md-nav__link">
         
   
   
@@ -2907,7 +2661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/rolebinding-deep-dive/" class="md-nav__link">
+      <a href="../../security/rolebinding-deep-dive/" class="md-nav__link">
         
   
   
@@ -2935,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/emr-eks-rbac-oidc/" class="md-nav__link">
+      <a href="../../security/emr-eks-rbac-oidc/" class="md-nav__link">
         
   
   
@@ -2963,7 +2717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/image-security/" class="md-nav__link">
+      <a href="../../security/image-security/" class="md-nav__link">
         
   
   
@@ -2991,7 +2745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/security-contexts-capabilities/" class="md-nav__link">
+      <a href="../../security/security-contexts-capabilities/" class="md-nav__link">
         
   
   
@@ -3019,7 +2773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/authorization-mechanisms/" class="md-nav__link">
+      <a href="../../security/authorization-mechanisms/" class="md-nav__link">
         
   
   
@@ -3047,7 +2801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/abac-authorization/" class="md-nav__link">
+      <a href="../../security/abac-authorization/" class="md-nav__link">
         
   
   
@@ -3075,7 +2829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/opa-gatekeeper/" class="md-nav__link">
+      <a href="../../security/opa-gatekeeper/" class="md-nav__link">
         
   
   
@@ -3103,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/opa-kubernetes-deep-dive/" class="md-nav__link">
+      <a href="../../security/opa-kubernetes-deep-dive/" class="md-nav__link">
         
   
   
@@ -3190,7 +2944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/dns-beginners-guide/" class="md-nav__link">
+      <a href="../../networking/dns-beginners-guide/" class="md-nav__link">
         
   
   
@@ -3218,7 +2972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/configuring-host-as-dns/" class="md-nav__link">
+      <a href="../../networking/configuring-host-as-dns/" class="md-nav__link">
         
   
   
@@ -3246,7 +3000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/foundations-switching-routing/" class="md-nav__link">
+      <a href="../../networking/foundations-switching-routing/" class="md-nav__link">
         
   
   
@@ -3274,7 +3028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/linux-networking-commands/" class="md-nav__link">
+      <a href="../../networking/linux-networking-commands/" class="md-nav__link">
         
   
   
@@ -3302,7 +3056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/ip-forward-routing/" class="md-nav__link">
+      <a href="../../networking/ip-forward-routing/" class="md-nav__link">
         
   
   
@@ -3330,7 +3084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/dns-linux-coredns/" class="md-nav__link">
+      <a href="../../networking/dns-linux-coredns/" class="md-nav__link">
         
   
   
@@ -3358,7 +3112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/network-namespaces/" class="md-nav__link">
+      <a href="../../networking/network-namespaces/" class="md-nav__link">
         
   
   
@@ -3386,7 +3140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/docker-networking/" class="md-nav__link">
+      <a href="../../networking/docker-networking/" class="md-nav__link">
         
   
   
@@ -3414,7 +3168,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/cni-intro/" class="md-nav__link">
+      <a href="../../networking/cni-intro/" class="md-nav__link">
         
   
   
@@ -3442,7 +3196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/cluster-node-networking/" class="md-nav__link">
+      <a href="../../networking/cluster-node-networking/" class="md-nav__link">
         
   
   
@@ -3470,7 +3224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/pod-networking/" class="md-nav__link">
+      <a href="../../networking/pod-networking/" class="md-nav__link">
         
   
   
@@ -3498,7 +3252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/cni-in-kubernetes/" class="md-nav__link">
+      <a href="../../networking/cni-in-kubernetes/" class="md-nav__link">
         
   
   
@@ -3526,7 +3280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/weave-cni/" class="md-nav__link">
+      <a href="../../networking/weave-cni/" class="md-nav__link">
         
   
   
@@ -3554,7 +3308,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networking/ipam-cni/" class="md-nav__link">
+      <a href="../../networking/ipam-cni/" class="md-nav__link">
         
   
   
@@ -3582,7 +3336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../coredns-guide/" class="md-nav__link">
+      <a href="../../coredns-guide/" class="md-nav__link">
         
   
   
@@ -3610,7 +3364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/network-policies/" class="md-nav__link">
+      <a href="../../security/network-policies/" class="md-nav__link">
         
   
   
@@ -3638,7 +3392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/network-policy-examples/" class="md-nav__link">
+      <a href="../../security/network-policy-examples/" class="md-nav__link">
         
   
   
@@ -3666,7 +3420,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/network-policy-solutions/" class="md-nav__link">
+      <a href="../../security/network-policy-solutions/" class="md-nav__link">
         
   
   
@@ -3701,7 +3455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-focus/" class="md-nav__link">
+      <a href="../../security-focus/" class="md-nav__link">
         
   
   
@@ -3780,7 +3534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-overview/curriculum/" class="md-nav__link">
+      <a href="../../exam-overview/curriculum/" class="md-nav__link">
         
   
   
@@ -3812,26 +3566,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
         
           
-          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
             
   
   
@@ -3849,7 +3608,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3867,7 +3626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../kubectl-commands/" class="md-nav__link">
         
   
   
@@ -3895,7 +3654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -3923,7 +3682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../deployment-components/" class="md-nav__link">
         
   
   
@@ -3948,10 +3707,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../exam-tips/vdi-mac-performance/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VDI & Mac Setup
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3967,6 +3753,286 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mac-mini-setup-before-exam-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mac Mini Setup — Before Exam Day
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mac Mini Setup — Before Exam Day">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network &amp; Hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mac-specific-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mac-Specific Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk &amp; System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psi-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSI Browser
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-5-minutes-terminal-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First 5 Minutes — Terminal Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First 5 Minutes — Terminal Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aliases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vim Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copypaste-in-the-vdi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copy/Paste in the VDI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#critical-keyboard-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical Keyboard Safety
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#speed-efficiency-during-the-exam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Speed &amp; Efficiency During the Exam
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Speed &amp; Efficiency During the Exam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubectl-power-moves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        kubectl Power Moves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-switching-critical-in-cka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Switching (Critical in CKA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmux-optional-but-useful" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tmux (Optional but Useful)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vdi-display-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VDI Display Tips
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-management-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time Management Strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Navigation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practice Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-things-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Things Go Wrong
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-exam-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Exam Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-physical-test-centres-dont-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Physical Test Centres Don't Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4038,7 +4104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting-flowchart/" class="md-nav__link">
+      <a href="../../troubleshooting-flowchart/" class="md-nav__link">
         
   
   
@@ -4066,7 +4132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/crictl-guide/" class="md-nav__link">
+      <a href="../../troubleshooting/crictl-guide/" class="md-nav__link">
         
   
   
@@ -4121,22 +4187,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-exploring-etcd-the-hidden-database" class="md-nav__link">
+  <a href="#mac-mini-setup-before-exam-day" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Exploring ETCD (The "Hidden" Database)
+        Mac Mini Setup — Before Exam Day
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Exploring ETCD (The &#34;Hidden&#34; Database)">
+    <nav class="md-nav" aria-label="Mac Mini Setup — Before Exam Day">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accessing-etcd" class="md-nav__link">
+  <a href="#network-hardware" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Accessing ETCD
+        Network &amp; Hardware
       
     </span>
   </a>
@@ -4144,10 +4210,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#etcdctl-utility-versions-usage" class="md-nav__link">
+  <a href="#mac-specific-fixes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ETCDCTL Utility Versions &amp; Usage
+        Mac-Specific Fixes
       
     </span>
   </a>
@@ -4155,10 +4221,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#specifying-certificates-authentication" class="md-nav__link">
+  <a href="#disk-system" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Specifying Certificates (Authentication)
+        Disk &amp; System
       
     </span>
   </a>
@@ -4166,10 +4232,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#master-command-example" class="md-nav__link">
+  <a href="#monitor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Master Command Example
+        Monitor
       
     </span>
   </a>
@@ -4177,10 +4243,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-magic-command" class="md-nav__link">
+  <a href="#psi-browser" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The "Magic" Command
+        PSI Browser
       
     </span>
   </a>
@@ -4193,22 +4259,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-etcd-backup-cka-must-know" class="md-nav__link">
+  <a href="#first-5-minutes-terminal-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. ETCD Backup (CKA Must-Know)
+        First 5 Minutes — Terminal Setup
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. ETCD Backup (CKA Must-Know)">
+    <nav class="md-nav" aria-label="First 5 Minutes — Terminal Setup">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-log-in-to-the-control-plane-node" class="md-nav__link">
+  <a href="#aliases" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Log in to the Control Plane Node
+        Aliases
       
     </span>
   </a>
@@ -4216,10 +4282,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-run-the-snapshot-command" class="md-nav__link">
+  <a href="#vim-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Run the Snapshot Command
+        vim Setup
       
     </span>
   </a>
@@ -4227,10 +4293,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-verify-the-snapshot" class="md-nav__link">
+  <a href="#copypaste-in-the-vdi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Verify the Snapshot
+        Copy/Paste in the VDI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#critical-keyboard-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical Keyboard Safety
       
     </span>
   </a>
@@ -4243,22 +4320,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-etcd-restore-disaster-recovery" class="md-nav__link">
+  <a href="#speed-efficiency-during-the-exam" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. ETCD Restore (Disaster Recovery)
+        Speed &amp; Efficiency During the Exam
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. ETCD Restore (Disaster Recovery)">
+    <nav class="md-nav" aria-label="Speed &amp; Efficiency During the Exam">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#criticial-concept-the-restore-process" class="md-nav__link">
+  <a href="#kubectl-power-moves" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Criticial Concept: The Restore Process
+        kubectl Power Moves
       
     </span>
   </a>
@@ -4266,10 +4343,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-1-restore-the-snapshot" class="md-nav__link">
+  <a href="#context-switching-critical-in-cka" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Restore the Snapshot
+        Context Switching (Critical in CKA)
       
     </span>
   </a>
@@ -4277,10 +4354,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-update-the-etcd-static-pod-manifest" class="md-nav__link">
+  <a href="#tmux-optional-but-useful" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Update the ETCD Static Pod Manifest
+        tmux (Optional but Useful)
       
     </span>
   </a>
@@ -4288,10 +4365,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-3-wait-for-restart" class="md-nav__link">
+  <a href="#vdi-display-tips" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Wait for Restart
+        VDI Display Tips
       
     </span>
   </a>
@@ -4304,10 +4381,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-cheat-sheet-summary" class="md-nav__link">
+  <a href="#time-management-strategy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Cheat Sheet Summary
+        Time Management Strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Navigation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practice Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-things-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Things Go Wrong
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-exam-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Exam Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-physical-test-centres-dont-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Physical Test Centres Don't Help
       
     </span>
   </a>
@@ -4331,165 +4463,260 @@
 
 
 
-<h1 id="etcd-deep-dive-backup-guide">ETCD Deep Dive &amp; Backup Guide</h1>
-<p><strong>ETCD</strong> is the brain of your Kubernetes cluster. It is a consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.</p>
-<p>If you lose ETCD, you lose your cluster. That is why <strong>Backup &amp; Restore</strong> is a critical CKA competency.</p>
+<h1 id="cka-exam-tips-vdi-mac-mini-performance-guide">CKA Exam Tips — VDI, Mac Mini &amp; Performance Guide</h1>
+<blockquote>
+<p>A comprehensive guide to surviving and thriving in the CKA exam, with a focus on PSI VDI lag, Mac Mini optimisations, and exam-day efficiency.</p>
+</blockquote>
 <hr />
-<h2 id="1-exploring-etcd-the-hidden-database">1. Exploring ETCD (The "Hidden" Database)</h2>
-<p>Kubernetes stores every resource (Pods, Services, Secrets) as a key-value pair in ETCD.</p>
-<h3 id="accessing-etcd">Accessing ETCD</h3>
-<p>ETCD is secured by Mutual TLS (mTLS). You cannot just access it without the correct certificates.</p>
-<p><strong>Common Certificate Locations (Kubeadm/Standard):</strong>
-- CA Cert: <code>/etc/kubernetes/pki/etcd/ca.crt</code>
-- Server Cert: <code>/etc/kubernetes/pki/etcd/server.crt</code>
-- Server Key: <code>/etc/kubernetes/pki/etcd/server.key</code></p>
-<p><strong>Minikube Locations:</strong>
-- CA Cert: <code>/var/lib/minikube/certs/etcd/ca.crt</code>
-- Server Cert: <code>/var/lib/minikube/certs/etcd/server.crt</code>
-- Server Key: <code>/var/lib/minikube/certs/etcd/server.key</code></p>
-<h3 id="etcdctl-utility-versions-usage">ETCDCTL Utility Versions &amp; Usage</h3>
-<p>The <code>etcdctl</code> CLI tool interacts with the ETCD Server using <strong>2 API versions</strong>: Version 2 and Version 3.</p>
+<h2 id="mac-mini-setup-before-exam-day">Mac Mini Setup — Before Exam Day</h2>
+<h3 id="network-hardware">Network &amp; Hardware</h3>
 <ul>
-<li>By default, it is often set to use <strong>Version 2</strong>.</li>
-<li>Each version has completely different commands.</li>
+<li>Use <strong>wired Ethernet</strong> — the Mac mini's built-in port is your biggest advantage over laptop users</li>
+<li>If you lose connectivity during the exam, you'll have to go through the full ID verification process again, losing valuable exam time — make it wired and reliable</li>
+<li>Keep a <strong>mobile 4G dongle</strong> as a backup in case broadband fails mid-exam</li>
+<li>Connect your broadband router to a <strong>UPS (uninterruptible power supply)</strong></li>
 </ul>
-<p><strong>Version 2 Commands (Old/Default)</strong>:
-*   <code>etcdctl backup</code>
-*   <code>etcdctl cluster-health</code>
-*   <code>etcdctl mk</code>
-*   <code>etcdctl mkdir</code>
-*   <code>etcdctl set</code></p>
-<p><strong>Version 3 Commands (Used in Kubernetes)</strong>:
-*   <code>etcdctl snapshot save</code>
-*   <code>etcdctl endpoint health</code>
-*   <code>etcdctl get</code>
-*   <code>etcdctl put</code></p>
-<p><strong>How to set the right version:</strong>
-To use version 3 commands (which are required for Kubernetes/CKA), you MUST set the environment variable:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span>
-</code></pre></div>
-<p><strong>Note:</strong> If the API version is not set, it defaults to version 2, and version 3 commands (like <code>snapshot save</code>) will fail. Conversely, if set to version 3, version 2 commands (like <code>mkdir</code>) will fail.</p>
-<h3 id="specifying-certificates-authentication">Specifying Certificates (Authentication)</h3>
-<p>Apart from setting the API version, you must specify the path to certificate files so that <code>etcdctl</code> can authenticate to the ETCD API Server.</p>
-<p>Standard locations (kubeadm/master node):
-*   <code>--cacert /etc/kubernetes/pki/etcd/ca.crt</code>
-*   <code>--cert /etc/kubernetes/pki/etcd/server.crt</code>
-*   <code>--key /etc/kubernetes/pki/etcd/server.key</code></p>
-<h3 id="master-command-example">Master Command Example</h3>
-<p>Here is the full command that combines API versioning, certificate paths, and execution inside a pod:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>etcd-master<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>--<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;ETCDCTL_API=3 etcdctl get / --prefix --keys-only --limit=10 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt  --key /etc/kubernetes/pki/etcd/server.key&quot;</span>
-</code></pre></div>
-<h3 id="the-magic-command">The "Magic" Command</h3>
-<p>To see what resides in your cluster's brain, run this from inside the etcd pod (or a node with <code>etcdctl</code> installed):</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># General Syntax</span>
-<span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>etcdctl<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cacert<span class="o">=</span>&lt;path-to-ca&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cert<span class="o">=</span>&lt;path-to-cert&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--key<span class="o">=</span>&lt;path-to-key&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>get<span class="w"> </span>/<span class="w"> </span>--prefix<span class="w"> </span>--keys-only
-</code></pre></div>
-<p><strong>Example (Minikube):</strong>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>etcd-minikube<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>--<span class="w"> </span>etcdctl<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cacert<span class="o">=</span>/var/lib/minikube/certs/etcd/ca.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cert<span class="o">=</span>/var/lib/minikube/certs/etcd/server.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--key<span class="o">=</span>/var/lib/minikube/certs/etcd/server.key<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>get<span class="w"> </span>/registry/pods<span class="w"> </span>--prefix<span class="w"> </span>--keys-only
-</code></pre></div></p>
-<p><strong>Sample Output:</strong>
-<div class="highlight"><pre><span></span><code>/registry/pods/default/my-web-app
-/registry/pods/kube-system/coredns-66bc5c9577-6xrr6
-/registry/pods/kube-system/etcd-minikube
-</code></pre></div></p>
+<h3 id="mac-specific-fixes">Mac-Specific Fixes</h3>
+<ul>
+<li><strong>Turn off Bluetooth</strong> — disables SideCarRelay which causes keyboard input to appear as <code>ddddeploy</code> instead of <code>deploy</code> (documented Mac mini bug)</li>
+<li>Allow PSI Secure Browser in <strong>System Preferences → Security &amp; Privacy → Privacy</strong> for:<ul>
+<li>Microphone</li>
+<li>Camera</li>
+<li>Automation</li>
+<li>Input Monitoring</li>
+</ul>
+</li>
+<li>Even if your Mac passes all PSI system checks, the exam may not start — have a backup PC plan</li>
+</ul>
+<h3 id="disk-system">Disk &amp; System</h3>
+<ul>
+<li>Keep at least <strong>15–20 GB of free disk space</strong> — PSI software takes up a significant chunk</li>
+<li>Restart your Mac fresh <strong>30–60 minutes</strong> before exam time</li>
+<li>Close all foreground processes before launching the exam including:<ul>
+<li>Programs in the system tray</li>
+<li>Hypervisor services (Parallels, VMware)</li>
+<li>Any command prompts opened by services</li>
+</ul>
+</li>
+</ul>
+<h3 id="monitor">Monitor</h3>
+<ul>
+<li>PSI Secure Browser will <strong>refuse to start</strong> if it detects more than one enabled monitor — disconnect all extra displays</li>
+<li>Use the <strong>largest single screen</strong> you have for more real estate in the XFCE desktop</li>
+</ul>
+<h3 id="psi-browser">PSI Browser</h3>
+<ul>
+<li>Always download a <strong>fresh copy</strong> of PSI Secure Browser using the link provided at exam launch — uninstall any previous version first</li>
+<li>You can start the exam <strong>30 minutes early</strong> — use this time to troubleshoot check-in, webcam, and room scanning before the clock starts</li>
+</ul>
 <hr />
-<h2 id="2-etcd-backup-cka-must-know">2. ETCD Backup (CKA Must-Know)</h2>
-<p>You MUST know how to take a snapshot of the ETCD database.</p>
-<h3 id="step-1-log-in-to-the-control-plane-node">Step 1: Log in to the Control Plane Node</h3>
-<p>In the exam, you will likely run this directly on the master node where <code>etcdctl</code> is installed.</p>
-<h3 id="step-2-run-the-snapshot-command">Step 2: Run the Snapshot Command</h3>
-<p>Use the <code>snapshot save</code> command.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>etcdctl<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--endpoints<span class="o">=</span>https://127.0.0.1:2379<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cacert<span class="o">=</span>/etc/kubernetes/pki/etcd/ca.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--cert<span class="o">=</span>/etc/kubernetes/pki/etcd/server.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--key<span class="o">=</span>/etc/kubernetes/pki/etcd/server.key<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>snapshot<span class="w"> </span>save<span class="w"> </span>/tmp/etcd-backup.db
+<h2 id="first-5-minutes-terminal-setup">First 5 Minutes — Terminal Setup</h2>
+<p>Do this <strong>immediately</strong> before touching any question. It's the highest ROI time you'll spend.</p>
+<h3 id="aliases">Aliases</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">k</span><span class="o">=</span>kubectl
+<span class="nb">alias</span><span class="w"> </span><span class="nv">kgp</span><span class="o">=</span><span class="s2">&quot;k get pod&quot;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">kgd</span><span class="o">=</span><span class="s2">&quot;k get deploy&quot;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">kgs</span><span class="o">=</span><span class="s2">&quot;k get svc&quot;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">kgn</span><span class="o">=</span><span class="s2">&quot;k get nodes&quot;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">kd</span><span class="o">=</span><span class="s2">&quot;k describe&quot;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">kge</span><span class="o">=</span><span class="s2">&quot;k get events --sort-by=&#39;.metadata.creationTimestamp&#39; | tail -8&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="k">do</span><span class="o">=</span><span class="s2">&quot;--dry-run=client -o yaml&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">now</span><span class="o">=</span><span class="s2">&quot;--force --grace-period 0&quot;</span>
+<span class="nb">source</span><span class="w"> </span>&lt;<span class="o">(</span>kubectl<span class="w"> </span>completion<span class="w"> </span>bash<span class="o">)</span>
+<span class="nb">complete</span><span class="w"> </span>-F<span class="w"> </span>__start_kubectl<span class="w"> </span>k
 </code></pre></div>
-<p><strong>Success Output:</strong>
-<div class="highlight"><pre><span></span><code>Snapshot saved at /tmp/etcd-backup.db
-</code></pre></div></p>
-<h3 id="step-3-verify-the-snapshot">Step 3: Verify the Snapshot</h3>
-<p>Always verify your backup was successful.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>etcdctl<span class="w"> </span>--write-out<span class="o">=</span>table<span class="w"> </span>snapshot<span class="w"> </span>status<span class="w"> </span>/tmp/etcd-backup.db
+<div class="admonition tip">
+<p class="admonition-title">CKA Alias Trick</p>
+<p>In the CKA exam, you SSH into a separate node for each question — saving aliases to <code>~/.bashrc</code> 16 times will kill your time.
+<strong>Better approach:</strong> Open a text file using MousePad at the start, write all your alias statements there, and after SSH-ing into each cluster, copy and paste the aliases directly into the terminal.</p>
+</div>
+<h3 id="vim-setup">vim Setup</h3>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.vimrc<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">set expandtab</span>
+<span class="s">set tabstop=2</span>
+<span class="s">set shiftwidth=2</span>
+<span class="s">set paste</span>
+<span class="s">EOF</span>
 </code></pre></div>
+<h3 id="copypaste-in-the-vdi">Copy/Paste in the VDI</h3>
+<ul>
+<li>In the Linux terminal: use <code>Ctrl+Shift+C</code> and <code>Ctrl+Shift+V</code>, or right-click menus</li>
+<li>In Firefox (for docs): use standard <code>Ctrl+C</code> / <code>Ctrl+V</code></li>
+<li>Always <strong>wait a beat</strong> after copying before pasting — clipboard lag can silently drop content</li>
+</ul>
+<h3 id="critical-keyboard-safety">Critical Keyboard Safety</h3>
+<div class="admonition warning">
+<p class="admonition-title">Important</p>
+<ul>
+<li>Use <strong><code>Ctrl+Alt+W</code></strong> instead of <code>Ctrl+W</code> — pressing <code>Ctrl+W</code> will <strong>close the browser window</strong>, not the terminal tab</li>
+<li><strong>Never reboot</strong> the base node (hostname <code>base</code>) — rebooting will NOT restart your exam environment</li>
+</ul>
+</div>
 <hr />
-<h2 id="3-etcd-restore-disaster-recovery">3. ETCD Restore (Disaster Recovery)</h2>
-<p>If your cluster data is corrupted or deleted, you restore from the snapshot.</p>
-<h3 id="criticial-concept-the-restore-process">Criticial Concept: The Restore Process</h3>
-<p>Restoring doesn't just "overwrite" the running database. It creates a <strong>new data directory</strong>. You then have to tell the ETCD pod to use this new directory.</p>
-<h3 id="step-1-restore-the-snapshot">Step 1: Restore the Snapshot</h3>
-<p>This command extracts the backup file into a new directory path.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># directory where the new data will be extracted</span>
-<span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>etcdctl<span class="w"> </span>snapshot<span class="w"> </span>restore<span class="w"> </span>/tmp/etcd-backup.db<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--data-dir<span class="w"> </span>/var/lib/etcd-restore-new
+<h2 id="speed-efficiency-during-the-exam">Speed &amp; Efficiency During the Exam</h2>
+<h3 id="kubectl-power-moves">kubectl Power Moves</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate YAML skeletons — faster than typing from scratch</span>
+k<span class="w"> </span>run<span class="w"> </span>nginx<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span><span class="nv">$do</span><span class="w"> </span>&gt;<span class="w"> </span>pod.yaml
+k<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>web<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span><span class="nv">$do</span><span class="w"> </span>&gt;<span class="w"> </span>deploy.yaml
+
+<span class="c1"># Force delete stuck pods immediately</span>
+k<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="nv">$now</span>
+
+<span class="c1"># Edit live resources without recreating</span>
+k<span class="w"> </span>edit<span class="w"> </span>deployment<span class="w"> </span>my-deploy
+
+<span class="c1"># Use --help for built-in examples</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>--help
+kubectl<span class="w"> </span>create<span class="w"> </span>--help
 </code></pre></div>
-<h3 id="step-2-update-the-etcd-static-pod-manifest">Step 2: Update the ETCD Static Pod Manifest</h3>
-<p>You need to point the running ETCD pod to this new directory.</p>
-<ol>
-<li><strong>Edit the manifest:</strong> <code>/etc/kubernetes/manifests/etcd.yaml</code></li>
-<li><strong>Update <code>hostPath</code>:</strong> look for the volume mount for <code>etcd-data</code>.</li>
-</ol>
-<p><strong>Before:</strong>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostPath</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/etcd</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DirectoryOrCreate</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">etcd-data</span>
-</code></pre></div></p>
-<p><strong>After:</strong>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostPath</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/etcd-restore-new</span><span class="w">  </span><span class="c1"># &lt;--- CHANGED THIS</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DirectoryOrCreate</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">etcd-data</span>
-</code></pre></div></p>
-<h3 id="step-3-wait-for-restart">Step 3: Wait for Restart</h3>
-<p>Kubernetes will detect the file change and restart the ETCD pod automatically. It might take a minute.</p>
+<h3 id="context-switching-critical-in-cka">Context Switching (Critical in CKA)</h3>
+<p>Each exam task uses a <strong>different cluster</strong> — a single missed <code>exit</code> or mis-scoped kubectl context can derail your workflow.</p>
+<ul>
+<li>Always run the context command shown at the top of each question before anything else:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>config<span class="w"> </span>use-context<span class="w"> </span>&lt;context-name&gt;
+</code></pre></div>
+<ul>
+<li>Validate your scope before executing commands</li>
+<li>Always run <code>exit</code> when done with an SSH session</li>
+</ul>
+<h3 id="tmux-optional-but-useful">tmux (Optional but Useful)</h3>
+<p>With the GUI desktop environment, tmux is optional since you can open multiple terminal windows. It's most useful when running the same commands on multiple nodes simultaneously.</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; ~/.tmux.conf</span>
+<span class="s">set -g default-shell /bin/bash</span>
+<span class="s">set -g mouse on</span>
+<span class="s">bind -n C-x setw synchronize-panes</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h3 id="vdi-display-tips">VDI Display Tips</h3>
+<ul>
+<li>Use <code>+</code> / <code>-</code> in the PSI Secure Browser toolbar to adjust font size</li>
+<li>Drag the border between the question panel and remote desktop to resize</li>
+<li>Shrink the toolbar by toggling next to your video thumbnail to gain more screen space</li>
+</ul>
 <hr />
-<h2 id="4-cheat-sheet-summary">4. Cheat Sheet Summary</h2>
+<h2 id="time-management-strategy">Time Management Strategy</h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Task</th>
-<th style="text-align: left;">Command / Flag</th>
+<th>Guideline</th>
+<th>Detail</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>API Version</strong></td>
-<td style="text-align: left;"><code>export ETCDCTL_API=3</code> (Always set this!)</td>
+<td><strong>Target buffer</strong></td>
+<td>Aim to have 45 minutes remaining before the exam ends to revisit flagged questions</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Endpoint</strong></td>
-<td style="text-align: left;"><code>--endpoints=https://127.0.0.1:2379</code></td>
+<td><strong>Easy-first approach</strong></td>
+<td>~70% of questions are straightforward — secure full points on those first</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Cert Flags</strong></td>
-<td style="text-align: left;"><code>--cacert</code>, <code>--cert</code>, <code>--key</code></td>
+<td><strong>Passing score</strong></td>
+<td>You only need <strong>66%</strong> to pass — don't chase perfection on every question</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Backup</strong></td>
-<td style="text-align: left;"><code>snapshot save &lt;filename&gt;</code></td>
+<td><strong>Partial credit</strong></td>
+<td>You may earn partial credit by completing some components of a multi-part question</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Verify</strong></td>
-<td style="text-align: left;"><code>snapshot status &lt;filename&gt;</code></td>
+<td><strong>High-weight domains</strong></td>
+<td>Troubleshooting + Cluster Architecture = over half your potential score</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Restore</strong></td>
-<td style="text-align: left;"><code>snapshot restore &lt;filename&gt; --data-dir &lt;new-path&gt;</code></td>
+<td><strong>Final review</strong></td>
+<td>Keep 10–15 minutes at the end for a final sweep</td>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="documentation-navigation">Documentation Navigation</h2>
+<div class="admonition info">
+<p class="admonition-title">Allowed Sites</p>
+<ul>
+<li><a href="https://kubernetes.io">kubernetes.io</a></li>
+<li><a href="https://kubernetes.io/blog">Kubernetes Blog</a></li>
+<li><a href="https://helm.sh/docs">Helm Docs</a></li>
+<li><a href="https://gateway-api.sigs.k8s.io">Gateway API Docs</a></li>
+</ul>
+</div>
+<p><strong>Tips:</strong></p>
+<ul>
+<li>Use <code>Ctrl+F</code> on docs pages instead of scrolling — scrolling in the VDI is sluggish</li>
+<li>Pre-memorise key doc paths:<ul>
+<li><code>/docs/tasks/</code></li>
+<li><code>/docs/concepts/</code></li>
+<li><code>/docs/reference/</code></li>
+</ul>
+</li>
+<li>Practice navigating docs from scratch during killer.sh sessions (no pre-saved bookmarks in PSI browser)</li>
+</ul>
+<hr />
+<h2 id="practice-resources">Practice Resources</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>killer.sh</strong></td>
+<td>Included free with your exam (2 sessions, 36hr each). Use one a week before, one the day before</td>
+</tr>
+<tr>
+<td><strong>KodeKloud (Mumshad)</strong></td>
+<td>Best foundational course — explanations, diagrams, and labs</td>
+</tr>
+<tr>
+<td><strong>KillerCoda</strong></td>
+<td>Free browser-based scenarios in a Linux GUI desktop mirroring the exam layout</td>
+</tr>
+<tr>
+<td><strong>Timed practice</strong></td>
+<td>Speed matters — always practice with a timer, aim to finish with 10–15 min spare</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="if-things-go-wrong">If Things Go Wrong</h2>
+<ul>
+<li><strong>VDI freezes or disconnects</strong> → Contact proctor immediately via chat; the timer can be paused for proctor-side issues</li>
+<li><strong>Keyboard stops working</strong> → Exit and restart PSI browser; your exam state is saved</li>
+<li><strong>Webcam not detected</strong> → Some webcam models are incompatible with PSI Browser — test this well in advance with a USB webcam</li>
+<li><strong>After the exam</strong> → If you had technical problems, open a ticket at <a href="https://trainingsupport.linuxfoundation.org">trainingsupport.linuxfoundation.org</a> immediately</li>
+</ul>
+<hr />
+<h2 id="pre-exam-checklist">Pre-Exam Checklist</h2>
+<ul>
+<li>[ ] Plug in Ethernet (not Wi-Fi)</li>
+<li>[ ] Turn off Bluetooth (Mac-specific fix)</li>
+<li>[ ] Restart Mac fresh</li>
+<li>[ ] Disconnect all extra monitors</li>
+<li>[ ] Close all apps &amp; background services</li>
+<li>[ ] 15–20 GB free disk space confirmed</li>
+<li>[ ] UPS connected to router</li>
+<li>[ ] 4G dongle ready as backup</li>
+<li>[ ] Download fresh PSI browser (available 30 min before)</li>
+<li>[ ] PSI Privacy permissions granted (mic, camera, input monitoring)</li>
+<li>[ ] Valid ID ready</li>
+<li>[ ] Clear desk, water nearby</li>
+<li>[ ] Join 30 minutes early</li>
+<li>[ ] Alias + vimrc text ready to paste from MousePad</li>
+</ul>
+<hr />
+<h2 id="why-physical-test-centres-dont-help">Why Physical Test Centres Don't Help</h2>
+<p>The CKA is an <strong>online proctored exam only</strong> — there are no physical test centre options. Every candidate worldwide goes through the same PSI remote desktop VDI experience. This means your Mac mini at home is actually one of the <strong>better setups</strong> you can have:</p>
+<ul>
+<li>Full control over your environment</li>
+<li>Native Ethernet port</li>
+<li>No shared bandwidth</li>
+<li>No restrictions on hardware</li>
+</ul>
+<hr />
+<p><em>Good luck! 🎯 You've got this.</em></p>
 
 
 
@@ -4540,10 +4767,10 @@ To use version 3 commands (which are required for Kubernetes/CKA), you MUST set 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
