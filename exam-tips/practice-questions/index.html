@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../volumes-pv-pvc/">
+        <link rel="prev" href="../ports-cheatsheet.html">
       
       
-        <link rel="next" href="../hands-on-examples/">
+        <link rel="next" href="../../troubleshooting-flowchart/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>CSI Architecture & Workflow - CKA Exam Notes - Kubernetes Troubleshooting</title>
+        <title>Practice Questions - CKA Exam Notes - Kubernetes Troubleshooting</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#container-orchestrator-storage-csi-workflow" class="md-skip">
+        <a href="#cka-practice-questions-solutions" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CSI Architecture & Workflow
+              Practice Questions
             
           </span>
         </div>
@@ -344,13 +344,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../storage-deep-dive/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../storage/storage-deep-dive/" class="md-tabs__link">
           
   
   
@@ -445,11 +443,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../exam-tips/kubectl-commands/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../kubectl-commands/" class="md-tabs__link">
           
   
   
@@ -2015,31 +2015,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -2057,7 +2052,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2075,7 +2070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage-deep-dive/" class="md-nav__link">
+      <a href="../../storage/storage-deep-dive/" class="md-nav__link">
         
   
   
@@ -2103,7 +2098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../volumes-pv-pvc/" class="md-nav__link">
+      <a href="../../storage/volumes-pv-pvc/" class="md-nav__link">
         
   
   
@@ -2128,37 +2123,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CSI Architecture & Workflow
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../storage/csi-architecture-workflow/" class="md-nav__link">
         
   
   
@@ -2174,126 +2142,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-relationship-the-translator-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🏗️ 1. The Relationship: The "Translator" Model
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🏗️ 1. The Relationship: The &#34;Translator&#34; Model">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-actors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Actors 🎭
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interaction-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interaction Flow
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-step-by-step-how-a-volume-is-born" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔄 2. Step-by-Step: How a Volume is Born
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔄 2. Step-by-Step: How a Volume is Born">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#phase-1-provisioning-the-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 1: Provisioning (The Request)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-2-attaching-the-connection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 2: Attaching (The Connection)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-3-mounting-the-hand-off" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 3: Mounting (The Hand-off)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-summary-of-csi-sidecars" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚡ 3. Summary of CSI Sidecars
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2306,7 +2154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hands-on-examples/" class="md-nav__link">
+      <a href="../../storage/hands-on-examples/" class="md-nav__link">
         
   
   
@@ -2334,7 +2182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulsets-deep-dive/" class="md-nav__link">
+      <a href="../../storage/statefulsets-deep-dive/" class="md-nav__link">
         
   
   
@@ -2362,7 +2210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../statefulset-architecture/" class="md-nav__link">
+      <a href="../../storage/statefulset-architecture/" class="md-nav__link">
         
   
   
@@ -3718,26 +3566,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
         
           
-          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
             
   
   
@@ -3755,7 +3608,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3773,7 +3626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-tips/kubectl-commands/" class="md-nav__link">
+      <a href="../kubectl-commands/" class="md-nav__link">
         
   
   
@@ -3801,7 +3654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-tips/dry-run-workflow/" class="md-nav__link">
+      <a href="../dry-run-workflow/" class="md-nav__link">
         
   
   
@@ -3829,7 +3682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-tips/deployment-components/" class="md-nav__link">
+      <a href="../deployment-components/" class="md-nav__link">
         
   
   
@@ -3857,7 +3710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-tips/vdi-mac-performance/" class="md-nav__link">
+      <a href="../vdi-mac-performance/" class="md-nav__link">
         
   
   
@@ -3885,7 +3738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../exam-tips/ports-cheatsheet.html" class="md-nav__link">
+      <a href="../ports-cheatsheet.html" class="md-nav__link">
         
   
   
@@ -3910,10 +3763,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../exam-tips/practice-questions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Practice Questions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3929,6 +3809,164 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#q1-cluster-upgrade-kubeadm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1 — Cluster Upgrade (kubeadm)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q2-custom-column-output-to-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Custom Column Output to File
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q3-fix-broken-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Fix Broken Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q4-rolling-update-with-annotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Rolling Update with Annotation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q5-troubleshoot-pending-deployment-pvc-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Troubleshoot Pending Deployment (PVC Issue)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q6-etcd-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q6 — ETCD Backup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q7-pod-with-secret-volume-mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q7 — Pod with Secret Volume Mount
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-exam-speed-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference — Exam Speed Tips
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference — Exam Speed Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-these-aliases-at-the-start-of-every-exam-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set these aliases at the START of every exam session
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-yaml-fast-instead-of-writing-from-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate YAML fast instead of writing from scratch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-2-minute-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 2-minute rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#always-know-where-you-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Always know where you are
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4083,22 +4121,99 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-relationship-the-translator-model" class="md-nav__link">
+  <a href="#q1-cluster-upgrade-kubeadm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🏗️ 1. The Relationship: The "Translator" Model
+        Q1 — Cluster Upgrade (kubeadm)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🏗️ 1. The Relationship: The &#34;Translator&#34; Model">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q2-custom-column-output-to-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2 — Custom Column Output to File
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q3-fix-broken-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3 — Fix Broken Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q4-rolling-update-with-annotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4 — Rolling Update with Annotation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q5-troubleshoot-pending-deployment-pvc-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5 — Troubleshoot Pending Deployment (PVC Issue)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q6-etcd-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q6 — ETCD Backup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q7-pod-with-secret-volume-mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q7 — Pod with Secret Volume Mount
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-exam-speed-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference — Exam Speed Tips
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference — Exam Speed Tips">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-actors" class="md-nav__link">
+  <a href="#set-these-aliases-at-the-start-of-every-exam-session" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Actors 🎭
+        Set these aliases at the START of every exam session
       
     </span>
   </a>
@@ -4106,10 +4221,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#interaction-flow" class="md-nav__link">
+  <a href="#generate-yaml-fast-instead-of-writing-from-scratch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interaction Flow
+        Generate YAML fast instead of writing from scratch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-2-minute-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 2-minute rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#always-know-where-you-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Always know where you are
       
     </span>
   </a>
@@ -4118,67 +4255,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-step-by-step-how-a-volume-is-born" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🔄 2. Step-by-Step: How a Volume is Born
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔄 2. Step-by-Step: How a Volume is Born">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#phase-1-provisioning-the-request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 1: Provisioning (The Request)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-2-attaching-the-connection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 2: Attaching (The Connection)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-3-mounting-the-hand-off" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 3: Mounting (The Hand-off)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-summary-of-csi-sidecars" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚡ 3. Summary of CSI Sidecars
-      
-    </span>
-  </a>
   
 </li>
       
@@ -4199,62 +4275,529 @@
 
 
 
-<h1 id="container-orchestrator-storage-csi-workflow">Container Orchestrator &amp; Storage (CSI) Workflow</h1>
-<p>Understanding the relationship between the <strong>Container Orchestrator</strong> (Kubernetes) and the <strong>Storage Driver</strong> (CSI) is key to mastering stateful workloads. </p>
+<h1 id="cka-practice-questions-solutions">CKA Practice Questions &amp; Solutions</h1>
+<div class="admonition tip">
+<p class="admonition-title">How to Use This Page</p>
+<p>These are real exam-style questions collected from practice sessions.<br />
+<strong>Try solving each one before expanding the solution.</strong><br />
+Target: <strong>under 3 minutes per question</strong> to match exam pace.</p>
+</div>
 <hr />
-<h2 id="1-the-relationship-the-translator-model">🏗️ 1. The Relationship: The "Translator" Model</h2>
-<p>In older versions of Kubernetes, storage drivers were "in-tree" (built directly into the K8s binary). This was slow and hard to maintain. Today, Kubernetes uses the <strong>Container Storage Interface (CSI)</strong>.</p>
-<h3 id="the-actors">The Actors 🎭</h3>
-<ol>
-<li><strong>Orchestrator (Kubernetes)</strong>: The "Manager". It knows <em>when</em> a Pod needs storage but doesn't know <em>how</em> to talk to a specific disk (like an AWS EBS or an NFS share).</li>
-<li><strong>CSI Driver</strong>: The "Translator". It is a plugin that speaks "Kubernetes" on one side and the "Storage Provider's API" on the other. </li>
-<li><strong>Storage Provider</strong>: The "Infrastructure". The actual physical or virtual disk located in your cloud or data center.</li>
-</ol>
-<h3 id="interaction-flow">Interaction Flow</h3>
-<div class="highlight"><pre><span></span><code>graph LR
-    A[Kubernetes Control Plane] -- &quot;gRPC Call&quot; --&gt; B[CSI Driver Controller]
-    B -- &quot;API Call&quot; --&gt; C[Cloud/Storage Provider]
-    D[Kubelet on Worker Node] -- &quot;gRPC Call&quot; --&gt; E[CSI Driver Node]
-    E -- &quot;Mount Command&quot; --&gt; F[Attached Disk]
+<h2 id="q1-cluster-upgrade-kubeadm">Q1 — Cluster Upgrade (kubeadm)</h2>
+<div class="admonition question">
+<p class="admonition-title">Task</p>
+<p>Upgrade the current version of Kubernetes from <code>1.33.0</code> to <code>1.34.0</code> exactly using the <code>kubeadm</code> utility.
+Make sure the upgrade is carried out <strong>one node at a time</strong> starting with the controlplane node.
+To minimize downtime, the deployment <code>gold-nginx</code> should be rescheduled on an alternate node before upgrading each node.
+Upgrade <code>controlplane</code> node first and drain <code>node01</code> before upgrading it.
+Pods for <code>gold-nginx</code> should run on the <code>controlplane</code> node subsequently.</p>
+</div>
+<p>??? success "Step-by-Step Solution"</p>
+<div class="highlight"><pre><span></span><code>### Check current state first
+```bash
+kubectl get nodes
+kubectl get pods -o wide | grep gold-nginx
+```
+
+---
+
+### Phase 1 — Upgrade Controlplane Node
+
+**Step 1 — Drain controlplane (gold-nginx moves to node01)**
+```bash
+kubectl drain controlplane --ignore-daemonsets --delete-emptydir-data
+```
+
+**Step 2 — Upgrade kubeadm**
+```bash
+apt-mark unhold kubeadm
+apt-get update
+apt-get install -y kubeadm=1.34.0-1.1
+apt-mark hold kubeadm
+kubeadm version
+```
+
+**Step 3 — Plan and apply the upgrade**
+```bash
+kubeadm upgrade plan v1.34.0
+kubeadm upgrade apply v1.34.0
+```
+
+**Step 4 — Upgrade kubelet and kubectl**
+```bash
+apt-mark unhold kubelet kubectl
+apt-get install -y kubelet=1.34.0-1.1 kubectl=1.34.0-1.1
+apt-mark hold kubelet kubectl
+systemctl daemon-reload
+systemctl restart kubelet
+```
+
+**Step 5 — Uncordon controlplane**
+```bash
+kubectl uncordon controlplane
+kubectl get nodes
+# controlplane should show v1.34.0 and Ready
+```
+
+---
+
+### Phase 2 — Upgrade node01
+
+**Step 6 — Drain node01 from controlplane (gold-nginx moves back to controlplane ✅)**
+```bash
+kubectl drain node01 --ignore-daemonsets --delete-emptydir-data
+```
+
+**Step 7 — SSH into node01 and upgrade kubeadm**
+```bash
+ssh node01
+
+apt-mark unhold kubeadm
+apt-get update
+apt-get install -y kubeadm=1.34.0-1.1
+apt-mark hold kubeadm
+
+kubeadm upgrade node        # NOTE: &#39;node&#39; not &#39;apply&#39; on worker nodes
+```
+
+**Step 8 — Upgrade kubelet and kubectl on node01**
+```bash
+apt-mark unhold kubelet kubectl
+apt-get install -y kubelet=1.34.0-1.1 kubectl=1.34.0-1.1
+apt-mark hold kubelet kubectl
+systemctl daemon-reload
+systemctl restart kubelet
+exit
+```
+
+**Step 9 — Uncordon node01**
+```bash
+kubectl uncordon node01
+```
+
+---
+
+### Verify everything
+```bash
+kubectl get nodes
+# Both nodes should show v1.34.0 and Ready
+
+kubectl get pods -o wide | grep gold-nginx
+# gold-nginx should be running on controlplane ✅
+```
+
+---
+
+### Key Rules to Remember
+
+| Rule | Detail |
+|------|--------|
+| Worker nodes use `kubeadm upgrade node` | NOT `kubeadm upgrade apply` |
+| Always `apt-mark unhold` before install | Otherwise package is blocked |
+| Uncordon AFTER kubelet restart | Not before |
+| `kubectl` commands only from controlplane | Won&#39;t work inside SSH on worker |
+| Can only upgrade one minor version at a time | 1.30 → 1.31 → 1.32, not 1.30 → 1.32 |
 </code></pre></div>
 <hr />
-<h2 id="2-step-by-step-how-a-volume-is-born">🔄 2. Step-by-Step: How a Volume is Born</h2>
-<p>When a user creates a PVC, a complex orchestration of events occurs to get that disk into a container.</p>
-<h3 id="phase-1-provisioning-the-request">Phase 1: Provisioning (The Request)</h3>
-<ol>
-<li><strong>User creates a PVC</strong>: A user submits a YAML file requesting 10GB of storage.</li>
-<li><strong>External Provisioner (Watcher)</strong>: A CSI sidecar container (the Provisioner) watches for new PVCs and sees the request.</li>
-<li><strong>CreateVolume RPC</strong>: The Provisioner sends a <code>CreateVolume</code> request to the <strong>CSI Driver</strong>.</li>
-<li><strong>Cloud API Call</strong>: The CSI Driver calls the Storage Provider API (e.g., AWS CreateVolume) to create the physical disk.</li>
-<li><strong>PV Creation</strong>: Kubernetes automatically creates a <strong>PersistentVolume (PV)</strong> object and binds it to the <strong>PVC</strong>.</li>
-</ol>
-<h3 id="phase-2-attaching-the-connection">Phase 2: Attaching (The Connection)</h3>
-<ol>
-<li><strong>Pod Scheduling</strong>: A Pod is created and references the PVC. The Scheduler places the Pod on <strong>Node-A</strong>.</li>
-<li><strong>External Attacher</strong>: Another CSI sidecar (the Attacher) sees that the volume needs to be attached to <strong>Node-A</strong>.</li>
-<li><strong>ControllerPublishVolume RPC</strong>: The Attacher calls the CSI Driver to "Publish" (Attach) the volume.</li>
-<li><strong>Storage Provider Attach</strong>: The Driver tells the Cloud Provider to attach the disk to the virtual machine (Node-A).</li>
-</ol>
-<h3 id="phase-3-mounting-the-hand-off">Phase 3: Mounting (The Hand-off)</h3>
-<ol>
-<li><strong>Kubelet Recognition</strong>: The Kubelet on <strong>Node-A</strong> sees that a volume is attached but not yet usable.</li>
-<li><strong>NodeStageVolume</strong>: The Kubelet calls the CSI Driver on that specific node to format the disk (e.g., ext4) and prepare a "staging" mount point.</li>
-<li><strong>NodePublishVolume</strong>: The Kubelet calls the CSI Driver for the final mount. The volume is mounted from the node's host path into the <strong>Pod's container</strong>.</li>
-</ol>
+<h2 id="q2-custom-column-output-to-file">Q2 — Custom Column Output to File</h2>
+<div class="admonition question">
+<p class="admonition-title">Task</p>
+<p>Print the names of all deployments in the <code>admin2406</code> namespace in the following format:<br />
+<code>DEPLOYMENT CONTAINER_IMAGE READY_REPLICAS NAMESPACE</code><br />
+The data should be sorted by <strong>increasing order of deployment name</strong>.<br />
+Write the result to the file <code>/opt/admin2406_data</code>.</p>
+<p><strong>Example output:</strong>
+<div class="highlight"><pre><span></span><code>DEPLOYMENT   CONTAINER_IMAGE   READY_REPLICAS   NAMESPACE
+deploy0      nginx:alpine      1                admin2406
+</code></pre></div></p>
+</div>
+<p>??? success "Step-by-Step Solution"</p>
+<div class="highlight"><pre><span></span><code>```bash
+kubectl get deployments -n admin2406 \
+  -o custom-columns=\
+&quot;DEPLOYMENT:.metadata.name,\
+CONTAINER_IMAGE:.spec.template.spec.containers[0].image,\
+READY_REPLICAS:.status.readyReplicas,\
+NAMESPACE:.metadata.namespace&quot; \
+  --sort-by=.metadata.name &gt; /opt/admin2406_data
+```
+
+### Verify the output
+```bash
+cat /opt/admin2406_data
+```
+
+---
+
+### Command Breakdown
+
+| Part | What it does |
+|------|-------------|
+| `-n admin2406` | Target the right namespace |
+| `-o custom-columns` | Define your own output columns |
+| `:.metadata.name` | Deployment name |
+| `:.spec.template.spec.containers[0].image` | First container image |
+| `:.status.readyReplicas` | Ready replica count |
+| `:.metadata.namespace` | Namespace name |
+| `--sort-by=.metadata.name` | Sort alphabetically |
+| `&gt; /opt/admin2406_data` | Write to required file |
+
+!!! tip &quot;Exam Tip&quot;
+    `custom-columns` with `--sort-by` is a one-liner — no scripting, no loops, no `jq` needed. This is the cleanest approach for this type of question.
+</code></pre></div>
 <hr />
-<h2 id="3-summary-of-csi-sidecars">⚡ 3. Summary of CSI Sidecars</h2>
-<p>Kubernetes uses these helper containers (Sidecars) to bridge the gap between K8s and the CSI Driver:</p>
-<ul>
-<li><strong>external-provisioner</strong>: Watches PVCs $\rightarrow$ Creates/Deletes volumes.</li>
-<li><strong>external-attacher</strong>: Watches Pods $\rightarrow$ Attaches/Detaches volumes to nodes.</li>
-<li><strong>external-resizer</strong>: Watches PVC size changes $\rightarrow$ Expands volumes.</li>
-<li><strong>node-driver-registrar</strong>: Registers the CSI driver with the Kubelet on each node.</li>
-</ul>
+<h2 id="q3-fix-broken-kubeconfig">Q3 — Fix Broken Kubeconfig</h2>
+<div class="admonition question">
+<p class="admonition-title">Task</p>
+<p>A kubeconfig file called <code>admin.kubeconfig</code> has been created in <code>/root/CKA</code>.<br />
+There is something wrong with the configuration. Troubleshoot and fix it.</p>
+</div>
+<p>??? success "Step-by-Step Solution"</p>
+<div class="highlight"><pre><span></span><code>### Step 1 — Compare against the working kubeconfig
+```bash
+# Check the working kubeconfig (always correct)
+cat ~/.kube/config | grep server
+# server: https://controlplane:6443  ✅
+
+# Check the broken kubeconfig
+cat /root/CKA/admin.kubeconfig | grep server
+# server: https://controlplane:4380  ❌
+```
+
+### Step 2 — Fix the wrong port
+```bash
+# Option A — kubectl command
+kubectl config set-cluster kubernetes \
+  --server=https://controlplane:6443 \
+  --kubeconfig=/root/CKA/admin.kubeconfig
+
+# Option B — sed (fastest in exam)
+sed -i &#39;s/4380/6443/g&#39; /root/CKA/admin.kubeconfig
+```
+
+### Step 3 — Verify the fix
+```bash
+kubectl get nodes --kubeconfig=/root/CKA/admin.kubeconfig
+# Should return nodes successfully ✅
+```
+
+---
+
+### What to Check in a Broken Kubeconfig
+
+| Field | Common Problem | Correct Value |
+|-------|---------------|---------------|
+| `server:` port | Wrong port (`4380`, `8080`) | `6443` |
+| `server:` hostname | Wrong host | `controlplane` |
+| `current-context` | Points to wrong context | Check with `kubectl config get-contexts` |
+| `certificate-authority-data` | Missing or empty | Must be present |
+
+!!! warning &quot;Exam Trap&quot;
+    Always run `cat ~/.kube/config | grep server` first — it gives you the correct answer in 3 seconds. Never guess the port.
+</code></pre></div>
 <hr />
-<blockquote>
-<p>[!TIP]
-<strong>CKA Insight</strong>: In the exam, if a Volume isn't mounting, check the <strong>CSI Driver Pods</strong> (usually in <code>kube-system</code> or a dedicated namespace). If the driver is dead, the "Provisioning" and "Attaching" logic will fail even if the Cloud Provider is healthy!</p>
-</blockquote>
+<h2 id="q4-rolling-update-with-annotation">Q4 — Rolling Update with Annotation</h2>
+<div class="admonition question">
+<p class="admonition-title">Task</p>
+<p>Create a new deployment called <code>nginx-deploy</code>, with image <code>nginx:1.16</code> and <code>1</code> replica.<br />
+Next, upgrade the deployment to version <code>1.17</code> using rolling update and add the annotation message <code>Updated nginx image to 1.17</code>.</p>
+</div>
+<p>??? success "Step-by-Step Solution"</p>
+<div class="highlight"><pre><span></span><code>### Step 1 — Create the deployment
+```bash
+kubectl create deployment nginx-deploy --image=nginx:1.16 --replicas=1
+```
+
+### Step 2 — Verify it&#39;s running
+```bash
+kubectl get deployment nginx-deploy
+```
+
+### Step 3 — Rolling update to nginx:1.17
+```bash
+kubectl set image deployment/nginx-deploy nginx-deploy=nginx:1.17
+```
+
+### Step 4 — Add the annotation
+```bash
+kubectl annotate deployment/nginx-deploy \
+  kubernetes.io/change-cause=&quot;Updated nginx image to 1.17&quot;
+```
+
+### Step 5 — Verify rollout and annotation
+```bash
+kubectl rollout status deployment/nginx-deploy
+
+kubectl rollout history deployment/nginx-deploy
+# REVISION  CHANGE-CAUSE
+# 1         &lt;none&gt;
+# 2         Updated nginx image to 1.17  ✅
+```
+
+### Step 6 — Confirm image updated
+```bash
+kubectl describe deployment nginx-deploy | grep Image
+# Image: nginx:1.17  ✅
+```
+
+---
+
+### Key Commands Reference
+
+| Command | Purpose |
+|---------|---------|
+| `kubectl set image deployment/&lt;name&gt; &lt;container&gt;=&lt;image&gt;` | Trigger rolling update |
+| `kubectl annotate deployment/&lt;name&gt; kubernetes.io/change-cause=&quot;...&quot;` | Add history message |
+| `kubectl rollout status` | Watch rollout complete |
+| `kubectl rollout history` | Verify annotation in revision |
+
+!!! tip &quot;Container Name&quot;
+    The container name in `set image` must match the container name inside the deployment spec. When created with `kubectl create deployment`, the container name matches the deployment name by default.  
+    Confirm with: `kubectl describe deployment nginx-deploy | grep -A2 Containers`
+</code></pre></div>
+<hr />
+<h2 id="q5-troubleshoot-pending-deployment-pvc-issue">Q5 — Troubleshoot Pending Deployment (PVC Issue)</h2>
+<div class="admonition question">
+<p class="admonition-title">Task</p>
+<p>A new deployment called <code>alpha-mysql</code> has been deployed in the <code>alpha</code> namespace. However, the pods are not running. Troubleshoot and fix the issue.<br />
+The deployment should make use of the persistent volume <code>alpha-pv</code> to be mounted at <code>/var/lib/mysql</code> and should use the environment variable <code>MYSQL_ALLOW_EMPTY_PASSWORD=1</code> to make use of an empty root password.</p>
+</div>
+<p>??? success "Step-by-Step Solution"</p>
+<div class="highlight"><pre><span></span><code>### Step 1 — Identify the problem
+```bash
+kubectl get pods -n alpha
+# Pod is in Pending state
+
+kubectl describe pod &lt;alpha-mysql-pod-name&gt; -n alpha
+# Events will show: persistentvolumeclaim &quot;mysql-alpha-pvc&quot; not found
+```
+
+### Step 2 — Check existing PVCs and PVs
+```bash
+kubectl get pvc -n alpha
+# alpha-claim   Pending   (wrong storageClassName!)
+
+kubectl get pv
+# alpha-pv   1Gi   RWO   Retain   Available   slow
+
+kubectl get storageclass
+# NAME   PROVISIONER                    
+# slow   kubernetes.io/no-provisioner
+```
+
+### Step 3 — Fix alpha-claim (wrong storageClassName)
+```bash
+# PVC had storageClassName: slow-storage (wrong)
+# Correct name is: slow
+
+kubectl delete pvc alpha-claim -n alpha
+
+kubectl apply -f - &lt;&lt;EOF
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: alpha-claim
+  namespace: alpha
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: slow
+EOF
+```
+
+### Step 4 — Create the missing mysql-alpha-pvc
+```bash
+# Pod needs mysql-alpha-pvc but it doesn&#39;t exist
+# Must match the PV: 1Gi, RWO, storageClass: slow
+
+kubectl apply -f - &lt;&lt;EOF
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-alpha-pvc
+  namespace: alpha
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: slow
+EOF
+```
+
+### Step 5 — Verify full chain
+```bash
+# PV should be Bound
+kubectl get pv
+# alpha-pv   Bound   alpha/mysql-alpha-pvc ✅
+
+# Both PVCs should be Bound
+kubectl get pvc -n alpha
+# alpha-claim       Bound ✅
+# mysql-alpha-pvc   Bound ✅
+
+# Pod should now be Running
+kubectl get pods -n alpha
+# alpha-mysql-xxx   Running ✅
+```
+
+---
+
+### Troubleshooting Decision Tree
+
+```
+Pod Pending → kubectl describe pod → check Events
+    │
+    └── &quot;pvc not found&quot;
+            │
+            ├── PVC doesn&#39;t exist → create it matching PV specs
+            │
+            └── PVC exists but Pending
+                    │
+                    └── &quot;storageclass not found&quot;
+                            │
+                            ├── kubectl get storageclass
+                            └── fix storageClassName in PVC (delete + recreate)
+```
+
+!!! warning &quot;Common Exam Trap&quot;
+    `0/2 nodes are available` sounds like a node problem — it&#39;s NOT. Always read the **full reason** in FailedScheduling. The real clue is the PVC error after it.
+</code></pre></div>
+<hr />
+<h2 id="q6-etcd-backup">Q6 — ETCD Backup</h2>
+<div class="admonition question">
+<p class="admonition-title">Task</p>
+<p>Take the backup of ETCD at the location <code>/opt/etcd-backup.db</code> on the <code>controlplane</code> node.</p>
+</div>
+<p>??? success "Step-by-Step Solution"</p>
+<div class="highlight"><pre><span></span><code>### Step 1 — Get all cert paths from etcd manifest (do this first, always)
+```bash
+grep -E &quot;listen-client|cert-file|key-file|trusted-ca&quot; \
+  /etc/kubernetes/manifests/etcd.yaml
+```
+
+This gives you the exact paths to paste — never type them from memory.
+
+### Step 2 — Take the backup
+```bash
+ETCDCTL_API=3 etcdctl snapshot save /opt/etcd-backup.db \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key
+```
+
+### Step 3 — Verify the backup
+```bash
+ETCDCTL_API=3 etcdctl snapshot status /opt/etcd-backup.db \
+  --write-out=table
+```
+
+Expected output:
+```
++----------+----------+------------+------------+
+|   HASH   | REVISION | TOTAL KEYS | TOTAL SIZE |
++----------+----------+------------+------------+
+| xxxxxxxx |    12345 |       1234 |     3.2 MB |
++----------+----------+------------+------------+
+```
+
+---
+
+### The 3 Cert Files Explained
+
+| Flag | File | Purpose |
+|------|------|---------|
+| `--cacert` | `etcd/ca.crt` | Verifies etcd server identity |
+| `--cert` | `etcd/server.crt` | Client certificate to authenticate |
+| `--key` | `etcd/server.key` | Private key for client cert |
+
+!!! tip &quot;Exam Tip&quot;
+    Run the `grep` command first, copy the cert paths from output, then build the `etcdctl` command. Saves 2 minutes vs typing paths from memory. One wrong character fails the backup silently.
+</code></pre></div>
+<hr />
+<h2 id="q7-pod-with-secret-volume-mount">Q7 — Pod with Secret Volume Mount</h2>
+<div class="admonition question">
+<p class="admonition-title">Task</p>
+<p>Create a pod called <code>secret-1401</code> in the <code>admin1401</code> namespace using the <code>busybox</code> image.<br />
+The container within the pod should be called <code>secret-admin</code> and should sleep for <code>4800</code> seconds.<br />
+The container should mount a <strong>read-only</strong> secret volume called <code>secret-volume</code> at the path <code>/etc/secret-volume</code>.<br />
+The secret being mounted has already been created and is called <code>dotfile-secret</code>.</p>
+</div>
+<p>??? success "Step-by-Step Solution"</p>
+<div class="highlight"><pre><span></span><code>```bash
+kubectl apply -f - &lt;&lt;EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-1401
+  namespace: admin1401
+spec:
+  containers:
+  - name: secret-admin
+    image: busybox
+    command: [&quot;sleep&quot;, &quot;4800&quot;]
+    volumeMounts:
+    - name: secret-volume
+      mountPath: /etc/secret-volume
+      readOnly: true
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: dotfile-secret
+EOF
+```
+
+### Verify
+```bash
+# Pod is running
+kubectl get pod secret-1401 -n admin1401
+
+# Volume mounted correctly with readOnly
+kubectl describe pod secret-1401 -n admin1401 | grep -A5 Mounts
+# /etc/secret-volume from secret-volume (ro) ✅
+```
+
+---
+
+### Requirements Checklist
+
+| Requirement | Field in YAML |
+|-------------|--------------|
+| Pod name `secret-1401` | `metadata.name` |
+| Namespace `admin1401` | `metadata.namespace` |
+| Container name `secret-admin` | `containers[0].name` |
+| Sleep `4800` seconds | `command: [&quot;sleep&quot;, &quot;4800&quot;]` |
+| Volume name `secret-volume` | `volumes[0].name` AND `volumeMounts[0].name` must match |
+| Mount path `/etc/secret-volume` | `volumeMounts[0].mountPath` |
+| `readOnly: true` | `volumeMounts[0].readOnly` |
+| Secret name `dotfile-secret` | `volumes[0].secret.secretName` |
+
+!!! warning &quot;Critical Mistake to Avoid&quot;
+    `readOnly: true` must be on the **`volumeMounts`** entry inside the container — NOT on the volume definition. This is the most common mistake for this type of question.
+</code></pre></div>
+<hr />
+<h2 id="quick-reference-exam-speed-tips">Quick Reference — Exam Speed Tips</h2>
+<h3 id="set-these-aliases-at-the-start-of-every-exam-session">Set these aliases at the START of every exam session</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="nv">k</span><span class="o">=</span>kubectl
+<span class="nb">export</span><span class="w"> </span><span class="k">do</span><span class="o">=</span><span class="s2">&quot;--dry-run=client -o yaml&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">now</span><span class="o">=</span><span class="s2">&quot;--force --grace-period 0&quot;</span>
+</code></pre></div>
+<h3 id="generate-yaml-fast-instead-of-writing-from-scratch">Generate YAML fast instead of writing from scratch</h3>
+<div class="highlight"><pre><span></span><code>k<span class="w"> </span>run<span class="w"> </span>nginx<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span><span class="nv">$do</span><span class="w"> </span>&gt;<span class="w"> </span>pod.yaml
+k<span class="w"> </span>create<span class="w"> </span>deploy<span class="w"> </span>my-deploy<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span><span class="nv">$do</span><span class="w"> </span>&gt;<span class="w"> </span>deploy.yaml
+k<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>my-secret<span class="w"> </span>--from-literal<span class="o">=</span><span class="nv">key</span><span class="o">=</span>value<span class="w"> </span><span class="nv">$do</span><span class="w"> </span>&gt;<span class="w"> </span>secret.yaml
+</code></pre></div>
+<h3 id="the-2-minute-rule">The 2-minute rule</h3>
+<p>If stuck on a question for 2 minutes → <strong>flag and move on</strong>. Come back at the end.</p>
+<h3 id="always-know-where-you-are">Always know where you are</h3>
+<div class="highlight"><pre><span></span><code>hostname<span class="w">        </span><span class="c1"># confirm you&#39;re on the right node</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>current-context<span class="w">   </span><span class="c1"># confirm the right cluster</span>
+</code></pre></div>
 
 
 
