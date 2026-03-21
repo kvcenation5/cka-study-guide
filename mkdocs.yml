@@ -140,6 +140,7 @@ nav:
       - Dry-Run Workflow: exam-tips/dry-run-workflow.md
       - Deployment Components: exam-tips/deployment-components.md
       - VDI & Mac Setup: exam-tips/vdi-mac-performance.md
+      - Ports Cheatsheet: exam-tips/ports-cheatsheet.html
   - Troubleshooting:
       - Quick Flowchart: troubleshooting-flowchart.md
       - crictl Guide: troubleshooting/crictl-guide.md
