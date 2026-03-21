@@ -141,6 +141,7 @@ nav:
       - Deployment Components: exam-tips/deployment-components.md
       - VDI & Mac Setup: exam-tips/vdi-mac-performance.md
       - Ports Cheatsheet: exam-tips/ports-cheatsheet.html
+      - Practice Questions: exam-tips/practice-questions.md
   - Troubleshooting:
       - Quick Flowchart: troubleshooting-flowchart.md
       - crictl Guide: troubleshooting/crictl-guide.md
