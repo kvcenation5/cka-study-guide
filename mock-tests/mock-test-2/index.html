@@ -4164,6 +4164,61 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-8-create-storageclass-with-default-setting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 8: Create StorageClass with Default Setting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-9-deployment-with-sidecar-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 9: Deployment with Sidecar Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-10-view-sidecar-container-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 10: View Sidecar Container Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-11-create-ingress-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 11: Create Ingress Resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-12-csr-and-rbac-with-extended-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 12: CSR and RBAC with Extended Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4193,34 +4248,6 @@
     
   
     Mock Test 3
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../mock-test-4/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Mock Test 4
   
 
     
@@ -4356,6 +4383,61 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-8-create-storageclass-with-default-setting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 8: Create StorageClass with Default Setting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-9-deployment-with-sidecar-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 9: Deployment with Sidecar Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-10-view-sidecar-container-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 10: View Sidecar Container Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-11-create-ingress-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 11: Create Ingress Resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-12-csr-and-rbac-with-extended-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 12: CSR and RBAC with Extended Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4478,44 +4560,18 @@ kubectl<span class="w"> </span>run<span class="w"> </span>nginx-resolver<span cl
 <span class="c1"># Step 2: Create ClusterIP service</span>
 kubectl<span class="w"> </span>expose<span class="w"> </span>pod<span class="w"> </span>nginx-resolver<span class="w"> </span>--name<span class="o">=</span>nginx-resolver-service<span class="w"> </span>--port<span class="o">=</span><span class="m">80</span><span class="w"> </span>--target-port<span class="o">=</span><span class="m">80</span>
 
-<span class="c1"># Step 3: Get service details</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>service<span class="w"> </span>nginx-resolver-service
-kubectl<span class="w"> </span>describe<span class="w"> </span>service<span class="w"> </span>nginx-resolver-service
-
-<span class="c1"># Step 4: Create a busybox pod for DNS testing</span>
-kubectl<span class="w"> </span>run<span class="w"> </span>busybox-test<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>/bin/sh
-
-<span class="c1"># Inside busybox container, run:</span>
-<span class="c1"># DNS lookup for service</span>
-nslookup<span class="w"> </span>nginx-resolver-service
-<span class="c1"># or</span>
-nslookup<span class="w"> </span>nginx-resolver-service.default.svc.cluster.local
-
-<span class="c1"># DNS lookup for pod (get pod IP first)</span>
-nslookup<span class="w"> </span>&lt;pod-ip-address&gt;
-
-<span class="c1"># Step 5: Alternative - one-liner commands to save output</span>
-kubectl<span class="w"> </span>run<span class="w"> </span>busybox<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>nginx-resolver-service<span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.svc
-
-kubectl<span class="w"> </span>run<span class="w"> </span>busybox<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-resolver<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.podIP}&#39;</span><span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.pod
-</code></pre></div></p>
-<p><strong>Better approach using kubectl exec</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Create pod and service</span>
-kubectl<span class="w"> </span>run<span class="w"> </span>nginx-resolver<span class="w"> </span>--image<span class="o">=</span>nginx
-kubectl<span class="w"> </span>expose<span class="w"> </span>pod<span class="w"> </span>nginx-resolver<span class="w"> </span>--name<span class="o">=</span>nginx-resolver-service<span class="w"> </span>--port<span class="o">=</span><span class="m">80</span>
-
-<span class="c1"># Step 2: Get pod IP</span>
+<span class="c1"># Step 3: Get pod IP</span>
 <span class="nv">POD_IP</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-resolver<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.podIP}&#39;</span><span class="k">)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="nv">$POD_IP</span><span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.pod
 
-<span class="c1"># Step 3: Create busybox pod and test DNS</span>
+<span class="c1"># Step 4: Create busybox pod and test DNS</span>
 kubectl<span class="w"> </span>run<span class="w"> </span>busybox-dns<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--<span class="w"> </span>sleep<span class="w"> </span><span class="m">3600</span>
-
-<span class="c1"># Wait for pod to be ready</span>
 kubectl<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Ready<span class="w"> </span>pod/busybox-dns<span class="w"> </span>--timeout<span class="o">=</span>60s
 
-<span class="c1"># Test service DNS resolution</span>
+<span class="c1"># Step 5: Test service DNS and save</span>
 kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>busybox-dns<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>nginx-resolver-service<span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.svc
+
+<span class="c1"># Step 6: Save pod IP</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$POD_IP</span><span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.pod
 
 <span class="c1"># Clean up</span>
 kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>busybox-dns
@@ -4533,9 +4589,6 @@ kubectl<span class="w"> </span>get<span class="w"> </span>endpoints<span class="
 <span class="c1"># Verify output files</span>
 cat<span class="w"> </span>/root/CKA/nginx.svc
 cat<span class="w"> </span>/root/CKA/nginx.pod
-
-<span class="c1"># Test DNS resolution from within cluster</span>
-kubectl<span class="w"> </span>run<span class="w"> </span>test-dns<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>nginx-resolver-service
 </code></pre></div></p>
 <p><strong>Verification Checklist</strong>:
 - ✅ Pod nginx-resolver created with nginx image
@@ -4549,31 +4602,18 @@ kubectl<span class="w"> </span>run<span class="w"> </span>test-dns<span class="w
 <p><strong>What is a Static Pod?</strong>
 - A pod managed directly by the kubelet on a specific node, NOT by the Kubernetes API server
 - Defined by manifest files placed in <code>/etc/kubernetes/manifests</code> directory
-- Automatically recreated if deleted or crashes
-- Used for critical cluster components (etcd, API server, scheduler, controller-manager)</p>
+- Automatically recreated if deleted or crashes</p>
 <p><strong>Task</strong>: Create a static pod on node01 called <code>nginx-critical</code> with image <code>nginx</code>.</p>
-<p><strong>Requirements</strong>:
-- Pod must be configured under <code>/etc/kubernetes/manifests</code>
-- Must restart automatically if it fails
-- Must be visible via <code>kubectl get pods</code> from control plane</p>
-<p><strong>Answer</strong>:</p>
-<p><strong>Step 1: SSH to node01</strong>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>node01
-<span class="c1"># Or if already on controlplane: ssh node01</span>
-</code></pre></div></p>
-<p><strong>Step 2: Verify kubelet static pod path</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check kubelet configuration for pod-manifest-path</span>
-ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kubelet<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>pod-manifest-path
-<span class="c1"># Default is: /etc/kubernetes/manifests</span>
-</code></pre></div></p>
-<p><strong>Step 3: Create static pod manifest file</strong>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/kubernetes/manifests/nginx-critical.yaml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># SSH to node01</span>
+ssh<span class="w"> </span>node01
+
+<span class="c1"># Create static pod manifest file</span>
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/kubernetes/manifests/nginx-critical.yaml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 <span class="s">apiVersion: v1</span>
 <span class="s">kind: Pod</span>
 <span class="s">metadata:</span>
 <span class="s">  name: nginx-critical-node01</span>
-<span class="s">  labels:</span>
-<span class="s">    app: nginx-critical</span>
 <span class="s">spec:</span>
 <span class="s">  containers:</span>
 <span class="s">  - name: nginx</span>
@@ -4581,35 +4621,13 @@ ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><sp
 <span class="s">    ports:</span>
 <span class="s">    - containerPort: 80</span>
 <span class="s">EOF</span>
-</code></pre></div></p>
-<p><strong>Step 4: Verify kubelet detects the manifest</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check if file is in the manifests directory</span>
-ls<span class="w"> </span>-la<span class="w"> </span>/etc/kubernetes/manifests/
 
-<span class="c1"># Check kubelet status</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
-</code></pre></div></p>
-<p><strong>Step 5: Verify from control plane</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Exit from node01 back to controlplane</span>
+<span class="c1"># Exit back to controlplane</span>
 <span class="nb">exit</span>
 
-<span class="c1"># Check if static pod appears (name format: &lt;pod-name&gt;-&lt;node-name&gt;)</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nginx-critical
-
-<span class="c1"># Expected output: nginx-critical-node01-node01 Running node01</span>
-</code></pre></div></p>
-<p><strong>Step 6: Test auto-restart behavior</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Try to delete the pod via kubectl</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01
-
-<span class="c1"># Immediately check - it should be recreated automatically</span>
+<span class="c1"># Verify from control plane</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nginx-critical
 </code></pre></div></p>
-<p><strong>How Static Pods Work</strong>:
-- Kubelet watches <code>/etc/kubernetes/manifests</code> directory every few seconds
-- When it finds a new/modified YAML file, it creates the pod
-- If the pod crashes or is deleted, kubelet recreates it from the manifest
-- To truly delete: remove the manifest file from the node</p>
 <p><strong>Verification Commands</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Verify manifest file exists on node01</span>
 ssh<span class="w"> </span>node01<span class="w"> </span><span class="s2">&quot;sudo ls -la /etc/kubernetes/manifests/nginx-critical.yaml&quot;</span>
@@ -4617,23 +4635,15 @@ ssh<span class="w"> </span>node01<span class="w"> </span><span class="s2">&quot;
 <span class="c1"># Verify pod is running</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01
 
-<span class="c1"># Check pod details</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01
-
-<span class="c1"># Verify it&#39;s running on node01</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01<span class="w"> </span>-o<span class="w"> </span>wide
-
 <span class="c1"># Test auto-restart by deleting pod</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01<span class="w"> </span>--force
-sleep<span class="w"> </span><span class="m">2</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nginx-critical<span class="w">  </span><span class="c1"># Should show it recreated</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nginx-critical<span class="w">  </span><span class="c1"># Should show recreated</span>
 </code></pre></div></p>
 <p><strong>Verification Checklist</strong>:
 - ✅ Static pod manifest configured under <code>/etc/kubernetes/manifests</code>
 - ✅ Pod nginx-critical-node01 running on node01
 - ✅ Pod auto-restarts when deleted (kubelet manages it)
-- ✅ Pod visible via kubectl from control plane
-- ✅ Node name appended to pod name (e.g., nginx-critical-node01-node01)</p>
+- ✅ Pod visible via kubectl from control plane</p>
 <hr />
 <h3 id="question-4-create-hpa-with-memory-utilization">Question 4: Create HPA with Memory Utilization</h3>
 <p><strong>Task</strong>: Create a Horizontal Pod Autoscaler that scales based on memory usage.</p>
@@ -4641,12 +4651,10 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> <
 - HPA name: <code>backend-hpa</code>
 - Target deployment: <code>backend-deployment</code> in <code>backend</code> namespace
 - Metric: Memory utilization at 65% average
-- Min replicas: 3
-- Max replicas: 15
+- Min replicas: 3, Max replicas: 15
 - Save to file: <code>/root/webapp-hpa.yaml</code></p>
 <p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Create the HPA with memory metrics</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>/root/webapp-hpa.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>/root/webapp-hpa.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
 <span class="s">apiVersion: autoscaling/v2</span>
 <span class="s">kind: HorizontalPodAutoscaler</span>
 <span class="s">metadata:</span>
@@ -4671,17 +4679,9 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>/root/webapp-hpa.yaml<spa
 kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>/root/webapp-hpa.yaml
 </code></pre></div></p>
 <p><strong>Verification Commands</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Check HPA is deployed</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hpa<span class="w"> </span>backend-hpa<span class="w"> </span>-n<span class="w"> </span>backend
-
-<span class="c1"># Check HPA details</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>hpa<span class="w"> </span>backend-hpa<span class="w"> </span>-n<span class="w"> </span>backend
 kubectl<span class="w"> </span>describe<span class="w"> </span>hpa<span class="w"> </span>backend-hpa<span class="w"> </span>-n<span class="w"> </span>backend
-
-<span class="c1"># Verify memory metric configuration</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>hpa<span class="w"> </span>backend-hpa<span class="w"> </span>-n<span class="w"> </span>backend<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;metrics:&quot;</span>
-
-<span class="c1"># Check deployment scaling</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>backend-deployment<span class="w"> </span>-n<span class="w"> </span>backend
 </code></pre></div></p>
 <p><strong>Verification Checklist</strong>:
 - ✅ HPA backend-hpa deployed in backend namespace
@@ -4698,8 +4698,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>deployment<span class=
 - Port: 443 (HTTPS)
 - TLS certificate from secret: <code>kodekloud-tls</code></p>
 <p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Get existing gateway and modify</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>web-gateway.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>web-gateway.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
 <span class="s">apiVersion: gateway.networking.k8s.io/v1</span>
 <span class="s">kind: Gateway</span>
 <span class="s">metadata:</span>
@@ -4722,17 +4721,9 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>web-gateway.yaml<span cla
 kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>web-gateway.yaml
 </code></pre></div></p>
 <p><strong>Verification Commands</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Check gateway configuration</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>gateway<span class="w"> </span>web-gateway<span class="w"> </span>-n<span class="w"> </span>cka5673
-
-<span class="c1"># Verify HTTPS listener</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>gateway<span class="w"> </span>web-gateway<span class="w"> </span>-n<span class="w"> </span>cka5673
 kubectl<span class="w"> </span>describe<span class="w"> </span>gateway<span class="w"> </span>web-gateway<span class="w"> </span>-n<span class="w"> </span>cka5673<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="s2">&quot;Listeners&quot;</span>
-
-<span class="c1"># Verify TLS certificate reference</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>gateway<span class="w"> </span>web-gateway<span class="w"> </span>-n<span class="w"> </span>cka5673<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;tls:&quot;</span>
-
-<span class="c1"># Test HTTPS connection</span>
-curl<span class="w"> </span>-k<span class="w"> </span>https://kodekloud.com/
 </code></pre></div></p>
 <p><strong>Verification Checklist</strong>:
 - ✅ Gateway configured to listen on hostname kodekloud.com
@@ -4742,33 +4733,20 @@ curl<span class="w"> </span>-k<span class="w"> </span>https://kodekloud.com/
 <h3 id="question-6-find-and-uninstall-helm-release-with-vulnerable-image">Question 6: Find and Uninstall Helm Release with Vulnerable Image</h3>
 <p><strong>Task</strong>: Find helm release using vulnerable image and uninstall it.</p>
 <p><strong>Given</strong>:
-- Vulnerable image: <code>kodekloud/webapp-color:v1</code>
-- Multiple helm charts installed across namespaces</p>
+- Vulnerable image: <code>kodekloud/webapp-color:v1</code></p>
 <p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: List all helm releases across namespaces</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all helm releases</span>
 helm<span class="w"> </span>list<span class="w"> </span>--all-namespaces
 
-<span class="c1"># Step 2: Get details of each release to find the vulnerable image</span>
-helm<span class="w"> </span>get<span class="w"> </span>manifest<span class="w"> </span>&lt;release-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>image
+<span class="c1"># Find release with vulnerable image</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{range .items[*]}{.metadata.namespace}{&quot;\t&quot;}{.spec.containers[*].image}{&quot;\n&quot;}{end}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kodekloud/webapp-color:v1
 
-<span class="c1"># Or check all pods for the vulnerable image</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{range .items[*]}{.metadata.namespace}{&quot;\t&quot;}{.metadata.name}{&quot;\t&quot;}{.spec.containers[*].image}{&quot;\n&quot;}{end}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kodekloud/webapp-color:v1
-
-<span class="c1"># Step 3: Once found, uninstall the release</span>
+<span class="c1"># Uninstall the release</span>
 helm<span class="w"> </span>uninstall<span class="w"> </span>&lt;release-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
-
-<span class="c1"># Example if release is &quot;webapp-color&quot; in &quot;default&quot; namespace:</span>
-<span class="c1"># helm uninstall webapp-color -n default</span>
 </code></pre></div></p>
 <p><strong>Verification Commands</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Verify release is uninstalled</span>
-helm<span class="w"> </span>list<span class="w"> </span>--all-namespaces<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;release-name&gt;
-
-<span class="c1"># Verify pods are gone</span>
+<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>list<span class="w"> </span>--all-namespaces<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;release-name&gt;
 kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webapp-color
-
-<span class="c1"># Verify no pods with vulnerable image remain</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{range .items[*]}{.spec.containers[*].image}{&quot;\n&quot;}{end}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kodekloud/webapp-color:v1
 </code></pre></div></p>
 <p><strong>Verification Checklist</strong>:
 - ✅ Helm release with vulnerable image identified
@@ -4777,27 +4755,8 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> <
 <hr />
 <h3 id="question-7-networkpolicy-allow-frontend-to-backend-block-databases">Question 7: NetworkPolicy - Allow Frontend to Backend, Block Databases</h3>
 <p><strong>Task</strong>: Create NetworkPolicy to allow traffic from frontend to backend, but block from databases namespace.</p>
-<p><strong>Given</strong>:
-- Three policy files in <code>/root</code> folder
-- Need to apply the most restrictive policy
-- Allow: frontend namespace → backend namespace
-- Block: databases namespace → backend namespace
-- Do not delete existing policies</p>
 <p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Examine the available policies</span>
-ls<span class="w"> </span>/root/*.yaml
-
-<span class="c1"># View each policy</span>
-<span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>/root/*.yaml<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== </span><span class="nv">$file</span><span class="s2"> ===&quot;</span><span class="p">;</span><span class="w"> </span>cat<span class="w"> </span><span class="nv">$file</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
-
-<span class="c1"># Step 2: Identify the correct policy</span>
-<span class="c1"># The correct policy should:</span>
-<span class="c1"># - Allow ingress from frontend namespace</span>
-<span class="c1"># - Deny ingress from databases namespace</span>
-<span class="c1"># - Have namespaceSelector for source namespaces</span>
-
-<span class="c1"># Example correct policy structure:</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>/root/correct-policy.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>/root/correct-policy.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
 <span class="s">apiVersion: networking.k8s.io/v1</span>
 <span class="s">kind: NetworkPolicy</span>
 <span class="s">metadata:</span>
@@ -4812,35 +4771,212 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>/root/correct-policy.yaml
 <span class="s">    - namespaceSelector:</span>
 <span class="s">        matchLabels:</span>
 <span class="s">          name: frontend</span>
-<span class="s">    - namespaceSelector:</span>
-<span class="s">        matchLabels:</span>
-<span class="s">          name: backend</span>
-<span class="s">  # Implicitly denies all other traffic (including databases namespace)</span>
 <span class="s">EOF</span>
 
-<span class="c1"># Step 3: Apply the most restrictive correct policy</span>
 kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>/root/correct-policy.yaml
 </code></pre></div></p>
 <p><strong>Verification Commands</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># List network policies in backend namespace</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>networkpolicy<span class="w"> </span>-n<span class="w"> </span>backend
-
-<span class="c1"># Describe the applied policy</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>networkpolicy<span class="w"> </span>-n<span class="w"> </span>backend
 kubectl<span class="w"> </span>describe<span class="w"> </span>networkpolicy<span class="w"> </span>backend-network-policy<span class="w"> </span>-n<span class="w"> </span>backend
-
-<span class="c1"># Verify policy allows frontend</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>networkpolicy<span class="w"> </span>backend-network-policy<span class="w"> </span>-n<span class="w"> </span>backend<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;ingress:&quot;</span>
-
-<span class="c1"># Test connectivity (if test pods available)</span>
-<span class="c1"># From frontend pod to backend pod - should work</span>
-<span class="c1"># From databases pod to backend pod - should be blocked</span>
 </code></pre></div></p>
 <p><strong>Verification Checklist</strong>:
 - ✅ Correct NetworkPolicy applied to backend namespace
 - ✅ Allows traffic from frontend namespace
-- ✅ Blocks traffic from databases namespace
-- ✅ Incorrect NetworkPolicies are not applied
-- ✅ Second incorrect NetworkPolicy is not applied</p>
+- ✅ Blocks traffic from databases namespace</p>
+<hr />
+<h3 id="question-8-create-storageclass-with-default-setting">Question 8: Create StorageClass with Default Setting</h3>
+<p><strong>Task</strong>: Create a StorageClass named local-sc with specific settings.</p>
+<p><strong>Requirements</strong>:
+- Provisioner: kubernetes.io/no-provisioner
+- Volume binding mode: WaitForFirstConsumer
+- Volume expansion: enabled
+- Mark as default storage class</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">apiVersion: storage.k8s.io/v1</span>
+<span class="s">kind: StorageClass</span>
+<span class="s">metadata:</span>
+<span class="s">  name: local-sc</span>
+<span class="s">  annotations:</span>
+<span class="s">    storageclass.kubernetes.io/is-default-class: &quot;true&quot;</span>
+<span class="s">provisioner: kubernetes.io/no-provisioner</span>
+<span class="s">volumeBindingMode: WaitForFirstConsumer</span>
+<span class="s">allowVolumeExpansion: true</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w"> </span>local-sc
+kubectl<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w">  </span><span class="c1"># Check for (default) marker</span>
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ StorageClass local-sc created
+- ✅ Provisioner is kubernetes.io/no-provisioner
+- ✅ Volume binding mode is WaitForFirstConsumer
+- ✅ Volume expansion is enabled
+- ✅ Set as default storage class</p>
+<hr />
+<h3 id="question-9-deployment-with-sidecar-container">Question 9: Deployment with Sidecar Container</h3>
+<p><strong>Task</strong>: Create deployment with sidecar for log aggregation.</p>
+<p><strong>Main Container</strong>:
+- Image: busybox
+- Command: <code>sh -c "while true; do echo 'Log entry' &gt;&gt; /var/log/app/app.log; sleep 5; done"</code></p>
+<p><strong>Sidecar Container</strong> (log-agent):
+- Image: busybox
+- Command: <code>tail -f /var/log/app/app.log</code></p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>logging-ns
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>logging-deployment.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: apps/v1</span>
+<span class="s">kind: Deployment</span>
+<span class="s">metadata:</span>
+<span class="s">  name: logging-deployment</span>
+<span class="s">  namespace: logging-ns</span>
+<span class="s">spec:</span>
+<span class="s">  replicas: 1</span>
+<span class="s">  selector:</span>
+<span class="s">    matchLabels:</span>
+<span class="s">      app: logging</span>
+<span class="s">  template:</span>
+<span class="s">    metadata:</span>
+<span class="s">      labels:</span>
+<span class="s">        app: logging</span>
+<span class="s">    spec:</span>
+<span class="s">      containers:</span>
+<span class="s">      - name: app-container</span>
+<span class="s">        image: busybox</span>
+<span class="s">        command: [&quot;sh&quot;, &quot;-c&quot;, &quot;while true; do echo &#39;Log entry&#39; &gt;&gt; /var/log/app/app.log; sleep 5; done&quot;]</span>
+<span class="s">        volumeMounts:</span>
+<span class="s">        - name: log-volume</span>
+<span class="s">          mountPath: /var/log/app</span>
+<span class="s">      - name: log-agent</span>
+<span class="s">        image: busybox</span>
+<span class="s">        command: [&quot;tail&quot;, &quot;-f&quot;, &quot;/var/log/app/app.log&quot;]</span>
+<span class="s">        volumeMounts:</span>
+<span class="s">        - name: log-volume</span>
+<span class="s">          mountPath: /var/log/app</span>
+<span class="s">      volumes:</span>
+<span class="s">      - name: log-volume</span>
+<span class="s">        emptyDir: {}</span>
+<span class="s">EOF</span>
+
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>logging-deployment.yaml
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>logging-deployment<span class="w"> </span>-n<span class="w"> </span>logging-ns
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>logging-ns
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-c<span class="w"> </span>log-agent
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Deployment logging-deployment created in logging-ns namespace
+- ✅ Main container writes logs to shared volume
+- ✅ Sidecar container reads logs from same volume
+- ✅ Shared emptyDir volume mounted at /var/log/app</p>
+<hr />
+<h3 id="question-10-view-sidecar-container-logs">Question 10: View Sidecar Container Logs</h3>
+<p><strong>Scenario</strong>: View logs from sidecar container specifically.</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># View logs from specific sidecar container</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>-c<span class="w"> </span>log-agent
+
+<span class="c1"># Follow logs in real-time</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>-c<span class="w"> </span>log-agent<span class="w"> </span>-f
+
+<span class="c1"># View logs from all containers</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>--all-containers<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Can view logs from specific sidecar container using <code>-c</code> flag
+- ✅ Can follow logs in real-time with <code>-f</code> flag</p>
+<hr />
+<h3 id="question-11-create-ingress-resource">Question 11: Create Ingress Resource</h3>
+<p><strong>Task</strong>: Create Ingress for routing traffic to backend service.</p>
+<p><strong>Requirements</strong>:
+- Ingress name: webapp-ingress
+- Namespace: ingress-ns
+- Host: kodekloud-ingress.app
+- Path: / with pathType: Prefix
+- Backend: webapp-svc:80
+- Ingress class: nginx</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">apiVersion: networking.k8s.io/v1</span>
+<span class="s">kind: Ingress</span>
+<span class="s">metadata:</span>
+<span class="s">  name: webapp-ingress</span>
+<span class="s">  namespace: ingress-ns</span>
+<span class="s">  annotations:</span>
+<span class="s">    kubernetes.io/ingress.class: &quot;nginx&quot;</span>
+<span class="s">spec:</span>
+<span class="s">  rules:</span>
+<span class="s">  - host: kodekloud-ingress.app</span>
+<span class="s">    http:</span>
+<span class="s">      paths:</span>
+<span class="s">      - path: /</span>
+<span class="s">        pathType: Prefix</span>
+<span class="s">        backend:</span>
+<span class="s">          service:</span>
+<span class="s">            name: webapp-svc</span>
+<span class="s">            port:</span>
+<span class="s">              number: 80</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns
+curl<span class="w"> </span>-s<span class="w"> </span>http://kodekloud-ingress.app/
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Ingress webapp-ingress created in ingress-ns namespace
+- ✅ pathType set to Prefix
+- ✅ Backend service webapp-svc on port 80
+- ✅ Host configured as kodekloud-ingress.app
+- ✅ Ingress class annotation added</p>
+<hr />
+<h3 id="question-12-csr-and-rbac-with-extended-verification">Question 12: CSR and RBAC with Extended Verification</h3>
+<p><strong>Scenario</strong>: Complete CSR/RBAC workflow with kubectl context setup.</p>
+<p><strong>Given</strong>:
+- CSR file: <code>/root/CKA/john.csr</code></p>
+<p><strong>Task</strong>: Create user john with full pod permissions in development namespace.</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Create CSR</span>
+<span class="nv">CSR</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/root/CKA/john.csr<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="k">)</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">apiVersion: certificates.k8s.io/v1</span>
+<span class="s">kind: CertificateSigningRequest</span>
+<span class="s">metadata:</span>
+<span class="s">  name: john-developer</span>
+<span class="s">spec:</span>
+<span class="s">  request: $CSR</span>
+<span class="s">  signerName: kubernetes.io/kube-apiserver-client</span>
+<span class="s">  usages:</span>
+<span class="s">  - client auth</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Approve CSR</span>
+kubectl<span class="w"> </span>certificate<span class="w"> </span>approve<span class="w"> </span>john-developer
+
+<span class="c1"># Extract certificate</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/john.crt
+
+<span class="c1"># Create role and binding</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>role<span class="w"> </span>developer<span class="w"> </span>--verb<span class="o">=</span>create,list,get,update,delete<span class="w"> </span>--resource<span class="o">=</span>pods<span class="w"> </span>-n<span class="w"> </span>development
+kubectl<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>john-developer-binding<span class="w"> </span>--role<span class="o">=</span>developer<span class="w"> </span>--user<span class="o">=</span>john<span class="w"> </span>-n<span class="w"> </span>development
+
+<span class="c1"># Configure kubectl context for john</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>set-credentials<span class="w"> </span>john<span class="w"> </span>--client-certificate<span class="o">=</span>/root/CKA/john.crt<span class="w"> </span>--client-key<span class="o">=</span>/root/CKA/john.key
+kubectl<span class="w"> </span>config<span class="w"> </span>set-context<span class="w"> </span>john-context<span class="w"> </span>--cluster<span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>config<span class="w"> </span>current-context<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d/<span class="w"> </span>-f2<span class="k">)</span><span class="w"> </span>--namespace<span class="o">=</span>development<span class="w"> </span>--user<span class="o">=</span>john
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer
+kubectl<span class="w"> </span>get<span class="w"> </span>role<span class="w"> </span>developer<span class="w"> </span>-n<span class="w"> </span>development
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>pods<span class="w"> </span>--as<span class="o">=</span>john<span class="w"> </span>-n<span class="w"> </span>development
+kubectl<span class="w"> </span>--context<span class="o">=</span>john-context<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>delete<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>development
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ CSR john-developer created and Approved
+- ✅ Role developer created with pod permissions
+- ✅ RoleBinding connects user john to developer role
+- ✅ kubectl context configured for user john</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 

@@ -14,8 +14,6 @@
         <link rel="prev" href="../mock-test-2/">
       
       
-        <link rel="next" href="../mock-test-4/">
-      
       
         
       
@@ -4116,54 +4114,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#question-1-create-storageclass-with-default-setting" class="md-nav__link">
+  <a href="#question-1-configure-sysctl-parameters-for-kubeadm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Question 1: Create StorageClass with Default Setting
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-2-deployment-with-sidecar-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Question 2: Deployment with Sidecar Container
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-3-view-sidecar-container-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Question 3: View Sidecar Container Logs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-4-create-ingress-resource" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Question 4: Create Ingress Resource
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-5-create-user-with-csr-and-rbac-role" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Question 5: Create User with CSR and RBAC Role
+        Question 1: Configure Sysctl Parameters for Kubeadm
       
     </span>
   </a>
@@ -4179,34 +4133,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../mock-test-4/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Mock Test 4
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -4258,54 +4184,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#question-1-create-storageclass-with-default-setting" class="md-nav__link">
+  <a href="#question-1-configure-sysctl-parameters-for-kubeadm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Question 1: Create StorageClass with Default Setting
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-2-deployment-with-sidecar-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Question 2: Deployment with Sidecar Container
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-3-view-sidecar-container-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Question 3: View Sidecar Container Logs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-4-create-ingress-resource" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Question 4: Create Ingress Resource
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#question-5-create-user-with-csr-and-rbac-role" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Question 5: Create User with CSR and RBAC Role
+        Question 1: Configure Sysctl Parameters for Kubeadm
       
     </span>
   </a>
@@ -4337,327 +4219,87 @@
 <h1 id="cka-mock-test-3">CKA Mock Test 3</h1>
 <p>This is your third practice test for the Certified Kubernetes Administrator exam.</p>
 <h2 id="questions">Questions</h2>
-<h3 id="question-1-create-storageclass-with-default-setting">Question 1: Create StorageClass with Default Setting</h3>
-<p><strong>Task</strong>: Create a StorageClass named local-sc with the following specifications and set it as the default storage class:</p>
-<ul>
-<li>Provisioner: kubernetes.io/no-provisioner</li>
-<li>Volume binding mode: WaitForFirstConsumer</li>
-<li>Volume expansion: enabled</li>
-<li>Mark as default storage class</li>
-</ul>
-<p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Create the StorageClass</span>
-kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
-<span class="s">apiVersion: storage.k8s.io/v1</span>
-<span class="s">kind: StorageClass</span>
-<span class="s">metadata:</span>
-<span class="s">  name: local-sc</span>
-<span class="s">  annotations:</span>
-<span class="s">    storageclass.kubernetes.io/is-default-class: &quot;true&quot;</span>
-<span class="s">provisioner: kubernetes.io/no-provisioner</span>
-<span class="s">volumeBindingMode: WaitForFirstConsumer</span>
-<span class="s">allowVolumeExpansion: true</span>
-<span class="s">EOF</span>
-
-<span class="c1"># Verification commands</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w"> </span>local-sc
-kubectl<span class="w"> </span>describe<span class="w"> </span>storageclass<span class="w"> </span>local-sc
-kubectl<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w">  </span><span class="c1"># Check for (default) marker</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w"> </span>local-sc<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;(provisioner|volumeBindingMode|allowVolumeExpansion|is-default-class)&quot;</span>
-</code></pre></div></p>
-<p><strong>Verification Checklist</strong>:
-- ✅ StorageClass local-sc created
-- ✅ Provisioner is kubernetes.io/no-provisioner
-- ✅ Volume binding mode is WaitForFirstConsumer
-- ✅ Volume expansion is enabled (allowVolumeExpansion: true)
-- ✅ Set as default storage class</p>
-<hr />
-<h3 id="question-2-deployment-with-sidecar-container">Question 2: Deployment with Sidecar Container</h3>
-<p><strong>Task</strong>: Create a deployment named logging-deployment in the namespace logging-ns with 1 replica, with the following specifications:</p>
-<p><strong>Main Container</strong> (app-container):
-- Image: busybox
-- Command: <code>sh -c "while true; do echo 'Log entry' &gt;&gt; /var/log/app/app.log; sleep 5; done"</code></p>
-<p><strong>Sidecar Container</strong> (log-agent):
-- Image: busybox
-- Command: <code>tail -f /var/log/app/app.log</code>
-- Must read logs from main container</p>
-<p><strong>Requirements</strong>:
-- Use a shared emptyDir volume for log sharing
-- Both containers must mount the same volume at /var/log/app
-- Sidecar should display logs from main container in real-time</p>
-<p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Create namespace first</span>
-kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>logging-ns
-
-<span class="c1"># Create the deployment</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>logging-deployment.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
-<span class="s">apiVersion: apps/v1</span>
-<span class="s">kind: Deployment</span>
-<span class="s">metadata:</span>
-<span class="s">  name: logging-deployment</span>
-<span class="s">  namespace: logging-ns</span>
-<span class="s">spec:</span>
-<span class="s">  replicas: 1</span>
-<span class="s">  selector:</span>
-<span class="s">    matchLabels:</span>
-<span class="s">      app: logging</span>
-<span class="s">  template:</span>
-<span class="s">    metadata:</span>
-<span class="s">      labels:</span>
-<span class="s">        app: logging</span>
-<span class="s">    spec:</span>
-<span class="s">      containers:</span>
-<span class="s">      - name: app-container</span>
-<span class="s">        image: busybox</span>
-<span class="s">        command: [&quot;sh&quot;, &quot;-c&quot;, &quot;while true; do echo &#39;Log entry&#39; &gt;&gt; /var/log/app/app.log; sleep 5; done&quot;]</span>
-<span class="s">        volumeMounts:</span>
-<span class="s">        - name: log-volume</span>
-<span class="s">          mountPath: /var/log/app</span>
-<span class="s">      - name: log-agent</span>
-<span class="s">        image: busybox</span>
-<span class="s">        command: [&quot;tail&quot;, &quot;-f&quot;, &quot;/var/log/app/app.log&quot;]</span>
-<span class="s">        volumeMounts:</span>
-<span class="s">        - name: log-volume</span>
-<span class="s">          mountPath: /var/log/app</span>
-<span class="s">      volumes:</span>
-<span class="s">      - name: log-volume</span>
-<span class="s">        emptyDir: {}</span>
-<span class="s">EOF</span>
-
-kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>logging-deployment.yaml
-
-<span class="c1"># Verification commands</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>logging-deployment<span class="w"> </span>-n<span class="w"> </span>logging-ns
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>logging-ns
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-c<span class="w"> </span>log-agent
-kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>&lt;pod-name&gt;
-</code></pre></div></p>
-<p><strong>Verification Checklist</strong>:
-- ✅ Deployment logging-deployment created in logging-ns namespace
-- ✅ Main container (app-container) writes logs to shared volume
-- ✅ Sidecar container (log-agent) reads logs from same volume
-- ✅ Shared emptyDir volume mounted at /var/log/app in both containers
-- ✅ Sidecar properly displays logs from main container</p>
-<hr />
-<h3 id="question-3-view-sidecar-container-logs">Question 3: View Sidecar Container Logs</h3>
-<p><strong>Scenario</strong>: You have a deployment with multiple containers (main app and sidecar). You need to view logs from a specific container.</p>
-<p><strong>Given</strong>: A pod <code>logging-deployment-59df466f64-56299</code> in namespace <code>logging-ns</code> with two containers:
-- <code>app-container</code> (main application)
-- <code>log-agent</code> (sidecar for log aggregation)</p>
-<p><strong>Task</strong>: View the logs from the <strong>log-agent</strong> sidecar container specifically.</p>
-<p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># View logs from specific sidecar container</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>logging-deployment-59df466f64-56299<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>-c<span class="w"> </span>log-agent
-
-<span class="c1"># Follow logs in real-time (like tail -f)</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>logging-deployment-59df466f64-56299<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>-c<span class="w"> </span>log-agent<span class="w"> </span>-f
-
-<span class="c1"># View logs from all containers</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>logging-deployment-59df466f64-56299<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>--all-containers<span class="o">=</span><span class="nb">true</span>
-
-<span class="c1"># View logs from default container (first one)</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>logging-deployment-59df466f64-56299<span class="w"> </span>-n<span class="w"> </span>logging-ns
-<span class="c1"># Note: This defaults to &quot;app-container&quot; and shows message:</span>
-<span class="c1"># &quot;Defaulted container &#39;app-container&#39; out of: app-container, log-agent&quot;</span>
-</code></pre></div></p>
-<p><strong>Key Commands</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Single container logs (must specify -c if not default)</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;container-name&gt;
-
-<span class="c1"># All containers</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>--all-containers<span class="o">=</span><span class="nb">true</span>
-
-<span class="c1"># Follow/tail logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;container-name&gt;<span class="w"> </span>-f
-
-<span class="c1"># Previous container logs (if crashed/restarted)</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;container-name&gt;<span class="w"> </span>--previous
-</code></pre></div></p>
-<p><strong>Verification Checklist</strong>:
-- ✅ Can view logs from specific sidecar container using <code>-c</code> flag
-- ✅ Understands default container selection behavior
-- ✅ Knows how to view all containers' logs
-- ✅ Can follow logs in real-time with <code>-f</code> flag</p>
-<hr />
-<h3 id="question-4-create-ingress-resource">Question 4: Create Ingress Resource</h3>
-<p><strong>Scenario</strong>: A Deployment named webapp-deploy is running in the ingress-ns namespace and is exposed via a Service named webapp-svc.</p>
-<p><strong>Task</strong>: Create an Ingress resource called webapp-ingress in the same namespace that will route traffic to the service.</p>
-<p><strong>Requirements</strong>:
-- Use pathType: Prefix
-- Route requests sent to path / to the backend service
-- Forward traffic to port 80 of the service
-- Be configured for the host kodekloud-ingress.app
-- Add ingress class annotation: kubernetes.io/ingress.class: nginx</p>
-<p><strong>Test Command</strong>:
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://kodekloud-ingress.app/
-</code></pre></div></p>
+<h3 id="question-1-configure-sysctl-parameters-for-kubeadm">Question 1: Configure Sysctl Parameters for Kubeadm</h3>
+<p><strong>Scenario</strong>: Prepare system network parameters for Kubernetes cluster installation using kubeadm.</p>
+<p><strong>Task</strong>: Configure the following sysctl parameters to support Kubernetes networking, ensuring they persist across reboots:
+- <code>net.ipv4.ip_forward = 1</code>
+- <code>net.bridge.bridge-nf-call-iptables = 1</code></p>
 <p><strong>Answer</strong>:</p>
-<p><strong>Method 1: Imperative Command (Quick)</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create Ingress using kubectl create (uses ImplementationSpecific pathType by default)</span>
-kubectl<span class="w"> </span>create<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>--class<span class="o">=</span>nginx<span class="w"> </span>-n<span class="w"> </span>ingress-ns<span class="w"> </span>--rule<span class="o">=</span><span class="s2">&quot;kodekloud-ingress.app/=webapp-svc:80&quot;</span>
+<p><strong>Method 1: Using sysctl command (temporary + persistent)</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Set parameters immediately (runtime)</span>
+sudo<span class="w"> </span>sysctl<span class="w"> </span>-w<span class="w"> </span>net.ipv4.ip_forward<span class="o">=</span><span class="m">1</span>
+sudo<span class="w"> </span>sysctl<span class="w"> </span>-w<span class="w"> </span>net.bridge.bridge-nf-call-iptables<span class="o">=</span><span class="m">1</span>
 
-<span class="c1"># Note: To set exact pathType: Prefix, edit the ingress after creation</span>
-kubectl<span class="w"> </span>edit<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns
-<span class="c1"># Change: pathType: ImplementationSpecific → pathType: Prefix</span>
+<span class="c1"># Step 2: Make persistent by adding to /etc/sysctl.conf</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF | sudo tee /etc/sysctl.conf</span>
+<span class="s">net.ipv4.ip_forward = 1</span>
+<span class="s">net.bridge.bridge-nf-call-iptables = 1</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Or create a separate file in sysctl.d (recommended)</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf</span>
+<span class="s">net.ipv4.ip_forward = 1</span>
+<span class="s">net.bridge.bridge-nf-call-iptables = 1</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Step 3: Apply all sysctl settings</span>
+sudo<span class="w"> </span>sysctl<span class="w"> </span>--system
+
+<span class="c1"># Alternative: Reload specific parameters</span>
+sudo<span class="w"> </span>sysctl<span class="w"> </span>-p<span class="w"> </span>/etc/sysctl.d/99-kubernetes-cri.conf
 </code></pre></div></p>
-<p><strong>Method 2: Declarative YAML (Exact Specifications)</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create the Ingress with exact requirements</span>
-kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
-<span class="s">apiVersion: networking.k8s.io/v1</span>
-<span class="s">kind: Ingress</span>
-<span class="s">metadata:</span>
-<span class="s">  name: webapp-ingress</span>
-<span class="s">  namespace: ingress-ns</span>
-<span class="s">  annotations:</span>
-<span class="s">    kubernetes.io/ingress.class: &quot;nginx&quot;</span>
-<span class="s">spec:</span>
-<span class="s">  rules:</span>
-<span class="s">  - host: kodekloud-ingress.app</span>
-<span class="s">    http:</span>
-<span class="s">      paths:</span>
-<span class="s">      - path: /</span>
-<span class="s">        pathType: Prefix</span>
-<span class="s">        backend:</span>
-<span class="s">          service:</span>
-<span class="s">            name: webapp-svc</span>
-<span class="s">            port:</span>
-<span class="s">              number: 80</span>
-<span class="s">EOF</span>
+<p><strong>Method 2: Direct file editing</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check current values</span>
+sysctl<span class="w"> </span>net.ipv4.ip_forward
+sysctl<span class="w"> </span>net.bridge.bridge-nf-call-iptables
 
-<span class="c1"># Verification commands</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns
-kubectl<span class="w"> </span>describe<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns
-kubectl<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns<span class="w"> </span>-o<span class="w"> </span>yaml
+<span class="c1"># Edit sysctl configuration</span>
+sudo<span class="w"> </span>vi<span class="w"> </span>/etc/sysctl.conf
+<span class="c1"># Add these lines:</span>
+<span class="c1"># net.ipv4.ip_forward = 1</span>
+<span class="c1"># net.bridge.bridge-nf-call-iptables = 1</span>
 
-<span class="c1"># Test the Ingress</span>
-curl<span class="w"> </span>-s<span class="w"> </span>http://kodekloud-ingress.app/
-</code></pre></div></p>
-<p><strong>Troubleshooting (if you get 404)</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Check if ingress controller is running</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>ingress-nginx
-
-<span class="c1"># Check service endpoints</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>endpoints<span class="w"> </span>webapp-svc<span class="w"> </span>-n<span class="w"> </span>ingress-ns
-
-<span class="c1"># Test service directly</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>webapp-svc<span class="w"> </span>-n<span class="w"> </span>ingress-ns
-
-<span class="c1"># Add ingress class annotation if missing</span>
-kubectl<span class="w"> </span>annotate<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns<span class="w"> </span>kubernetes.io/ingress.class<span class="o">=</span>nginx
-</code></pre></div></p>
-<p><strong>Verification Checklist</strong>:
-- ✅ Ingress webapp-ingress created in ingress-ns namespace
-- ✅ pathType set to Prefix
-- ✅ Backend service webapp-svc on port 80
-- ✅ Host configured as kodekloud-ingress.app
-- ✅ Ingress class annotation added (kubernetes.io/ingress.class: nginx)
-- ✅ Ingress exposed and serving traffic via kodekloud-ingress.app host</p>
-<hr />
-<h3 id="question-5-create-user-with-csr-and-rbac-role">Question 5: Create User with CSR and RBAC Role</h3>
-<p><strong>Scenario</strong>: Create a new user "john" with certificate-based authentication and grant specific permissions.</p>
-<p><strong>Given</strong>:
-- Private key: <code>/root/CKA/john.key</code>
-- CSR file: <code>/root/CKA/john.csr</code></p>
-<p><strong>Task</strong>:
-1. Create a CertificateSigningRequest (CSR) named <code>john-developer</code> for user john
-2. Approve the CSR
-3. Create a Role named <code>developer</code> in <code>development</code> namespace
-4. Grant permissions: create, list, get, update, delete pods
-5. Create RoleBinding to bind john to the developer role</p>
-<p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Create the CSR</span>
-<span class="c1"># Read the CSR file and encode it in base64</span>
-<span class="nv">CSR</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/root/CKA/john.csr<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="k">)</span>
-
-<span class="c1"># Create the CertificateSigningRequest</span>
-kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
-<span class="s">apiVersion: certificates.k8s.io/v1</span>
-<span class="s">kind: CertificateSigningRequest</span>
-<span class="s">metadata:</span>
-<span class="s">  name: john-developer</span>
-<span class="s">spec:</span>
-<span class="s">  request: $CSR</span>
-<span class="s">  signerName: kubernetes.io/kube-apiserver-client</span>
-<span class="s">  usages:</span>
-<span class="s">  - client auth</span>
-<span class="s">  expirationSeconds: 86400</span>
-<span class="s">EOF</span>
-
-<span class="c1"># Step 2: Approve the CSR</span>
-kubectl<span class="w"> </span>certificate<span class="w"> </span>approve<span class="w"> </span>john-developer
-
-<span class="c1"># Step 3: Extract the signed certificate</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/john.crt
-
-<span class="c1"># Step 4: Create the developer role</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>developer-role.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
-<span class="s">apiVersion: rbac.authorization.k8s.io/v1</span>
-<span class="s">kind: Role</span>
-<span class="s">metadata:</span>
-<span class="s">  name: developer</span>
-<span class="s">  namespace: development</span>
-<span class="s">rules:</span>
-<span class="s">- apiGroups: [&quot;&quot;]</span>
-<span class="s">  resources: [&quot;pods&quot;]</span>
-<span class="s">  verbs: [&quot;create&quot;, &quot;list&quot;, &quot;get&quot;, &quot;update&quot;, &quot;delete&quot;]</span>
-<span class="s">EOF</span>
-
-kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>developer-role.yaml
-
-<span class="c1"># Step 5: Create RoleBinding for john</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>john-binding.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
-<span class="s">apiVersion: rbac.authorization.k8s.io/v1</span>
-<span class="s">kind: RoleBinding</span>
-<span class="s">metadata:</span>
-<span class="s">  name: john-developer-binding</span>
-<span class="s">  namespace: development</span>
-<span class="s">subjects:</span>
-<span class="s">- kind: User</span>
-<span class="s">  name: john</span>
-<span class="s">  apiGroup: rbac.authorization.k8s.io</span>
-<span class="s">roleRef:</span>
-<span class="s">  kind: Role</span>
-<span class="s">  name: developer</span>
-<span class="s">  apiGroup: rbac.authorization.k8s.io</span>
-<span class="s">EOF</span>
-
-kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>john-binding.yaml
-
-<span class="c1"># Step 6: Configure kubectl for john</span>
-kubectl<span class="w"> </span>config<span class="w"> </span>set-credentials<span class="w"> </span>john<span class="w"> </span>--client-certificate<span class="o">=</span>/root/CKA/john.crt<span class="w"> </span>--client-key<span class="o">=</span>/root/CKA/john.key
-kubectl<span class="w"> </span>config<span class="w"> </span>set-context<span class="w"> </span>john-context<span class="w"> </span>--cluster<span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>config<span class="w"> </span>current-context<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d/<span class="w"> </span>-f2<span class="k">)</span><span class="w"> </span>--namespace<span class="o">=</span>development<span class="w"> </span>--user<span class="o">=</span>john
+<span class="c1"># Apply changes</span>
+sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
 </code></pre></div></p>
 <p><strong>Verification Commands</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Check CSR status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>csr<span class="w"> </span>john-developer
+<div class="highlight"><pre><span></span><code><span class="c1"># Check current runtime values</span>
+sysctl<span class="w"> </span>net.ipv4.ip_forward
+sysctl<span class="w"> </span>net.bridge.bridge-nf-call-iptables
 
-<span class="c1"># Check Role</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>role<span class="w"> </span>developer<span class="w"> </span>-n<span class="w"> </span>development
-kubectl<span class="w"> </span>describe<span class="w"> </span>role<span class="w"> </span>developer<span class="w"> </span>-n<span class="w"> </span>development
+<span class="c1"># Check values in proc filesystem</span>
+cat<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+cat<span class="w"> </span>/proc/sys/net/bridge/bridge-nf-call-iptables
 
-<span class="c1"># Check RoleBinding</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>rolebinding<span class="w"> </span>john-developer-binding<span class="w"> </span>-n<span class="w"> </span>development
+<span class="c1"># Verify persistent configuration</span>
+grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;net.ipv4.ip_forward|net.bridge.bridge-nf-call-iptables&quot;</span><span class="w"> </span>/etc/sysctl.conf<span class="w"> </span>/etc/sysctl.d/*.conf<span class="w"> </span><span class="m">2</span>&gt;/dev/null
 
-<span class="c1"># Test as john user</span>
-kubectl<span class="w"> </span>--context<span class="o">=</span>john-context<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>development
-kubectl<span class="w"> </span>--context<span class="o">=</span>john-context<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>list<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>development
-kubectl<span class="w"> </span>--context<span class="o">=</span>john-context<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>delete<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>development
+<span class="c1"># Test after reboot (values should persist)</span>
+<span class="c1"># reboot and check again</span>
+</code></pre></div></p>
+<p><strong>Why These Parameters Are Required</strong>:
+- <strong><code>net.ipv4.ip_forward=1</code></strong>: Enables IP forwarding for pod-to-pod communication and external traffic routing
+- <strong><code>net.bridge.bridge-nf-call-iptables=1</code></strong>: Ensures iptables rules are applied to bridged traffic (required for kube-proxy and CNI plugins)</p>
+<p><strong>Common kubeadm Pre-requisites</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Load required kernel modules</span>
+sudo<span class="w"> </span>modprobe<span class="w"> </span>overlay
+sudo<span class="w"> </span>modprobe<span class="w"> </span>br_netfilter
 
-<span class="c1"># View current context</span>
-kubectl<span class="w"> </span>config<span class="w"> </span>get-contexts
+<span class="c1"># Verify modules are loaded</span>
+lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;overlay|br_netfilter&quot;</span>
 
-<span class="c1"># Switch to john context</span>
-kubectl<span class="w"> </span>config<span class="w"> </span>use-context<span class="w"> </span>john-context
-
-<span class="c1"># Try creating a pod as john</span>
-kubectl<span class="w"> </span>--context<span class="o">=</span>john-context<span class="w"> </span>run<span class="w"> </span>test-pod<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span>-n<span class="w"> </span>development<span class="w"> </span>--dry-run<span class="o">=</span>client
+<span class="c1"># Make modules persistent</span>
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/modules-load.d/k8s.conf<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">overlay</span>
+<span class="s">br_netfilter</span>
+<span class="s">EOF</span>
 </code></pre></div></p>
 <p><strong>Verification Checklist</strong>:
-- ✅ CSR john-developer created and Approved
-- ✅ Role developer created in development namespace
-- ✅ Role has permissions: create, list, get, update, delete pods
-- ✅ RoleBinding connects user john to developer role
-- ✅ User john has appropriate permissions in development namespace</p>
+- ✅ net.ipv4.ip_forward is set to 1
+- ✅ net.bridge.bridge-nf-call-iptables is set to 1
+- ✅ Settings persist in /etc/sysctl.conf or /etc/sysctl.d/
+- ✅ Changes applied with sysctl --system or sysctl -p
+- ✅ Values verified in /proc/sys/ filesystem</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
