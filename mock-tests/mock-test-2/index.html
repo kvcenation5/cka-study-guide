@@ -4230,6 +4230,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-14-configmap-with-deployment-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 14: ConfigMap with Deployment Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4454,6 +4465,17 @@
     <span class="md-ellipsis">
       
         Question 13: ServiceAccount with ClusterRole for PersistentVolumes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-14-configmap-with-deployment-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 14: ConfigMap with Deployment Environment Variables
       
     </span>
   </a>
@@ -5068,6 +5090,120 @@ kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </sp
 - ✅ Pod pvviewer created with image redis
 - ✅ Pod configured to use ServiceAccount pvviewer
 - ✅ Pod can list PersistentVolumes</p>
+<hr />
+<h3 id="question-14-configmap-with-deployment-environment-variables">Question 14: ConfigMap with Deployment Environment Variables</h3>
+<p><strong>Scenario</strong>: Create a ConfigMap and configure a Deployment to use it for environment variables.</p>
+<p><strong>Task</strong>:
+1. Create a ConfigMap named <code>app-config</code> in namespace <code>cm-namespace</code>
+2. Add key-value pairs: <code>ENV=production</code> and <code>LOG_LEVEL=info</code>
+3. Modify the existing Deployment <code>cm-webapp</code> to use the ConfigMap
+4. Set environment variables <code>ENV</code> and <code>LOG_LEVEL</code> from the ConfigMap</p>
+<p><strong>Answer</strong>:</p>
+<p><strong>Step 1: Create the ConfigMap</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create ConfigMap with literal values</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>configmap<span class="w"> </span>app-config<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">ENV</span><span class="o">=</span>production<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">LOG_LEVEL</span><span class="o">=</span>info<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>cm-namespace
+
+<span class="c1"># Or using YAML</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>app-config.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: v1</span>
+<span class="s">kind: ConfigMap</span>
+<span class="s">metadata:</span>
+<span class="s">  name: app-config</span>
+<span class="s">  namespace: cm-namespace</span>
+<span class="s">data:</span>
+<span class="s">  ENV: production</span>
+<span class="s">  LOG_LEVEL: info</span>
+<span class="s">EOF</span>
+
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>app-config.yaml
+</code></pre></div></p>
+<p><strong>Step 2: Modify Deployment to use ConfigMap</strong></p>
+<p><strong>Method 1: Using kubectl set env (quickest)</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>env<span class="w"> </span>deployment/cm-webapp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="o">=</span>configmap/app-config<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>cm-namespace
+</code></pre></div></p>
+<p><strong>Method 2: Using kubectl edit</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>edit<span class="w"> </span>deployment<span class="w"> </span>cm-webapp<span class="w"> </span>-n<span class="w"> </span>cm-namespace
+</code></pre></div></p>
+<p>Add under the container spec:
+<div class="highlight"><pre><span></span><code><span class="nt">envFrom</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">configMapRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-config</span>
+</code></pre></div></p>
+<p><strong>Method 3: Patch with YAML</strong>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>patch.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">spec:</span>
+<span class="s">  template:</span>
+<span class="s">    spec:</span>
+<span class="s">      containers:</span>
+<span class="s">      - name: webapp</span>
+<span class="s">        envFrom:</span>
+<span class="s">        - configMapRef:</span>
+<span class="s">            name: app-config</span>
+<span class="s">EOF</span>
+
+kubectl<span class="w"> </span>patch<span class="w"> </span>deployment<span class="w"> </span>cm-webapp<span class="w"> </span>-n<span class="w"> </span>cm-namespace<span class="w"> </span>--patch-file<span class="w"> </span>patch.yaml
+</code></pre></div></p>
+<p><strong>Method 4: Specific env var mapping (more control)</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>env<span class="w"> </span>deployment/cm-webapp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">ENV</span><span class="o">=</span>production<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">LOG_LEVEL</span><span class="o">=</span>info<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>cm-namespace
+</code></pre></div></p>
+<p>Or from ConfigMap specifically:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>env<span class="w"> </span>deployment/cm-webapp<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from<span class="o">=</span>configmap/app-config<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>cm-namespace
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify ConfigMap exists with correct data</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>configmap<span class="w"> </span>app-config<span class="w"> </span>-n<span class="w"> </span>cm-namespace<span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># Check ConfigMap keys</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF | kubectl apply -f -</span>
+<span class="s">apiVersion: v1</span>
+<span class="s">kind: Pod</span>
+<span class="s">metadata:</span>
+<span class="s">  name: config-test</span>
+<span class="s">  namespace: cm-namespace</span>
+<span class="s">spec:</span>
+<span class="s">  containers:</span>
+<span class="s">  - name: test</span>
+<span class="s">    image: busybox</span>
+<span class="s">    command: [&#39;sh&#39;, &#39;-c&#39;, &#39;env &amp;&amp; sleep 3600&#39;]</span>
+<span class="s">    envFrom:</span>
+<span class="s">    - configMapRef:</span>
+<span class="s">        name: app-config</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Check environment variables in pod</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>config-test<span class="w"> </span>-n<span class="w"> </span>cm-namespace<span class="w"> </span>--<span class="w"> </span>env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;ENV|LOG_LEVEL&#39;</span>
+
+<span class="c1"># Verify Deployment uses ConfigMap</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>cm-webapp<span class="w"> </span>-n<span class="w"> </span>cm-namespace<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="s2">&quot;envFrom:&quot;</span>
+
+<span class="c1"># Check running pods have env vars</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>deployment/cm-webapp<span class="w"> </span>-n<span class="w"> </span>cm-namespace<span class="w"> </span>--<span class="w"> </span>env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;ENV|LOG_LEVEL&#39;</span>
+
+<span class="c1"># Clean up test pod</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>config-test<span class="w"> </span>-n<span class="w"> </span>cm-namespace
+</code></pre></div></p>
+<p><strong>Key Concepts</strong>:
+- <code>envFrom</code>: Injects all key-value pairs from ConfigMap as env vars
+- <code>env</code>: Can reference specific ConfigMap keys or set literal values
+- ConfigMaps can be mounted as files (volumes) or injected as env vars
+- Changes to ConfigMap don't automatically restart pods; need to trigger rollout</p>
+<p><strong>Verification Checklist</strong>:
+- ✅ ConfigMap app-config created in cm-namespace
+- ✅ ConfigMap has ENV=production
+- ✅ ConfigMap has LOG_LEVEL=info
+- ✅ Deployment cm-webapp uses ConfigMap for environment variables
+- ✅ Environment variables reflected in deployment pods
+- ✅ Pod can access ENV and LOG_LEVEL from ConfigMap</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
