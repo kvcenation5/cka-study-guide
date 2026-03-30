@@ -4120,6 +4120,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-4-create-hpa-with-memory-utilization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 4: Create HPA with Memory Utilization
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4234,6 +4245,17 @@
     <span class="md-ellipsis">
       
         Question 3: Create Static Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-4-create-hpa-with-memory-utilization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 4: Create HPA with Memory Utilization
       
     </span>
   </a>
@@ -4518,6 +4540,60 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> <
 - ✅ Pod auto-restarts when deleted (kubelet manages it)
 - ✅ Pod visible via kubectl from control plane
 - ✅ Node name appended to pod name (e.g., nginx-critical-node01-node01)</p>
+<hr />
+<h3 id="question-4-create-hpa-with-memory-utilization">Question 4: Create HPA with Memory Utilization</h3>
+<p><strong>Task</strong>: Create a Horizontal Pod Autoscaler that scales based on memory usage.</p>
+<p><strong>Requirements</strong>:
+- HPA name: <code>backend-hpa</code>
+- Target deployment: <code>backend-deployment</code> in <code>backend</code> namespace
+- Metric: Memory utilization at 65% average
+- Min replicas: 3
+- Max replicas: 15
+- Save to file: <code>/root/webapp-hpa.yaml</code></p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the HPA with memory metrics</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>/root/webapp-hpa.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: autoscaling/v2</span>
+<span class="s">kind: HorizontalPodAutoscaler</span>
+<span class="s">metadata:</span>
+<span class="s">  name: backend-hpa</span>
+<span class="s">  namespace: backend</span>
+<span class="s">spec:</span>
+<span class="s">  scaleTargetRef:</span>
+<span class="s">    apiVersion: apps/v1</span>
+<span class="s">    kind: Deployment</span>
+<span class="s">    name: backend-deployment</span>
+<span class="s">  minReplicas: 3</span>
+<span class="s">  maxReplicas: 15</span>
+<span class="s">  metrics:</span>
+<span class="s">  - type: Resource</span>
+<span class="s">    resource:</span>
+<span class="s">      name: memory</span>
+<span class="s">      target:</span>
+<span class="s">        type: Utilization</span>
+<span class="s">        averageUtilization: 65</span>
+<span class="s">EOF</span>
+
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>/root/webapp-hpa.yaml
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check HPA is deployed</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hpa<span class="w"> </span>backend-hpa<span class="w"> </span>-n<span class="w"> </span>backend
+
+<span class="c1"># Check HPA details</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>hpa<span class="w"> </span>backend-hpa<span class="w"> </span>-n<span class="w"> </span>backend
+
+<span class="c1"># Verify memory metric configuration</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hpa<span class="w"> </span>backend-hpa<span class="w"> </span>-n<span class="w"> </span>backend<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;metrics:&quot;</span>
+
+<span class="c1"># Check deployment scaling</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>backend-deployment<span class="w"> </span>-n<span class="w"> </span>backend
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ HPA backend-hpa deployed in backend namespace
+- ✅ Deployment configured for memory utilization (65%)
+- ✅ Min replicas: 3, Max replicas: 15
+- ✅ HPA saved to /root/webapp-hpa.yaml</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
