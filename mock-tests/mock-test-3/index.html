@@ -4118,6 +4118,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-4-create-ingress-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 4: Create Ingress Resource
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4204,6 +4215,17 @@
     <span class="md-ellipsis">
       
         Question 3: View Sidecar Container Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-4-create-ingress-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 4: Create Ingress Resource
       
     </span>
   </a>
@@ -4376,6 +4398,71 @@ kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span
 - ✅ Understands default container selection behavior
 - ✅ Knows how to view all containers' logs
 - ✅ Can follow logs in real-time with <code>-f</code> flag</p>
+<hr />
+<h3 id="question-4-create-ingress-resource">Question 4: Create Ingress Resource</h3>
+<p><strong>Scenario</strong>: A Deployment named webapp-deploy is running in the ingress-ns namespace and is exposed via a Service named webapp-svc.</p>
+<p><strong>Task</strong>: Create an Ingress resource called webapp-ingress in the same namespace that will route traffic to the service.</p>
+<p><strong>Requirements</strong>:
+- Use pathType: Prefix
+- Route requests sent to path / to the backend service
+- Forward traffic to port 80 of the service
+- Be configured for the host kodekloud-ingress.app
+- Add ingress class annotation: kubernetes.io/ingress.class: nginx</p>
+<p><strong>Test Command</strong>:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://kodekloud-ingress.app/
+</code></pre></div></p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the Ingress</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">apiVersion: networking.k8s.io/v1</span>
+<span class="s">kind: Ingress</span>
+<span class="s">metadata:</span>
+<span class="s">  name: webapp-ingress</span>
+<span class="s">  namespace: ingress-ns</span>
+<span class="s">  annotations:</span>
+<span class="s">    kubernetes.io/ingress.class: &quot;nginx&quot;</span>
+<span class="s">spec:</span>
+<span class="s">  rules:</span>
+<span class="s">  - host: kodekloud-ingress.app</span>
+<span class="s">    http:</span>
+<span class="s">      paths:</span>
+<span class="s">      - path: /</span>
+<span class="s">        pathType: Prefix</span>
+<span class="s">        backend:</span>
+<span class="s">          service:</span>
+<span class="s">            name: webapp-svc</span>
+<span class="s">            port:</span>
+<span class="s">              number: 80</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Verification commands</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns
+kubectl<span class="w"> </span>describe<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns
+kubectl<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns<span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># Test the Ingress</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://kodekloud-ingress.app/
+</code></pre></div></p>
+<p><strong>Troubleshooting (if you get 404)</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if ingress controller is running</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>ingress-nginx
+
+<span class="c1"># Check service endpoints</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>endpoints<span class="w"> </span>webapp-svc<span class="w"> </span>-n<span class="w"> </span>ingress-ns
+
+<span class="c1"># Test service directly</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>webapp-svc<span class="w"> </span>-n<span class="w"> </span>ingress-ns
+
+<span class="c1"># Add ingress class annotation if missing</span>
+kubectl<span class="w"> </span>annotate<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns<span class="w"> </span>kubernetes.io/ingress.class<span class="o">=</span>nginx
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Ingress webapp-ingress created in ingress-ns namespace
+- ✅ pathType set to Prefix
+- ✅ Backend service webapp-svc on port 80
+- ✅ Host configured as kodekloud-ingress.app
+- ✅ Ingress class annotation added (kubernetes.io/ingress.class: nginx)
+- ✅ Ingress exposed and serving traffic via kodekloud-ingress.app host</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
