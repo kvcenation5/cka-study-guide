@@ -4107,6 +4107,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-3-view-sidecar-container-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 3: View Sidecar Container Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4182,6 +4193,17 @@
     <span class="md-ellipsis">
       
         Question 2: Deployment with Sidecar Container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-3-view-sidecar-container-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 3: View Sidecar Container Logs
       
     </span>
   </a>
@@ -4314,6 +4336,46 @@ kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w
 - ✅ Sidecar container (log-agent) reads logs from same volume
 - ✅ Shared emptyDir volume mounted at /var/log/app in both containers
 - ✅ Sidecar properly displays logs from main container</p>
+<hr />
+<h3 id="question-3-view-sidecar-container-logs">Question 3: View Sidecar Container Logs</h3>
+<p><strong>Scenario</strong>: You have a deployment with multiple containers (main app and sidecar). You need to view logs from a specific container.</p>
+<p><strong>Given</strong>: A pod <code>logging-deployment-59df466f64-56299</code> in namespace <code>logging-ns</code> with two containers:
+- <code>app-container</code> (main application)
+- <code>log-agent</code> (sidecar for log aggregation)</p>
+<p><strong>Task</strong>: View the logs from the <strong>log-agent</strong> sidecar container specifically.</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># View logs from specific sidecar container</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>logging-deployment-59df466f64-56299<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>-c<span class="w"> </span>log-agent
+
+<span class="c1"># Follow logs in real-time (like tail -f)</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>logging-deployment-59df466f64-56299<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>-c<span class="w"> </span>log-agent<span class="w"> </span>-f
+
+<span class="c1"># View logs from all containers</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>logging-deployment-59df466f64-56299<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>--all-containers<span class="o">=</span><span class="nb">true</span>
+
+<span class="c1"># View logs from default container (first one)</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>logging-deployment-59df466f64-56299<span class="w"> </span>-n<span class="w"> </span>logging-ns
+<span class="c1"># Note: This defaults to &quot;app-container&quot; and shows message:</span>
+<span class="c1"># &quot;Defaulted container &#39;app-container&#39; out of: app-container, log-agent&quot;</span>
+</code></pre></div></p>
+<p><strong>Key Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Single container logs (must specify -c if not default)</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;container-name&gt;
+
+<span class="c1"># All containers</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>--all-containers<span class="o">=</span><span class="nb">true</span>
+
+<span class="c1"># Follow/tail logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;container-name&gt;<span class="w"> </span>-f
+
+<span class="c1"># Previous container logs (if crashed/restarted)</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;container-name&gt;<span class="w"> </span>--previous
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Can view logs from specific sidecar container using <code>-c</code> flag
+- ✅ Understands default container selection behavior
+- ✅ Knows how to view all containers' logs
+- ✅ Can follow logs in real-time with <code>-f</code> flag</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
