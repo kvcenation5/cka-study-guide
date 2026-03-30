@@ -4098,6 +4098,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-2-dns-resolution-and-network-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 2: DNS Resolution and Network Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4190,6 +4201,17 @@
     <span class="md-ellipsis">
       
         Question 1: Create User with CSR and RBAC Role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-2-dns-resolution-and-network-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 2: DNS Resolution and Network Troubleshooting
       
     </span>
   </a>
@@ -4299,6 +4321,90 @@ kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w">
 - ✅ Role has permissions: create, list, get, update, delete pods
 - ✅ RoleBinding connects user john to developer role
 - ✅ User john has appropriate permissions in development namespace</p>
+<hr />
+<h3 id="question-2-dns-resolution-and-network-troubleshooting">Question 2: DNS Resolution and Network Troubleshooting</h3>
+<p><strong>Task</strong>: Create an nginx pod and verify DNS resolution and network reachability.</p>
+<p><strong>Requirements</strong>:
+1. Create an nginx pod named <code>nginx-resolver</code> using the nginx image
+2. Expose it internally using a ClusterIP service called <code>nginx-resolver-service</code>
+3. Verify DNS resolution of the service name
+4. Verify network reachability of the pod using its IP address
+5. Use busybox:1.28 image to perform the lookups</p>
+<p><strong>Output Files</strong>:
+- Save service DNS lookup to: <code>/root/CKA/nginx.svc</code>
+- Save pod IP lookup to: <code>/root/CKA/nginx.pod</code></p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Create the nginx pod</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>nginx-resolver<span class="w"> </span>--image<span class="o">=</span>nginx
+
+<span class="c1"># Step 2: Create ClusterIP service</span>
+kubectl<span class="w"> </span>expose<span class="w"> </span>pod<span class="w"> </span>nginx-resolver<span class="w"> </span>--name<span class="o">=</span>nginx-resolver-service<span class="w"> </span>--port<span class="o">=</span><span class="m">80</span><span class="w"> </span>--target-port<span class="o">=</span><span class="m">80</span>
+
+<span class="c1"># Step 3: Get service details</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>service<span class="w"> </span>nginx-resolver-service
+kubectl<span class="w"> </span>describe<span class="w"> </span>service<span class="w"> </span>nginx-resolver-service
+
+<span class="c1"># Step 4: Create a busybox pod for DNS testing</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>busybox-test<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>/bin/sh
+
+<span class="c1"># Inside busybox container, run:</span>
+<span class="c1"># DNS lookup for service</span>
+nslookup<span class="w"> </span>nginx-resolver-service
+<span class="c1"># or</span>
+nslookup<span class="w"> </span>nginx-resolver-service.default.svc.cluster.local
+
+<span class="c1"># DNS lookup for pod (get pod IP first)</span>
+nslookup<span class="w"> </span>&lt;pod-ip-address&gt;
+
+<span class="c1"># Step 5: Alternative - one-liner commands to save output</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>busybox<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>nginx-resolver-service<span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.svc
+
+kubectl<span class="w"> </span>run<span class="w"> </span>busybox<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-resolver<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.podIP}&#39;</span><span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.pod
+</code></pre></div></p>
+<p><strong>Better approach using kubectl exec</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Create pod and service</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>nginx-resolver<span class="w"> </span>--image<span class="o">=</span>nginx
+kubectl<span class="w"> </span>expose<span class="w"> </span>pod<span class="w"> </span>nginx-resolver<span class="w"> </span>--name<span class="o">=</span>nginx-resolver-service<span class="w"> </span>--port<span class="o">=</span><span class="m">80</span>
+
+<span class="c1"># Step 2: Get pod IP</span>
+<span class="nv">POD_IP</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-resolver<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.podIP}&#39;</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$POD_IP</span><span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.pod
+
+<span class="c1"># Step 3: Create busybox pod and test DNS</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>busybox-dns<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--<span class="w"> </span>sleep<span class="w"> </span><span class="m">3600</span>
+
+<span class="c1"># Wait for pod to be ready</span>
+kubectl<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Ready<span class="w"> </span>pod/busybox-dns<span class="w"> </span>--timeout<span class="o">=</span>60s
+
+<span class="c1"># Test service DNS resolution</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>busybox-dns<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>nginx-resolver-service<span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/nginx.svc
+
+<span class="c1"># Clean up</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>busybox-dns
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify pod is running</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-resolver
+
+<span class="c1"># Verify service exists</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>service<span class="w"> </span>nginx-resolver-service
+
+<span class="c1"># Check service endpoints</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>endpoints<span class="w"> </span>nginx-resolver-service
+
+<span class="c1"># Verify output files</span>
+cat<span class="w"> </span>/root/CKA/nginx.svc
+cat<span class="w"> </span>/root/CKA/nginx.pod
+
+<span class="c1"># Test DNS resolution from within cluster</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>test-dns<span class="w"> </span>--image<span class="o">=</span>busybox:1.28<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>nslookup<span class="w"> </span>nginx-resolver-service
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Pod nginx-resolver created with nginx image
+- ✅ ClusterIP service nginx-resolver-service created
+- ✅ Service DNS resolution verified and saved to /root/CKA/nginx.svc
+- ✅ Pod IP resolution verified and saved to /root/CKA/nginx.pod
+- ✅ busybox:1.28 image used for DNS lookups</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
