@@ -4278,6 +4278,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-16-taints-and-tolerations-dev-vs-prod-workloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 16: Taints and Tolerations - Dev vs Prod Workloads
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4496,6 +4507,17 @@
     <span class="md-ellipsis">
       
         Question 15: CronJob for Scheduled Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-16-taints-and-tolerations-dev-vs-prod-workloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 16: Taints and Tolerations - Dev vs Prod Workloads
       
     </span>
   </a>
@@ -5166,6 +5188,75 @@ kubectl<span class="w"> </span>create<span class="w"> </span>job<span class="w">
 kubectl<span class="w"> </span>get<span class="w"> </span><span class="nb">jobs</span>
 kubectl<span class="w"> </span>logs<span class="w"> </span>job/manual-backup-001
 </code></pre></div></p>
+<hr />
+<h3 id="question-16-taints-and-tolerations-dev-vs-prod-workloads">Question 16: Taints and Tolerations - Dev vs Prod Workloads</h3>
+<p><strong>Scenario</strong>: Separate development and production workloads using taints and tolerations.</p>
+<p><strong>Requirements</strong>:
+1. Taint worker node <code>node01</code> with:
+   - Key: <code>env_type</code>
+   - Value: <code>production</code>
+   - Effect: <code>NoSchedule</code>
+2. Create pod <code>dev-redis</code> with image <code>redis:alpine</code> (no tolerations)
+   - Should NOT be scheduled on node01
+3. Create pod <code>prod-redis</code> with image <code>redis:alpine</code> with toleration:
+   - Key: <code>env_type</code>
+   - Value: <code>production</code>
+   - Operator: <code>Equal</code>
+   - Effect: <code>NoSchedule</code>
+   - Should be scheduled on node01</p>
+<p><strong>Answer</strong>:</p>
+<p><strong>Step 1: Taint node01</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>taint<span class="w"> </span>node<span class="w"> </span>node01<span class="w"> </span><span class="nv">env_type</span><span class="o">=</span>production:NoSchedule
+</code></pre></div></p>
+<p><strong>Step 2: Create dev-redis pod (no tolerations)</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>run<span class="w"> </span>dev-redis<span class="w"> </span>--image<span class="o">=</span>redis:alpine
+</code></pre></div></p>
+<p><strong>Step 3: Create prod-redis pod with toleration</strong>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>prod-redis.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: v1</span>
+<span class="s">kind: Pod</span>
+<span class="s">metadata:</span>
+<span class="s">  name: prod-redis</span>
+<span class="s">spec:</span>
+<span class="s">  tolerations:</span>
+<span class="s">  - key: env_type</span>
+<span class="s">    operator: Equal</span>
+<span class="s">    value: production</span>
+<span class="s">    effect: NoSchedule</span>
+<span class="s">  containers:</span>
+<span class="s">  - name: redis</span>
+<span class="s">    image: redis:alpine</span>
+<span class="s">EOF</span>
+
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>prod-redis.yaml
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check node taint</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>node<span class="w"> </span>node01<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>taint
+<span class="c1"># Should show: env_type=production:NoSchedule</span>
+
+<span class="c1"># dev-redis should NOT be on node01 (no tolerations)</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>dev-redis<span class="w"> </span>-o<span class="w"> </span>wide
+<span class="c1"># Should show: Running on controlplane or other node (not node01)</span>
+
+<span class="c1"># prod-redis SHOULD be on node01 (has toleration)</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>prod-redis<span class="w"> </span>-o<span class="w"> </span>wide
+<span class="c1"># Should show: Running on node01</span>
+
+<span class="c1"># Verify toleration in prod-redis</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>prod-redis<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">4</span><span class="w"> </span>tolerations
+</code></pre></div></p>
+<p><strong>Key Concepts</strong>:
+- <strong>NoSchedule</strong>: Pods without toleration won't be scheduled on tainted node
+- <strong>Existing pods</strong> are not evicted (unlike NoExecute)
+- <strong>Toleration must match</strong> key, value, and effect exactly (when operator=Equal)
+- <strong>Use case</strong>: Reserve nodes for specific workloads (production, GPU, etc.)</p>
+<p><strong>Verification Checklist</strong>:
+- ✅ node01 has taint env_type=production:NoSchedule
+- ✅ dev-redis pod is NOT scheduled on node01 (no tolerations)
+- ✅ dev-redis is running on different node (e.g., controlplane)
+- ✅ prod-redis pod IS scheduled on node01 (has matching toleration)
+- ✅ prod-redis has correct toleration configuration</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
