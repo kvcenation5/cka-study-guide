@@ -4411,8 +4411,17 @@ kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span
 <p><strong>Test Command</strong>:
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://kodekloud-ingress.app/
 </code></pre></div></p>
-<p><strong>Answer</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># Create the Ingress</span>
+<p><strong>Answer</strong>:</p>
+<p><strong>Method 1: Imperative Command (Quick)</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create Ingress using kubectl create (uses ImplementationSpecific pathType by default)</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>--class<span class="o">=</span>nginx<span class="w"> </span>-n<span class="w"> </span>ingress-ns<span class="w"> </span>--rule<span class="o">=</span><span class="s2">&quot;kodekloud-ingress.app/=webapp-svc:80&quot;</span>
+
+<span class="c1"># Note: To set exact pathType: Prefix, edit the ingress after creation</span>
+kubectl<span class="w"> </span>edit<span class="w"> </span>ingress<span class="w"> </span>webapp-ingress<span class="w"> </span>-n<span class="w"> </span>ingress-ns
+<span class="c1"># Change: pathType: ImplementationSpecific → pathType: Prefix</span>
+</code></pre></div></p>
+<p><strong>Method 2: Declarative YAML (Exact Specifications)</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the Ingress with exact requirements</span>
 kubectl<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 <span class="s">apiVersion: networking.k8s.io/v1</span>
 <span class="s">kind: Ingress</span>
