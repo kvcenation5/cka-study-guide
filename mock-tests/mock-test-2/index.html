@@ -4241,6 +4241,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-15-create-and-assign-priorityclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 15: Create and Assign PriorityClass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-16-networkpolicy-allow-all-ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 16: NetworkPolicy Allow All Ingress
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4476,6 +4498,28 @@
     <span class="md-ellipsis">
       
         Question 14: ConfigMap with Deployment Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-15-create-and-assign-priorityclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 15: Create and Assign PriorityClass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-16-networkpolicy-allow-all-ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 16: NetworkPolicy Allow All Ingress
       
     </span>
   </a>
@@ -5204,6 +5248,85 @@ kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w">
 - ✅ Deployment cm-webapp uses ConfigMap for environment variables
 - ✅ Environment variables reflected in deployment pods
 - ✅ Pod can access ENV and LOG_LEVEL from ConfigMap</p>
+<hr />
+<h3 id="question-15-create-and-assign-priorityclass">Question 15: Create and Assign PriorityClass</h3>
+<p><strong>Scenario</strong>: Create a PriorityClass and assign it to an existing pod.</p>
+<p><strong>Requirements</strong>:
+- PriorityClass name: <code>low-priority</code>
+- PriorityClass value: <code>50000</code>
+- Pod name: <code>lp-pod</code> in namespace <code>low-priority</code>
+- Assign the PriorityClass to the pod</p>
+<p><strong>Note</strong>: PriorityClass is immutable on a pod. You must delete and recreate the pod.</p>
+<p><strong>Answer</strong>:</p>
+<p><strong>Step 1: Create PriorityClass</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create PriorityClass with value 50000</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>priorityclass<span class="w"> </span>low-priority<span class="w"> </span>--value<span class="o">=</span><span class="m">50000</span>
+</code></pre></div></p>
+<p><strong>Step 2: Delete and Recreate Pod with PriorityClass</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Save current pod spec</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>lp-pod<span class="w"> </span>-n<span class="w"> </span>low-priority<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span>lp-pod-backup.yaml
+
+<span class="c1"># Delete existing pod</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>lp-pod<span class="w"> </span>-n<span class="w"> </span>low-priority
+
+<span class="c1"># Recreate with PriorityClass</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>lp-pod<span class="w"> </span>--image<span class="o">=</span>nginx<span class="w"> </span>-n<span class="w"> </span>low-priority<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--overrides<span class="o">=</span><span class="s1">&#39;{&quot;spec&quot;:{&quot;priorityClassName&quot;:&quot;low-priority&quot;}}&#39;</span>
+</code></pre></div></p>
+<p><strong>Verification</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>priorityclass<span class="w"> </span>low-priority<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.value}&#39;</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>lp-pod<span class="w"> </span>-n<span class="w"> </span>low-priority<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.priorityClassName}&#39;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="question-16-networkpolicy-allow-all-ingress">Question 16: NetworkPolicy Allow All Ingress</h3>
+<p><strong>Scenario</strong>: A default-deny NetworkPolicy is blocking all ingress. Create a policy to allow traffic to a specific pod.</p>
+<p><strong>Given</strong>:
+- Pod: <code>np-test-1</code> in <code>default</code> namespace
+- Service: <code>np-test-service</code> in <code>default</code> namespace
+- Default-deny NetworkPolicy exists (do NOT delete it)</p>
+<p><strong>Task</strong>: Create NetworkPolicy <code>ingress-to-nptest</code> that:
+- Allows ingress from <strong>all sources</strong> to <code>np-test-1</code> pod
+- Allows port 80 only
+- Does not affect existing default-deny policy</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF | kubectl apply -f -</span>
+<span class="s">apiVersion: networking.k8s.io/v1</span>
+<span class="s">kind: NetworkPolicy</span>
+<span class="s">metadata:</span>
+<span class="s">  name: ingress-to-nptest</span>
+<span class="s">  namespace: default</span>
+<span class="s">spec:</span>
+<span class="s">  podSelector:</span>
+<span class="s">    matchLabels:</span>
+<span class="s">      name: np-test-1</span>
+<span class="s">  policyTypes:</span>
+<span class="s">  - Ingress</span>
+<span class="s">  ingress:</span>
+<span class="s">  - from: []  # Empty = allow from ALL sources</span>
+<span class="s">    ports:</span>
+<span class="s">    - protocol: TCP</span>
+<span class="s">      port: 80</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
+<p><strong>Key Points</strong>:
+- <code>from: []</code> allows traffic from all sources (no restrictions)
+- Only targets pod with label <code>name: np-test-1</code>
+- Only allows port 80 TCP
+- Coexists with default-deny (this policy takes precedence for the selected pod)</p>
+<p><strong>Verification</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>networkpolicy<span class="w"> </span>ingress-to-nptest<span class="w"> </span>-n<span class="w"> </span>default
+kubectl<span class="w"> </span>describe<span class="w"> </span>networkpolicy<span class="w"> </span>ingress-to-nptest<span class="w"> </span>-n<span class="w"> </span>default
+
+<span class="c1"># Test connectivity</span>
+curl<span class="w"> </span>http://&lt;np-test-service-ip&gt;:80
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ NetworkPolicy ingress-to-nptest created
+- ✅ Allows ingress from all sources (not restricted)
+- ✅ Applied to correct pod (np-test-1)
+- ✅ Port is 80 (correct)
+- ✅ Default-deny policy still exists
+- ✅ Traffic to np-test-1 is now reachable on port 80</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
