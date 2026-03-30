@@ -4219,6 +4219,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-13-serviceaccount-with-clusterrole-for-persistentvolumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 13: ServiceAccount with ClusterRole for PersistentVolumes
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4432,6 +4443,17 @@
     <span class="md-ellipsis">
       
         Question 12: CSR and RBAC with Extended Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-13-serviceaccount-with-clusterrole-for-persistentvolumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 13: ServiceAccount with ClusterRole for PersistentVolumes
       
     </span>
   </a>
@@ -4977,6 +4999,75 @@ kubectl<span class="w"> </span>--context<span class="o">=</span>john-context<spa
 - ✅ Role developer created with pod permissions
 - ✅ RoleBinding connects user john to developer role
 - ✅ kubectl context configured for user john</p>
+<hr />
+<h3 id="question-13-serviceaccount-with-clusterrole-for-persistentvolumes">Question 13: ServiceAccount with ClusterRole for PersistentVolumes</h3>
+<p><strong>Scenario</strong>: Create a ServiceAccount with cluster-wide permissions to list PersistentVolumes.</p>
+<p><strong>Requirements</strong>:
+- ServiceAccount name: <code>pvviewer</code>
+- ClusterRole name: <code>pvviewer-role</code>
+- ClusterRoleBinding name: <code>pvviewer-role-binding</code>
+- Permission: List all PersistentVolumes (cluster-scoped resource)
+- Pod name: <code>pvviewer</code>
+- Pod image: <code>redis</code>
+- Pod namespace: <code>default</code>
+- Pod must use ServiceAccount <code>pvviewer</code></p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Create ServiceAccount</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>serviceaccount<span class="w"> </span>pvviewer<span class="w"> </span>-n<span class="w"> </span>default
+
+<span class="c1"># Step 2: Create ClusterRole for listing PersistentVolumes</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>pvviewer-role.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: rbac.authorization.k8s.io/v1</span>
+<span class="s">kind: ClusterRole</span>
+<span class="s">metadata:</span>
+<span class="s">  name: pvviewer-role</span>
+<span class="s">rules:</span>
+<span class="s">- apiGroups: [&quot;&quot;]</span>
+<span class="s">  resources: [&quot;persistentvolumes&quot;]</span>
+<span class="s">  verbs: [&quot;list&quot;, &quot;get&quot;]</span>
+<span class="s">EOF</span>
+
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>pvviewer-role.yaml
+
+<span class="c1"># Step 3: Create ClusterRoleBinding</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>pvviewer-role-binding<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--clusterrole<span class="o">=</span>pvviewer-role<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--serviceaccount<span class="o">=</span>default:pvviewer
+
+<span class="c1"># Step 4: Create pod with ServiceAccount</span>
+kubectl<span class="w"> </span>run<span class="w"> </span>pvviewer<span class="w"> </span>--image<span class="o">=</span>redis<span class="w"> </span>--serviceaccount<span class="o">=</span>pvviewer<span class="w"> </span>-n<span class="w"> </span>default
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify ServiceAccount exists</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>serviceaccount<span class="w"> </span>pvviewer<span class="w"> </span>-n<span class="w"> </span>default
+
+<span class="c1"># Verify ClusterRole exists</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>clusterrole<span class="w"> </span>pvviewer-role
+kubectl<span class="w"> </span>describe<span class="w"> </span>clusterrole<span class="w"> </span>pvviewer-role
+
+<span class="c1"># Verify ClusterRoleBinding exists</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>clusterrolebinding<span class="w"> </span>pvviewer-role-binding
+kubectl<span class="w"> </span>describe<span class="w"> </span>clusterrolebinding<span class="w"> </span>pvviewer-role-binding
+
+<span class="c1"># Verify pod is using correct ServiceAccount</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>pvviewer<span class="w"> </span>-n<span class="w"> </span>default<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.serviceAccountName}&#39;</span>
+<span class="c1"># Should output: pvviewer</span>
+
+<span class="c1"># Test permissions from inside pod (optional)</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pvviewer<span class="w"> </span>-n<span class="w"> </span>default<span class="w"> </span>--<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pv
+</code></pre></div></p>
+<p><strong>Key Differences from Role/RoleBinding</strong>:
+- <strong>ClusterRole</strong>: Cluster-scoped (applies across all namespaces)
+- <strong>ClusterRoleBinding</strong>: Binds ClusterRole to subjects cluster-wide
+- <strong>Role</strong>: Namespace-scoped (applies only to specific namespace)
+- <strong>RoleBinding</strong>: Binds Role to subjects within a namespace</p>
+<p><strong>Verification Checklist</strong>:
+- ✅ ServiceAccount pvviewer created in default namespace
+- ✅ ClusterRole pvviewer-role created with list/get permissions on PersistentVolumes
+- ✅ ClusterRoleBinding pvviewer-role-binding connects SA to ClusterRole
+- ✅ Pod pvviewer created with image redis
+- ✅ Pod configured to use ServiceAccount pvviewer
+- ✅ Pod can list PersistentVolumes</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
