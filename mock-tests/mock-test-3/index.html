@@ -4289,6 +4289,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-17-troubleshoot-pvcpv-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 17: Troubleshoot PVC/PV Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4518,6 +4529,17 @@
     <span class="md-ellipsis">
       
         Question 16: Taints and Tolerations - Dev vs Prod Workloads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-17-troubleshoot-pvcpv-binding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 17: Troubleshoot PVC/PV Binding
       
     </span>
   </a>
@@ -5257,6 +5279,86 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </
 - ✅ dev-redis is running on different node (e.g., controlplane)
 - ✅ prod-redis pod IS scheduled on node01 (has matching toleration)
 - ✅ prod-redis has correct toleration configuration</p>
+<hr />
+<h3 id="question-17-troubleshoot-pvcpv-binding">Question 17: Troubleshoot PVC/PV Binding</h3>
+<p><strong>Scenario</strong>: A PVC is not binding to an available PV. Identify and fix the issue.</p>
+<p><strong>Given</strong>:
+- PVC: <code>app-pvc</code> in namespace <code>storage-ns</code> (Status: Pending)
+- PV: <code>app-pv</code> (Status: Available)
+- Do NOT modify the PV resource</p>
+<p><strong>PV Details</strong>:
+- Capacity: 1Gi
+- Access Modes: RWO
+- No StorageClass</p>
+<p><strong>Task</strong>: Fix the PVC so it binds to the PV.</p>
+<p><strong>Answer</strong>:</p>
+<p><strong>Step 1: Inspect the resources</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>app-pvc<span class="w"> </span>-n<span class="w"> </span>storage-ns
+kubectl<span class="w"> </span>get<span class="w"> </span>pv<span class="w"> </span>app-pv
+kubectl<span class="w"> </span>describe<span class="w"> </span>pvc<span class="w"> </span>app-pvc<span class="w"> </span>-n<span class="w"> </span>storage-ns
+</code></pre></div></p>
+<p><strong>Step 2: Check for binding issues</strong></p>
+<p>Common issues:
+1. PVC storage request doesn't match PV capacity
+2. PVC access mode doesn't match PV
+3. PVC StorageClass doesn't match PV (or PV has no StorageClass)
+4. PV already bound to another PVC</p>
+<p><strong>Step 3: Fix the PVC</strong></p>
+<p>The PVC must match:
+- Capacity: 1Gi (equal to or less than PV)
+- AccessMode: ReadWriteOnce (matching PV)
+- storageClassName: "" (empty string to match PV with no StorageClass)</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit the PVC to match PV specs</span>
+kubectl<span class="w"> </span>patch<span class="w"> </span>pvc<span class="w"> </span>app-pvc<span class="w"> </span>-n<span class="w"> </span>storage-ns<span class="w"> </span>--type<span class="w"> </span>merge<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">{</span>
+<span class="s1">  &quot;spec&quot;: {</span>
+<span class="s1">    &quot;accessModes&quot;: [&quot;ReadWriteOnce&quot;],</span>
+<span class="s1">    &quot;resources&quot;: {&quot;requests&quot;: {&quot;storage&quot;: &quot;1Gi&quot;}},</span>
+<span class="s1">    &quot;storageClassName&quot;: &quot;&quot;</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span>
+
+<span class="c1"># Or use kubectl edit</span>
+kubectl<span class="w"> </span>edit<span class="w"> </span>pvc<span class="w"> </span>app-pvc<span class="w"> </span>-n<span class="w"> </span>storage-ns
+</code></pre></div>
+<p>Add/modify in spec:
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># Important: match PV with no StorageClass</span>
+</code></pre></div></p>
+<p><strong>Step 4: Verify binding</strong>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>app-pvc<span class="w"> </span>-n<span class="w"> </span>storage-ns
+kubectl<span class="w"> </span>get<span class="w"> </span>pv<span class="w"> </span>app-pv
+</code></pre></div></p>
+<p><strong>Key Troubleshooting Tips</strong>:
+- PVC storage request can be ≤ PV capacity
+- Access modes must match exactly
+- If PV has no StorageClass, PVC must have <code>storageClassName: ""</code>
+- If PV has a StorageClass, PVC must match it or use same/default SC
+- Check <code>kubectl describe pvc</code> for Events section showing binding errors</p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check PVC is bound</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>app-pvc<span class="w"> </span>-n<span class="w"> </span>storage-ns
+<span class="c1"># Should show: STATUS=Bound, VOLUME=app-pv</span>
+
+<span class="c1"># Check PV shows claim</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pv<span class="w"> </span>app-pv
+<span class="c1"># Should show: STATUS=Bound, CLAIM=storage-ns/app-pvc</span>
+
+<span class="c1"># Verify details</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>pvc<span class="w"> </span>app-pvc<span class="w"> </span>-n<span class="w"> </span>storage-ns<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="s2">&quot;Used By&quot;</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>pv<span class="w"> </span>app-pv<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="s2">&quot;Claim&quot;</span>
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ PVC app-pvc shows STATUS: Bound
+- ✅ PV app-pv shows STATUS: Bound
+- ✅ PV shows CLAIM: storage-ns/app-pvc
+- ✅ PVC specs match PV specs (capacity, access mode, storage class)
+- ✅ No modification to PV resource</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
