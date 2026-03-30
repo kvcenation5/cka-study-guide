@@ -4109,6 +4109,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-3-create-static-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 3: Create Static Pod
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4212,6 +4223,17 @@
     <span class="md-ellipsis">
       
         Question 2: DNS Resolution and Network Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-3-create-static-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 3: Create Static Pod
       
     </span>
   </a>
@@ -4405,6 +4427,97 @@ kubectl<span class="w"> </span>run<span class="w"> </span>test-dns<span class="w
 - ✅ Service DNS resolution verified and saved to /root/CKA/nginx.svc
 - ✅ Pod IP resolution verified and saved to /root/CKA/nginx.pod
 - ✅ busybox:1.28 image used for DNS lookups</p>
+<hr />
+<h3 id="question-3-create-static-pod">Question 3: Create Static Pod</h3>
+<p><strong>Scenario</strong>: Create a static pod on node01 that runs independently of the Kubernetes API server and auto-restarts on failure.</p>
+<p><strong>What is a Static Pod?</strong>
+- A pod managed directly by the kubelet on a specific node, NOT by the Kubernetes API server
+- Defined by manifest files placed in <code>/etc/kubernetes/manifests</code> directory
+- Automatically recreated if deleted or crashes
+- Used for critical cluster components (etcd, API server, scheduler, controller-manager)</p>
+<p><strong>Task</strong>: Create a static pod on node01 called <code>nginx-critical</code> with image <code>nginx</code>.</p>
+<p><strong>Requirements</strong>:
+- Pod must be configured under <code>/etc/kubernetes/manifests</code>
+- Must restart automatically if it fails
+- Must be visible via <code>kubectl get pods</code> from control plane</p>
+<p><strong>Answer</strong>:</p>
+<p><strong>Step 1: SSH to node01</strong>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>node01
+<span class="c1"># Or if already on controlplane: ssh node01</span>
+</code></pre></div></p>
+<p><strong>Step 2: Verify kubelet static pod path</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check kubelet configuration for pod-manifest-path</span>
+ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kubelet<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>pod-manifest-path
+<span class="c1"># Default is: /etc/kubernetes/manifests</span>
+</code></pre></div></p>
+<p><strong>Step 3: Create static pod manifest file</strong>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/kubernetes/manifests/nginx-critical.yaml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">apiVersion: v1</span>
+<span class="s">kind: Pod</span>
+<span class="s">metadata:</span>
+<span class="s">  name: nginx-critical-node01</span>
+<span class="s">  labels:</span>
+<span class="s">    app: nginx-critical</span>
+<span class="s">spec:</span>
+<span class="s">  containers:</span>
+<span class="s">  - name: nginx</span>
+<span class="s">    image: nginx</span>
+<span class="s">    ports:</span>
+<span class="s">    - containerPort: 80</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
+<p><strong>Step 4: Verify kubelet detects the manifest</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if file is in the manifests directory</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/etc/kubernetes/manifests/
+
+<span class="c1"># Check kubelet status</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
+</code></pre></div></p>
+<p><strong>Step 5: Verify from control plane</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Exit from node01 back to controlplane</span>
+<span class="nb">exit</span>
+
+<span class="c1"># Check if static pod appears (name format: &lt;pod-name&gt;-&lt;node-name&gt;)</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nginx-critical
+
+<span class="c1"># Expected output: nginx-critical-node01-node01 Running node01</span>
+</code></pre></div></p>
+<p><strong>Step 6: Test auto-restart behavior</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Try to delete the pod via kubectl</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01
+
+<span class="c1"># Immediately check - it should be recreated automatically</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nginx-critical
+</code></pre></div></p>
+<p><strong>How Static Pods Work</strong>:
+- Kubelet watches <code>/etc/kubernetes/manifests</code> directory every few seconds
+- When it finds a new/modified YAML file, it creates the pod
+- If the pod crashes or is deleted, kubelet recreates it from the manifest
+- To truly delete: remove the manifest file from the node</p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify manifest file exists on node01</span>
+ssh<span class="w"> </span>node01<span class="w"> </span><span class="s2">&quot;sudo ls -la /etc/kubernetes/manifests/nginx-critical.yaml&quot;</span>
+
+<span class="c1"># Verify pod is running</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01
+
+<span class="c1"># Check pod details</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01
+
+<span class="c1"># Verify it&#39;s running on node01</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01<span class="w"> </span>-o<span class="w"> </span>wide
+
+<span class="c1"># Test auto-restart by deleting pod</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>nginx-critical-node01-node01<span class="w"> </span>--force
+sleep<span class="w"> </span><span class="m">2</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nginx-critical<span class="w">  </span><span class="c1"># Should show it recreated</span>
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Static pod manifest configured under <code>/etc/kubernetes/manifests</code>
+- ✅ Pod nginx-critical-node01 running on node01
+- ✅ Pod auto-restarts when deleted (kubelet manages it)
+- ✅ Pod visible via kubectl from control plane
+- ✅ Node name appended to pod name (e.g., nginx-critical-node01-node01)</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
