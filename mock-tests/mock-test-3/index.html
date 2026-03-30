@@ -4096,6 +4096,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-2-deployment-with-sidecar-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 2: Deployment with Sidecar Container
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4166,6 +4177,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-2-deployment-with-sidecar-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 2: Deployment with Sidecar Container
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4225,6 +4247,73 @@ kubectl<span class="w"> </span>get<span class="w"> </span>storageclass<span clas
 - ✅ Volume binding mode is WaitForFirstConsumer
 - ✅ Volume expansion is enabled (allowVolumeExpansion: true)
 - ✅ Set as default storage class</p>
+<hr />
+<h3 id="question-2-deployment-with-sidecar-container">Question 2: Deployment with Sidecar Container</h3>
+<p><strong>Task</strong>: Create a deployment named logging-deployment in the namespace logging-ns with 1 replica, with the following specifications:</p>
+<p><strong>Main Container</strong> (app-container):
+- Image: busybox
+- Command: <code>sh -c "while true; do echo 'Log entry' &gt;&gt; /var/log/app/app.log; sleep 5; done"</code></p>
+<p><strong>Sidecar Container</strong> (log-agent):
+- Image: busybox
+- Command: <code>tail -f /var/log/app/app.log</code>
+- Must read logs from main container</p>
+<p><strong>Requirements</strong>:
+- Use a shared emptyDir volume for log sharing
+- Both containers must mount the same volume at /var/log/app
+- Sidecar should display logs from main container in real-time</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Create namespace first</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>logging-ns
+
+<span class="c1"># Create the deployment</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>logging-deployment.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: apps/v1</span>
+<span class="s">kind: Deployment</span>
+<span class="s">metadata:</span>
+<span class="s">  name: logging-deployment</span>
+<span class="s">  namespace: logging-ns</span>
+<span class="s">spec:</span>
+<span class="s">  replicas: 1</span>
+<span class="s">  selector:</span>
+<span class="s">    matchLabels:</span>
+<span class="s">      app: logging</span>
+<span class="s">  template:</span>
+<span class="s">    metadata:</span>
+<span class="s">      labels:</span>
+<span class="s">        app: logging</span>
+<span class="s">    spec:</span>
+<span class="s">      containers:</span>
+<span class="s">      - name: app-container</span>
+<span class="s">        image: busybox</span>
+<span class="s">        command: [&quot;sh&quot;, &quot;-c&quot;, &quot;while true; do echo &#39;Log entry&#39; &gt;&gt; /var/log/app/app.log; sleep 5; done&quot;]</span>
+<span class="s">        volumeMounts:</span>
+<span class="s">        - name: log-volume</span>
+<span class="s">          mountPath: /var/log/app</span>
+<span class="s">      - name: log-agent</span>
+<span class="s">        image: busybox</span>
+<span class="s">        command: [&quot;tail&quot;, &quot;-f&quot;, &quot;/var/log/app/app.log&quot;]</span>
+<span class="s">        volumeMounts:</span>
+<span class="s">        - name: log-volume</span>
+<span class="s">          mountPath: /var/log/app</span>
+<span class="s">      volumes:</span>
+<span class="s">      - name: log-volume</span>
+<span class="s">        emptyDir: {}</span>
+<span class="s">EOF</span>
+
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>logging-deployment.yaml
+
+<span class="c1"># Verification commands</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>logging-deployment<span class="w"> </span>-n<span class="w"> </span>logging-ns
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>logging-ns
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-c<span class="w"> </span>log-agent
+kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>logging-ns<span class="w"> </span>&lt;pod-name&gt;
+</code></pre></div></p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Deployment logging-deployment created in logging-ns namespace
+- ✅ Main container (app-container) writes logs to shared volume
+- ✅ Sidecar container (log-agent) reads logs from same volume
+- ✅ Shared emptyDir volume mounted at /var/log/app in both containers
+- ✅ Sidecar properly displays logs from main container</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
