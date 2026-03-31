@@ -4333,6 +4333,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-21-helm-chart-upgrade-and-release-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 21: Helm Chart Upgrade and Release Management
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4606,6 +4617,17 @@
     <span class="md-ellipsis">
       
         Question 20: HTTPRoute Traffic Splitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-21-helm-chart-upgrade-and-release-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 21: Helm Chart Upgrade and Release Management
       
     </span>
   </a>
@@ -5614,6 +5636,41 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>httproute<span class="w"> </span>web-route
 kubectl<span class="w"> </span>describe<span class="w"> </span>httproute<span class="w"> </span>web-route
 kubectl<span class="w"> </span>get<span class="w"> </span>httproute<span class="w"> </span>web-route<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;backendRefs:&quot;</span>
+</code></pre></div></p>
+<hr />
+<h3 id="question-21-helm-chart-upgrade-and-release-management">Question 21: Helm Chart Upgrade and Release Management</h3>
+<p><strong>Scenario</strong>: Upgrade an application using Helm by installing a new version and removing the old release.</p>
+<p><strong>Requirements</strong>:
+- Old release: <code>webpage-server-01</code> (already deployed)
+- New chart location: <code>/root/new-version</code>
+- New release name: <code>webpage-server-02</code>
+- Steps: Validate chart → Install new → Uninstall old</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Validate the new Helm chart</span>
+helm<span class="w"> </span>lint<span class="w"> </span>/root/new-version
+
+<span class="c1"># Step 2: Install as new release webpage-server-02</span>
+helm<span class="w"> </span>install<span class="w"> </span>webpage-server-02<span class="w"> </span>/root/new-version
+
+<span class="c1"># Step 3: Verify new release is installed</span>
+helm<span class="w"> </span>list
+helm<span class="w"> </span>status<span class="w"> </span>webpage-server-02
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webpage-server-02
+
+<span class="c1"># Step 4: Uninstall old release</span>
+helm<span class="w"> </span>uninstall<span class="w"> </span>webpage-server-01
+
+<span class="c1"># Step 5: Verify old release is gone</span>
+helm<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webpage-server-01
+</code></pre></div></p>
+<p><strong>Verification</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check new release exists</span>
+helm<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webpage-server-02
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webpage-server-02
+
+<span class="c1"># Check old release is removed</span>
+helm<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webpage-server-01<span class="w">  </span><span class="c1"># Should return nothing</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webpage-server-01<span class="w">  </span><span class="c1"># Should return nothing</span>
 </code></pre></div></p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
