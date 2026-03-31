@@ -4300,6 +4300,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-18-troubleshoot-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 18: Troubleshoot Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4540,6 +4551,17 @@
     <span class="md-ellipsis">
       
         Question 17: Troubleshoot PVC/PV Binding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-18-troubleshoot-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 18: Troubleshoot Kubeconfig
       
     </span>
   </a>
@@ -5359,6 +5381,118 @@ kubectl<span class="w"> </span>describe<span class="w"> </span>pv<span class="w"
 - ✅ PV shows CLAIM: storage-ns/app-pvc
 - ✅ PVC specs match PV specs (capacity, access mode, storage class)
 - ✅ No modification to PV resource</p>
+<hr />
+<h3 id="question-18-troubleshoot-kubeconfig">Question 18: Troubleshoot Kubeconfig</h3>
+<p><strong>Scenario</strong>: A kubeconfig file has configuration issues preventing cluster access.</p>
+<p><strong>Given</strong>:
+- Kubeconfig file: <code>/root/CKA/super.kubeconfig</code>
+- Cannot connect to cluster using this config</p>
+<p><strong>Common Issues to Check</strong>:
+1. Wrong API server port (should be 6443, not 9999)
+2. certificate-authority vs certificate-authority-data
+3. Missing or incorrect current-context
+4. Malformed YAML structure
+5. Wrong user credentials</p>
+<p><strong>Answer</strong>:</p>
+<p><strong>Step 1: View the kubeconfig</strong>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/root/CKA/super.kubeconfig
+kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+</code></pre></div></p>
+<p><strong>Step 2: Identify and fix common issues</strong></p>
+<p><strong>Issue 1: Wrong server port</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Fix server URL (common mistake: using :9999 instead of :6443)</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>set-cluster<span class="w"> </span>kubernetes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--server<span class="o">=</span>https://controlplane:6443<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+</code></pre></div></p>
+<p><strong>Issue 2: Fix certificate paths</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># If using certificate files instead of embedded data</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>set-cluster<span class="w"> </span>kubernetes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--certificate-authority<span class="o">=</span>/etc/kubernetes/pki/ca.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--embed-certs<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+</code></pre></div></p>
+<p><strong>Issue 3: Set correct context</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set current context if missing</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>use-context<span class="w"> </span>kubernetes-admin@kubernetes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+
+<span class="c1"># Or create context if it doesn&#39;t exist</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>set-context<span class="w"> </span>kubernetes-admin@kubernetes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cluster<span class="o">=</span>kubernetes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="o">=</span>kubernetes-admin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+</code></pre></div></p>
+<p><strong>Issue 4: Fix user credentials</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set user with correct certificates</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>set-credentials<span class="w"> </span>kubernetes-admin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--client-certificate<span class="o">=</span>/etc/kubernetes/pki/apiserver-kubelet-client.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--client-key<span class="o">=</span>/etc/kubernetes/pki/apiserver-kubelet-client.key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--embed-certs<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+</code></pre></div></p>
+<p><strong>Step 3: Validate the fixed config</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Test connection</span>
+kubectl<span class="w"> </span>cluster-info<span class="w"> </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+
+<span class="c1"># Get nodes</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+</code></pre></div></p>
+<p><strong>Complete Fix Example</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># If the config is completely broken, recreate it properly</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>/root/CKA/super.kubeconfig<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: v1</span>
+<span class="s">clusters:</span>
+<span class="s">- cluster:</span>
+<span class="s">    certificate-authority: /etc/kubernetes/pki/ca.crt</span>
+<span class="s">    server: https://controlplane:6443</span>
+<span class="s">  name: kubernetes</span>
+<span class="s">contexts:</span>
+<span class="s">- context:</span>
+<span class="s">    cluster: kubernetes</span>
+<span class="s">    user: kubernetes-admin</span>
+<span class="s">  name: kubernetes-admin@kubernetes</span>
+<span class="s">current-context: kubernetes-admin@kubernetes</span>
+<span class="s">kind: Config</span>
+<span class="s">users:</span>
+<span class="s">- name: kubernetes-admin</span>
+<span class="s">  user:</span>
+<span class="s">    client-certificate: /etc/kubernetes/pki/apiserver-kubelet-client.crt</span>
+<span class="s">    client-key: /etc/kubernetes/pki/apiserver-kubelet-client.key</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
+<p><strong>Verification Commands</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check config is valid YAML</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+
+<span class="c1"># Verify current context</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>current-context<span class="w"> </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+
+<span class="c1"># Test cluster connection</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+
+<span class="c1"># Check all contexts</span>
+kubectl<span class="w"> </span>config<span class="w"> </span>get-contexts<span class="w"> </span>--kubeconfig<span class="o">=</span>/root/CKA/super.kubeconfig
+</code></pre></div></p>
+<p><strong>Key Troubleshooting Tips</strong>:
+- <strong>Port 6443</strong>: Default Kubernetes API server port (not 8080 or 9999)
+- <strong>Certificate paths</strong>: Must be absolute paths or use <code>--embed-certs</code>
+- <strong>Current context</strong>: Must be set or specify <code>--context</code> flag
+- <strong>YAML syntax</strong>: Check for indentation errors (use 2 spaces)
+- <strong>Permissions</strong>: Ensure cert files are readable</p>
+<p><strong>Common CKA Kubeconfig Issues</strong>:
+1. Server URL pointing to wrong port
+2. Missing <code>current-context</code> field
+3. Certificate data vs certificate file path confusion
+4. Context name mismatch
+5. User credentials not matching cluster CA</p>
+<p><strong>Verification Checklist</strong>:
+- ✅ Kubeconfig file is valid YAML
+- ✅ Server URL uses correct port (6443)
+- ✅ Current context is set
+- ✅ Cluster CA certificate is valid
+- ✅ User client certificates are valid
+- ✅ Can connect to cluster with the config</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
