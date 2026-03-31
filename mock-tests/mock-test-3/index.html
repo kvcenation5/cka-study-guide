@@ -4344,6 +4344,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-22-get-cluster-pod-cidr-from-kubeadm-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 22: Get Cluster Pod CIDR from Kubeadm Config
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4628,6 +4639,17 @@
     <span class="md-ellipsis">
       
         Question 21: Helm Chart Upgrade and Release Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-22-get-cluster-pod-cidr-from-kubeadm-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 22: Get Cluster Pod CIDR from Kubeadm Config
       
     </span>
   </a>
@@ -5672,6 +5694,38 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> <
 helm<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webpage-server-01<span class="w">  </span><span class="c1"># Should return nothing</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>webpage-server-01<span class="w">  </span><span class="c1"># Should return nothing</span>
 </code></pre></div></p>
+<hr />
+<h3 id="question-22-get-cluster-pod-cidr-from-kubeadm-config">Question 22: Get Cluster Pod CIDR from Kubeadm Config</h3>
+<p><strong>Scenario</strong>: Identify the cluster-wide Pod network CIDR from kubeadm configuration.</p>
+<p><strong>Requirements</strong>:
+- Source: <code>kubeadm-config</code> ConfigMap in <code>kube-system</code> namespace
+- Field: <code>podSubnet</code> under <code>ClusterConfiguration</code>
+- Output file: <code>/root/pod-cidr.txt</code>
+- Format: <code>x.x.x.x/x</code></p>
+<p><strong>Note</strong>: Use cluster-wide podSubnet, NOT per-node CIDR from <code>kubectl get node</code></p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Method 1: Extract from ClusterConfiguration</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>/root/pod-cidr.txt<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">$(kubectl get configmap kubeadm-config -n kube-system -o jsonpath=&#39;{.data.ClusterConfiguration}&#39; | grep podSubnet | awk &#39;{print $2}&#39;)</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Method 2: Direct extraction</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>kubeadm-config<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.ClusterConfiguration}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>podSubnet<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/.*podSubnet: //&#39;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/root/pod-cidr.txt
+
+<span class="c1"># Method 3: Using grep and sed</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>configmap<span class="w"> </span>kubeadm-config<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>podSubnet<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/.*podSubnet: //&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>/root/pod-cidr.txt
+</code></pre></div></p>
+<p><strong>Verification</strong>:
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/root/pod-cidr.txt
+<span class="c1"># Should show: 10.244.0.0/16 (or your cluster&#39;s pod CIDR)</span>
+
+<span class="c1"># Verify against kubeadm-config</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>kubeadm-config<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>podSubnet
+</code></pre></div></p>
+<p><strong>Why Cluster-wide CIDR matters</strong>:
+- Used by CNI plugins (Calico, Weave, Flannel)
+- Defines IP range for all pods across the cluster
+- Different from per-node podCIDRs assigned by controller-manager</p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
