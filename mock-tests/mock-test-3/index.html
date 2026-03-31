@@ -4311,6 +4311,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#question-19-hpa-with-custom-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 19: HPA with Custom Metric
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4562,6 +4573,17 @@
     <span class="md-ellipsis">
       
         Question 18: Troubleshoot Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-19-hpa-with-custom-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 19: HPA with Custom Metric
       
     </span>
   </a>
@@ -5493,6 +5515,48 @@ kubectl<span class="w"> </span>config<span class="w"> </span>get-contexts<span c
 - ✅ Cluster CA certificate is valid
 - ✅ User client certificates are valid
 - ✅ Can connect to cluster with the config</p>
+<hr />
+<h3 id="question-19-hpa-with-custom-metric">Question 19: HPA with Custom Metric</h3>
+<p><strong>Scenario</strong>: Create a Horizontal Pod Autoscaler that scales based on a custom metric.</p>
+<p><strong>Requirements</strong>:
+- HPA name: <code>api-hpa</code>
+- Namespace: <code>api</code>
+- Target deployment: <code>api-deployment</code>
+- Metric: <code>requests_per_second</code>
+- Target type: <code>AverageValue</code> of 1000
+- Min replicas: 1
+- Max replicas: 20</p>
+<p><strong>Answer</strong>:
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>api-hpa.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: autoscaling/v2</span>
+<span class="s">kind: HorizontalPodAutoscaler</span>
+<span class="s">metadata:</span>
+<span class="s">  name: api-hpa</span>
+<span class="s">  namespace: api</span>
+<span class="s">spec:</span>
+<span class="s">  scaleTargetRef:</span>
+<span class="s">    apiVersion: apps/v1</span>
+<span class="s">    kind: Deployment</span>
+<span class="s">    name: api-deployment</span>
+<span class="s">  minReplicas: 1</span>
+<span class="s">  maxReplicas: 20</span>
+<span class="s">  metrics:</span>
+<span class="s">  - type: Pods</span>
+<span class="s">    pods:</span>
+<span class="s">      metric:</span>
+<span class="s">        name: requests_per_second</span>
+<span class="s">      target:</span>
+<span class="s">        type: AverageValue</span>
+<span class="s">        averageValue: &quot;1000&quot;</span>
+<span class="s">EOF</span>
+
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>api-hpa.yaml
+</code></pre></div></p>
+<p><strong>Verification</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>hpa<span class="w"> </span>api-hpa<span class="w"> </span>-n<span class="w"> </span>api
+kubectl<span class="w"> </span>describe<span class="w"> </span>hpa<span class="w"> </span>api-hpa<span class="w"> </span>-n<span class="w"> </span>api
+kubectl<span class="w"> </span>get<span class="w"> </span>hpa<span class="w"> </span>api-hpa<span class="w"> </span>-n<span class="w"> </span>api<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="s2">&quot;metrics:&quot;</span>
+</code></pre></div></p>
 <hr />
 <p><em>Good luck with your practice!</em></p>
 
