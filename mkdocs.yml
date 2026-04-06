@@ -135,6 +135,11 @@ nav:
   - Security Focus: security-focus.md
   - Exam Overview:
       - Curriculum & Weightage: exam-overview/curriculum.md
+  - Mock Tests:
+      - Overview: mock-tests/index.md
+      - Mock Test 1: mock-tests/mock-test-1.md
+      - Mock Test 2: mock-tests/mock-test-2.md
+      - Mock Test 3: mock-tests/mock-test-3.md
   - Exam Tips:
       - kubectl Commands: exam-tips/kubectl-commands.md
       - Dry-Run Workflow: exam-tips/dry-run-workflow.md
