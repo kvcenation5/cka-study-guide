@@ -43,6 +43,7 @@ nav:
       - Editing Pods & Deployments: fundamentals/editing-resources.md
       - API Versions (v1 vs apps/v1): fundamentals/api-versions.md
       - Service Types (ClusterIP/NodePort/LB): fundamentals/service-types.md
+      - Ingress Deep Dive (with OSI Layers): fundamentals/ingress-deep-dive.md
       - Labels and Selectors: fundamentals/labels-selectors.md
       - Annotations (Metadata): fundamentals/annotations.md
       - Resource Requests & Limits: fundamentals/resource-management.md
@@ -63,11 +64,15 @@ nav:
           - Scheduler Profiles: fundamentals/pod-scheduling/scheduler-profiles.md
       - Custom Key-Value Pairs: fundamentals/custom-key-values.md
   - Lab Setup:
+      - Kubeadm Bootstrap Lab: setup-guides/kubeadm-bootstrap-lab.md
       - Kubeadm on Mac (Multipass): setup-guides/kubeadm-mac-multipass.md
       - Kubernetes on AWS (kOps): setup-guides/kops-aws.md
       - Cluster Join Command: setup-guides/kubeadm-operations/join-command.md
+  - Kustomize:
+      - Overview: cluster-architecture/kustomize-guide.md
   - Cluster Architecture:
       - Architecture Overview: BETTER_ARCHITECTURE.md
+      - Cluster Design & HA: cluster-architecture/cluster-design-ha.md
       - Static Pods vs Systemd: cluster-architecture/component-management.md
       - Admission Controllers: cluster-architecture/admission-controllers.md
       - Admission Controller Types: cluster-architecture/admission-controller-types.md
@@ -132,24 +137,43 @@ nav:
       - Network Policies: security/network-policies.md
       - Network Policy Examples: security/network-policy-examples.md
       - Network Policy Solutions: security/network-policy-solutions.md
+  - Storage:
+      - Deep Dive: storage/storage-deep-dive.md
+      - Volumes vs PV vs PVC: storage/volumes-pv-pvc.md
+      - CSI Architecture & Workflow: storage/csi-architecture-workflow.md
+      - Hands-on Examples: storage/hands-on-examples.md
+      - StatefulSets Deep Dive: storage/statefulsets-deep-dive.md
+      - StatefulSet Architecture: storage/statefulset-architecture.md
   - Security Focus: security-focus.md
   - Exam Overview:
       - Curriculum & Weightage: exam-overview/curriculum.md
+  - Troubleshooting:
+      - Quick Flowchart: troubleshooting-flowchart.md
+      - crictl Guide: troubleshooting/crictl-guide.md
+      - Worker Node: troubleshooting/worker-node-troubleshooting.md
+      - Networking Components: troubleshooting/networking-components.md
+      - Lab Scenarios: troubleshooting/troubleshooting-lab-scenarios.md
   - Mock Tests:
       - Overview: mock-tests/index.md
       - Mock Test 1: mock-tests/mock-test-1.md
       - Mock Test 2: mock-tests/mock-test-2.md
       - Mock Test 3: mock-tests/mock-test-3.md
+  - Multi-Cluster Labs:
+      - Overview: multi-cluster-labs/index.md
+      - "Lab 1: KinD Clusters": multi-cluster-labs/lab1-kind-clusters.md
+      - "Lab 2: Install Cilium": multi-cluster-labs/lab2-install-cilium.md
+      - "Lab 3: Cluster Mesh": multi-cluster-labs/lab3-cluster-mesh.md
+      - "Lab 4: Global Services": multi-cluster-labs/lab4-global-services.md
+      - "Lab 5: Challenges": multi-cluster-labs/lab5-challenges.md
   - Exam Tips:
       - kubectl Commands: exam-tips/kubectl-commands.md
       - Dry-Run Workflow: exam-tips/dry-run-workflow.md
       - Deployment Components: exam-tips/deployment-components.md
+      - Networking Commands: exam-tips/networking-commands.md
+      - Ingress & Gateway API: exam-tips/ingress-gateway-api.md
       - VDI & Mac Setup: exam-tips/vdi-mac-performance.md
       - Ports Cheatsheet: exam-tips/ports-cheatsheet.html
       - Practice Questions: exam-tips/practice-questions.md
-  - Troubleshooting:
-      - Quick Flowchart: troubleshooting-flowchart.md
-      - crictl Guide: troubleshooting/crictl-guide.md
 
 
 plugins:
