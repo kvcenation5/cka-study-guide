@@ -38,126 +38,129 @@ markdown_extensions:
 nav:
   - Home: README.md
   - Summary: SUMMARY.md
-  - Fundamentals:
-      - YAML Guide: yaml-guide.md
-      - Editing Pods & Deployments: fundamentals/editing-resources.md
-      - API Versions (v1 vs apps/v1): fundamentals/api-versions.md
-      - Service Types (ClusterIP/NodePort/LB): fundamentals/service-types.md
-      - Ingress Deep Dive (with OSI Layers): fundamentals/ingress-deep-dive.md
-      - Labels and Selectors: fundamentals/labels-selectors.md
-      - Annotations (Metadata): fundamentals/annotations.md
-      - Resource Requests & Limits: fundamentals/resource-management.md
-      - LimitRange (Resource Guardrails): fundamentals/limitrange.md
-      - Resource Quota (The Budget): fundamentals/resource-quota.md
-      - DaemonSets (The Node Resident): fundamentals/daemonsets.md
-      - Static Pods (Kubelet Managed): fundamentals/static-pods.md
-      - ConfigMaps (Configuration Data): fundamentals/configmaps.md
-      - ReplicaSets vs Deployments: fundamentals/replicasets-vs-deployments.md
-      - Pod Scheduling:
-          - Overview: fundamentals/pod-scheduling/index.md
-          - Taints and Tolerations: fundamentals/pod-scheduling/taints-tolerations.md
-          - Node Selector: fundamentals/pod-scheduling/node-selector.md
-          - Node Affinity: fundamentals/pod-scheduling/node-affinity.md
-          - Taints vs Affinity (Comparison): fundamentals/pod-scheduling/taints-vs-affinity.md
-          - Priority Classes: fundamentals/pod-scheduling/priority-classes.md
-          - Multiple Schedulers: fundamentals/pod-scheduling/multiple-schedulers.md
-          - Scheduler Profiles: fundamentals/pod-scheduling/scheduler-profiles.md
-      - Custom Key-Value Pairs: fundamentals/custom-key-values.md
-  - Lab Setup:
-      - Kubeadm Bootstrap Lab: setup-guides/kubeadm-bootstrap-lab.md
-      - Kubeadm on Mac (Multipass): setup-guides/kubeadm-mac-multipass.md
-      - Kubernetes on AWS (kOps): setup-guides/kops-aws.md
-      - Cluster Join Command: setup-guides/kubeadm-operations/join-command.md
-  - Kustomize:
-      - Overview: cluster-architecture/kustomize-guide.md
-  - Cluster Architecture:
-      - Architecture Overview: BETTER_ARCHITECTURE.md
-      - Cluster Design & HA: cluster-architecture/cluster-design-ha.md
-      - Static Pods vs Systemd: cluster-architecture/component-management.md
-      - Admission Controllers: cluster-architecture/admission-controllers.md
-      - Admission Controller Types: cluster-architecture/admission-controller-types.md
-      - Mutating Admission Controllers: cluster-architecture/mutating-admission-controllers.md
-      - Kube-Proxy Deep Dive: cluster-architecture/kube-proxy-deep-dive.md
-      - ETCD Data Model: cluster-architecture/etcd-data-model.md
-      - "API Groups: Core vs Named": cluster-architecture/api-groups-overview.md
-      - Namespaced vs Cluster-Scoped: cluster-architecture/namespaced-vs-cluster-scoped.md
-      - kube-proxy vs kubectl proxy: cluster-architecture/kube-proxy-vs-kubectl-proxy.md
-      - Custom Resource Definitions: cluster-architecture/custom-resource-definitions.md
-      - CRD & Custom Resource Examples: cluster-architecture/crd-examples.md
-      - Developing Custom Controllers: cluster-architecture/custom-controllers.md
-      - Operator Framework: cluster-architecture/operator-framework.md
-  - Components: KNOW_YOUR_COMPONENTS.md
-  - Deep Dives:
-      - ETCD & Backup: etcd-deep-dive.md
-  - Storage:
-      - Deep Dive: storage/storage-deep-dive.md
-      - Volumes vs PV vs PVC: storage/volumes-pv-pvc.md
-      - CSI Architecture & Workflow: storage/csi-architecture-workflow.md
-      - Hands-on Examples: storage/hands-on-examples.md
-      - StatefulSets Deep Dive: storage/statefulsets-deep-dive.md
-      - StatefulSet Architecture: storage/statefulset-architecture.md
-  - Security:
-      - Overview: security/overview.md
-      - Container Security Overview: security/container-security-overview.md
-      - Security Primitives: security/security-primitives.md
-      - AuthN vs AuthZ vs TLS: security/auth-vs-authz-vs-tls.md
-      - TLS Certificates: security/tls-certificates.md
-      - Certificate Generation (OpenSSL): security/certificate-generation-openssl.md
-      - Certificate API (CSR): security/certificate-api-management.md
-      - Kubeconfig Guide: security/kubeconfig-guide.md
-      - Service Accounts Guide: security/service-accounts-guide.md
-      - RBAC & Authorization: security/rbac-authorization.md
-      - ClusterRoles: security/cluster-roles.md
-      - Practical RBAC Examples: security/rbac-practical-examples.md
-      - RBAC kubectl Cheatsheet: security/rbac-kubectl-cheatsheet.md
-      - RoleBinding Deep Dive: security/rolebinding-deep-dive.md
-      - "Case Study: EMR on EKS (OIDC)": security/emr-eks-rbac-oidc.md
-      - Image Security: security/image-security.md
-      - Security Contexts & Capabilities: security/security-contexts-capabilities.md
-      - Authorization Mechanisms: security/authorization-mechanisms.md
-      - ABAC Authorization: security/abac-authorization.md
-      - OPA Gatekeeper Overview: security/opa-gatekeeper.md
-      - OPA Kubernetes Deep Dive: security/opa-kubernetes-deep-dive.md
-  - Networking:
-      - DNS Beginners Guide: networking/dns-beginners-guide.md
-      - Configuring a Host as DNS: networking/configuring-host-as-dns.md
-      - Foundations (Switching/Routing): networking/foundations-switching-routing.md
-      - Linux Networking Commands: networking/linux-networking-commands.md
-      - IP Forwarding & Routing: networking/ip-forward-routing.md
-      - DNS (Linux & CoreDNS): networking/dns-linux-coredns.md
-      - Network Namespaces: networking/network-namespaces.md
-      - Docker Networking: networking/docker-networking.md
-      - Container Network Interface (CNI): networking/cni-intro.md
-      - Cluster Node Networking Prerequisites: networking/cluster-node-networking.md
-      - Pod Networking Concepts: networking/pod-networking.md
-      - CNI in Kubernetes: networking/cni-in-kubernetes.md
-      - Weaveworks CNI Plugin: networking/weave-cni.md
-      - IPAM in CNI: networking/ipam-cni.md
-      - CoreDNS Deep Dive: coredns-guide.md
-      - Network Policies: security/network-policies.md
-      - Network Policy Examples: security/network-policy-examples.md
-      - Network Policy Solutions: security/network-policy-solutions.md
-  - Storage:
-      - Deep Dive: storage/storage-deep-dive.md
-      - Volumes vs PV vs PVC: storage/volumes-pv-pvc.md
-      - CSI Architecture & Workflow: storage/csi-architecture-workflow.md
-      - Hands-on Examples: storage/hands-on-examples.md
-      - StatefulSets Deep Dive: storage/statefulsets-deep-dive.md
-      - StatefulSet Architecture: storage/statefulset-architecture.md
-  - Security Focus: security-focus.md
-  - Exam Overview:
-      - Curriculum & Weightage: exam-overview/curriculum.md
-  - Troubleshooting:
-      - Quick Flowchart: troubleshooting-flowchart.md
-      - crictl Guide: troubleshooting/crictl-guide.md
-      - Worker Node: troubleshooting/worker-node-troubleshooting.md
-      - Networking Components: troubleshooting/networking-components.md
-      - Lab Scenarios: troubleshooting/troubleshooting-lab-scenarios.md
-  - Mock Tests:
-      - Overview: mock-tests/index.md
-      - Mock Test 1: mock-tests/mock-test-1.md
-      - Mock Test 2: mock-tests/mock-test-2.md
-      - Mock Test 3: mock-tests/mock-test-3.md
+  - CKA Exam Prep:
+      - Fundamentals:
+          - YAML Guide: yaml-guide.md
+          - Editing Pods & Deployments: fundamentals/editing-resources.md
+          - API Versions (v1 vs apps/v1): fundamentals/api-versions.md
+          - Service Types (ClusterIP/NodePort/LB): fundamentals/service-types.md
+          - Ingress Deep Dive (with OSI Layers): fundamentals/ingress-deep-dive.md
+          - Labels and Selectors: fundamentals/labels-selectors.md
+          - Annotations (Metadata): fundamentals/annotations.md
+          - Resource Requests & Limits: fundamentals/resource-management.md
+          - LimitRange (Resource Guardrails): fundamentals/limitrange.md
+          - Resource Quota (The Budget): fundamentals/resource-quota.md
+          - DaemonSets (The Node Resident): fundamentals/daemonsets.md
+          - Static Pods (Kubelet Managed): fundamentals/static-pods.md
+          - ConfigMaps (Configuration Data): fundamentals/configmaps.md
+          - ReplicaSets vs Deployments: fundamentals/replicasets-vs-deployments.md
+          - Pod Scheduling:
+              - Overview: fundamentals/pod-scheduling/index.md
+              - Taints and Tolerations: fundamentals/pod-scheduling/taints-tolerations.md
+              - Node Selector: fundamentals/pod-scheduling/node-selector.md
+              - Node Affinity: fundamentals/pod-scheduling/node-affinity.md
+              - Taints vs Affinity (Comparison): fundamentals/pod-scheduling/taints-vs-affinity.md
+              - Priority Classes: fundamentals/pod-scheduling/priority-classes.md
+              - Multiple Schedulers: fundamentals/pod-scheduling/multiple-schedulers.md
+              - Scheduler Profiles: fundamentals/pod-scheduling/scheduler-profiles.md
+          - Custom Key-Value Pairs: fundamentals/custom-key-values.md
+      - Lab Setup:
+          - Kubeadm Bootstrap Lab: setup-guides/kubeadm-bootstrap-lab.md
+          - Kubeadm on Mac (Multipass): setup-guides/kubeadm-mac-multipass.md
+          - Kubernetes on AWS (kOps): setup-guides/kops-aws.md
+          - Cluster Join Command: setup-guides/kubeadm-operations/join-command.md
+      - Kustomize:
+          - Overview: cluster-architecture/kustomize-guide.md
+      - Cluster Architecture:
+          - Architecture Overview: BETTER_ARCHITECTURE.md
+          - Cluster Design & HA: cluster-architecture/cluster-design-ha.md
+          - Static Pods vs Systemd: cluster-architecture/component-management.md
+          - Admission Controllers: cluster-architecture/admission-controllers.md
+          - Admission Controller Types: cluster-architecture/admission-controller-types.md
+          - Mutating Admission Controllers: cluster-architecture/mutating-admission-controllers.md
+          - Kube-Proxy Deep Dive: cluster-architecture/kube-proxy-deep-dive.md
+          - ETCD Data Model: cluster-architecture/etcd-data-model.md
+          - "API Groups: Core vs Named": cluster-architecture/api-groups-overview.md
+          - Namespaced vs Cluster-Scoped: cluster-architecture/namespaced-vs-cluster-scoped.md
+          - kube-proxy vs kubectl proxy: cluster-architecture/kube-proxy-vs-kubectl-proxy.md
+          - Custom Resource Definitions: cluster-architecture/custom-resource-definitions.md
+          - CRD & Custom Resource Examples: cluster-architecture/crd-examples.md
+          - Developing Custom Controllers: cluster-architecture/custom-controllers.md
+          - Operator Framework: cluster-architecture/operator-framework.md
+      - Components: KNOW_YOUR_COMPONENTS.md
+      - Deep Dives:
+          - ETCD & Backup: etcd-deep-dive.md
+      - Storage:
+          - Deep Dive: storage/storage-deep-dive.md
+          - Volumes vs PV vs PVC: storage/volumes-pv-pvc.md
+          - CSI Architecture & Workflow: storage/csi-architecture-workflow.md
+          - Hands-on Examples: storage/hands-on-examples.md
+          - StatefulSets Deep Dive: storage/statefulsets-deep-dive.md
+          - StatefulSet Architecture: storage/statefulset-architecture.md
+      - Security:
+          - Overview: security/overview.md
+          - Container Security Overview: security/container-security-overview.md
+          - Security Primitives: security/security-primitives.md
+          - AuthN vs AuthZ vs TLS: security/auth-vs-authz-vs-tls.md
+          - TLS Certificates: security/tls-certificates.md
+          - Certificate Generation (OpenSSL): security/certificate-generation-openssl.md
+          - Certificate API (CSR): security/certificate-api-management.md
+          - Kubeconfig Guide: security/kubeconfig-guide.md
+          - Service Accounts Guide: security/service-accounts-guide.md
+          - RBAC & Authorization: security/rbac-authorization.md
+          - ClusterRoles: security/cluster-roles.md
+          - Practical RBAC Examples: security/rbac-practical-examples.md
+          - RBAC kubectl Cheatsheet: security/rbac-kubectl-cheatsheet.md
+          - RoleBinding Deep Dive: security/rolebinding-deep-dive.md
+          - "Case Study: EMR on EKS (OIDC)": security/emr-eks-rbac-oidc.md
+          - Image Security: security/image-security.md
+          - Security Contexts & Capabilities: security/security-contexts-capabilities.md
+          - Authorization Mechanisms: security/authorization-mechanisms.md
+          - ABAC Authorization: security/abac-authorization.md
+          - OPA Gatekeeper Overview: security/opa-gatekeeper.md
+          - OPA Kubernetes Deep Dive: security/opa-kubernetes-deep-dive.md
+          - Network Policies: security/network-policies.md
+          - Network Policy Examples: security/network-policy-examples.md
+          - Network Policy Solutions: security/network-policy-solutions.md
+      - Networking:
+          - DNS Beginners Guide: networking/dns-beginners-guide.md
+          - Configuring a Host as DNS: networking/configuring-host-as-dns.md
+          - Foundations (Switching/Routing): networking/foundations-switching-routing.md
+          - Linux Networking Commands: networking/linux-networking-commands.md
+          - IP Forwarding & Routing: networking/ip-forward-routing.md
+          - DNS (Linux & CoreDNS): networking/dns-linux-coredns.md
+          - Network Namespaces: networking/network-namespaces.md
+          - Docker Networking: networking/docker-networking.md
+          - Container Network Interface (CNI): networking/cni-intro.md
+          - Cluster Node Networking Prerequisites: networking/cluster-node-networking.md
+          - Pod Networking Concepts: networking/pod-networking.md
+          - CNI in Kubernetes: networking/cni-in-kubernetes.md
+          - Weaveworks CNI Plugin: networking/weave-cni.md
+          - IPAM in CNI: networking/ipam-cni.md
+          - CoreDNS Deep Dive: coredns-guide.md
+      - Security Focus: security-focus.md
+      - Exam Overview:
+          - Curriculum & Weightage: exam-overview/curriculum.md
+      - Troubleshooting:
+          - Quick Flowchart: troubleshooting-flowchart.md
+          - crictl Guide: troubleshooting/crictl-guide.md
+          - Worker Node: troubleshooting/worker-node-troubleshooting.md
+          - Networking Components: troubleshooting/networking-components.md
+          - Lab Scenarios: troubleshooting/troubleshooting-lab-scenarios.md
+      - Mock Tests:
+          - Overview: mock-tests/index.md
+          - Mock Test 1: mock-tests/mock-test-1.md
+          - Mock Test 2: mock-tests/mock-test-2.md
+          - Mock Test 3: mock-tests/mock-test-3.md
+      - Exam Tips:
+          - kubectl Commands: exam-tips/kubectl-commands.md
+          - Dry-Run Workflow: exam-tips/dry-run-workflow.md
+          - Deployment Components: exam-tips/deployment-components.md
+          - Networking Commands: exam-tips/networking-commands.md
+          - Ingress & Gateway API: exam-tips/ingress-gateway-api.md
+          - VDI & Mac Setup: exam-tips/vdi-mac-performance.md
+          - Ports Cheatsheet: exam-tips/ports-cheatsheet.html
+          - Practice Questions: exam-tips/practice-questions.md
   - Multi-Cluster Labs:
       - Overview: multi-cluster-labs/index.md
       - "Lab 1: KinD Clusters": multi-cluster-labs/lab1-kind-clusters.md
@@ -172,15 +175,6 @@ nav:
       - "Lab 3: Register Spoke Clusters": argocd-labs/lab3-register-clusters.md
       - "Lab 4: Deploy Applications": argocd-labs/lab4-deploy-apps.md
       - "Lab 5: ApplicationSets": argocd-labs/lab5-applicationsets.md
-  - Exam Tips:
-      - kubectl Commands: exam-tips/kubectl-commands.md
-      - Dry-Run Workflow: exam-tips/dry-run-workflow.md
-      - Deployment Components: exam-tips/deployment-components.md
-      - Networking Commands: exam-tips/networking-commands.md
-      - Ingress & Gateway API: exam-tips/ingress-gateway-api.md
-      - VDI & Mac Setup: exam-tips/vdi-mac-performance.md
-      - Ports Cheatsheet: exam-tips/ports-cheatsheet.html
-      - Practice Questions: exam-tips/practice-questions.md
 
 
 plugins:
