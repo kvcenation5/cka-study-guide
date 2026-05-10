@@ -165,6 +165,13 @@ nav:
       - "Lab 3: Cluster Mesh": multi-cluster-labs/lab3-cluster-mesh.md
       - "Lab 4: Global Services": multi-cluster-labs/lab4-global-services.md
       - "Lab 5: Challenges": multi-cluster-labs/lab5-challenges.md
+  - ArgoCD GitOps Labs:
+      - Overview: argocd-labs/index.md
+      - "Lab 1: KinD Clusters (Hub + Spokes)": argocd-labs/lab1-kind-clusters.md
+      - "Lab 2: Install ArgoCD": argocd-labs/lab2-install-argocd.md
+      - "Lab 3: Register Spoke Clusters": argocd-labs/lab3-register-clusters.md
+      - "Lab 4: Deploy Applications": argocd-labs/lab4-deploy-apps.md
+      - "Lab 5: ApplicationSets": argocd-labs/lab5-applicationsets.md
   - Exam Tips:
       - kubectl Commands: exam-tips/kubectl-commands.md
       - Dry-Run Workflow: exam-tips/dry-run-workflow.md
