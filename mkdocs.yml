@@ -175,6 +175,7 @@ nav:
       - "Lab 3: Register Spoke Clusters": argocd-labs/lab3-register-clusters.md
       - "Lab 4: Deploy Applications": argocd-labs/lab4-deploy-apps.md
       - "Lab 5: ApplicationSets": argocd-labs/lab5-applicationsets.md
+  - "Cilium vs Istio — Overview": service-mesh-overview.md
   - Cilium Service Mesh:
       - Overview: cilium-mesh-labs/index.md
       - "Lab 1: Cluster Setup": cilium-mesh-labs/lab1-setup.md
