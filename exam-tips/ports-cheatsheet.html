@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CKA Component Ports & Config Cheatsheet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f1117; color: #e2e8f0; line-height: 1.5; padding: 24px; }
+  h1 { color: #63b3ed; font-size: 1.6rem; margin-bottom: 4px; }
+  .subtitle { color: #718096; font-size: 0.85rem; margin-bottom: 24px; }
+  h2 { color: #90cdf4; font-size: 1rem; margin: 20px 0 10px; border-left: 3px solid #63b3ed; padding-left: 10px; }
+  h3 { color: #fbd38d; font-size: 0.85rem; margin: 14px 0 6px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 8px; padding: 14px; }
+  .card.full { grid-column: 1 / -1; }
+  .card.warn { border-left: 3px solid #f6ad55; }
+  .card.tip  { border-left: 3px solid #68d391; }
+  .card.danger { border-left: 3px solid #fc8181; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  th { background: #2d3748; color: #90cdf4; text-align: left; padding: 7px 10px; }
+  td { padding: 6px 10px; border-bottom: 1px solid #2d3748; vertical-align: top; }
+  tr:hover td { background: #1e2535; }
+
+  .port { display: inline-block; background: #2c5282; color: #bee3f8; padding: 1px 7px; border-radius: 4px; font-family: monospace; font-size: 0.8rem; font-weight: bold; }
+  .port.worker { background: #285e61; color: #b2f5ea; }
+  .port.etcd   { background: #44337a; color: #e9d8fd; }
+  .port.wrong  { background: #742a2a; color: #fed7d7; text-decoration: line-through; }
+
+  pre, code { font-family: 'Courier New', monospace; font-size: 0.78rem; }
+  pre { background: #0d1117; border: 1px solid #2d3748; border-radius: 6px; padding: 12px; overflow-x: auto; line-height: 1.7; }
+  .comment { color: #4a5568; }
+  .cmd     { color: #68d391; }
+  .path    { color: #fbd38d; }
+  .val     { color: #fc8181; }
+  .ok      { color: #68d391; }
+  .key     { color: #90cdf4; }
+
+  .badge { display: inline-block; font-size: 0.7rem; padding: 1px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+  .badge.cp  { background: #2c5282; color: #bee3f8; }
+  .badge.wk  { background: #285e61; color: #b2f5ea; }
+  .badge.both { background: #44337a; color: #e9d8fd; }
+
+  .tip-box { background: #1c2e1e; border: 1px solid #276749; border-radius: 6px; padding: 10px 14px; margin-top: 10px; font-size: 0.8rem; color: #9ae6b4; }
+  .warn-box { background: #2d1f00; border: 1px solid #c05621; border-radius: 6px; padding: 10px 14px; margin-top: 10px; font-size: 0.8rem; color: #fbd38d; }
+
+  .flow { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin: 8px 0; font-size: 0.8rem; }
+  .flow-step { background: #2d3748; border-radius: 4px; padding: 4px 10px; }
+  .flow-arrow { color: #4a5568; }
+
+  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .card.full { grid-column: 1; } }
+</style>
+</head>
+<body>
+
+<h1>⚡ CKA Component Ports & Config Cheatsheet</h1>
+<div class="subtitle">Quick reference for exam — find correct ports in under 30 seconds</div>
+
+<!-- PORTS TABLE -->
+<h2>1. All Component Ports — Memorize These</h2>
+<div class="card full">
+<table>
+  <tr>
+    <th>Component</th>
+    <th>Port</th>
+    <th>Node</th>
+    <th>Config File Location</th>
+    <th>What It Does</th>
+  </tr>
+  <tr>
+    <td><strong>kube-apiserver</strong></td>
+    <td><span class="port">6443</span></td>
+    <td><span class="badge cp">Control Plane</span></td>
+    <td><code>/etc/kubernetes/manifests/kube-apiserver.yaml</code></td>
+    <td>Main entry point — all kubectl commands hit this</td>
+  </tr>
+  <tr>
+    <td><strong>etcd</strong></td>
+    <td><span class="port etcd">2379</span> client &nbsp; <span class="port etcd">2380</span> peer</td>
+    <td><span class="badge cp">Control Plane</span></td>
+    <td><code>/etc/kubernetes/manifests/etcd.yaml</code></td>
+    <td>2379 = client access (backup/restore), 2380 = etcd peer sync</td>
+  </tr>
+  <tr>
+    <td><strong>kube-scheduler</strong></td>
+    <td><span class="port">10259</span></td>
+    <td><span class="badge cp">Control Plane</span></td>
+    <td><code>/etc/kubernetes/manifests/kube-scheduler.yaml</code></td>
+    <td>Decides which node a pod runs on</td>
+  </tr>
+  <tr>
+    <td><strong>kube-controller-manager</strong></td>
+    <td><span class="port">10257</span></td>
+    <td><span class="badge cp">Control Plane</span></td>
+    <td><code>/etc/kubernetes/manifests/kube-controller-manager.yaml</code></td>
+    <td>Runs control loops (deployments, nodes, endpoints)</td>
+  </tr>
+  <tr>
+    <td><strong>kubelet</strong></td>
+    <td><span class="port worker">10250</span></td>
+    <td><span class="badge both">All Nodes</span></td>
+    <td><code>/var/lib/kubelet/config.yaml</code> &nbsp; <code>/etc/systemd/system/kubelet.service.d/</code></td>
+    <td>Node agent — runs pods, reports status to API server</td>
+  </tr>
+  <tr>
+    <td><strong>kube-proxy</strong></td>
+    <td><span class="port worker">10256</span></td>
+    <td><span class="badge both">All Nodes</span></td>
+    <td>DaemonSet — <code>kubectl get cm -n kube-system kube-proxy</code></td>
+    <td>Manages iptables/ipvs rules for service routing</td>
+  </tr>
+  <tr>
+    <td><strong>NodePort range</strong></td>
+    <td><span class="port worker">30000–32767</span></td>
+    <td><span class="badge both">All Nodes</span></td>
+    <td>Set in kube-apiserver: <code>--service-node-port-range</code></td>
+    <td>External access range for NodePort services</td>
+  </tr>
+</table>
+</div>
+
+<!-- QUICK COMMANDS -->
+<h2>2. Find the Correct Port — Fast (Under 30 Seconds)</h2>
+<div class="grid">
+
+  <div class="card tip">
+    <h3>🥇 Fastest — Check working kubeconfig</h3>
+    <pre><span class="cmd">cat</span> <span class="path">~/.kube/config</span> | grep server
+<span class="comment"># server: https://controlplane:6443  ✅</span>
+
+<span class="comment"># Then compare against broken one</span>
+<span class="cmd">cat</span> <span class="path">/root/CKA/admin.kubeconfig</span> | grep server
+<span class="comment"># server: https://controlplane:4380  ❌</span></pre>
+  </div>
+
+  <div class="card">
+    <h3>🥈 Check static pod manifest</h3>
+    <pre><span class="cmd">grep</span> -i "port\|bind" \
+  <span class="path">/etc/kubernetes/manifests/kube-apiserver.yaml</span>
+
+<span class="comment"># Look for:</span>
+<span class="comment"># --secure-port=6443</span></pre>
+  </div>
+
+  <div class="card">
+    <h3>🥉 Check what's actually listening</h3>
+    <pre><span class="cmd">ss</span> -tlnp | grep 6443
+<span class="comment"># or</span>
+<span class="cmd">netstat</span> -tlnp | grep 6443
+<span class="comment"># confirms the port is live</span></pre>
+  </div>
+
+  <div class="card">
+    <h3>Check running process flags</h3>
+    <pre><span class="cmd">ps</span> aux | grep kube-apiserver \
+       | grep -i port
+<span class="comment"># shows all flags including port</span></pre>
+  </div>
+
+</div>
+
+<!-- STATIC POD MANIFESTS -->
+<h2>3. Static Pod Manifests — Where Everything Lives</h2>
+<div class="card full">
+<pre><span class="comment"># All control plane components live here</span>
+<span class="path">/etc/kubernetes/manifests/</span>
+├── <span class="val">kube-apiserver.yaml</span>       <span class="comment"># API server config + port</span>
+├── <span class="val">etcd.yaml</span>                 <span class="comment"># etcd config + data dir + certs</span>
+├── <span class="val">kube-scheduler.yaml</span>       <span class="comment"># scheduler config</span>
+└── <span class="val">kube-controller-manager.yaml</span>  <span class="comment"># controller config + kubeconfig path</span>
+
+<span class="comment"># kubelet is NOT a static pod — it's a systemd service</span>
+<span class="path">/var/lib/kubelet/config.yaml</span>            <span class="comment"># kubelet config</span>
+<span class="path">/etc/systemd/system/kubelet.service.d/</span>  <span class="comment"># kubelet service args</span></pre>
+</div>
+
+<!-- COMPONENT SPECIFIC COMMANDS -->
+<h2>4. Component-Specific Port Commands</h2>
+<div class="grid">
+
+  <div class="card">
+    <h3>kube-apiserver</h3>
+    <pre><span class="cmd">grep</span> secure-port \
+  <span class="path">/etc/kubernetes/manifests/kube-apiserver.yaml</span>
+<span class="comment"># --secure-port=6443</span>
+
+<span class="comment"># Check cert SANs too (useful for TLS issues)</span>
+<span class="cmd">grep</span> tls-cert \
+  <span class="path">/etc/kubernetes/manifests/kube-apiserver.yaml</span></pre>
+  </div>
+
+  <div class="card">
+    <h3>etcd</h3>
+    <pre><span class="cmd">grep</span> -E "listen|port" \
+  <span class="path">/etc/kubernetes/manifests/etcd.yaml</span>
+<span class="comment"># --listen-client-urls=https://127.0.0.1:2379</span>
+<span class="comment"># --listen-peer-urls=https://127.0.0.1:2380</span>
+
+<span class="comment"># For backup — you need this cert path too</span>
+<span class="cmd">grep</span> cert-file \
+  <span class="path">/etc/kubernetes/manifests/etcd.yaml</span></pre>
+  </div>
+
+  <div class="card">
+    <h3>kubelet</h3>
+    <pre><span class="cmd">grep</span> -i port \
+  <span class="path">/var/lib/kubelet/config.yaml</span>
+<span class="comment"># port: 10250</span>
+
+<span class="comment"># Check kubelet is running</span>
+<span class="cmd">systemctl</span> status kubelet
+<span class="cmd">journalctl</span> -u kubelet -n 20</pre>
+  </div>
+
+  <div class="card">
+    <h3>kube-proxy</h3>
+    <pre><span class="comment"># kube-proxy config is in a ConfigMap</span>
+<span class="cmd">kubectl</span> get cm kube-proxy \
+  -n kube-system -o yaml | grep -i port
+
+<span class="comment"># Check the DaemonSet</span>
+<span class="cmd">kubectl</span> get ds kube-proxy -n kube-system</pre>
+  </div>
+
+</div>
+
+<!-- KUBECONFIG TROUBLESHOOTING -->
+<h2>5. Kubeconfig Troubleshooting — Exam Pattern</h2>
+<div class="card full warn">
+<h3>Common broken kubeconfig fields — check in this order</h3>
+<pre><span class="cmd">cat</span> /path/to/broken.kubeconfig
+
+<span class="comment"># Field 1: server port (most common trap)</span>
+<span class="key">server:</span> <span class="val">https://controlplane:4380</span>  <span class="comment">❌ wrong port</span>
+<span class="key">server:</span> <span class="ok">https://controlplane:6443</span>  <span class="comment">✅ correct</span>
+
+<span class="comment"># Field 2: wrong hostname</span>
+<span class="key">server:</span> <span class="val">https://127.0.0.1:6443</span>    <span class="comment">❌ may not work externally</span>
+<span class="key">server:</span> <span class="ok">https://controlplane:6443</span>  <span class="comment">✅ use hostname</span>
+
+<span class="comment"># Field 3: wrong context name</span>
+<span class="key">current-context:</span> <span class="val">wrong-context</span>
+<span class="cmd">kubectl</span> config get-contexts          <span class="comment"># list all contexts</span>
+<span class="cmd">kubectl</span> config use-context kubernetes-admin@kubernetes</pre>
+
+<div class="warn-box">⚠️ Always test a kubeconfig before declaring it fixed:<br>
+<code>kubectl get nodes --kubeconfig=/path/to/fixed.kubeconfig</code></div>
+</div>
+
+<!-- FIX COMMANDS -->
+<h2>6. One-Line Fix Commands</h2>
+<div class="card full">
+<pre><span class="comment"># Fix wrong port in kubeconfig</span>
+<span class="cmd">kubectl</span> config set-cluster kubernetes \
+  --server=https://controlplane:6443 \
+  --kubeconfig=<span class="path">/root/CKA/admin.kubeconfig</span>
+
+<span class="comment"># Or sed replace (fastest in exam)</span>
+<span class="cmd">sed</span> -i 's/4380/6443/g' <span class="path">/root/CKA/admin.kubeconfig</span>
+
+<span class="comment"># Verify fix</span>
+<span class="cmd">kubectl</span> get nodes --kubeconfig=<span class="path">/root/CKA/admin.kubeconfig</span></pre>
+</div>
+
+<!-- ETCD BACKUP PORTS REMINDER -->
+<h2>7. etcd Backup — Port + Cert Quick Reference</h2>
+<div class="card full tip">
+<pre><span class="comment"># Get ALL etcd values you need from the manifest in one shot</span>
+<span class="cmd">grep</span> -E "listen-client|cert-file|key-file|trusted-ca|data-dir" \
+  <span class="path">/etc/kubernetes/manifests/etcd.yaml</span>
+
+<span class="comment"># Output will give you exactly what to paste into backup command:</span>
+ETCDCTL_API=3 <span class="cmd">etcdctl</span> snapshot save <span class="path">/opt/backup.db</span> \
+  --endpoints=https://127.0.0.1:<span class="ok">2379</span> \
+  --cacert=<span class="path">/etc/kubernetes/pki/etcd/ca.crt</span> \
+  --cert=<span class="path">/etc/kubernetes/pki/etcd/server.crt</span> \
+  --key=<span class="path">/etc/kubernetes/pki/etcd/server.key</span></pre>
+<div class="tip-box">💡 Tip: Run the grep first, copy the paths, then build the etcdctl command. Saves 2 minutes vs. typing paths from memory.</div>
+</div>
+
+<!-- MENTAL MAP -->
+<h2>8. Mental Map — Where to Look for What</h2>
+<div class="card full">
+<table>
+  <tr><th>Problem</th><th>First Place to Check</th><th>Command</th></tr>
+  <tr><td>Wrong API server port</td><td><code>~/.kube/config</code></td><td><code>cat ~/.kube/config | grep server</code></td></tr>
+  <tr><td>etcd not responding</td><td><code>/etc/kubernetes/manifests/etcd.yaml</code></td><td><code>grep listen /etc/kubernetes/manifests/etcd.yaml</code></td></tr>
+  <tr><td>kubelet not starting</td><td>systemd journal</td><td><code>journalctl -u kubelet -n 30</code></td></tr>
+  <tr><td>Scheduler not working</td><td>Static pod manifest + pod logs</td><td><code>kubectl logs -n kube-system kube-scheduler-controlplane</code></td></tr>
+  <tr><td>Node NotReady</td><td>kubelet status on that node</td><td><code>ssh node01; systemctl status kubelet</code></td></tr>
+  <tr><td>Pod can't reach service</td><td>kube-proxy DaemonSet</td><td><code>kubectl get ds kube-proxy -n kube-system</code></td></tr>
+  <tr><td>Certificate error</td><td>API server manifest cert flags</td><td><code>grep cert /etc/kubernetes/manifests/kube-apiserver.yaml</code></td></tr>
+</table>
+</div>
+
+<div style="margin-top:20px; color:#4a5568; font-size:0.75rem; text-align:center;">
+  CKA Exam Quick Reference — Good luck on March 28th 🚀
+</div>
+
+</body>
+</html>
