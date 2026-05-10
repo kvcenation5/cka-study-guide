@@ -175,6 +175,20 @@ nav:
       - "Lab 3: Register Spoke Clusters": argocd-labs/lab3-register-clusters.md
       - "Lab 4: Deploy Applications": argocd-labs/lab4-deploy-apps.md
       - "Lab 5: ApplicationSets": argocd-labs/lab5-applicationsets.md
+  - Cilium Service Mesh:
+      - Overview: cilium-mesh-labs/index.md
+      - "Lab 1: Cluster Setup": cilium-mesh-labs/lab1-setup.md
+      - "Lab 2: Transparent mTLS": cilium-mesh-labs/lab2-mtls.md
+      - "Lab 3: L7 Network Policies": cilium-mesh-labs/lab3-l7-policies.md
+      - "Lab 4: Hubble Observability": cilium-mesh-labs/lab4-hubble.md
+      - "Lab 5: Traffic Management": cilium-mesh-labs/lab5-traffic.md
+  - Istio Service Mesh:
+      - Overview: istio-labs/index.md
+      - "Lab 1: Cluster Setup": istio-labs/lab1-setup.md
+      - "Lab 2: Traffic Management": istio-labs/lab2-traffic.md
+      - "Lab 3: mTLS & Security": istio-labs/lab3-mtls-security.md
+      - "Lab 4: Observability": istio-labs/lab4-observability.md
+      - "Lab 5: Resilience Patterns": istio-labs/lab5-resilience.md
 
 
 plugins:
